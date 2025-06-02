@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Vazir:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 210 11% 18%; /* #2C3E50 */
+  --muted: 220 13% 95%; /* #F8F9FA */
+  --muted-foreground: 215 16% 47%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 210 11% 18%;
+  --card: 0 0% 100%;
+  --card-foreground: 210 11% 18%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --primary: 186 73% 36%; /* #2E7D8C */
+  --primary-foreground: 0 0% 98%;
+  --secondary: 199 39% 49%; /* #4A90A4 */
+  --secondary-foreground: 0 0% 98%;
+  --accent: 36 77% 49%; /* #F39C12 */
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --success: 145 63% 42%; /* #27AE60 */
+  --success-foreground: 0 0% 98%;
+  --ring: 186 73% 36%;
+  --radius: 0.5rem;
+  
+  /* Medical specific colors */
+  --medical-teal: 186 73% 36%; /* #2E7D8C */
+  --medical-blue: 199 39% 49%; /* #4A90A4 */
+  --medical-orange: 36 77% 49%; /* #F39C12 */
+  --medical-green: 145 63% 42%; /* #27AE60 */
+  --medical-bg: 220 13% 95%; /* #F8F9FA */
+  --medical-text: 210 11% 18%; /* #2C3E50 */
+}
+
+.dark {
+  --background: 210 11% 4%;
+  --foreground: 0 0% 98%;
+  --muted: 210 11% 15%;
+  --muted-foreground: 215 16% 65%;
+  --popover: 210 11% 4%;
+  --popover-foreground: 0 0% 98%;
+  --card: 210 11% 4%;
+  --card-foreground: 0 0% 98%;
+  --border: 210 11% 15%;
+  --input: 210 11% 15%;
+  --primary: 186 73% 36%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 210 11% 15%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 210 11% 15%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62% 30%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 186 73% 36%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    font-family: 'Vazir', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    direction: rtl;
+  }
+
+  html {
+    direction: rtl;
+  }
+}
+
+@layer utilities {
+  .medical-teal {
+    color: hsl(var(--medical-teal));
+  }
+  .bg-medical-teal {
+    background-color: hsl(var(--medical-teal));
+  }
+  .medical-blue {
+    color: hsl(var(--medical-blue));
+  }
+  .bg-medical-blue {
+    background-color: hsl(var(--medical-blue));
+  }
+  .medical-orange {
+    color: hsl(var(--medical-orange));
+  }
+  .bg-medical-orange {
+    background-color: hsl(var(--medical-orange));
+  }
+  .medical-green {
+    color: hsl(var(--medical-green));
+  }
+  .bg-medical-green {
+    background-color: hsl(var(--medical-green));
+  }
+  .text-medical-text {
+    color: hsl(var(--medical-text));
+  }
+  .bg-medical-bg {
+    background-color: hsl(var(--medical-bg));
+  }
+}
+
+/* RTL specific adjustments */
+.rtl {
+  direction: rtl;
+}
+
+/* Custom scrollbar */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Persian number formatting */
+.persian-numbers {
+  font-feature-settings: "tnum" 1;
+}
+
+/* Animation for status indicators */
+@keyframes pulse-green {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-green {
+  animation: pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
