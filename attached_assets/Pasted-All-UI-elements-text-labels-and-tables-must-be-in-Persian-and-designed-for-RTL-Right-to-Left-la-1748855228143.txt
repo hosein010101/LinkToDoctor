@@ -1,0 +1,79 @@
+All UI elements, text, labels, and tables must be in Persian and designed for RTL (Right-to-Left) layout.
+
+Use a clean layout with light backgrounds, rounded tables, and modular sections.
+
+Ensure that filters, tables, modals, and detail panels are fully responsive and accessible.
+
+📋 Functional Requirements:
+Main Table View (لیست سفارش‌ها):
+
+Display all registered lab orders in a structured table.
+
+Show columns such as: Order ID, Patient Name (نام بیمار), Registration Date (تاریخ ثبت), Doctor (پزشک), Services (خدمات), Payment Status (وضعیت پرداخت), Sample Collector (نمونه‌گیر), and Location (لوکیشن).
+
+Advanced Filters (فیلتر پیشرفته):
+
+Filters by:
+
+Date range (تاریخ)
+
+Patient name or ID (بیمار)
+
+Referring doctor (پزشک)
+
+Payment status: Paid / Pending / Failed (پرداخت شده / در انتظار / ناموفق)
+
+Sampling status (وضعیت نمونه‌گیری): Pending / Collected / In Transit / Completed
+
+Assigned sample collector (نمونه‌گیر)
+
+Location filter: Address and interactive map view (آدرس و نقشه)
+
+Order Details Modal (جزئیات سفارش):
+
+Clicking any row opens a modal or separate page with full details:
+
+Service items
+
+Patient contact info
+
+Notes or history logs
+
+Uploaded documents or photos
+
+Editable fields like status or notes
+
+Interactive Map Integration (نقشه تعاملی):
+
+Show the patient’s sample collection location on a map.
+
+Option to view nearby collectors or plan optimized sampling routes.
+
+UI Components:
+
+Persian UI labels with clean icons
+
+Collapsible filter panel
+
+Expandable rows or modals for viewing details
+
+Sorting by column headers
+
+Pagination or infinite scroll
+
+Design Behavior:
+
+Entire dashboard and this page should support zoom-in / zoom-out interactions.
+
+Hover effects and row highlighting for better user experience.
+
+Must match the overall style of the dashboard with soft colors and modern typography.
+
+✅ Additional Notes:
+Emphasize simplicity, usability, and data clarity.
+
+Design for administrative roles: lab managers and operators.
+
+Do not use placeholder text like lorem ipsum. Use real Persian sample values (e.g., patient names, doctor names, order codes).
+
+Final layout must be fully RTL and visually consistent with the rest of the dashboard.

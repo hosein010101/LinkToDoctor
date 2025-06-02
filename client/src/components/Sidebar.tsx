@@ -62,14 +62,14 @@ export default function Sidebar({ collapsed }: SidebarProps) {
           
           return (
             <Link key={item.path} href={item.path}>
-              <a className={`flex items-center p-3 rounded-lg hover:bg-medical-teal hover:text-white transition-colors ${
+              <div className={`flex items-center p-3 rounded-lg hover:bg-medical-teal hover:text-white transition-colors cursor-pointer ${
                 isActive 
                   ? 'bg-medical-teal text-white' 
                   : 'text-gray-700'
               }`}>
                 <Icon className={`w-5 h-5 ${collapsed ? '' : 'ml-3'}`} />
                 {!collapsed && <span>{item.label}</span>}
-              </a>
+              </div>
             </Link>
           );
         })}
