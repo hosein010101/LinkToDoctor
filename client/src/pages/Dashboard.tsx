@@ -1,287 +1,451 @@
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
-  ClipboardList, 
-  Truck, 
-  FileText, 
-  DollarSign, 
   TrendingUp, 
-  Clock, 
-  CheckCircle, 
-  Eye, 
-  Edit, 
-  Download,
-  MoreHorizontal,
+  TrendingDown,
+  Users, 
+  TestTube2, 
+  Calendar, 
+  DollarSign,
+  Clock,
   MapPin,
-  ChartBar
+  Heart,
+  Activity,
+  AlertTriangle,
+  CheckCircle,
+  Package,
+  Truck,
+  FileText,
+  BarChart3,
+  Eye,
+  Plus,
+  ArrowRight,
+  Star,
+  Target,
+  Zap,
+  Shield
 } from "lucide-react";
+import type { DashboardStats, OrderWithDetails } from "@/lib/types";
 
-interface DashboardStats {
-  todayOrders: number;
-  pendingCollection: number;
-  readyResults: number;
-  monthlyRevenue: number;
+interface QuickStat {
+  title: string;
+  value: string;
+  change: string;
+  changeType: "increase" | "decrease" | "neutral";
+  icon: any;
+  color: string;
+  bgColor: string;
 }
 
-interface RecentOrder {
+interface RecentActivity {
   id: number;
-  orderNumber: string;
-  patient: {
-    name: string;
-  };
-  services: Array<{
-    serviceId: number;
-  }>;
-  status: string;
-  createdAt: string;
+  type: "order" | "result" | "collection" | "payment";
+  title: string;
+  description: string;
+  time: string;
+  status: "success" | "warning" | "error" | "info";
+  user?: string;
 }
 
 export default function Dashboard() {
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   const { data: stats, isLoading: statsLoading } = useQuery<DashboardStats>({
     queryKey: ["/api/dashboard/stats"],
   });
 
-  const { data: recentOrders, isLoading: ordersLoading } = useQuery<RecentOrder[]>({
+  const { data: orders } = useQuery<OrderWithDetails[]>({
     queryKey: ["/api/lab-orders"],
   });
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('fa-IR').format(amount) + ' تومان';
+  // Enhanced demo data for comprehensive dashboard
+  const quickStats: QuickStat[] = [
+    {
+      title: "سفارشات امروز",
+      value: "142",
+      change: "+12.5%",
+      changeType: "increase",
+      icon: TestTube2,
+      color: "text-blue-600",
+      bgColor: "bg-blue-50"
+    },
+    {
+      title: "در انتظار نمونه‌گیری",
+      value: "28",
+      change: "-8.2%",
+      changeType: "decrease",
+      icon: Truck,
+      color: "text-orange-600",
+      bgColor: "bg-orange-50"
+    },
+    {
+      title: "نتایج آماده",
+      value: "76",
+      change: "+15.3%",
+      changeType: "increase",
+      icon: FileText,
+      color: "text-green-600",
+      bgColor: "bg-green-50"
+    },
+    {
+      title: "درآمد ماهانه",
+      value: "۲,۸۴۰,۰۰۰ تومان",
+      change: "+9.1%",
+      changeType: "increase",
+      icon: DollarSign,
+      color: "text-purple-600",
+      bgColor: "bg-purple-50"
+    }
+  ];
+
+  const recentActivities: RecentActivity[] = [
+    {
+      id: 1,
+      type: "order",
+      title: "سفارش جدید ثبت شد",
+      description: "دکتر احمد رضایی - بیمار: زهرا محمدی",
+      time: "2 دقیقه پیش",
+      status: "info",
+      user: "دکتر احمد رضایی"
+    },
+    {
+      id: 2,
+      type: "result",
+      title: "نتایج آزمایش تایید شد",
+      description: "آزمایش خون کامل - کد: LAB-2024-156",
+      time: "8 دقیقه پیش",
+      status: "success",
+      user: "دکتر فاطمه نوری"
+    },
+    {
+      id: 3,
+      type: "collection",
+      title: "نمونه‌گیری تکمیل شد",
+      description: "علی حسینی - منطقه: تهران شمال",
+      time: "15 دقیقه پیش",
+      status: "success",
+      user: "محمد تقوی"
+    },
+    {
+      id: 4,
+      type: "payment",
+      title: "پرداخت انجام شد",
+      description: "مبلغ: ۴۵۰,۰۰۰ تومان - سفارش #۱۲۳",
+      time: "25 دقیقه پیش",
+      status: "success"
+    },
+    {
+      id: 5,
+      type: "order",
+      title: "سفارش فوری ثبت شد",
+      description: "بیمارستان پارس - ۳ آزمایش اورژانسی",
+      time: "35 دقیقه پیش",
+      status: "warning",
+      user: "مرکز درمانی پارس"
+    }
+  ];
+
+  const topPerformers = [
+    { name: "دکتر محمد رضایی", orders: 45, avatar: "م.ر", specialty: "داخلی" },
+    { name: "دکتر فاطمه نوری", orders: 38, avatar: "ف.ن", specialty: "قلب و عروق" },
+    { name: "دکتر علی احمدی", orders: 32, avatar: "ع.ا", specialty: "غدد" },
+    { name: "دکتر سارا جعفری", orders: 28, avatar: "س.ج", specialty: "زنان" }
+  ];
+
+  const getActivityIcon = (type: string) => {
+    switch (type) {
+      case "order": return TestTube2;
+      case "result": return FileText;
+      case "collection": return Truck;
+      case "payment": return DollarSign;
+      default: return Activity;
+    }
   };
 
-  const getStatusBadge = (status: string) => {
-    const statusMap = {
-      registered: { label: "ثبت شده", class: "bg-blue-100 text-blue-800" },
-      collection_scheduled: { label: "در انتظار نمونه‌گیری", class: "bg-yellow-100 text-yellow-800" },
-      collected: { label: "نمونه‌گیری شده", class: "bg-orange-100 text-orange-800" },
-      processing: { label: "در حال پردازش", class: "bg-purple-100 text-purple-800" },
-      completed: { label: "آماده تحویل", class: "bg-green-100 text-green-800" },
-      delivered: { label: "تحویل داده شده", class: "bg-gray-100 text-gray-800" },
-    };
-    
-    const statusInfo = statusMap[status as keyof typeof statusMap] || statusMap.registered;
-    return (
-      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusInfo.class}`}>
-        {statusInfo.label}
-      </span>
-    );
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat('fa-IR').format(date);
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "success": return "text-green-600 bg-green-50";
+      case "warning": return "text-orange-600 bg-orange-50";
+      case "error": return "text-red-600 bg-red-50";
+      default: return "text-blue-600 bg-blue-50";
+    }
   };
 
   if (statsLoading) {
-    return <div className="p-6">در حال بارگذاری...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center space-y-4">
+          <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto animate-pulse">
+            <Heart className="text-white" size={32} />
+          </div>
+          <p className="text-lg font-medium text-gray-900 dark:text-white">در حال بارگذاری داشبورد...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="space-y-8">
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500 mb-1">سفارشات امروز</p>
-                <p className="text-2xl font-bold text-medical-text">{stats?.todayOrders || 0}</p>
-                <p className="text-xs text-medical-green mt-2">
-                  <TrendingUp className="inline w-3 h-3 ml-1" />
-                  12% افزایش نسبت به دیروز
-                </p>
-              </div>
-              <div className="w-12 h-12 bg-medical-teal bg-opacity-20 rounded-lg flex items-center justify-center">
-                <ClipboardList className="text-medical-teal" size={24} />
+    <div className="space-y-8 p-6 bg-gradient-to-br from-blue-50/50 to-indigo-50/50 dark:from-gray-900 dark:to-gray-800 min-h-screen">
+      {/* Welcome Header */}
+      <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-elegant p-8 border border-gray-100 dark:border-gray-700">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-6 space-x-reverse">
+            <div className="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-lg">
+              <Heart className="text-white" size={40} />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                خوش آمدید، دکتر حسین حدادی
+              </h1>
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
+                مدیریت سامانه LinkToDoctor - آزمایشگاه پیشرفته
+              </p>
+              <div className="flex items-center space-x-6 space-x-reverse text-sm">
+                <div className="flex items-center space-x-2 space-x-reverse text-green-600">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <span>سیستم آنلاین</span>
+                </div>
+                <div className="flex items-center space-x-2 space-x-reverse text-gray-600 dark:text-gray-300">
+                  <Clock className="w-4 h-4" />
+                  <span>
+                    {new Intl.DateTimeFormat('fa-IR', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    }).format(currentTime)}
+                  </span>
+                </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500 mb-1">نمونه‌گیری در انتظار</p>
-                <p className="text-2xl font-bold text-medical-text">{stats?.pendingCollection || 0}</p>
-                <p className="text-xs text-medical-orange mt-2">
-                  <Clock className="inline w-3 h-3 ml-1" />
-                  8 مورد اولویت دار
-                </p>
-              </div>
-              <div className="w-12 h-12 bg-medical-blue bg-opacity-20 rounded-lg flex items-center justify-center">
-                <Truck className="text-medical-blue" size={24} />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500 mb-1">نتایج آماده تحویل</p>
-                <p className="text-2xl font-bold text-medical-text">{stats?.readyResults || 0}</p>
-                <p className="text-xs text-medical-green mt-2">
-                  <CheckCircle className="inline w-3 h-3 ml-1" />
-                  95% تایید شده
-                </p>
-              </div>
-              <div className="w-12 h-12 bg-medical-green bg-opacity-20 rounded-lg flex items-center justify-center">
-                <FileText className="text-medical-green" size={24} />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500 mb-1">درآمد ماهانه</p>
-                <p className="text-2xl font-bold text-medical-text">
-                  {stats?.monthlyRevenue ? formatCurrency(stats.monthlyRevenue) : '0 تومان'}
-                </p>
-                <p className="text-xs text-medical-green mt-2">
-                  <TrendingUp className="inline w-3 h-3 ml-1" />
-                  تومان
-                </p>
-              </div>
-              <div className="w-12 h-12 bg-medical-orange bg-opacity-20 rounded-lg flex items-center justify-center">
-                <DollarSign className="text-medical-orange" size={24} />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-medical-text">آمار سفارشات هفتگی</h3>
-              <Button variant="ghost" size="sm">
-                <MoreHorizontal className="w-4 h-4" />
-              </Button>
-            </div>
-            <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <ChartBar className="w-16 h-16 mx-auto mb-2" />
-                <p>نمودار آمار سفارشات</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-medical-text">وضعیت نمونه‌گیران</h3>
-              <Button variant="ghost" size="sm">
-                <MapPin className="w-4 h-4" />
-              </Button>
-            </div>
-            <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center relative">
-              <div className="absolute inset-4 bg-medical-teal bg-opacity-10 rounded-lg">
-                <div className="absolute top-8 right-12 w-3 h-3 bg-medical-green rounded-full animate-pulse-green"></div>
-                <div className="absolute top-16 right-24 w-3 h-3 bg-medical-orange rounded-full animate-pulse"></div>
-                <div className="absolute bottom-16 right-16 w-3 h-3 bg-medical-green rounded-full animate-pulse-green"></div>
-                <div className="absolute bottom-8 left-12 w-3 h-3 bg-medical-blue rounded-full animate-pulse"></div>
-              </div>
-              <div className="text-center text-gray-500 z-10">
-                <MapPin className="w-16 h-16 mx-auto mb-2" />
-                <p>نقشه ردیابی نمونه‌گیران</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Recent Orders */}
-      <Card>
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-medical-text">آخرین سفارشات</h3>
-            <Button variant="ghost" className="text-medical-teal hover:text-medical-blue text-sm font-medium">
-              مشاهده همه
-              <TrendingUp className="mr-2 w-4 h-4" />
+          </div>
+          <div className="flex space-x-3 space-x-reverse">
+            <Button className="bg-gradient-primary text-white hover:shadow-lg">
+              <Plus className="w-4 h-4 ml-2" />
+              سفارش جدید
+            </Button>
+            <Button variant="outline" className="hover:shadow-md">
+              <BarChart3 className="w-4 h-4 ml-2" />
+              گزارشات
             </Button>
           </div>
-          
-          {ordersLoading ? (
-            <div className="text-center py-8">در حال بارگذاری...</div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      شماره سفارش
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      نام بیمار
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      نوع آزمایش
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      وضعیت
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      تاریخ
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      عملیات
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {recentOrders?.slice(0, 5).map((order) => (
-                    <tr key={order.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-medical-text">
-                        {order.orderNumber}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {order.patient?.name}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {order.services?.length || 0} آزمایش
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {getStatusBadge(order.status)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {formatDate(order.createdAt)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <div className="flex space-x-2 space-x-reverse">
-                          <Button variant="ghost" size="sm">
-                            <Eye className="w-4 h-4" />
-                          </Button>
-                          <Button variant="ghost" size="sm">
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                          {order.status === "completed" && (
-                            <Button variant="ghost" size="sm">
-                              <Download className="w-4 h-4" />
-                            </Button>
-                          )}
+        </div>
+      </div>
+
+      {/* Quick Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {quickStats.map((stat, index) => {
+          const Icon = stat.icon;
+          return (
+            <Card key={index} className="hover-lift bg-white dark:bg-gray-900 border-0 shadow-soft">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className={`w-12 h-12 ${stat.bgColor} rounded-xl flex items-center justify-center`}>
+                    <Icon className={`${stat.color} w-6 h-6`} />
+                  </div>
+                  <div className="flex items-center space-x-1 space-x-reverse">
+                    {stat.changeType === "increase" ? (
+                      <TrendingUp className="w-4 h-4 text-green-500" />
+                    ) : stat.changeType === "decrease" ? (
+                      <TrendingDown className="w-4 h-4 text-red-500" />
+                    ) : null}
+                    <span className={`text-sm font-medium ${
+                      stat.changeType === "increase" ? "text-green-600" : 
+                      stat.changeType === "decrease" ? "text-red-600" : "text-gray-600"
+                    }`}>
+                      {stat.change}
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{stat.title}</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{stat.value}</p>
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Recent Activities */}
+        <div className="lg:col-span-2">
+          <Card className="bg-white dark:bg-gray-900 border-0 shadow-elegant">
+            <CardContent className="p-0">
+              <div className="p-6 border-b border-gray-100 dark:border-gray-700">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center space-x-2 space-x-reverse">
+                    <Activity className="w-5 h-5 text-blue-600" />
+                    <span>فعالیت‌های اخیر</span>
+                  </h3>
+                  <Button variant="ghost" size="sm">
+                    <Eye className="w-4 h-4 ml-2" />
+                    مشاهده همه
+                  </Button>
+                </div>
+              </div>
+              <div className="max-h-96 overflow-y-auto">
+                {recentActivities.map((activity) => {
+                  const Icon = getActivityIcon(activity.type);
+                  return (
+                    <div key={activity.id} className="p-6 border-b border-gray-50 dark:border-gray-700 last:border-b-0 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                      <div className="flex items-start space-x-4 space-x-reverse">
+                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${getStatusColor(activity.status)}`}>
+                          <Icon className="w-5 h-5" />
                         </div>
-                      </td>
-                    </tr>
-                  )) || (
-                    <tr>
-                      <td colSpan={6} className="px-6 py-4 text-center text-gray-500">
-                        هیچ سفارشی یافت نشد
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-900 dark:text-white">
+                            {activity.title}
+                          </p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                            {activity.description}
+                          </p>
+                          <div className="flex items-center space-x-4 space-x-reverse mt-2">
+                            <span className="text-xs text-gray-500">{activity.time}</span>
+                            {activity.user && (
+                              <span className="text-xs text-blue-600 font-medium">{activity.user}</span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Right Sidebar */}
+        <div className="space-y-6">
+          {/* Top Performing Doctors */}
+          <Card className="bg-white dark:bg-gray-900 border-0 shadow-elegant">
+            <CardContent className="p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center space-x-2 space-x-reverse">
+                <Star className="w-5 h-5 text-yellow-600" />
+                <span>پزشکان برتر ماه</span>
+              </h3>
+              <div className="space-y-4">
+                {topPerformers.map((doctor, index) => (
+                  <div key={index} className="flex items-center space-x-3 space-x-reverse p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                    <div className="flex items-center space-x-2 space-x-reverse">
+                      <span className="text-sm font-bold text-gray-400 w-4">#{index + 1}</span>
+                      <Avatar className="w-10 h-10 border-2 border-blue-200">
+                        <AvatarFallback className="bg-gradient-primary text-white text-sm font-bold">
+                          {doctor.avatar}
+                        </AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                        {doctor.name}
+                      </p>
+                      <p className="text-xs text-gray-500">{doctor.specialty}</p>
+                    </div>
+                    <Badge variant="secondary" className="text-xs">
+                      {doctor.orders} سفارش
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* System Health */}
+          <Card className="bg-white dark:bg-gray-900 border-0 shadow-elegant">
+            <CardContent className="p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center space-x-2 space-x-reverse">
+                <Shield className="w-5 h-5 text-green-600" />
+                <span>وضعیت سیستم</span>
+              </h3>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">سرور اصلی</span>
+                  <div className="flex items-center space-x-2 space-x-reverse">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-sm font-medium text-green-600">آنلاین</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">پایگاه داده</span>
+                  <div className="flex items-center space-x-2 space-x-reverse">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-sm font-medium text-green-600">فعال</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">نمونه‌گیران</span>
+                  <div className="flex items-center space-x-2 space-x-reverse">
+                    <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                    <span className="text-sm font-medium text-yellow-600">۸ نفر آنلاین</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">آخرین بکاپ</span>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">۲ ساعت پیش</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Quick Actions */}
+          <Card className="bg-gradient-to-br from-blue-600 to-purple-600 border-0 shadow-elegant text-white">
+            <CardContent className="p-6">
+              <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2 space-x-reverse">
+                <Zap className="w-5 h-5" />
+                <span>عملیات سریع</span>
+              </h3>
+              <div className="space-y-3">
+                <Button variant="secondary" className="w-full bg-white/20 hover:bg-white/30 text-white border-0">
+                  <Plus className="w-4 h-4 ml-2" />
+                  ثبت سفارش فوری
+                </Button>
+                <Button variant="secondary" className="w-full bg-white/20 hover:bg-white/30 text-white border-0">
+                  <Calendar className="w-4 h-4 ml-2" />
+                  برنامه‌ریزی نمونه‌گیری
+                </Button>
+                <Button variant="secondary" className="w-full bg-white/20 hover:bg-white/30 text-white border-0">
+                  <FileText className="w-4 h-4 ml-2" />
+                  ورود نتایج
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* Weekly Performance Chart */}
+      <Card className="bg-white dark:bg-gray-900 border-0 shadow-elegant">
+        <CardContent className="p-6">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center space-x-2 space-x-reverse">
+              <BarChart3 className="w-5 h-5 text-blue-600" />
+              <span>عملکرد هفتگی</span>
+            </h3>
+            <Button variant="outline" size="sm">
+              <ArrowRight className="w-4 h-4 ml-2" />
+              گزارش تفصیلی
+            </Button>
+          </div>
+          <div className="h-64 bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl flex items-center justify-center">
+            <div className="text-center">
+              <BarChart3 className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500 mb-2">نمودار عملکرد هفتگی</p>
+              <p className="text-sm text-gray-400">برای نمایش نمودارهای تعاملی، کتابخانه Chart.js یا Recharts نیاز است</p>
             </div>
-          )}
+          </div>
         </CardContent>
       </Card>
     </div>

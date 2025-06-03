@@ -1,142 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Vazir:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 210 11% 18%; /* #2C3E50 */
-  --muted: 220 13% 95%; /* #F8F9FA */
-  --muted-foreground: 215 16% 47%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 210 11% 18%;
-  --card: 0 0% 100%;
-  --card-foreground: 210 11% 18%;
-  --border: 220 13% 91%;
-  --input: 220 13% 91%;
-  --primary: 186 73% 36%; /* #2E7D8C */
-  --primary-foreground: 0 0% 98%;
-  --secondary: 199 39% 49%; /* #4A90A4 */
-  --secondary-foreground: 0 0% 98%;
-  --accent: 36 77% 49%; /* #F39C12 */
-  --accent-foreground: 0 0% 98%;
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 98%;
-  --success: 145 63% 42%; /* #27AE60 */
-  --success-foreground: 0 0% 98%;
-  --ring: 186 73% 36%;
-  --radius: 0.5rem;
+  --background: 248 250 252; /* #F8FAFC */
+  --foreground: 15 23 42; /* #0F172A */
+  --card: 255 255 255; /* #FFFFFF */
+  --card-foreground: 15 23 42; /* #0F172A */
+  --popover: 255 255 255; /* #FFFFFF */
+  --popover-foreground: 15 23 42; /* #0F172A */
+  --primary: 59 130 246; /* #3B82F6 - Modern Blue */
+  --primary-foreground: 255 255 255; /* #FFFFFF */
+  --secondary: 241 245 249; /* #F1F5F9 */
+  --secondary-foreground: 15 23 42; /* #0F172A */
+  --muted: 248 250 252; /* #F8FAFC */
+  --muted-foreground: 100 116 139; /* #64748B */
+  --accent: 16 185 129; /* #10B981 - Modern Green */
+  --accent-foreground: 255 255 255; /* #FFFFFF */
+  --destructive: 239 68 68; /* #EF4444 */
+  --destructive-foreground: 255 255 255; /* #FFFFFF */
+  --border: 226 232 240; /* #E2E8F0 */
+  --input: 255 255 255; /* #FFFFFF */
+  --ring: 59 130 246; /* #3B82F6 */
+  --radius: 0.75rem;
   
-  /* Medical specific colors */
-  --medical-teal: 186 73% 36%; /* #2E7D8C */
-  --medical-blue: 199 39% 49%; /* #4A90A4 */
-  --medical-orange: 36 77% 49%; /* #F39C12 */
-  --medical-green: 145 63% 42%; /* #27AE60 */
-  --medical-bg: 220 13% 95%; /* #F8F9FA */
-  --medical-text: 210 11% 18%; /* #2C3E50 */
+  /* LinkToDoctor Custom Colors */
+  --linkto-primary: 37 99 235; /* #2563EB - Professional Blue */
+  --linkto-secondary: 16 185 129; /* #10B981 - Success Green */
+  --linkto-accent: 245 158 11; /* #F59E0B - Warning Orange */
+  --linkto-purple: 139 92 246; /* #8B5CF6 - Purple */
+  --linkto-pink: 236 72 153; /* #EC4899 - Pink */
+  --linkto-indigo: 99 102 241; /* #6366F1 - Indigo */
 }
 
 .dark {
-  --background: 210 11% 4%;
-  --foreground: 0 0% 98%;
-  --muted: 210 11% 15%;
-  --muted-foreground: 215 16% 65%;
-  --popover: 210 11% 4%;
-  --popover-foreground: 0 0% 98%;
-  --card: 210 11% 4%;
-  --card-foreground: 0 0% 98%;
-  --border: 210 11% 15%;
-  --input: 210 11% 15%;
-  --primary: 186 73% 36%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 210 11% 15%;
-  --secondary-foreground: 0 0% 98%;
-  --accent: 210 11% 15%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 0 62% 30%;
-  --destructive-foreground: 0 0% 98%;
-  --ring: 186 73% 36%;
+  --background: 2 6 23; /* #020617 */
+  --foreground: 248 250 252; /* #F8FAFC */
+  --card: 15 23 42; /* #0F172A */
+  --card-foreground: 248 250 252; /* #F8FAFC */
+  --popover: 15 23 42; /* #0F172A */
+  --popover-foreground: 248 250 252; /* #F8FAFC */
+  --primary: 59 130 246; /* #3B82F6 */
+  --primary-foreground: 255 255 255; /* #FFFFFF */
+  --secondary: 30 41 59; /* #1E293B */
+  --secondary-foreground: 248 250 252; /* #F8FAFC */
+  --muted: 30 41 59; /* #1E293B */
+  --muted-foreground: 148 163 184; /* #94A3B8 */
+  --accent: 16 185 129; /* #10B981 */
+  --accent-foreground: 255 255 255; /* #FFFFFF */
+  --destructive: 239 68 68; /* #EF4444 */
+  --destructive-foreground: 255 255 255; /* #FFFFFF */
+  --border: 30 41 59; /* #1E293B */
+  --input: 30 41 59; /* #1E293B */
+  --ring: 59 130 246; /* #3B82F6 */
 }
 
-@layer base {
-  * {
-    @apply border-border;
-    font-family: 'Vazir', system-ui, sans-serif;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-    direction: rtl;
-  }
-
-  html {
-    direction: rtl;
-  }
+* {
+  border-color: hsl(var(--border));
 }
 
-@layer utilities {
-  .medical-teal {
-    color: hsl(var(--medical-teal));
-  }
-  .bg-medical-teal {
-    background-color: hsl(var(--medical-teal));
-  }
-  .medical-blue {
-    color: hsl(var(--medical-blue));
-  }
-  .bg-medical-blue {
-    background-color: hsl(var(--medical-blue));
-  }
-  .medical-orange {
-    color: hsl(var(--medical-orange));
-  }
-  .bg-medical-orange {
-    background-color: hsl(var(--medical-orange));
-  }
-  .medical-green {
-    color: hsl(var(--medical-green));
-  }
-  .bg-medical-green {
-    background-color: hsl(var(--medical-green));
-  }
-  .text-medical-text {
-    color: hsl(var(--medical-text));
-  }
-  .bg-medical-bg {
-    background-color: hsl(var(--medical-bg));
-  }
-}
-
-/* RTL specific adjustments */
-.rtl {
+body {
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  font-family: 'Vazirmatn', 'Inter', system-ui, sans-serif;
   direction: rtl;
+  text-align: right;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Modern LinkToDoctor Color System */
+.text-linkto-primary { color: rgb(37 99 235); }
+.text-linkto-secondary { color: rgb(16 185 129); }
+.text-linkto-accent { color: rgb(245 158 11); }
+.text-linkto-purple { color: rgb(139 92 246); }
+.text-linkto-pink { color: rgb(236 72 153); }
+.text-linkto-indigo { color: rgb(99 102 241); }
+
+.bg-linkto-primary { background-color: rgb(37 99 235); }
+.bg-linkto-secondary { background-color: rgb(16 185 129); }
+.bg-linkto-accent { background-color: rgb(245 158 11); }
+.bg-linkto-purple { background-color: rgb(139 92 246); }
+.bg-linkto-pink { background-color: rgb(236 72 153); }
+.bg-linkto-indigo { background-color: rgb(99 102 241); }
+
+.border-linkto-primary { border-color: rgb(37 99 235); }
+.border-linkto-secondary { border-color: rgb(16 185 129); }
+
+/* Modern Glass Effects */
+.glass-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-card {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Modern Shadows */
+.shadow-soft {
+  box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-elegant {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Custom Gradients */
+.gradient-primary {
+  background: linear-gradient(135deg, rgb(37 99 235) 0%, rgb(59 130 246) 100%);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, rgb(16 185 129) 0%, rgb(34 197 94) 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, rgb(245 158 11) 0%, rgb(251 191 36) 100%);
+}
+
+.gradient-purple {
+  background: linear-gradient(135deg, rgb(139 92 246) 0%, rgb(168 85 247) 100%);
+}
+
+/* RTL Support */
+.space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+  margin-right: calc(var(--tw-space-x) * var(--tw-space-x-reverse));
+  margin-left: calc(var(--tw-space-x) * calc(1 - var(--tw-space-x-reverse)));
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Custom scrollbar */
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+::-webkit-scrollbar {
+  width: 6px;
 }
 
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
 }
 
-/* Persian number formatting */
-.persian-numbers {
-  font-feature-settings: "tnum" 1;
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground));
+  border-radius: 3px;
 }
 
-/* Animation for status indicators */
-@keyframes pulse-green {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
 }
 
-.animate-pulse-green {
-  animation: pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+/* Modern hover effects */
+.hover-lift {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+}
+
+/* Focus states */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+}
+
+/* Legacy support for existing components */
+.text-medical-text { color: rgb(15 23 42); }
+.text-medical-teal { color: rgb(37 99 235); }
+.text-medical-blue { color: rgb(59 130 246); }
+.text-medical-orange { color: rgb(245 158 11); }
+.text-medical-green { color: rgb(16 185 129); }
+
+.bg-medical-teal { background-color: rgb(37 99 235); }
+.bg-medical-blue { background-color: rgb(59 130 246); }
+.bg-medical-orange { background-color: rgb(245 158 11); }
+.bg-medical-green { background-color: rgb(16 185 129); }
+
+.border-medical-teal { border-color: rgb(37 99 235); }

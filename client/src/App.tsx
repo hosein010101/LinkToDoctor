@@ -1,15 +1,15 @@
-import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { Route, Switch } from "wouter";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Layout from "@/components/Layout";
+
+// Import all pages
 import Dashboard from "@/pages/Dashboard";
 import Orders from "@/pages/Orders";
 import NewOrder from "@/pages/NewOrder";
 import Collection from "@/pages/Collection";
 import Collectors from "@/pages/Collectors";
-import Services from "@/pages/Services";
 import Results from "@/pages/Results";
 import Delivery from "@/pages/Delivery";
 import History from "@/pages/History";
@@ -18,22 +18,69 @@ import Reports from "@/pages/Reports";
 import Settings from "@/pages/Settings";
 import NotFound from "@/pages/not-found";
 
+// New comprehensive modules
+import Patients from "@/pages/Patients";
+import CRM from "@/pages/CRM";
+import Organizational from "@/pages/Organizational";
+import TestPackages from "@/pages/TestPackages";
+import Equipment from "@/pages/Equipment";
+import Exports from "@/pages/Exports";
+import Notifications from "@/pages/Notifications";
+import HR from "@/pages/HR";
+import HRShifts from "@/pages/HRShifts";
+import HRPayroll from "@/pages/HRPayroll";
+import HRPerformance from "@/pages/HRPerformance";
+import AccessManagement from "@/pages/AccessManagement";
+
+import { queryClient } from "@/lib/queryClient";
+
 function Router() {
   return (
     <Layout>
       <Switch>
+        {/* Main Dashboard */}
         <Route path="/" component={Dashboard} />
+        
+        {/* Order Management */}
         <Route path="/orders" component={Orders} />
         <Route path="/new-order" component={NewOrder} />
+        
+        {/* Patients & Clients */}
+        <Route path="/patients" component={Patients} />
+        <Route path="/crm" component={CRM} />
+        <Route path="/organizational" component={Organizational} />
+        
+        {/* Lab Operations */}
         <Route path="/collection" component={Collection} />
         <Route path="/collectors" component={Collectors} />
-        <Route path="/services" component={Services} />
+        <Route path="/test-packages" component={TestPackages} />
         <Route path="/results" component={Results} />
         <Route path="/delivery" component={Delivery} />
-        <Route path="/history" component={History} />
+        
+        {/* Inventory & Equipment */}
         <Route path="/inventory" component={Inventory} />
+        <Route path="/equipment" component={Equipment} />
+        
+        {/* Reports & Analytics */}
         <Route path="/reports" component={Reports} />
+        <Route path="/exports" component={Exports} />
+        <Route path="/notifications" component={Notifications} />
+        
+        {/* Human Resources */}
+        <Route path="/hr" component={HR} />
+        <Route path="/hr-shifts" component={HRShifts} />
+        <Route path="/hr-payroll" component={HRPayroll} />
+        <Route path="/hr-performance" component={HRPerformance} />
+        
+        {/* System Settings */}
         <Route path="/settings" component={Settings} />
+        <Route path="/access-management" component={AccessManagement} />
+        
+        {/* Legacy routes for compatibility */}
+        <Route path="/history" component={History} />
+        <Route path="/services" component={TestPackages} />
+        
+        {/* 404 Page */}
         <Route component={NotFound} />
       </Switch>
     </Layout>
@@ -44,8 +91,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
         <Router />
+        <Toaster />
       </TooltipProvider>
     </QueryClientProvider>
   );
