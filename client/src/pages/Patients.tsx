@@ -4,7 +4,7 @@ import { UserCheck, Phone, MapPin, Calendar, FileText, Heart } from "lucide-reac
 export default function Patients() {
   return (
     <div className="space-y-6">
-      <Card className="bg-white dark:bg-gray-900 border-0 shadow-elegant">
+      <Card className="card-professional">
         <CardContent className="p-8">
           <div className="text-center space-y-4">
             <div className="w-20 h-20 bg-gradient-secondary rounded-2xl flex items-center justify-center mx-auto">

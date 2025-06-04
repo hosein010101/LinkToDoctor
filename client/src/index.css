@@ -78,17 +78,115 @@ body {
 .bg-yellow-50,
 .bg-yellow-100,
 .bg-yellow-200,
+.bg-yellow-300,
+.bg-yellow-400,
 .bg-amber-50,
-.bg-amber-100 {
+.bg-amber-100,
+.bg-amber-200,
+.bg-orange-50,
+.bg-orange-100,
+[class*="bg-yellow"],
+[class*="bg-amber"],
+[class*="from-yellow"],
+[class*="to-yellow"],
+[class*="from-amber"],
+[class*="to-amber"],
+.bg-gradient-to-r.from-yellow-50,
+.bg-gradient-to-r.from-amber-50,
+.bg-gradient-to-br.from-yellow-50,
+.bg-gradient-to-br.from-amber-50,
+.bg-gradient-to-l.from-yellow-50,
+.bg-gradient-to-l.from-amber-50 {
   background-color: #ffffff !important;
+  background-image: none !important;
 }
 
 .dark .bg-yellow-50,
 .dark .bg-yellow-100,
 .dark .bg-yellow-200,
+.dark .bg-yellow-300,
+.dark .bg-yellow-400,
 .dark .bg-amber-50,
-.dark .bg-amber-100 {
+.dark .bg-amber-100,
+.dark .bg-amber-200,
+.dark .bg-orange-50,
+.dark .bg-orange-100,
+.dark [class*="bg-yellow"],
+.dark [class*="bg-amber"],
+.dark [class*="from-yellow"],
+.dark [class*="to-yellow"],
+.dark [class*="from-amber"],
+.dark [class*="to-amber"],
+.dark .bg-gradient-to-r.from-yellow-50,
+.dark .bg-gradient-to-r.from-amber-50,
+.dark .bg-gradient-to-br.from-yellow-50,
+.dark .bg-gradient-to-br.from-amber-50,
+.dark .bg-gradient-to-l.from-yellow-50,
+.dark .bg-gradient-to-l.from-amber-50 {
   background-color: rgb(17 24 39) !important; /* gray-900 for dark mode */
+  background-image: none !important;
+}
+
+/* Force white backgrounds for all components */
+* {
+  --tw-bg-opacity: 1;
+}
+
+.space-y-6 > div,
+.space-y-8 > div,
+.space-y-4 > div {
+  background-color: inherit;
+}
+
+/* Override any remaining yellow/amber gradients */
+[class*="gradient"] {
+  background-image: none !important;
+}
+
+[class*="gradient"]:not(.bg-gradient-primary):not(.bg-gradient-secondary) {
+  background-color: #ffffff !important;
+}
+
+.dark [class*="gradient"]:not(.bg-gradient-primary):not(.bg-gradient-secondary) {
+  background-color: rgb(17 24 39) !important;
+}
+
+/* Force white backgrounds for all page containers */
+.min-h-screen,
+.space-y-6,
+.space-y-8,
+.max-w-4xl,
+.container,
+[data-radix-dialog-content],
+[data-radix-popover-content],
+.bg-medical-bg {
+  background-color: #ffffff !important;
+}
+
+.dark .min-h-screen,
+.dark .space-y-6,
+.dark .space-y-8,
+.dark .max-w-4xl,
+.dark .container,
+.dark [data-radix-dialog-content],
+.dark [data-radix-popover-content],
+.dark .bg-medical-bg {
+  background-color: rgb(17 24 39) !important;
+}
+
+/* Ensure all cards have white backgrounds */
+.bg-white {
+  background-color: #ffffff !important;
+}
+
+.dark .bg-white {
+  background-color: rgb(17 24 39) !important;
+}
+
+/* Override any remaining colored backgrounds in dashboard pages */
+main > div,
+main > div > div {
+  background-color: inherit !important;
 }
 
 /* Improve dropdown visibility */

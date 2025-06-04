@@ -156,7 +156,7 @@ export default function NewOrder() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <Card>
+      <Card className="card-professional">
         <CardContent className="p-6">
           <div className="border-b border-gray-200 pb-4 mb-6">
             <h3 className="text-xl font-semibold text-medical-text">ثبت سفارش جدید</h3>

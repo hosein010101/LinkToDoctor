@@ -4,7 +4,7 @@ import { MessageSquare, Users, Bell, Target, BarChart3, Mail } from "lucide-reac
 export default function CRM() {
   return (
     <div className="space-y-6">
-      <Card className="bg-white dark:bg-gray-900 border-0 shadow-elegant">
+      <Card className="card-professional">
         <CardContent className="p-8">
           <div className="text-center space-y-4">
             <div className="w-20 h-20 bg-gradient-to-br from-pink-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto">
