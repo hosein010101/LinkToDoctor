@@ -578,7 +578,7 @@ export default function Orders() {
                 placeholder="جستجو در سفارشات..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pr-10 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                className="pr-10 search-input"
               />
             </div>
             

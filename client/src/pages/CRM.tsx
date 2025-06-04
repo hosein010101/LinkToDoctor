@@ -389,7 +389,7 @@ export default function CRM() {
                       placeholder="جستجو در مخاطبین..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="border-gray-300"
+                      className="search-input"
                     />
                   </div>
                   <div>
