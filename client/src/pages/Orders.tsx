@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -30,7 +31,7 @@ import {
   Clock,
   DollarSign,
   CheckCircle,
-  AlertCircle,
+  AlertTriangle,
   XCircle,
   Truck,
   X,
@@ -44,7 +45,11 @@ import {
   Building,
   ChevronDown,
   Map,
-  RefreshCw
+  RefreshCw,
+  Trash2,
+  Copy,
+  Star,
+  Archive
 } from "lucide-react";
 
 interface OrderWithDetails {
@@ -87,6 +92,9 @@ interface OrderWithDetails {
     lng: number;
   };
   notes?: string;
+  priority: "urgent" | "high" | "normal" | "low";
+  organizationType?: "hospital" | "clinic" | "individual" | "corporate";
+  organizationName?: string;
   documents?: Array<{
     type: string;
     url: string;
@@ -122,7 +130,7 @@ export default function Orders() {
     queryKey: ["/api/collectors"],
   });
 
-  // Enhanced sample data for demonstration
+  // Enhanced sample data with priority and organization info
   const sampleOrders: OrderWithDetails[] = [
     {
       id: 1,
@@ -152,9 +160,12 @@ export default function Orders() {
       status: "collection_scheduled",
       paymentStatus: "paid",
       samplingStatus: "pending",
-      scheduledDate: "2024-06-03",
+      priority: "urgent",
+      organizationType: "hospital",
+      organizationName: "بیمارستان پارس",
+      scheduledDate: "2024-06-05",
       scheduledTimeSlot: "09:00-10:00",
-      createdAt: "2024-06-02T10:30:00Z",
+      createdAt: "2024-06-04T10:30:00Z",
       totalAmount: "430000",
       location: {
         address: "تهران، خیابان ولیعصر، پلاک 123",
@@ -188,7 +199,10 @@ export default function Orders() {
       status: "collected",
       paymentStatus: "pending",
       samplingStatus: "collected",
-      createdAt: "2024-06-01T14:15:00Z",
+      priority: "normal",
+      organizationType: "clinic",
+      organizationName: "کلینیک قلب",
+      createdAt: "2024-06-03T14:15:00Z",
       totalAmount: "320000",
       location: {
         address: "مشهد، خیابان امام رضا، کوچه 15",
@@ -224,12 +238,46 @@ export default function Orders() {
       status: "processing",
       paymentStatus: "paid",
       samplingStatus: "completed",
-      createdAt: "2024-05-30T09:20:00Z",
+      priority: "high",
+      organizationType: "individual",
+      createdAt: "2024-06-02T09:20:00Z",
       totalAmount: "225000",
       location: {
         address: "اصفهان، خیابان چهارباغ، شماره 45",
         lat: 32.6546,
         lng: 51.6680
+      }
+    },
+    {
+      id: 4,
+      orderNumber: "LAB-2024-004",
+      patient: {
+        id: 4,
+        name: "امیر حسینی",
+        phone: "09171234567",
+        nationalId: "5566778899",
+        address: "شیراز، خیابان زند، کوچه 8"
+      },
+      doctor: {
+        name: "دکتر نگار احمدی",
+        specialty: "زنان و زایمان",
+        clinic: "بیمارستان نمازی"
+      },
+      services: [
+        { serviceId: 6, serviceName: "آزمایش ادرار کامل", quantity: 1, price: "85000" }
+      ],
+      status: "delivered",
+      paymentStatus: "paid",
+      samplingStatus: "completed",
+      priority: "normal",
+      organizationType: "corporate",
+      organizationName: "شرکت پتروشیمی پارس",
+      createdAt: "2024-06-01T16:45:00Z",
+      totalAmount: "85000",
+      location: {
+        address: "شیراز، خیابان زند، کوچه 8",
+        lat: 29.5918,
+        lng: 52.5837
       }
     }
   ];
@@ -246,6 +294,20 @@ export default function Orders() {
       toast({
         title: "موفقیت",
         description: "سفارش به‌روزرسانی شد",
+      });
+    },
+  });
+
+  const deleteOrderMutation = useMutation({
+    mutationFn: async (orderId: number) => {
+      const response = await apiRequest("DELETE", `/api/lab-orders/${orderId}`);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/lab-orders"] });
+      toast({
+        title: "موفقیت",
+        description: "سفارش حذف شد",
       });
     },
   });
@@ -326,58 +388,84 @@ export default function Orders() {
 
   const getStatusBadge = (status: string) => {
     const statusMap = {
-      registered: { label: "ثبت شده", class: "bg-blue-100 text-blue-800" },
-      collection_scheduled: { label: "برنامه‌ریزی شده", class: "bg-yellow-100 text-yellow-800" },
-      collected: { label: "نمونه‌گیری شده", class: "bg-purple-100 text-purple-800" },
-      processing: { label: "در حال پردازش", class: "bg-orange-100 text-orange-800" },
-      completed: { label: "آماده تحویل", class: "bg-green-100 text-green-800" },
-      delivered: { label: "تحویل شده", class: "bg-gray-100 text-gray-800" },
+      registered: { label: "ثبت شده", class: "bg-blue-100 text-blue-800 border-blue-200" },
+      collection_scheduled: { label: "برنامه‌ریزی شده", class: "bg-yellow-100 text-yellow-800 border-yellow-200" },
+      collected: { label: "نمونه‌گیری شده", class: "bg-purple-100 text-purple-800 border-purple-200" },
+      processing: { label: "در حال پردازش", class: "bg-orange-100 text-orange-800 border-orange-200" },
+      completed: { label: "آماده تحویل", class: "bg-green-100 text-green-800 border-green-200" },
+      delivered: { label: "تحویل شده", class: "bg-gray-100 text-gray-800 border-gray-200" },
     };
     
     const statusInfo = statusMap[status as keyof typeof statusMap] || 
-                      { label: status, class: "bg-gray-100 text-gray-800" };
+                      { label: status, class: "bg-gray-100 text-gray-800 border-gray-200" };
     
     return (
-      <Badge className={statusInfo.class}>
+      <Badge className={`${statusInfo.class} border font-medium`}>
         {statusInfo.label}
+      </Badge>
+    );
+  };
+
+  const getPriorityBadge = (priority: string) => {
+    const priorityMap = {
+      urgent: { label: "فوری", class: "bg-red-100 text-red-800 border-red-200", icon: AlertTriangle },
+      high: { label: "مهم", class: "bg-orange-100 text-orange-800 border-orange-200", icon: Star },
+      normal: { label: "عادی", class: "bg-blue-100 text-blue-800 border-blue-200", icon: CheckCircle },
+      low: { label: "کم", class: "bg-gray-100 text-gray-800 border-gray-200", icon: Clock },
+    };
+    
+    const priorityInfo = priorityMap[priority as keyof typeof priorityMap] || 
+                        { label: priority, class: "bg-gray-100 text-gray-800 border-gray-200", icon: Clock };
+    
+    const Icon = priorityInfo.icon;
+    
+    return (
+      <Badge className={`${priorityInfo.class} border font-medium inline-flex items-center gap-1`}>
+        <Icon className="w-3 h-3" />
+        {priorityInfo.label}
+      </Badge>
+    );
+  };
+
+  const getOrganizationBadge = (organizationType?: string, organizationName?: string) => {
+    if (!organizationType) return null;
+    
+    const orgMap = {
+      hospital: { label: "بیمارستان", class: "bg-purple-100 text-purple-800 border-purple-200", icon: Building },
+      clinic: { label: "کلینیک", class: "bg-blue-100 text-blue-800 border-blue-200", icon: Building },
+      corporate: { label: "شرکتی", class: "bg-green-100 text-green-800 border-green-200", icon: Building },
+      individual: { label: "فردی", class: "bg-gray-100 text-gray-800 border-gray-200", icon: User },
+    };
+    
+    const orgInfo = orgMap[organizationType as keyof typeof orgMap] || 
+                   { label: organizationType, class: "bg-gray-100 text-gray-800 border-gray-200", icon: Building };
+    
+    const Icon = orgInfo.icon;
+    
+    return (
+      <Badge className={`${orgInfo.class} border font-medium inline-flex items-center gap-1`}>
+        <Icon className="w-3 h-3" />
+        {organizationName || orgInfo.label}
       </Badge>
     );
   };
 
   const getPaymentBadge = (paymentStatus: string) => {
     const paymentMap = {
-      paid: { label: "پرداخت شده", class: "bg-green-100 text-green-800", icon: CheckCircle },
-      pending: { label: "در انتظار", class: "bg-yellow-100 text-yellow-800", icon: Clock },
-      failed: { label: "ناموفق", class: "bg-red-100 text-red-800", icon: XCircle },
+      paid: { label: "پرداخت شده", class: "bg-green-100 text-green-800 border-green-200", icon: CheckCircle },
+      pending: { label: "در انتظار", class: "bg-yellow-100 text-yellow-800 border-yellow-200", icon: Clock },
+      failed: { label: "ناموفق", class: "bg-red-100 text-red-800 border-red-200", icon: XCircle },
     };
     
     const paymentInfo = paymentMap[paymentStatus as keyof typeof paymentMap] || 
-                       { label: paymentStatus, class: "bg-gray-100 text-gray-800", icon: AlertCircle };
+                       { label: paymentStatus, class: "bg-gray-100 text-gray-800 border-gray-200", icon: AlertTriangle };
     
     const Icon = paymentInfo.icon;
     
     return (
-      <Badge className={paymentInfo.class}>
-        <Icon className="w-3 h-3 ml-1" />
+      <Badge className={`${paymentInfo.class} border font-medium inline-flex items-center gap-1`}>
+        <Icon className="w-3 h-3" />
         {paymentInfo.label}
-      </Badge>
-    );
-  };
-
-  const getSamplingBadge = (samplingStatus: string) => {
-    const samplingMap = {
-      pending: { label: "در انتظار", class: "bg-yellow-100 text-yellow-800" },
-      collected: { label: "نمونه‌گیری شده", class: "bg-blue-100 text-blue-800" },
-      in_transit: { label: "در حال انتقال", class: "bg-purple-100 text-purple-800" },
-      completed: { label: "تکمیل شده", class: "bg-green-100 text-green-800" },
-    };
-    
-    const samplingInfo = samplingMap[samplingStatus as keyof typeof samplingMap] || 
-                        { label: samplingStatus, class: "bg-gray-100 text-gray-800" };
-    
-    return (
-      <Badge className={samplingInfo.class}>
-        {samplingInfo.label}
       </Badge>
     );
   };
@@ -413,6 +501,20 @@ export default function Orders() {
     }
   };
 
+  const handleDeleteOrder = (orderId: number) => {
+    if (confirm('آیا از حذف این سفارش مطمئن هستید؟')) {
+      deleteOrderMutation.mutate(orderId);
+    }
+  };
+
+  const handleCopyOrder = (order: OrderWithDetails) => {
+    navigator.clipboard.writeText(JSON.stringify(order, null, 2));
+    toast({
+      title: "کپی شد",
+      description: "اطلاعات سفارش در کلیپ‌بورد کپی شد",
+    });
+  };
+
   const clearFilters = () => {
     setSearchTerm("");
     setStatusFilter("all");
@@ -424,35 +526,44 @@ export default function Orders() {
   };
 
   if (isLoading) {
-    return <div className="p-6">در حال بارگذاری...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-96">
+        <div className="text-center space-y-4">
+          <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto animate-pulse">
+            <Package className="text-blue-600" size={24} />
+          </div>
+          <p className="text-lg font-medium text-gray-900 dark:text-white">در حال بارگذاری سفارشات...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="space-y-6">
       {/* Header */}
-      <Card>
+      <Card className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-sm">
         <CardContent className="p-6">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
             <div>
-              <h3 className="text-xl font-semibold text-medical-text">مدیریت سفارشات</h3>
-              <p className="text-sm text-gray-500 mt-1">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">مدیریت سفارشات</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                 {filteredOrders.length} سفارش از {displayOrders.length} سفارش کل
               </p>
             </div>
-            <div className="flex space-x-3 space-x-reverse">
+            <div className="flex flex-wrap gap-3">
               <Button
                 variant="outline"
                 onClick={() => setMapView(!mapView)}
-                className={mapView ? "bg-medical-teal text-white" : ""}
+                className={`${mapView ? "bg-blue-50 text-blue-700 border-blue-200" : ""} hover:bg-blue-50`}
               >
                 <Map className="ml-2 w-4 h-4" />
                 نمای نقشه
               </Button>
-              <Button variant="outline">
+              <Button variant="outline" className="hover:bg-gray-50">
                 <Download className="ml-2 w-4 h-4" />
                 خروجی Excel
               </Button>
-              <Button className="bg-medical-teal hover:bg-opacity-90 text-white">
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                 <Plus className="ml-2 w-4 h-4" />
                 سفارش جدید
               </Button>
@@ -462,17 +573,17 @@ export default function Orders() {
           {/* Search and Quick Filters */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
             <div className="relative">
-              <Search className="absolute right-3 top-3 w-4 h-4 text-gray-400" />
+              <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               <Input
                 placeholder="جستجو در سفارشات..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pr-10"
+                className="pr-10 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
             
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger>
+              <SelectTrigger className="border-gray-200 focus:border-blue-500 focus:ring-blue-500">
                 <SelectValue placeholder="وضعیت سفارش" />
               </SelectTrigger>
               <SelectContent>
@@ -487,7 +598,7 @@ export default function Orders() {
             </Select>
 
             <Select value={paymentFilter} onValueChange={setPaymentFilter}>
-              <SelectTrigger>
+              <SelectTrigger className="border-gray-200 focus:border-blue-500 focus:ring-blue-500">
                 <SelectValue placeholder="وضعیت پرداخت" />
               </SelectTrigger>
               <SelectContent>
@@ -501,7 +612,7 @@ export default function Orders() {
             <Button
               variant="outline"
               onClick={() => setFiltersOpen(!filtersOpen)}
-              className="flex items-center justify-center"
+              className="flex items-center justify-center border-gray-200 hover:bg-gray-50"
             >
               <Filter className="ml-2 w-4 h-4" />
               فیلتر پیشرفته
@@ -511,13 +622,13 @@ export default function Orders() {
 
           {/* Advanced Filters Panel */}
           {filtersOpen && (
-            <Card className="mb-6">
+            <Card className="mb-6 border border-gray-200">
               <CardContent className="p-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
                   <div>
-                    <Label htmlFor="sampling-filter">وضعیت نمونه‌گیری</Label>
+                    <Label htmlFor="sampling-filter" className="text-sm font-medium text-gray-700">وضعیت نمونه‌گیری</Label>
                     <Select value={samplingFilter} onValueChange={setSamplingFilter}>
-                      <SelectTrigger className="mt-1">
+                      <SelectTrigger className="mt-1 border-gray-200">
                         <SelectValue placeholder="وضعیت نمونه‌گیری" />
                       </SelectTrigger>
                       <SelectContent>
@@ -531,9 +642,9 @@ export default function Orders() {
                   </div>
 
                   <div>
-                    <Label htmlFor="collector-filter">نمونه‌گیر</Label>
+                    <Label htmlFor="collector-filter" className="text-sm font-medium text-gray-700">نمونه‌گیر</Label>
                     <Select value={collectorFilter} onValueChange={setCollectorFilter}>
-                      <SelectTrigger className="mt-1">
+                      <SelectTrigger className="mt-1 border-gray-200">
                         <SelectValue placeholder="انتخاب نمونه‌گیر" />
                       </SelectTrigger>
                       <SelectContent>
@@ -546,9 +657,9 @@ export default function Orders() {
                   </div>
 
                   <div>
-                    <Label htmlFor="date-filter">بازه زمانی</Label>
+                    <Label htmlFor="date-filter" className="text-sm font-medium text-gray-700">بازه زمانی</Label>
                     <Select value={dateFilter} onValueChange={setDateFilter}>
-                      <SelectTrigger className="mt-1">
+                      <SelectTrigger className="mt-1 border-gray-200">
                         <SelectValue placeholder="انتخاب تاریخ" />
                       </SelectTrigger>
                       <SelectContent>
@@ -561,13 +672,13 @@ export default function Orders() {
                   </div>
 
                   <div>
-                    <Label htmlFor="doctor-filter">پزشک ارجاع‌دهنده</Label>
+                    <Label htmlFor="doctor-filter" className="text-sm font-medium text-gray-700">پزشک ارجاع‌دهنده</Label>
                     <Input
                       id="doctor-filter"
                       placeholder="نام پزشک..."
                       value={doctorFilter}
                       onChange={(e) => setDoctorFilter(e.target.value)}
-                      className="mt-1"
+                      className="mt-1 border-gray-200"
                     />
                   </div>
 
@@ -575,7 +686,7 @@ export default function Orders() {
                     <Button
                       variant="outline"
                       onClick={clearFilters}
-                      className="flex-1"
+                      className="flex-1 border-gray-200 hover:bg-gray-50"
                     >
                       <X className="ml-2 w-4 h-4" />
                       پاک کردن
@@ -587,11 +698,11 @@ export default function Orders() {
           )}
 
           {/* Sort and View Options */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
             <div className="flex items-center space-x-3 space-x-reverse">
-              <span className="text-sm text-gray-600">مرتب‌سازی:</span>
+              <span className="text-sm font-medium text-gray-700">مرتب‌سازی:</span>
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-40">
+                <SelectTrigger className="w-40 border-gray-200">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -605,90 +716,64 @@ export default function Orders() {
                 variant="outline"
                 size="sm"
                 onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+                className="border-gray-200 hover:bg-gray-50"
               >
                 {sortOrder === "asc" ? "صعودی" : "نزولی"}
               </Button>
             </div>
             
-            <div className="flex items-center space-x-2 space-x-reverse">
-              <span className="text-sm text-gray-600">
-                صفحه {currentPage} از {totalPages}
-              </span>
+            <div className="flex items-center space-x-2 space-x-reverse text-sm text-gray-600">
+              <span>صفحه {currentPage} از {totalPages}</span>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Map View */}
-      {mapView && (
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h4 className="text-lg font-semibold text-medical-text">نقشه مراکز نمونه‌گیری</h4>
-              <Button variant="outline" size="sm">
-                <Navigation className="ml-2 w-4 h-4" />
-                بهینه‌سازی مسیر
-              </Button>
-            </div>
-            <div className="h-96 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
-              <div className="text-center">
-                <Map className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-500 mb-2">نقشه تعاملی نمونه‌گیری</p>
-                <p className="text-sm text-gray-400">برای نمایش نقشه تعاملی، کلید API گوگل مپس یا سرویس نقشه مورد نیاز است</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
       {/* Orders Table */}
-      <Card>
+      <Card className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-sm">
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                 <tr>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                     <Checkbox
                       checked={selectedOrders.length === paginatedOrders.length && paginatedOrders.length > 0}
                       onCheckedChange={handleSelectAll}
                     />
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                     شماره سفارش
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                     بیمار
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                     پزشک
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                     خدمات
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                     وضعیت
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    پرداخت
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                    نوع سازمان
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    نمونه‌گیری
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                    اولویت
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    نمونه‌گیر
-                  </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                     مبلغ کل
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                     عملیات
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                 {paginatedOrders.map((order) => (
-                  <tr key={order.id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={order.id} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <Checkbox
                         checked={selectedOrders.includes(order.id)}
@@ -696,17 +781,17 @@ export default function Orders() {
                       />
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-medical-text">{order.orderNumber}</div>
-                      <div className="text-xs text-gray-500">{formatDate(order.createdAt)}</div>
+                      <div className="text-sm font-semibold text-gray-900 dark:text-white">{order.orderNumber}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">{formatDate(order.createdAt)}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center space-x-3 space-x-reverse">
-                        <div className="w-8 h-8 bg-medical-teal bg-opacity-20 rounded-full flex items-center justify-center">
-                          <User className="w-4 h-4 text-medical-teal" />
+                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                          <User className="w-5 h-5 text-blue-600" />
                         </div>
                         <div>
-                          <div className="text-sm font-medium text-medical-text">{order.patient.name}</div>
-                          <div className="text-xs text-gray-500 flex items-center space-x-1 space-x-reverse">
+                          <div className="text-sm font-medium text-gray-900 dark:text-white">{order.patient.name}</div>
+                          <div className="text-xs text-gray-500 dark:text-gray-400 flex items-center space-x-1 space-x-reverse">
                             <Phone className="w-3 h-3" />
                             <span>{order.patient.phone}</span>
                           </div>
@@ -714,309 +799,75 @@ export default function Orders() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-medical-text">{order.doctor.name}</div>
-                      <div className="text-xs text-gray-500">{order.doctor.specialty}</div>
+                      <div className="text-sm font-medium text-gray-900 dark:text-white">{order.doctor.name}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">{order.doctor.specialty}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-medical-text">
+                      <div className="text-sm font-medium text-gray-900 dark:text-white">
                         {order.services.length} خدمت
                       </div>
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-gray-500 dark:text-gray-400">
                         {order.services.slice(0, 2).map(service => service.serviceName).join("، ")}
                         {order.services.length > 2 && "..."}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {getStatusBadge(order.status)}
+                      <div className="space-y-1">
+                        {getStatusBadge(order.status)}
+                        {getPaymentBadge(order.paymentStatus)}
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {getPaymentBadge(order.paymentStatus)}
+                      {getOrganizationBadge(order.organizationType, order.organizationName)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {getSamplingBadge(order.samplingStatus)}
+                      {getPriorityBadge(order.priority)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {order.collector ? (
-                        <div className="flex items-center space-x-2 space-x-reverse">
-                          <div className="w-6 h-6 bg-medical-blue bg-opacity-20 rounded-full flex items-center justify-center">
-                            <Truck className="w-3 h-3 text-medical-blue" />
-                          </div>
-                          <span className="text-sm text-medical-text">{order.collector.name}</span>
-                        </div>
-                      ) : (
-                        <span className="text-xs text-gray-500">تخصیص نشده</span>
-                      )}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-medical-text">
+                      <div className="text-sm font-semibold text-gray-900 dark:text-white">
                         {formatCurrency(order.totalAmount)}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <div className="flex space-x-1 space-x-reverse">
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => setSelectedOrderDetails(order)}
-                            >
-                              <Eye className="w-4 h-4" />
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-                            <DialogHeader>
-                              <DialogTitle className="text-right">
-                                جزئیات سفارش {order.orderNumber}
-                              </DialogTitle>
-                            </DialogHeader>
-                            
-                            <Tabs defaultValue="details" className="w-full">
-                              <TabsList className="grid w-full grid-cols-4">
-                                <TabsTrigger value="details">اطلاعات کلی</TabsTrigger>
-                                <TabsTrigger value="services">خدمات</TabsTrigger>
-                                <TabsTrigger value="location">موقعیت</TabsTrigger>
-                                <TabsTrigger value="documents">اسناد</TabsTrigger>
-                              </TabsList>
-
-                              <TabsContent value="details" className="mt-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                  <Card>
-                                    <CardContent className="p-4">
-                                      <h4 className="font-semibold text-medical-text mb-3 flex items-center space-x-2 space-x-reverse">
-                                        <User className="w-4 h-4" />
-                                        <span>اطلاعات بیمار</span>
-                                      </h4>
-                                      <div className="space-y-2 text-sm">
-                                        <div className="flex justify-between">
-                                          <span className="text-gray-600">نام:</span>
-                                          <span className="font-medium">{order.patient.name}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                          <span className="text-gray-600">کد ملی:</span>
-                                          <span className="font-medium">{order.patient.nationalId}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                          <span className="text-gray-600">تلفن:</span>
-                                          <span className="font-medium">{order.patient.phone}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                          <span className="text-gray-600">آدرس:</span>
-                                          <span className="font-medium text-right">{order.patient.address}</span>
-                                        </div>
-                                      </div>
-                                    </CardContent>
-                                  </Card>
-
-                                  <Card>
-                                    <CardContent className="p-4">
-                                      <h4 className="font-semibold text-medical-text mb-3 flex items-center space-x-2 space-x-reverse">
-                                        <Building className="w-4 h-4" />
-                                        <span>اطلاعات پزشک</span>
-                                      </h4>
-                                      <div className="space-y-2 text-sm">
-                                        <div className="flex justify-between">
-                                          <span className="text-gray-600">نام:</span>
-                                          <span className="font-medium">{order.doctor.name}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                          <span className="text-gray-600">تخصص:</span>
-                                          <span className="font-medium">{order.doctor.specialty}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                          <span className="text-gray-600">کلینیک:</span>
-                                          <span className="font-medium">{order.doctor.clinic}</span>
-                                        </div>
-                                      </div>
-                                    </CardContent>
-                                  </Card>
-
-                                  {order.collector && (
-                                    <Card>
-                                      <CardContent className="p-4">
-                                        <h4 className="font-semibold text-medical-text mb-3 flex items-center space-x-2 space-x-reverse">
-                                          <Truck className="w-4 h-4" />
-                                          <span>نمونه‌گیر</span>
-                                        </h4>
-                                        <div className="space-y-2 text-sm">
-                                          <div className="flex justify-between">
-                                            <span className="text-gray-600">نام:</span>
-                                            <span className="font-medium">{order.collector.name}</span>
-                                          </div>
-                                          <div className="flex justify-between">
-                                            <span className="text-gray-600">تلفن:</span>
-                                            <span className="font-medium">{order.collector.phone}</span>
-                                          </div>
-                                          <div className="flex justify-between">
-                                            <span className="text-gray-600">وضعیت:</span>
-                                            <Badge className="bg-green-100 text-green-800">{order.collector.status}</Badge>
-                                          </div>
-                                        </div>
-                                      </CardContent>
-                                    </Card>
-                                  )}
-
-                                  <Card>
-                                    <CardContent className="p-4">
-                                      <h4 className="font-semibold text-medical-text mb-3 flex items-center space-x-2 space-x-reverse">
-                                        <Calendar className="w-4 h-4" />
-                                        <span>زمان‌بندی</span>
-                                      </h4>
-                                      <div className="space-y-2 text-sm">
-                                        <div className="flex justify-between">
-                                          <span className="text-gray-600">تاریخ ثبت:</span>
-                                          <span className="font-medium">{formatDate(order.createdAt)}</span>
-                                        </div>
-                                        {order.scheduledDate && (
-                                          <>
-                                            <div className="flex justify-between">
-                                              <span className="text-gray-600">تاریخ نمونه‌گیری:</span>
-                                              <span className="font-medium">{new Intl.DateTimeFormat('fa-IR').format(new Date(order.scheduledDate))}</span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                              <span className="text-gray-600">ساعت:</span>
-                                              <span className="font-medium">{order.scheduledTimeSlot}</span>
-                                            </div>
-                                          </>
-                                        )}
-                                      </div>
-                                    </CardContent>
-                                  </Card>
-                                </div>
-
-                                {order.notes && (
-                                  <Card className="mt-6">
-                                    <CardContent className="p-4">
-                                      <h4 className="font-semibold text-medical-text mb-3 flex items-center space-x-2 space-x-reverse">
-                                        <FileText className="w-4 h-4" />
-                                        <span>یادداشت‌ها</span>
-                                      </h4>
-                                      <p className="text-sm text-gray-700">{order.notes}</p>
-                                    </CardContent>
-                                  </Card>
-                                )}
-                              </TabsContent>
-
-                              <TabsContent value="services" className="mt-6">
-                                <Card>
-                                  <CardContent className="p-4">
-                                    <h4 className="font-semibold text-medical-text mb-4 flex items-center space-x-2 space-x-reverse">
-                                      <TestTube className="w-4 h-4" />
-                                      <span>لیست خدمات</span>
-                                    </h4>
-                                    <div className="space-y-3">
-                                      {order.services.map((service, index) => (
-                                        <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                          <div>
-                                            <div className="font-medium text-medical-text">{service.serviceName}</div>
-                                            <div className="text-sm text-gray-600">تعداد: {service.quantity}</div>
-                                          </div>
-                                          <div className="text-left">
-                                            <div className="font-semibold text-medical-text">
-                                              {formatCurrency(service.price)}
-                                            </div>
-                                            <div className="text-sm text-gray-600">
-                                              کل: {formatCurrency((parseInt(service.price) * service.quantity).toString())}
-                                            </div>
-                                          </div>
-                                        </div>
-                                      ))}
-                                    </div>
-                                    <Separator className="my-4" />
-                                    <div className="flex justify-between items-center text-lg font-semibold">
-                                      <span>مجموع کل:</span>
-                                      <span className="text-medical-teal">{formatCurrency(order.totalAmount)}</span>
-                                    </div>
-                                  </CardContent>
-                                </Card>
-                              </TabsContent>
-
-                              <TabsContent value="location" className="mt-6">
-                                <Card>
-                                  <CardContent className="p-4">
-                                    <h4 className="font-semibold text-medical-text mb-4 flex items-center space-x-2 space-x-reverse">
-                                      <MapPin className="w-4 h-4" />
-                                      <span>موقعیت نمونه‌گیری</span>
-                                    </h4>
-                                    <div className="space-y-4">
-                                      <div>
-                                        <Label>آدرس کامل</Label>
-                                        <p className="mt-1 p-3 bg-gray-50 rounded-lg text-sm">
-                                          {order.location.address}
-                                        </p>
-                                      </div>
-                                      <div className="grid grid-cols-2 gap-4">
-                                        <div>
-                                          <Label>عرض جغرافیایی</Label>
-                                          <p className="mt-1 p-2 bg-gray-50 rounded text-sm font-mono">
-                                            {order.location.lat}
-                                          </p>
-                                        </div>
-                                        <div>
-                                          <Label>طول جغرافیایی</Label>
-                                          <p className="mt-1 p-2 bg-gray-50 rounded text-sm font-mono">
-                                            {order.location.lng}
-                                          </p>
-                                        </div>
-                                      </div>
-                                      <div className="h-64 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
-                                        <div className="text-center">
-                                          <Map className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                                          <p className="text-gray-500 text-sm">نقشه موقعیت</p>
-                                          <p className="text-xs text-gray-400 mt-1">نیاز به API گوگل مپس</p>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </CardContent>
-                                </Card>
-                              </TabsContent>
-
-                              <TabsContent value="documents" className="mt-6">
-                                <Card>
-                                  <CardContent className="p-4">
-                                    <h4 className="font-semibold text-medical-text mb-4 flex items-center space-x-2 space-x-reverse">
-                                      <FileText className="w-4 h-4" />
-                                      <span>اسناد و مدارک</span>
-                                    </h4>
-                                    {order.documents && order.documents.length > 0 ? (
-                                      <div className="space-y-3">
-                                        {order.documents.map((doc, index) => (
-                                          <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                            <div className="flex items-center space-x-3 space-x-reverse">
-                                              <div className="w-8 h-8 bg-medical-blue bg-opacity-20 rounded flex items-center justify-center">
-                                                <FileText className="w-4 h-4 text-medical-blue" />
-                                              </div>
-                                              <div>
-                                                <div className="font-medium text-medical-text">{doc.name}</div>
-                                                <div className="text-sm text-gray-600">{doc.type}</div>
-                                              </div>
-                                            </div>
-                                            <Button variant="ghost" size="sm">
-                                              <Download className="w-4 h-4" />
-                                            </Button>
-                                          </div>
-                                        ))}
-                                      </div>
-                                    ) : (
-                                      <div className="text-center py-8 text-gray-500">
-                                        <FileText className="w-12 h-12 text-gray-300 mx-auto mb-2" />
-                                        <p>هیچ سندی آپلود نشده است</p>
-                                      </div>
-                                    )}
-                                  </CardContent>
-                                </Card>
-                              </TabsContent>
-                            </Tabs>
-                          </DialogContent>
-                        </Dialog>
-
-                        <Button variant="ghost" size="sm">
-                          <Edit className="w-4 h-4" />
-                        </Button>
-                        <Button variant="ghost" size="sm">
-                          <MoreHorizontal className="w-4 h-4" />
-                        </Button>
-                      </div>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="sm" className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <MoreHorizontal className="w-4 h-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-48">
+                          <DropdownMenuItem 
+                            onClick={() => setSelectedOrderDetails(order)}
+                            className="flex items-center gap-2"
+                          >
+                            <Eye className="w-4 h-4" />
+                            مشاهده جزئیات
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="flex items-center gap-2">
+                            <Edit className="w-4 h-4" />
+                            ویرایش سفارش
+                          </DropdownMenuItem>
+                          <DropdownMenuItem 
+                            onClick={() => handleCopyOrder(order)}
+                            className="flex items-center gap-2"
+                          >
+                            <Copy className="w-4 h-4" />
+                            کپی اطلاعات
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="flex items-center gap-2">
+                            <Archive className="w-4 h-4" />
+                            آرشیو سفارش
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem 
+                            onClick={() => handleDeleteOrder(order.id)}
+                            className="flex items-center gap-2 text-red-600 focus:text-red-600"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                            حذف سفارش
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </td>
                   </tr>
                 ))}
@@ -1036,18 +887,19 @@ export default function Orders() {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <Card>
+        <Card className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-sm">
           <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div className="text-sm text-gray-600">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="text-sm text-gray-600 dark:text-gray-400">
                 نمایش {((currentPage - 1) * ordersPerPage) + 1} تا {Math.min(currentPage * ordersPerPage, filteredOrders.length)} از {filteredOrders.length} سفارش
               </div>
-              <div className="flex space-x-1 space-x-reverse">
+              <div className="flex items-center space-x-1 space-x-reverse">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
+                  className="border-gray-200 hover:bg-gray-50"
                 >
                   <ChevronRight className="w-4 h-4" />
                   قبلی
@@ -1063,7 +915,7 @@ export default function Orders() {
                       variant={currentPage === page ? "default" : "outline"}
                       size="sm"
                       onClick={() => setCurrentPage(page)}
-                      className={currentPage === page ? "bg-medical-teal text-white" : ""}
+                      className={currentPage === page ? "bg-blue-600 text-white" : "border-gray-200 hover:bg-gray-50"}
                     >
                       {page}
                     </Button>
@@ -1075,6 +927,7 @@ export default function Orders() {
                   size="sm"
                   onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
+                  className="border-gray-200 hover:bg-gray-50"
                 >
                   بعدی
                   <ChevronLeft className="w-4 h-4" />
@@ -1083,6 +936,256 @@ export default function Orders() {
             </div>
           </CardContent>
         </Card>
+      )}
+
+      {/* Order Details Modal */}
+      {selectedOrderDetails && (
+        <Dialog open={!!selectedOrderDetails} onOpenChange={() => setSelectedOrderDetails(null)}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-right text-xl font-bold">
+                جزئیات سفارش {selectedOrderDetails.orderNumber}
+              </DialogTitle>
+            </DialogHeader>
+            
+            <Tabs defaultValue="details" className="w-full">
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="details">اطلاعات کلی</TabsTrigger>
+                <TabsTrigger value="services">خدمات</TabsTrigger>
+                <TabsTrigger value="location">موقعیت</TabsTrigger>
+                <TabsTrigger value="documents">اسناد</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="details" className="mt-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <Card className="border border-gray-200">
+                    <CardContent className="p-4">
+                      <h4 className="font-semibold text-gray-900 mb-3 flex items-center space-x-2 space-x-reverse">
+                        <User className="w-4 h-4" />
+                        <span>اطلاعات بیمار</span>
+                      </h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">نام:</span>
+                          <span className="font-medium text-gray-900">{selectedOrderDetails.patient.name}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">کد ملی:</span>
+                          <span className="font-medium text-gray-900">{selectedOrderDetails.patient.nationalId}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">تلفن:</span>
+                          <span className="font-medium text-gray-900">{selectedOrderDetails.patient.phone}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">آدرس:</span>
+                          <span className="font-medium text-gray-900 text-right">{selectedOrderDetails.patient.address}</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="border border-gray-200">
+                    <CardContent className="p-4">
+                      <h4 className="font-semibold text-gray-900 mb-3 flex items-center space-x-2 space-x-reverse">
+                        <Building className="w-4 h-4" />
+                        <span>اطلاعات پزشک</span>
+                      </h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">نام:</span>
+                          <span className="font-medium text-gray-900">{selectedOrderDetails.doctor.name}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">تخصص:</span>
+                          <span className="font-medium text-gray-900">{selectedOrderDetails.doctor.specialty}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">کلینیک:</span>
+                          <span className="font-medium text-gray-900">{selectedOrderDetails.doctor.clinic}</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {selectedOrderDetails.collector && (
+                    <Card className="border border-gray-200">
+                      <CardContent className="p-4">
+                        <h4 className="font-semibold text-gray-900 mb-3 flex items-center space-x-2 space-x-reverse">
+                          <Truck className="w-4 h-4" />
+                          <span>نمونه‌گیر</span>
+                        </h4>
+                        <div className="space-y-2 text-sm">
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">نام:</span>
+                            <span className="font-medium text-gray-900">{selectedOrderDetails.collector.name}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">تلفن:</span>
+                            <span className="font-medium text-gray-900">{selectedOrderDetails.collector.phone}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">وضعیت:</span>
+                            <Badge className="bg-green-100 text-green-800">{selectedOrderDetails.collector.status}</Badge>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  <Card className="border border-gray-200">
+                    <CardContent className="p-4">
+                      <h4 className="font-semibold text-gray-900 mb-3 flex items-center space-x-2 space-x-reverse">
+                        <Calendar className="w-4 h-4" />
+                        <span>زمان‌بندی</span>
+                      </h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">تاریخ ثبت:</span>
+                          <span className="font-medium text-gray-900">{formatDate(selectedOrderDetails.createdAt)}</span>
+                        </div>
+                        {selectedOrderDetails.scheduledDate && (
+                          <>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600">تاریخ نمونه‌گیری:</span>
+                              <span className="font-medium text-gray-900">{new Intl.DateTimeFormat('fa-IR').format(new Date(selectedOrderDetails.scheduledDate))}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600">ساعت:</span>
+                              <span className="font-medium text-gray-900">{selectedOrderDetails.scheduledTimeSlot}</span>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {selectedOrderDetails.notes && (
+                  <Card className="mt-6 border border-gray-200">
+                    <CardContent className="p-4">
+                      <h4 className="font-semibold text-gray-900 mb-3 flex items-center space-x-2 space-x-reverse">
+                        <FileText className="w-4 h-4" />
+                        <span>یادداشت‌ها</span>
+                      </h4>
+                      <p className="text-sm text-gray-700">{selectedOrderDetails.notes}</p>
+                    </CardContent>
+                  </Card>
+                )}
+              </TabsContent>
+
+              <TabsContent value="services" className="mt-6">
+                <Card className="border border-gray-200">
+                  <CardContent className="p-4">
+                    <h4 className="font-semibold text-gray-900 mb-4 flex items-center space-x-2 space-x-reverse">
+                      <TestTube className="w-4 h-4" />
+                      <span>لیست خدمات</span>
+                    </h4>
+                    <div className="space-y-3">
+                      {selectedOrderDetails.services.map((service, index) => (
+                        <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border">
+                          <div>
+                            <div className="font-medium text-gray-900">{service.serviceName}</div>
+                            <div className="text-sm text-gray-600">تعداد: {service.quantity}</div>
+                          </div>
+                          <div className="text-left">
+                            <div className="font-semibold text-gray-900">
+                              {formatCurrency(service.price)}
+                            </div>
+                            <div className="text-sm text-gray-600">
+                              کل: {formatCurrency((parseInt(service.price) * service.quantity).toString())}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <Separator className="my-4" />
+                    <div className="flex justify-between items-center text-lg font-semibold">
+                      <span>مجموع کل:</span>
+                      <span className="text-blue-600">{formatCurrency(selectedOrderDetails.totalAmount)}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="location" className="mt-6">
+                <Card className="border border-gray-200">
+                  <CardContent className="p-4">
+                    <h4 className="font-semibold text-gray-900 mb-4 flex items-center space-x-2 space-x-reverse">
+                      <MapPin className="w-4 h-4" />
+                      <span>موقعیت نمونه‌گیری</span>
+                    </h4>
+                    <div className="space-y-4">
+                      <div>
+                        <Label className="text-sm font-medium text-gray-700">آدرس کامل</Label>
+                        <p className="mt-1 p-3 bg-gray-50 rounded-lg text-sm border">
+                          {selectedOrderDetails.location.address}
+                        </p>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-sm font-medium text-gray-700">عرض جغرافیایی</Label>
+                          <p className="mt-1 p-2 bg-gray-50 rounded text-sm font-mono border">
+                            {selectedOrderDetails.location.lat}
+                          </p>
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium text-gray-700">طول جغرافیایی</Label>
+                          <p className="mt-1 p-2 bg-gray-50 rounded text-sm font-mono border">
+                            {selectedOrderDetails.location.lng}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="h-64 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                        <div className="text-center">
+                          <Map className="w-12 h-12 text-gray-400 mx-auto mb-2" />
+                          <p className="text-gray-500 text-sm">نقشه موقعیت</p>
+                          <p className="text-xs text-gray-400 mt-1">نیاز به API نقشه</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="documents" className="mt-6">
+                <Card className="border border-gray-200">
+                  <CardContent className="p-4">
+                    <h4 className="font-semibold text-gray-900 mb-4 flex items-center space-x-2 space-x-reverse">
+                      <FileText className="w-4 h-4" />
+                      <span>اسناد و مدارک</span>
+                    </h4>
+                    {selectedOrderDetails.documents && selectedOrderDetails.documents.length > 0 ? (
+                      <div className="space-y-3">
+                        {selectedOrderDetails.documents.map((doc, index) => (
+                          <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border">
+                            <div className="flex items-center space-x-3 space-x-reverse">
+                              <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
+                                <FileText className="w-4 h-4 text-blue-600" />
+                              </div>
+                              <div>
+                                <div className="font-medium text-gray-900">{doc.name}</div>
+                                <div className="text-sm text-gray-600">{doc.type}</div>
+                              </div>
+                            </div>
+                            <Button variant="ghost" size="sm" className="hover:bg-gray-200">
+                              <Download className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-center py-8 text-gray-500">
+                        <FileText className="w-12 h-12 text-gray-300 mx-auto mb-2" />
+                        <p>هیچ سندی آپلود نشده است</p>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
+          </DialogContent>
+        </Dialog>
       )}
     </div>
   );

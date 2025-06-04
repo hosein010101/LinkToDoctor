@@ -35,6 +35,7 @@ import {
 
 interface SidebarProps {
   collapsed: boolean;
+  isMobile?: boolean;
 }
 
 const navigationSections = [
@@ -97,12 +98,14 @@ const navigationSections = [
   }
 ];
 
-export default function Sidebar({ collapsed }: SidebarProps) {
+export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
   const [location] = useLocation();
 
   return (
     <div className={`bg-white dark:bg-gray-900 shadow-elegant transition-all duration-300 min-h-screen border-l border-gray-200 dark:border-gray-700 ${
-      collapsed ? 'w-16' : 'w-80'
+      isMobile 
+        ? `fixed top-0 right-0 z-50 h-full ${collapsed ? '-translate-x-full' : 'translate-x-0'} w-80`
+        : `${collapsed ? 'w-16' : 'w-80'}`
     }`}>
       {/* Header */}
       <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700">

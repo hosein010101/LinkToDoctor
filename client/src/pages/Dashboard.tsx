@@ -194,7 +194,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="space-y-8 p-6 bg-gradient-to-br from-blue-50/50 to-indigo-50/50 dark:from-gray-900 dark:to-gray-800 min-h-screen">
+    <div className="space-y-8">
       {/* Welcome Header */}
       <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-elegant p-8 border border-gray-100 dark:border-gray-700">
         <div className="flex items-center justify-between">
