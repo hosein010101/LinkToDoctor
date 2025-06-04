@@ -406,23 +406,7 @@ export default function AccessManagement() {
           </div>
         </div>
 
-        {/* Security Alert */}
-        <Card className="card-professional border-amber-200 bg-amber-50">
-          <CardContent className="p-4">
-            <div className="flex items-center space-x-3 space-x-reverse">
-              <ShieldAlert className="h-5 w-5 text-amber-600" />
-              <div>
-                <h3 className="font-medium text-amber-800">هشدار امنیتی</h3>
-                <p className="text-sm text-amber-600">
-                  3 تلاش ورود ناموفق در 24 ساعت گذشته شناسایی شده است
-                </p>
-              </div>
-              <Button size="sm" variant="outline" className="border-amber-600 text-amber-700 mr-auto">
-                بررسی جزئیات
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+
 
         {/* Main Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
