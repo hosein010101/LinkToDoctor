@@ -257,6 +257,28 @@ body [data-radix-select-trigger] {
   color: #1f2937 !important;
 }
 
+/* Footer styling */
+.dashboard-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background-color: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dark .dashboard-footer {
+  background-color: #1f2937;
+  border-top-color: #374151;
+}
+
+/* Add padding to page content to account for fixed footer */
+.dashboard-content {
+  padding-bottom: 80px;
+}
+
 /* Custom scrollbar styling - remove yellow, use blue theme */
 ::-webkit-scrollbar {
   width: 8px;

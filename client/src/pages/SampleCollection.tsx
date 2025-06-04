@@ -667,31 +667,7 @@ export default function SampleCollection() {
         </TabsContent>
       </Tabs>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 p-4 mt-8">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4 space-x-reverse">
-            <div className="flex items-center space-x-2 space-x-reverse">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-gray-600">سیستم آنلاین</span>
-            </div>
-            <span className="text-sm text-gray-500">
-              {new Date().toLocaleDateString('fa-IR')} - {new Date().toLocaleTimeString('fa-IR')}
-            </span>
-          </div>
-          <div className="flex items-center space-x-4 space-x-reverse">
-            <Button size="sm" variant="ghost" className="text-sm">
-              راهنما
-            </Button>
-            <Button size="sm" variant="ghost" className="text-sm">
-              پشتیبانی
-            </Button>
-            <Button size="sm" variant="ghost" className="text-sm">
-              تنظیمات
-            </Button>
-          </div>
-        </div>
-      </footer>
+
     </div>
   );
 }
