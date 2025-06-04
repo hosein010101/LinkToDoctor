@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -126,6 +127,10 @@ export default function Patients() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [testTypeFilter, setTestTypeFilter] = useState("all");
   const [dateFilter, setDateFilter] = useState("all");
+  const [isEditingPatient, setIsEditingPatient] = useState(false);
+  const [showNewPatientForm, setShowNewPatientForm] = useState(false);
+  const [selectedTestDetails, setSelectedTestDetails] = useState<any>(null);
+  const [uploadFileType, setUploadFileType] = useState<string | null>(null);
 
   // Sample patient data
   const samplePatient: Patient = {
@@ -334,7 +339,10 @@ export default function Patients() {
                   مدیریت جامع اطلاعات بیماران و سوابق پزشکی
                 </p>
               </div>
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+              <Button 
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={() => setShowNewPatientForm(true)}
+              >
                 <Plus className="ml-2 w-4 h-4" />
                 بیمار جدید
               </Button>
@@ -440,9 +448,13 @@ export default function Patients() {
               بازگشت به فهرست
             </Button>
             <div className="flex items-center space-x-2 space-x-reverse">
-              <Button variant="outline" className="border-gray-200 hover:bg-gray-50">
+              <Button 
+                variant="outline" 
+                className="border-gray-200 hover:bg-gray-50"
+                onClick={() => setIsEditingPatient(true)}
+              >
                 <Edit className="w-4 h-4 ml-2" />
-                ویرایش
+                ویرایش بیمار
               </Button>
               <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                 <Plus className="w-4 h-4 ml-2" />
@@ -762,7 +774,10 @@ export default function Patients() {
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-48">
-                              <DropdownMenuItem className="flex items-center gap-2">
+                              <DropdownMenuItem 
+                                className="flex items-center gap-2"
+                                onClick={() => setSelectedTestDetails(test)}
+                              >
                                 <Eye className="w-4 h-4" />
                                 مشاهده جزئیات
                               </DropdownMenuItem>
@@ -947,10 +962,33 @@ export default function Patients() {
                   <FileImage className="w-5 h-5 text-blue-600" />
                   <span>فایل‌ها و ضمائم</span>
                 </div>
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                  <Upload className="w-4 h-4 ml-2" />
-                  آپلود فایل
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                      <Upload className="w-4 h-4 ml-2" />
+                      آپلود فایل
+                      <ChevronDown className="w-4 h-4 mr-2" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem onClick={() => setUploadFileType('prescription')}>
+                      <FileText className="w-4 h-4 ml-2" />
+                      نسخه پزشک
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setUploadFileType('scan')}>
+                      <FileImage className="w-4 h-4 ml-2" />
+                      تصویربرداری
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setUploadFileType('report')}>
+                      <Activity className="w-4 h-4 ml-2" />
+                      گزارش آزمایش
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setUploadFileType('note')}>
+                      <Edit className="w-4 h-4 ml-2" />
+                      یادداشت پزشکی
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -1009,6 +1047,466 @@ export default function Patients() {
           </Card>
         </TabsContent>
       </Tabs>
+      {/* Edit Patient Modal */}
+      <Dialog open={isEditingPatient} onOpenChange={setIsEditingPatient}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-right text-xl font-bold">
+              ویرایش اطلاعات بیمار: {selectedPatient?.name}
+            </DialogTitle>
+          </DialogHeader>
+          
+          <Tabs defaultValue="basic" className="w-full">
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="basic">اطلاعات پایه</TabsTrigger>
+              <TabsTrigger value="contact">اطلاعات تماس</TabsTrigger>
+              <TabsTrigger value="insurance">بیمه</TabsTrigger>
+              <TabsTrigger value="medical">سوابق پزشکی</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="basic" className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">نام کامل</label>
+                  <Input defaultValue={selectedPatient?.name} className="border-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">کد ملی</label>
+                  <Input defaultValue={selectedPatient?.nationalId} className="border-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">جنسیت</label>
+                  <Select defaultValue={selectedPatient?.gender}>
+                    <SelectTrigger className="border-gray-300">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="male">مرد</SelectItem>
+                      <SelectItem value="female">زن</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">تاریخ تولد</label>
+                  <Input type="date" defaultValue={selectedPatient?.birthDate} className="border-gray-300" />
+                </div>
+              </div>
+              <div className="flex justify-end space-x-3 space-x-reverse mt-6">
+                <Button variant="outline" onClick={() => setIsEditingPatient(false)}>
+                  انصراف
+                </Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                  ذخیره تغییرات
+                </Button>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="contact" className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">شماره تلفن</label>
+                  <Input defaultValue={selectedPatient?.phone} className="border-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">ایمیل</label>
+                  <Input defaultValue={selectedPatient?.email} className="border-gray-300" />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">آدرس</label>
+                  <Input defaultValue={selectedPatient?.address} className="border-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">نام تماس اضطراری</label>
+                  <Input defaultValue={selectedPatient?.emergencyContact.name} className="border-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">تلفن تماس اضطراری</label>
+                  <Input defaultValue={selectedPatient?.emergencyContact.phone} className="border-gray-300" />
+                </div>
+              </div>
+              <div className="flex justify-end space-x-3 space-x-reverse mt-6">
+                <Button variant="outline" onClick={() => setIsEditingPatient(false)}>
+                  انصراف
+                </Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                  ذخیره تغییرات
+                </Button>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="insurance" className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">نوع بیمه</label>
+                  <Select defaultValue={selectedPatient?.insurance.type}>
+                    <SelectTrigger className="border-gray-300">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="تامین اجتماعی">تامین اجتماعی</SelectItem>
+                      <SelectItem value="بیمه سلامت">بیمه سلامت</SelectItem>
+                      <SelectItem value="نیروهای مسلح">نیروهای مسلح</SelectItem>
+                      <SelectItem value="خصوصی">خصوصی</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">شماره بیمه</label>
+                  <Input defaultValue={selectedPatient?.insurance.number} className="border-gray-300" />
+                </div>
+              </div>
+              <div className="flex justify-end space-x-3 space-x-reverse mt-6">
+                <Button variant="outline" onClick={() => setIsEditingPatient(false)}>
+                  انصراف
+                </Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                  ذخیره تغییرات
+                </Button>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="medical" className="mt-6">
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">بیماری‌های مزمن</label>
+                  <Input 
+                    defaultValue={selectedPatient?.medicalHistory.chronicDiseases.join(', ')} 
+                    className="border-gray-300" 
+                    placeholder="بیماری‌ها را با کاما جدا کنید"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">حساسیت‌ها</label>
+                  <Input 
+                    defaultValue={selectedPatient?.medicalHistory.allergies.join(', ')} 
+                    className="border-gray-300" 
+                    placeholder="حساسیت‌ها را با کاما جدا کنید"
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end space-x-3 space-x-reverse mt-6">
+                <Button variant="outline" onClick={() => setIsEditingPatient(false)}>
+                  انصراف
+                </Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                  ذخیره تغییرات
+                </Button>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </DialogContent>
+      </Dialog>
+
+      {/* Test Details Modal */}
+      {selectedTestDetails && (
+        <Dialog open={!!selectedTestDetails} onOpenChange={() => setSelectedTestDetails(null)}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle className="text-right text-xl font-bold">
+                جزئیات آزمایش: {selectedTestDetails.testName}
+              </DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="text-sm font-medium text-gray-700">تاریخ آزمایش</label>
+                  <p className="text-gray-900 font-semibold">{formatDate(selectedTestDetails.date)}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700">پزشک درخواست‌کننده</label>
+                  <p className="text-gray-900 font-semibold">{selectedTestDetails.doctor}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700">نتیجه</label>
+                  <p className="text-gray-900 font-semibold">{selectedTestDetails.result}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700">وضعیت</label>
+                  <div className="mt-1">
+                    {getTestStatusBadge(selectedTestDetails.status)}
+                  </div>
+                </div>
+              </div>
+              
+              {selectedTestDetails.reportUrl && (
+                <div>
+                  <label className="text-sm font-medium text-gray-700">گزارش آزمایش</label>
+                  <div className="mt-2 p-4 border border-gray-200 rounded-lg">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2 space-x-reverse">
+                        <FileText className="w-5 h-5 text-blue-600" />
+                        <span className="text-sm text-gray-900">گزارش PDF</span>
+                      </div>
+                      <Button variant="outline" size="sm">
+                        <Download className="w-4 h-4 ml-2" />
+                        دانلود
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* File Upload Modal */}
+      {uploadFileType && (
+        <Dialog open={!!uploadFileType} onOpenChange={() => setUploadFileType(null)}>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="text-right text-xl font-bold">
+                آپلود {uploadFileType === 'prescription' ? 'نسخه پزشک' : 
+                       uploadFileType === 'scan' ? 'تصویربرداری' :
+                       uploadFileType === 'report' ? 'گزارش آزمایش' : 'یادداشت پزشکی'}
+              </DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">نام فایل</label>
+                <Input placeholder="نام فایل را وارد کنید" className="border-gray-300" />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">انتخاب فایل</label>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                  <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-sm text-gray-600 mb-2">فایل را اینجا رها کنید یا کلیک کنید</p>
+                  <Button variant="outline" size="sm">
+                    انتخاب فایل
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="flex justify-end space-x-3 space-x-reverse">
+                <Button variant="outline" onClick={() => setUploadFileType(null)}>
+                  انصراف
+                </Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                  آپلود
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* New Patient Registration Modal */}
+      {showNewPatientForm && (
+      <Dialog open={showNewPatientForm} onOpenChange={setShowNewPatientForm}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-right text-xl font-bold">
+              ثبت بیمار جدید
+            </DialogTitle>
+          </DialogHeader>
+          
+          <Tabs defaultValue="basic" className="w-full">
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="basic">اطلاعات پایه</TabsTrigger>
+              <TabsTrigger value="contact">اطلاعات تماس</TabsTrigger>
+              <TabsTrigger value="insurance">بیمه</TabsTrigger>
+              <TabsTrigger value="medical">سوابق پزشکی</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="basic" className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">نام کامل *</label>
+                  <Input placeholder="نام و نام خانوادگی" className="border-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">کد ملی *</label>
+                  <Input placeholder="0000000000" className="border-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">جنسیت *</label>
+                  <Select>
+                    <SelectTrigger className="border-gray-300">
+                      <SelectValue placeholder="انتخاب کنید" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="male">مرد</SelectItem>
+                      <SelectItem value="female">زن</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">تاریخ تولد *</label>
+                  <Input type="date" className="border-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">پزشک معالج</label>
+                  <Select>
+                    <SelectTrigger className="border-gray-300">
+                      <SelectValue placeholder="انتخاب پزشک" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="dr-hadadi">دکتر حسین حدادی</SelectItem>
+                      <SelectItem value="dr-nouri">دکتر سارا نوری</SelectItem>
+                      <SelectItem value="dr-rezaei">دکتر محمد رضایی</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">وضعیت سلامت</label>
+                  <Select>
+                    <SelectTrigger className="border-gray-300">
+                      <SelectValue placeholder="انتخاب وضعیت" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="healthy">سالم</SelectItem>
+                      <SelectItem value="stable">پایدار</SelectItem>
+                      <SelectItem value="recovering">در حال بهبود</SelectItem>
+                      <SelectItem value="critical">بحرانی</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="flex justify-end space-x-3 space-x-reverse mt-6">
+                <Button variant="outline" onClick={() => setShowNewPatientForm(false)}>
+                  انصراف
+                </Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                  ادامه
+                </Button>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="contact" className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">شماره تلفن *</label>
+                  <Input placeholder="09123456789" className="border-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">ایمیل</label>
+                  <Input placeholder="example@email.com" className="border-gray-300" />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">آدرس کامل *</label>
+                  <Input placeholder="شهر، خیابان، پلاک، واحد" className="border-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">نام تماس اضطراری *</label>
+                  <Input placeholder="نام و نام خانوادگی" className="border-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">تلفن تماس اضطراری *</label>
+                  <Input placeholder="09123456789" className="border-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">نسبت</label>
+                  <Select>
+                    <SelectTrigger className="border-gray-300">
+                      <SelectValue placeholder="انتخاب نسبت" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="همسر">همسر</SelectItem>
+                      <SelectItem value="پدر">پدر</SelectItem>
+                      <SelectItem value="مادر">مادر</SelectItem>
+                      <SelectItem value="فرزند">فرزند</SelectItem>
+                      <SelectItem value="برادر">برادر</SelectItem>
+                      <SelectItem value="خواهر">خواهر</SelectItem>
+                      <SelectItem value="سایر">سایر</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="flex justify-end space-x-3 space-x-reverse mt-6">
+                <Button variant="outline" onClick={() => setShowNewPatientForm(false)}>
+                  انصراف
+                </Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                  ادامه
+                </Button>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="insurance" className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">نوع بیمه *</label>
+                  <Select>
+                    <SelectTrigger className="border-gray-300">
+                      <SelectValue placeholder="انتخاب نوع بیمه" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="تامین اجتماعی">تامین اجتماعی</SelectItem>
+                      <SelectItem value="بیمه سلامت">بیمه سلامت</SelectItem>
+                      <SelectItem value="نیروهای مسلح">نیروهای مسلح</SelectItem>
+                      <SelectItem value="خصوصی">خصوصی</SelectItem>
+                      <SelectItem value="بدون بیمه">بدون بیمه</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">شماره بیمه</label>
+                  <Input placeholder="شماره بیمه نامه" className="border-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">وضعیت بیمه</label>
+                  <Select>
+                    <SelectTrigger className="border-gray-300">
+                      <SelectValue placeholder="انتخاب وضعیت" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="active">فعال</SelectItem>
+                      <SelectItem value="pending">در انتظار تایید</SelectItem>
+                      <SelectItem value="expired">منقضی</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="flex justify-end space-x-3 space-x-reverse mt-6">
+                <Button variant="outline" onClick={() => setShowNewPatientForm(false)}>
+                  انصراف
+                </Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                  ادامه
+                </Button>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="medical" className="mt-6">
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">بیماری‌های مزمن</label>
+                  <Input 
+                    placeholder="بیماری‌ها را با کاما جدا کنید (مثل: دیابت، فشار خون)" 
+                    className="border-gray-300" 
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">حساسیت‌ها</label>
+                  <Input 
+                    placeholder="حساسیت‌ها را با کاما جدا کنید (مثل: پنی‌سیلین، بادام)" 
+                    className="border-gray-300" 
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">یادداشت‌های پزشکی</label>
+                  <Textarea 
+                    placeholder="توضیحات اضافی در مورد وضعیت پزشکی بیمار..."
+                    className="border-gray-300 min-h-[100px]"
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end space-x-3 space-x-reverse mt-6">
+                <Button variant="outline" onClick={() => setShowNewPatientForm(false)}>
+                  انصراف
+                </Button>
+                <Button className="bg-green-600 hover:bg-green-700 text-white">
+                  ثبت بیمار
+                </Button>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </DialogContent>
+      </Dialog>
+      )}
     </div>
   );
 }
