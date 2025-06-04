@@ -100,32 +100,161 @@ body {
   background-color: #ffffff !important;
 }
 
-/* Consistent search input styling */
+/* Consistent input styling - remove all yellow backgrounds */
+input,
+textarea,
+select,
 .search-input,
 input[placeholder*="جستجو"],
-input[placeholder*="search"] {
+input[placeholder*="search"],
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="password"],
+input[type="date"],
+textarea,
+[role="combobox"],
+[data-radix-select-trigger] {
   background-color: #ffffff !important;
   border: 1px solid #cccccc !important;
   border-radius: 0.375rem;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.875rem;
-  color: #1f2937;
+  color: #1f2937 !important;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+input:focus,
+textarea:focus,
+select:focus,
 .search-input:focus,
 input[placeholder*="جستجو"]:focus,
-input[placeholder*="search"]:focus {
-  outline: none;
+input[placeholder*="search"]:focus,
+[role="combobox"]:focus,
+[data-radix-select-trigger]:focus {
+  outline: none !important;
   border-color: #3b82f6 !important;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+  background-color: #ffffff !important;
 }
 
+input::placeholder,
+textarea::placeholder,
 .search-input::placeholder,
 input[placeholder*="جستجو"]::placeholder,
 input[placeholder*="search"]::placeholder {
   color: #6b7280 !important;
   opacity: 1;
+}
+
+/* Radix UI Select components */
+[data-radix-select-content],
+[data-radix-select-viewport],
+[data-radix-select-item],
+[data-radix-select-trigger] {
+  background-color: #ffffff !important;
+  border: 1px solid #cccccc !important;
+  color: #1f2937 !important;
+}
+
+/* Additional form elements */
+.form-control,
+.form-input,
+.input,
+.select,
+.textarea {
+  background-color: #ffffff !important;
+  border: 1px solid #cccccc !important;
+  color: #1f2937 !important;
+}
+
+/* Shadcn UI components */
+.ui-input,
+.ui-select,
+.ui-textarea,
+.ui-combobox {
+  background-color: #ffffff !important;
+  border: 1px solid #cccccc !important;
+  color: #1f2937 !important;
+}
+
+/* Target all possible input and select variations */
+button[role="combobox"],
+div[role="combobox"],
+span[role="combobox"],
+.select-trigger,
+.combobox-trigger,
+[data-state],
+[data-placeholder] {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+}
+
+/* Force white background on all form elements */
+* input,
+* textarea,
+* select,
+* [contenteditable],
+.form-field input,
+.form-field textarea,
+.form-field select,
+.field input,
+.field textarea,
+.field select {
+  background-color: #ffffff !important;
+  border: 1px solid #cccccc !important;
+  color: #1f2937 !important;
+}
+
+/* Override any inherited yellow/amber colors */
+*[class*="yellow"],
+*[class*="amber"],
+*[style*="yellow"],
+*[style*="amber"] {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+}
+
+/* Comprehensive form element targeting */
+.relative input,
+.relative textarea,
+.relative select,
+.grid input,
+.grid textarea,
+.grid select,
+.space-y-4 input,
+.space-y-4 textarea,
+.space-y-4 select,
+.space-y-6 input,
+.space-y-6 textarea,
+.space-y-6 select,
+.flex input,
+.flex textarea,
+.flex select {
+  background-color: #ffffff !important;
+  border: 1px solid #cccccc !important;
+  color: #1f2937 !important;
+}
+
+/* Target all possible component states */
+[data-radix-select-trigger]:not([data-state="open"]),
+[data-radix-select-trigger][data-state="closed"],
+[data-radix-select-trigger][data-state="open"],
+button[role="combobox"]:not([aria-expanded="true"]),
+button[role="combobox"][aria-expanded="false"],
+button[role="combobox"][aria-expanded="true"] {
+  background-color: #ffffff !important;
+  border: 1px solid #cccccc !important;
+  color: #1f2937 !important;
+}
+
+/* Force override for all inputs regardless of parent */
+body input,
+body textarea,
+body select,
+body button[role="combobox"],
+body [data-radix-select-trigger] {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
 }
 
 .dark .bg-yellow-50,
