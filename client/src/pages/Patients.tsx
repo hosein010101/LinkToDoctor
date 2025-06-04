@@ -155,16 +155,16 @@ export default function Patients() {
       ]
     },
     testHistory: [
-      { id: 1, date: "1403/05/20", testName: "آزمایش قند خون", result: "126 mg/dL", status: "normal", doctor: "دکتر حدادی", reportUrl: "#" },
-      { id: 2, date: "1403/05/15", testName: "آزمایش کلسترول", result: "180 mg/dL", status: "abnormal", doctor: "دکتر حدادی" },
+      { id: 1, date: "1403/05/20", testName: "آزمایش قند خون", result: "126 mg/dL", status: "normal", doctor: "دکتر حسین حدادی", reportUrl: "#" },
+      { id: 2, date: "1403/05/15", testName: "آزمایش کلسترول", result: "180 mg/dL", status: "abnormal", doctor: "دکتر حسین حدادی" },
       { id: 3, date: "1403/05/10", testName: "آزمایش ادرار", result: "طبیعی", status: "normal", doctor: "دکتر نوری" }
     ],
     visitLogs: [
-      { id: 1, date: "1403/05/20", type: "clinic", serviceType: "ویزیت عمومی", doctor: "دکتر حدادی", notes: "کنترل دوره‌ای دیابت", duration: "30 دقیقه" },
+      { id: 1, date: "1403/05/20", type: "clinic", serviceType: "ویزیت عمومی", doctor: "دکتر حسین حدادی", notes: "کنترل دوره‌ای دیابت", duration: "30 دقیقه" },
       { id: 2, date: "1403/04/25", type: "home", serviceType: "نمونه‌گیری در منزل", doctor: "پرستار احمدی", notes: "نمونه‌گیری خون برای آزمایش", duration: "15 دقیقه" }
     ],
     attachments: [
-      { id: 1, name: "نسخه آخرین ویزیت", type: "prescription", url: "#", uploadDate: "1403/05/20", uploadedBy: "دکتر حدادی" },
+      { id: 1, name: "نسخه آخرین ویزیت", type: "prescription", url: "#", uploadDate: "1403/05/20", uploadedBy: "دکتر حسین حدادی" },
       { id: 2, name: "گزارش سونوگرافی", type: "scan", url: "#", uploadDate: "1403/04/10", uploadedBy: "تکنسین رادیولوژی" }
     ]
   };
