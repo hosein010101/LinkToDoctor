@@ -364,7 +364,7 @@ export default function Dashboard() {
           </Card>
 
           {/* System Health */}
-          <Card className="bg-white dark:bg-gray-900 border-0 shadow-elegant">
+          <Card className="card-professional">
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center space-x-2 space-x-reverse">
                 <Shield className="w-5 h-5 text-green-600" />

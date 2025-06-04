@@ -541,7 +541,7 @@ export default function Orders() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <Card className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-sm">
+      <Card className="card-professional shadow-sm">
         <CardContent className="p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
             <div>
@@ -622,7 +622,7 @@ export default function Orders() {
 
           {/* Advanced Filters Panel */}
           {filtersOpen && (
-            <Card className="mb-6 border border-gray-200">
+            <Card className="filter-section">
               <CardContent className="p-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
                   <div>
@@ -730,7 +730,7 @@ export default function Orders() {
       </Card>
 
       {/* Orders Table */}
-      <Card className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-sm">
+      <Card className="card-professional shadow-sm">
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -887,7 +887,7 @@ export default function Orders() {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <Card className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-sm">
+        <Card className="card-professional shadow-sm">
           <CardContent className="p-4">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-sm text-gray-600 dark:text-gray-400">
