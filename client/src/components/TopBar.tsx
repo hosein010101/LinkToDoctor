@@ -69,21 +69,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           </div>
         </div>
 
-        {/* Center - System Status */}
-        <div className="hidden lg:flex items-center space-x-4 space-x-reverse">
-          <div className="flex items-center space-x-2 space-x-reverse text-sm">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-gray-600 dark:text-gray-300">سامانه آنلاین</span>
-          </div>
-          <Badge variant="outline" className="text-xs">
-            <Clock className="w-3 h-3 ml-1" />
-            {new Intl.DateTimeFormat('fa-IR', { 
-              hour: '2-digit', 
-              minute: '2-digit',
-              second: '2-digit'
-            }).format(new Date())}
-          </Badge>
-        </div>
+
 
         {/* Left Side - User Actions */}
         <div className="flex items-center space-x-3 space-x-reverse">
