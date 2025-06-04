@@ -354,7 +354,7 @@ export default function HRPerformance() {
   const getScoreColor = (score: number) => {
     if (score >= 90) return "text-green-600";
     if (score >= 80) return "text-blue-600";
-    if (score >= 70) return "text-yellow-600";
+    if (score >= 70) return "text-gray-600";
     return "text-red-600";
   };
 
@@ -453,8 +453,8 @@ export default function HRPerformance() {
                   </p>
                   <p className="text-sm text-gray-600">از {sampleStaff.length} نفر</p>
                 </div>
-                <div className="h-12 w-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                  <Award className="h-6 w-6 text-yellow-600" />
+                <div className="h-12 w-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                  <Award className="h-6 w-6 text-gray-600" />
                 </div>
               </div>
             </CardContent>
@@ -507,7 +507,7 @@ export default function HRPerformance() {
                       <div 
                         className={`h-2 rounded-full ${stats.avgScore >= 90 ? 'bg-green-500' : 
                           stats.avgScore >= 80 ? 'bg-blue-500' : 
-                          stats.avgScore >= 70 ? 'bg-yellow-500' : 'bg-red-500'}`}
+                          stats.avgScore >= 70 ? 'bg-gray-500' : 'bg-red-500'}`}
                         style={{ width: `${stats.avgScore}%` }}
                       ></div>
                     </div>
@@ -768,7 +768,7 @@ export default function HRPerformance() {
                                   <div 
                                     className={`h-2 rounded-full ${value >= 90 ? 'bg-green-500' : 
                                       value >= 80 ? 'bg-blue-500' : 
-                                      value >= 70 ? 'bg-yellow-500' : 'bg-red-500'}`}
+                                      value >= 70 ? 'bg-gray-500' : 'bg-red-500'}`}
                                     style={{ width: `${value}%` }}
                                   ></div>
                                 </div>
@@ -798,7 +798,7 @@ export default function HRPerformance() {
                                 <div 
                                   className={`h-2 rounded-full ${item.score >= 90 ? 'bg-green-500' : 
                                     item.score >= 80 ? 'bg-blue-500' : 
-                                    item.score >= 70 ? 'bg-yellow-500' : 'bg-red-500'}`}
+                                    item.score >= 70 ? 'bg-gray-500' : 'bg-red-500'}`}
                                   style={{ width: `${item.score}%` }}
                                 ></div>
                               </div>

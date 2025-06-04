@@ -74,7 +74,7 @@ body {
   background: hsl(var(--background));
 }
 
-/* Remove all yellow backgrounds and ensure white backgrounds */
+/* Remove all yellow backgrounds and borders, replace with appropriate colors */
 .bg-yellow-50,
 .bg-yellow-100,
 .bg-yellow-200,
@@ -98,6 +98,35 @@ body {
 .bg-gradient-to-l.from-yellow-50,
 .bg-gradient-to-l.from-amber-50 {
   background-color: #ffffff !important;
+}
+
+/* Fix yellow borders and replace with gray/black */
+.border-yellow-50,
+.border-yellow-100,
+.border-yellow-200,
+.border-yellow-300,
+.border-yellow-400,
+.border-yellow-500,
+.border-amber-50,
+.border-amber-100,
+.border-amber-200,
+.border-amber-300,
+.border-amber-400,
+.border-amber-500,
+[class*="border-yellow"],
+[class*="border-amber"] {
+  border-color: #374151 !important;
+}
+
+/* Fix yellow text colors */
+.text-yellow-600,
+.text-amber-600 {
+  color: #374151 !important;
+}
+
+/* Fix yellow progress bars */
+.bg-yellow-500 {
+  background-color: #6b7280 !important;
 }
 
 /* Consistent input styling - remove all yellow backgrounds */
