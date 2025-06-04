@@ -50,7 +50,8 @@ import {
   Archive,
   Smartphone,
   Shield,
-  Workflow
+  Workflow,
+  Star
 } from "lucide-react";
 
 interface InventoryItem {
