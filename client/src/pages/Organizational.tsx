@@ -351,7 +351,7 @@ export default function Organizational() {
     const configs = {
       contract: {
         active: { label: "فعال", color: "bg-green-100 text-green-800" },
-        pending: { label: "در انتظار", color: "bg-yellow-100 text-yellow-800" },
+        pending: { label: "در انتظار", color: "bg-orange-100 text-orange-800" },
         expired: { label: "منقضی", color: "bg-red-100 text-red-800" },
         suspended: { label: "متوقف", color: "bg-gray-100 text-gray-800" }
       },
@@ -362,7 +362,7 @@ export default function Organizational() {
         overdue: { label: "سررسید گذشته", color: "bg-red-100 text-red-800" }
       },
       schedule: {
-        pending: { label: "در انتظار", color: "bg-yellow-100 text-yellow-800" },
+        pending: { label: "در انتظار", color: "bg-orange-100 text-orange-800" },
         confirmed: { label: "تایید شده", color: "bg-blue-100 text-blue-800" },
         in_progress: { label: "در حال انجام", color: "bg-purple-100 text-purple-800" },
         completed: { label: "تکمیل شده", color: "bg-green-100 text-green-800" },

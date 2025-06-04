@@ -264,7 +264,7 @@ export default function CRM() {
     const config = {
       bronze: { label: "برنز", color: "bg-orange-100 text-orange-800" },
       silver: { label: "نقره", color: "bg-gray-100 text-gray-800" },
-      gold: { label: "طلا", color: "bg-yellow-100 text-yellow-800" },
+      gold: { label: "طلا", color: "bg-orange-100 text-orange-800" },
       platinum: { label: "پلاتین", color: "bg-purple-100 text-purple-800" }
     };
     const vipConfig = config[level as keyof typeof config];
@@ -290,7 +290,7 @@ export default function CRM() {
       },
       ticket: {
         open: { label: "باز", color: "bg-red-100 text-red-800" },
-        in_progress: { label: "در حال بررسی", color: "bg-yellow-100 text-yellow-800" },
+        in_progress: { label: "در حال بررسی", color: "bg-orange-100 text-orange-800" },
         resolved: { label: "حل شده", color: "bg-green-100 text-green-800" },
         closed: { label: "بسته", color: "bg-gray-100 text-gray-800" }
       }
@@ -303,7 +303,7 @@ export default function CRM() {
   const getPriorityBadge = (priority: string) => {
     const config = {
       low: { label: "کم", color: "bg-gray-100 text-gray-800" },
-      medium: { label: "متوسط", color: "bg-yellow-100 text-yellow-800" },
+      medium: { label: "متوسط", color: "bg-orange-100 text-orange-800" },
       high: { label: "بالا", color: "bg-orange-100 text-orange-800" },
       urgent: { label: "فوری", color: "bg-red-100 text-red-800" }
     };

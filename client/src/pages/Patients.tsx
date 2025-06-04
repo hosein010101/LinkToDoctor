@@ -180,7 +180,7 @@ export default function Patients() {
     const statusConfig = {
       critical: { label: "بحرانی", color: "bg-red-100 text-red-800" },
       stable: { label: "پایدار", color: "bg-blue-100 text-blue-800" },
-      recovering: { label: "در حال بهبود", color: "bg-yellow-100 text-yellow-800" },
+      recovering: { label: "در حال بهبود", color: "bg-orange-100 text-orange-800" },
       healthy: { label: "سالم", color: "bg-green-100 text-green-800" }
     };
     const config = statusConfig[status];
@@ -191,7 +191,7 @@ export default function Patients() {
     const statusConfig = {
       normal: { label: "طبیعی", color: "bg-green-100 text-green-800" },
       abnormal: { label: "غیرطبیعی", color: "bg-red-100 text-red-800" },
-      pending: { label: "در انتظار", color: "bg-yellow-100 text-yellow-800" }
+      pending: { label: "در انتظار", color: "bg-orange-100 text-orange-800" }
     };
     const config = statusConfig[status];
     return <Badge className={`${config.color} hover:${config.color}`}>{config.label}</Badge>;
