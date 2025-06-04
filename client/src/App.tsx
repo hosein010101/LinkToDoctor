@@ -9,6 +9,7 @@ import Dashboard from "@/pages/Dashboard";
 import Orders from "@/pages/Orders";
 import NewOrder from "@/pages/NewOrder";
 import Collection from "@/pages/Collection";
+import SampleCollection from "@/pages/SampleCollection";
 import Collectors from "@/pages/Collectors";
 import Results from "@/pages/Results";
 import Delivery from "@/pages/Delivery";
@@ -52,6 +53,7 @@ function Router() {
         
         {/* Lab Operations */}
         <Route path="/collection" component={Collection} />
+        <Route path="/sample-collection" component={SampleCollection} />
         <Route path="/collectors" component={Collectors} />
         <Route path="/test-packages" component={TestPackages} />
         <Route path="/results" component={Results} />

@@ -1,0 +1,45 @@
+Create a modern and responsive admin dashboard page in React + Tailwind titled "Sample Collection Management". Include the following sections:
+
+1. Header with summary stats: 
+   - "Pending Collections", "In Progress", "Active Collectors", "Available Collectors"
+
+2. Active Sample Collections:
+   - Display profile cards with collector name (e.g., Fatemeh Ahmadi), avatar, status ("In Progress"), and online indicator
+   - Include action buttons: "View Mission", "Call", "Report Issue", "End Task"
+
+3. Available Collectors:
+   - List of available collectors (name, phone, online status)
+   - Actions: "Assign Task", "View Profile"
+   - Use small profile avatars and toggle indicators
+
+4. Task Assignment Module:
+   - Dropdown to select collector
+   - Input for test request ID or patient name
+   - Time and location selection (with optional map preview)
+   - Notes section and Submit button
+
+5. Live Map Section:
+   - Show real-time location of active collectors and test locations
+
+6. Supervisor Tools:
+   - List collectors by supervisor responsibility
+   - Allow supervisor to track, comment, and rate collectors
+
+7. Alert System:
+   - If task is pending >30 mins or collector is idle, show toast alerts or warning badges
+
+8. Daily Performance Section:
+   - Table showing collectors’ daily sample count, success rate, and average time
+   - Allow filtering by date, location, or supervisor
+
+9. UI Design:
+   - Remove all yellow backgrounds and borders across this page
+   - Use white background for cards and light gray (#f3f4f6) for containers
+   - Black or dark-gray for borders and texts, modern font
+   - Action buttons with icons and hover effects
+
+10. Footer:
+   - Sticky footer that does not overlap any content or buttons
+   - Contains date/time, quick links, and online status
+
+Make all dropdowns have a clear border, white background, and readable text. Also update the scrollbar color to a modern gray. Ensure this design supports Persian (RTL) text as well.

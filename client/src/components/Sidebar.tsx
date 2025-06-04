@@ -59,6 +59,7 @@ const navigationSections = [
     title: "عملیات آزمایشگاه",
     items: [
       { path: "/collection", icon: Truck, label: "مدیریت نمونه‌گیری", module: "collection", color: "text-orange-600", bgColor: "bg-orange-50" },
+      { path: "/sample-collection", icon: MapPin, label: "مدیریت نمونه‌گیری پیشرفته", module: "sample-collection", color: "text-rose-600", bgColor: "bg-rose-50" },
       { path: "/collectors", icon: Users, label: "پروفایل نمونه‌گیران", module: "collectors", color: "text-cyan-600", bgColor: "bg-cyan-50" },
       { path: "/test-packages", icon: TestTube2, label: "مدیریت پکیج‌های آزمایشگاهی", module: "test-packages", color: "text-violet-600", bgColor: "bg-violet-50" },
       { path: "/results", icon: FileText, label: "ورود نتایج آزمایش", module: "results", color: "text-teal-600", bgColor: "bg-teal-50" },

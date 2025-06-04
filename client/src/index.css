@@ -724,6 +724,19 @@ button:hover:not(.active) {
   box-shadow: 0 0 0 1px rgba(185, 28, 28, 0.3) !important;
 }
 
+.sidebar-item.text-rose-600.active,
+.nav-item.text-rose-600.active {
+  border: 2px solid #e11d48 !important;
+  background-color: rgba(225, 29, 72, 0.15) !important;
+  box-shadow: 0 0 0 1px rgba(225, 29, 72, 0.3) !important;
+}
+
+.sidebar-item.text-rose-600.active:hover,
+.sidebar-item.text-rose-600.active:focus {
+  border: 2px solid #e11d48 !important;
+  background-color: rgba(225, 29, 72, 0.15) !important;
+}
+
 /* Active/Selected button states - keep color when mouse leaves */
 button.active,
 button[aria-current="page"],
