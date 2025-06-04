@@ -175,25 +175,7 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
         ))}
       </nav>
 
-      {/* Footer Status */}
-      {!collapsed && (
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 border-t border-gray-200 dark:border-gray-700">
-          <div className="flex items-center space-x-3 space-x-reverse">
-            <div className="flex-shrink-0">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-medium text-gray-900 dark:text-white">سیستم آنلاین</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                آخرین بروزرسانی: {new Intl.DateTimeFormat('fa-IR', { 
-                  hour: '2-digit', 
-                  minute: '2-digit' 
-                }).format(new Date())}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+
     </div>
   );
 }
