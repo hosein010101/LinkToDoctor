@@ -328,7 +328,7 @@ export default function HRPerformance() {
       case "good":
         return "bg-blue-100 text-blue-800";
       case "average":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-orange-100 text-orange-800";
       case "poor":
         return "bg-red-100 text-red-800";
       default:
