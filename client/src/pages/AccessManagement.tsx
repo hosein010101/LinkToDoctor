@@ -204,7 +204,7 @@ export default function AccessManagement() {
   const sampleUsers: User[] = [
     {
       id: 1,
-      name: "دکتر حسین هدادی",
+      name: "دکتر حسین حدادی",
       email: "h.hadadi@linktodoctor.ir",
       role: "مدیر سیستم",
       group: "مدیر سیستم",
@@ -289,7 +289,7 @@ export default function AccessManagement() {
     {
       id: 1,
       userId: 1,
-      userName: "دکتر حسین هدادی",
+      userName: "دکتر حسین حدادی",
       ipAddress: "192.168.1.100",
       device: "Desktop",
       location: "تهران، ایران",
@@ -328,7 +328,7 @@ export default function AccessManagement() {
     {
       id: 1,
       userId: 1,
-      userName: "دکتر حسین هدادی",
+      userName: "دکتر حسین حدادی",
       action: "ایجاد گروه کاربری",
       resource: "نمونه‌گیران",
       timestamp: "1403/06/15 15:30",
