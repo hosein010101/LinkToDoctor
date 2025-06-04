@@ -56,7 +56,8 @@ import {
   FileCheck,
   UserX,
   AlertCircle,
-  Info
+  Info,
+  RefreshCw
 } from "lucide-react";
 
 interface UserGroup {
