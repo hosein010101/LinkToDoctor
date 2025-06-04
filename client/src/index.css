@@ -257,6 +257,277 @@ body [data-radix-select-trigger] {
   color: #1f2937 !important;
 }
 
+/* Custom scrollbar styling - remove yellow, use blue theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 4px;
+  border: 2px solid #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+::-webkit-scrollbar-corner {
+  background: #f1f5f9;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 #f1f5f9;
+}
+
+/* Remove any yellow scrollbar colors */
+::-webkit-scrollbar-thumb.yellow,
+::-webkit-scrollbar-thumb[style*="yellow"],
+::-webkit-scrollbar-thumb[style*="amber"] {
+  background: #3b82f6 !important;
+}
+
+/* Apply scrollbar styling to specific containers */
+.overflow-auto::-webkit-scrollbar,
+.overflow-y-auto::-webkit-scrollbar,
+.overflow-x-auto::-webkit-scrollbar,
+.scroll::-webkit-scrollbar,
+.scrollable::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.overflow-auto::-webkit-scrollbar-track,
+.overflow-y-auto::-webkit-scrollbar-track,
+.overflow-x-auto::-webkit-scrollbar-track,
+.scroll::-webkit-scrollbar-track,
+.scrollable::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb,
+.overflow-y-auto::-webkit-scrollbar-thumb,
+.overflow-x-auto::-webkit-scrollbar-thumb,
+.scroll::-webkit-scrollbar-thumb,
+.scrollable::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 4px;
+  border: 2px solid #f1f5f9;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb:hover,
+.overflow-y-auto::-webkit-scrollbar-thumb:hover,
+.overflow-x-auto::-webkit-scrollbar-thumb:hover,
+.scroll::-webkit-scrollbar-thumb:hover,
+.scrollable::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+/* Table scrollbars */
+table::-webkit-scrollbar,
+.table-container::-webkit-scrollbar,
+.data-table::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+table::-webkit-scrollbar-thumb,
+.table-container::-webkit-scrollbar-thumb,
+.data-table::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 4px;
+}
+
+/* Modal and dialog scrollbars */
+.modal::-webkit-scrollbar,
+.dialog::-webkit-scrollbar,
+[role="dialog"]::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal::-webkit-scrollbar-thumb,
+.dialog::-webkit-scrollbar-thumb,
+[role="dialog"]::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 3px;
+}
+
+/* Button hover and focus styling - remove yellow borders */
+button:focus,
+button:hover,
+.button:focus,
+.button:hover,
+[role="button"]:focus,
+[role="button"]:hover {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Blue buttons */
+button.bg-blue-600:hover,
+button.bg-blue-600:focus,
+.bg-blue-600:hover,
+.bg-blue-600:focus {
+  outline: 2px solid #3b82f6 !important;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* Green buttons */
+button.bg-green-600:hover,
+button.bg-green-600:focus,
+.bg-green-600:hover,
+.bg-green-600:focus {
+  outline: 2px solid #16a34a !important;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2) !important;
+}
+
+/* Red buttons */
+button.bg-red-600:hover,
+button.bg-red-600:focus,
+.bg-red-600:hover,
+.bg-red-600:focus {
+  outline: 2px solid #dc2626 !important;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2) !important;
+}
+
+/* Orange buttons */
+button.bg-orange-600:hover,
+button.bg-orange-600:focus,
+.bg-orange-600:hover,
+.bg-orange-600:focus {
+  outline: 2px solid #ea580c !important;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.2) !important;
+}
+
+/* Purple buttons */
+button.bg-purple-600:hover,
+button.bg-purple-600:focus,
+.bg-purple-600:hover,
+.bg-purple-600:focus {
+  outline: 2px solid #9333ea !important;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.2) !important;
+}
+
+/* Gray buttons */
+button.bg-gray-600:hover,
+button.bg-gray-600:focus,
+.bg-gray-600:hover,
+.bg-gray-600:focus {
+  outline: 2px solid #4b5563 !important;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(75, 85, 99, 0.2) !important;
+}
+
+/* Remove any yellow focus rings */
+*:focus,
+*:focus-visible {
+  outline-color: transparent !important;
+}
+
+/* Override any yellow ring utilities */
+.ring-yellow-500,
+.ring-yellow-400,
+.ring-amber-500,
+.ring-amber-400,
+.focus\:ring-yellow-500:focus,
+.focus\:ring-yellow-400:focus,
+.focus\:ring-amber-500:focus,
+.focus\:ring-amber-400:focus {
+  --tw-ring-color: rgb(59 130 246) !important;
+}
+
+/* Navigation and sidebar item styling */
+a:hover,
+a:focus,
+.nav-item:hover,
+.nav-item:focus,
+.sidebar-item:hover,
+.sidebar-item:focus {
+  outline: none !important;
+}
+
+/* Sidebar navigation items with colored borders */
+.nav-item.text-blue-600:hover,
+.sidebar-item.text-blue-600:hover {
+  border-left: 3px solid #3b82f6 !important;
+  background-color: rgba(59, 130, 246, 0.1) !important;
+}
+
+.nav-item.text-green-600:hover,
+.sidebar-item.text-green-600:hover {
+  border-left: 3px solid #16a34a !important;
+  background-color: rgba(22, 163, 74, 0.1) !important;
+}
+
+.nav-item.text-red-600:hover,
+.sidebar-item.text-red-600:hover {
+  border-left: 3px solid #dc2626 !important;
+  background-color: rgba(220, 38, 38, 0.1) !important;
+}
+
+.nav-item.text-orange-600:hover,
+.sidebar-item.text-orange-600:hover {
+  border-left: 3px solid #ea580c !important;
+  background-color: rgba(234, 88, 12, 0.1) !important;
+}
+
+.nav-item.text-purple-600:hover,
+.sidebar-item.text-purple-600:hover {
+  border-left: 3px solid #9333ea !important;
+  background-color: rgba(147, 51, 234, 0.1) !important;
+}
+
+/* Button variants with hover states */
+.btn-primary:hover,
+.btn-primary:focus {
+  outline: 2px solid #3b82f6 !important;
+  outline-offset: 2px;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  outline: 2px solid #6b7280 !important;
+  outline-offset: 2px;
+}
+
+.btn-success:hover,
+.btn-success:focus {
+  outline: 2px solid #16a34a !important;
+  outline-offset: 2px;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  outline: 2px solid #dc2626 !important;
+  outline-offset: 2px;
+}
+
+.btn-warning:hover,
+.btn-warning:focus {
+  outline: 2px solid #ea580c !important;
+  outline-offset: 2px;
+}
+
+/* Remove yellow from all hover states */
+*:hover,
+*:focus {
+  border-color: inherit !important;
+}
+
 .dark .bg-yellow-50,
 .dark .bg-yellow-100,
 .dark .bg-yellow-200,
