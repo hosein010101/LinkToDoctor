@@ -189,6 +189,126 @@ main > div > div {
   background-color: inherit !important;
 }
 
+/* Force white backgrounds for all buttons and interactive elements */
+button,
+.btn,
+[role="button"],
+.button,
+.bg-yellow-50,
+.bg-yellow-100,
+.bg-yellow-200,
+.bg-yellow-300,
+.bg-yellow-400,
+.bg-yellow-500,
+.bg-amber-50,
+.bg-amber-100,
+.bg-amber-200,
+.bg-amber-300,
+.bg-amber-400,
+.bg-amber-500,
+.bg-orange-50,
+.bg-orange-100,
+.bg-orange-200 {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+/* Ensure button text is visible on white background */
+button:not(.bg-blue-600):not(.bg-red-600):not(.bg-green-600):not(.bg-purple-600):not(.bg-gradient-primary):not(.bg-gradient-secondary),
+.btn:not(.bg-blue-600):not(.bg-red-600):not(.bg-green-600):not(.bg-purple-600):not(.bg-gradient-primary):not(.bg-gradient-secondary) {
+  color: #374151 !important;
+  border: 1px solid #d1d5db !important;
+}
+
+/* Dark mode overrides for buttons */
+.dark button:not(.bg-blue-600):not(.bg-red-600):not(.bg-green-600):not(.bg-purple-600):not(.bg-gradient-primary):not(.bg-gradient-secondary),
+.dark .btn:not(.bg-blue-600):not(.bg-red-600):not(.bg-green-600):not(.bg-purple-600):not(.bg-gradient-primary):not(.bg-gradient-secondary) {
+  background-color: rgb(17 24 39) !important;
+  color: rgb(243 244 246) !important;
+  border-color: rgb(55 65 81) !important;
+}
+
+/* Force white for all div containers */
+div:not(.bg-blue-600):not(.bg-red-600):not(.bg-green-600):not(.bg-purple-600):not(.bg-gradient-primary):not(.bg-gradient-secondary):not(.bg-gray-50):not(.bg-gray-100):not(.bg-gray-800):not(.bg-gray-900) {
+  background-color: #ffffff !important;
+}
+
+.dark div:not(.bg-blue-600):not(.bg-red-600):not(.bg-green-600):not(.bg-purple-600):not(.bg-gradient-primary):not(.bg-gradient-secondary):not(.bg-gray-50):not(.bg-gray-100):not(.bg-gray-800):not(.bg-gray-900) {
+  background-color: rgb(17 24 39) !important;
+}
+
+/* Override all yellow/amber backgrounds globally */
+*[class*="yellow"]:not(.text-yellow-600):not(.border-yellow-200) {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+*[class*="amber"]:not(.text-amber-600):not(.border-amber-200) {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+.dark *[class*="yellow"]:not(.text-yellow-600):not(.border-yellow-200) {
+  background-color: rgb(17 24 39) !important;
+}
+
+.dark *[class*="amber"]:not(.text-amber-600):not(.border-amber-200) {
+  background-color: rgb(17 24 39) !important;
+}
+
+/* Comprehensive override for all yellow/amber elements */
+.bg-yellow-50, .bg-yellow-100, .bg-yellow-200, .bg-yellow-300, .bg-yellow-400, .bg-yellow-500,
+.bg-amber-50, .bg-amber-100, .bg-amber-200, .bg-amber-300, .bg-amber-400, .bg-amber-500,
+.bg-orange-50, .bg-orange-100, .bg-orange-200, .bg-orange-300,
+.from-yellow-50, .from-yellow-100, .from-amber-50, .from-amber-100,
+.to-yellow-50, .to-yellow-100, .to-amber-50, .to-amber-100,
+.via-yellow-50, .via-yellow-100, .via-amber-50, .via-amber-100,
+.bg-gradient-to-r.from-yellow-50, .bg-gradient-to-br.from-yellow-50,
+.bg-gradient-to-r.from-amber-50, .bg-gradient-to-br.from-amber-50,
+.hover\:bg-yellow-50:hover, .hover\:bg-amber-50:hover,
+.focus\:bg-yellow-50:focus, .focus\:bg-amber-50:focus {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+/* Dark mode overrides */
+.dark .bg-yellow-50, .dark .bg-yellow-100, .dark .bg-yellow-200, .dark .bg-yellow-300, .dark .bg-yellow-400, .dark .bg-yellow-500,
+.dark .bg-amber-50, .dark .bg-amber-100, .dark .bg-amber-200, .dark .bg-amber-300, .dark .bg-amber-400, .dark .bg-amber-500,
+.dark .bg-orange-50, .dark .bg-orange-100, .dark .bg-orange-200, .dark .bg-orange-300,
+.dark .from-yellow-50, .dark .from-yellow-100, .dark .from-amber-50, .dark .from-amber-100,
+.dark .to-yellow-50, .dark .to-yellow-100, .dark .to-amber-50, .dark .to-amber-100,
+.dark .via-yellow-50, .dark .via-yellow-100, .dark .via-amber-50, .dark .via-amber-100,
+.dark .bg-gradient-to-r.from-yellow-50, .dark .bg-gradient-to-br.from-yellow-50,
+.dark .bg-gradient-to-r.from-amber-50, .dark .bg-gradient-to-br.from-amber-50,
+.dark .hover\:bg-yellow-50:hover, .dark .hover\:bg-amber-50:hover,
+.dark .focus\:bg-yellow-50:focus, .dark .focus\:bg-amber-50:focus {
+  background: rgb(17 24 39) !important;
+  background-color: rgb(17 24 39) !important;
+  background-image: none !important;
+}
+
+/* Force all containers to have white backgrounds */
+.space-y-6 > *, .space-y-8 > *, .space-y-4 > *,
+.grid > *, .flex > *, .w-full > *,
+section, article, aside, header, footer, nav,
+.container, .max-w-4xl, .max-w-6xl, .max-w-7xl {
+  background-color: inherit !important;
+}
+
+/* Override any remaining gradient backgrounds */
+[style*="background"], [style*="background-color"], [style*="background-image"] {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+.dark [style*="background"], .dark [style*="background-color"], .dark [style*="background-image"] {
+  background: rgb(17 24 39) !important;
+  background-color: rgb(17 24 39) !important;
+  background-image: none !important;
+}
+
 /* Improve dropdown visibility */
 [data-radix-popper-content-wrapper] {
   z-index: 100;
