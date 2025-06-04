@@ -1,0 +1,49 @@
+Build a modern, RTL (Right-to-Left) React component in JSX using Tailwind CSS for the "Patient History and Records" module in Farsi. This is part of the "سامانه LinkToDoctor" dashboard managed by Dr. Hossein Hadadi.
+
+Include the following UI sections with clean, white backgrounds (no yellow), visible borders, and modern layout:
+
+1. **Patient Overview Card**:
+   - Show name, national ID, gender, age, insurance status, last visit date, doctor in charge
+   - Include patient avatar and status icon (e.g., critical/stable)
+   - Use a responsive grid
+
+2. **Medical History Accordion**:
+   - Chronic diseases, allergies, current medications, hospitalizations, vaccinations
+   - Use collapsible sections or timeline style
+   - Support scroll for long content
+
+3. **Test History Table**:
+   - Columns: Date, Test Name, Result, Status, Action (view PDF or modal)
+   - Add date filter, test type dropdown, and export button
+   - Three-dot menu per row for actions
+
+4. **Visit Logs Table**:
+   - Columns: Date, Visit Type (clinic, home), Service Type, Doctor, Notes
+   - Responsive and searchable
+
+5. **Contact Information Box**:
+   - Phone number, address, emergency contact, email
+   - Include copy icons and edit button
+
+6. **Notes & Attachments Section**:
+   - Upload/view files: doctor notes, prescriptions, scan images
+   - Use tabs or list with PDF/image preview support
+
+7. **Sticky Footer Requirement**:
+   - Ensure dashboard footer is sticky and does not overlap content
+   - If content scrolls, footer remains fixed with safe margin
+
+8. **UI Design Notes**:
+   - All inputs and dropdowns must have visible outlines and white background
+   - Use cards and tabs with soft shadows and rounded corners
+   - Full RTL support for Farsi labels (you can include both Farsi UI and English dev labels as comments)
+   - Make the sidebar responsive; when collapsed, icons must remain readable
+   - Consistent spacing (p-4 or more), font weight medium or semibold
+
+Add any smart UI suggestions like:
+- Color-coded health status
+- Export to PDF/Excel for test records
+- “Add Note” button with modal
+- Action icons (edit/delete/view) per row
+
+Keep the code clean, well-structured, and production-ready. Use Tailwind best practices.
