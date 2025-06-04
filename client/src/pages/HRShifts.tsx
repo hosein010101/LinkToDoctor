@@ -340,7 +340,7 @@ export default function HRShifts() {
       case "checked-out":
         return <XCircle className="w-4 h-4 text-gray-600" />;
       case "on-break":
-        return <Coffee className="w-4 h-4 text-yellow-600" />;
+        return <Coffee className="w-4 h-4 text-orange-600" />;
       case "offline":
         return <AlertTriangle className="w-4 h-4 text-red-600" />;
       default:

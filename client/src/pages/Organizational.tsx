@@ -357,7 +357,7 @@ export default function Organizational() {
       },
       payment: {
         paid: { label: "پرداخت شده", color: "bg-green-100 text-green-800" },
-        partial: { label: "پرداخت جزئی", color: "bg-yellow-100 text-yellow-800" },
+        partial: { label: "پرداخت جزئی", color: "bg-orange-100 text-orange-800" },
         pending: { label: "در انتظار", color: "bg-blue-100 text-blue-800" },
         overdue: { label: "سررسید گذشته", color: "bg-red-100 text-red-800" }
       },

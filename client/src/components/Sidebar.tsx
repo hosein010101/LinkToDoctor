@@ -78,7 +78,7 @@ const navigationSections = [
     items: [
       { path: "/reports", icon: BarChart3, label: "گزارشات و تحلیل", module: "reports", color: "text-blue-700", bgColor: "bg-blue-50" },
       { path: "/exports", icon: Archive, label: "خروجی گزارشات (PDF/Excel)", module: "exports", color: "text-green-700", bgColor: "bg-green-50" },
-      { path: "/notifications", icon: Bell, label: "اعلان‌ها و لاگ سیستم", module: "notifications", color: "text-yellow-600", bgColor: "bg-yellow-50" },
+      { path: "/notifications", icon: Bell, label: "اعلان‌ها و لاگ سیستم", module: "notifications", color: "text-gray-600", bgColor: "bg-gray-50" },
     ]
   },
   {

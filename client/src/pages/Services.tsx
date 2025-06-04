@@ -45,7 +45,7 @@ export default function Services() {
       "هماتولوژی": { label: "هماتولوژی", class: "bg-red-100 text-red-800" },
       "بیوشیمی": { label: "بیوشیمی", class: "bg-blue-100 text-blue-800" },
       "میکروبیولوژی": { label: "میکروبیولوژی", class: "bg-green-100 text-green-800" },
-      "اورولوژی": { label: "اورولوژی", class: "bg-yellow-100 text-yellow-800" },
+      "اورولوژی": { label: "اورولوژی", class: "bg-orange-100 text-orange-800" },
       "سرولوژی": { label: "سرولوژی", class: "bg-purple-100 text-purple-800" },
       "هورمون": { label: "هورمون", class: "bg-pink-100 text-pink-800" },
     };
