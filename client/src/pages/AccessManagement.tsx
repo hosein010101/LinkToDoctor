@@ -807,7 +807,7 @@ export default function AccessManagement() {
                           placeholder="جستجو کاربر..."
                           value={searchTerm}
                           onChange={(e) => setSearchTerm(e.target.value)}
-                          className="w-64"
+                          className="w-64 search-input"
                         />
                       </div>
                       <Select value={filterRole} onValueChange={setFilterRole}>

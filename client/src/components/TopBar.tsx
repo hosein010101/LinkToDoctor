@@ -64,7 +64,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
               placeholder="جستجو در سامانه..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-80 pr-10 bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 focus:bg-white dark:focus:bg-gray-700"
+              className="w-80 pr-10 search-input"
             />
           </div>
         </div>

@@ -236,7 +236,7 @@ export default function Patients() {
                   placeholder="جستجو در بیماران..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="border-gray-300"
+                  className="search-input"
                 />
               </div>
               <div>

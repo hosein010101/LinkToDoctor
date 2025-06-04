@@ -527,7 +527,7 @@ export default function HRPerformance() {
                   placeholder="جستجو نام یا کد پرسنلی..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="border-gray-300"
+                  className="search-input"
                 />
               </div>
               <div>

@@ -498,7 +498,7 @@ export default function HRShifts() {
                   placeholder="جستجو نام یا کد پرسنلی..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-64"
+                  className="w-64 search-input"
                 />
                 <Select value={filterDepartment} onValueChange={setFilterDepartment}>
                   <SelectTrigger className="w-40">
