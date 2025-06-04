@@ -138,9 +138,9 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
                 
                 return (
                   <Link key={item.path} href={item.path}>
-                    <div className={`group flex items-center p-3 rounded-xl transition-all duration-200 hover-lift cursor-pointer ${
+                    <div className={`group flex items-center p-3 rounded-xl transition-all duration-200 hover-lift cursor-pointer sidebar-item ${
                       isActive 
-                        ? `${item.bgColor} ${item.color} shadow-md border border-current/20` 
+                        ? `${item.bgColor} ${item.color} shadow-md border border-current/20 active` 
                         : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
                     }`}>
                       <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
