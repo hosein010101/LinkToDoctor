@@ -196,7 +196,7 @@ export default function Dashboard() {
   return (
     <div className="space-y-8">
       {/* Welcome Header */}
-      <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-elegant p-8 border border-gray-100 dark:border-gray-700">
+      <div className="card-professional p-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-6 space-x-reverse">
             <div className="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-lg">
@@ -248,7 +248,7 @@ export default function Dashboard() {
         {quickStats.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <Card key={index} className="hover-lift bg-white dark:bg-gray-900 border-0 shadow-soft">
+            <Card key={index} className="card-professional hover:shadow-lg transition-all duration-200">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div className={`w-12 h-12 ${stat.bgColor} rounded-xl flex items-center justify-center`}>
@@ -282,7 +282,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Recent Activities */}
         <div className="lg:col-span-2">
-          <Card className="bg-white dark:bg-gray-900 border-0 shadow-elegant">
+          <Card className="card-professional">
             <CardContent className="p-0">
               <div className="p-6 border-b border-gray-100 dark:border-gray-700">
                 <div className="flex items-center justify-between">
@@ -331,7 +331,7 @@ export default function Dashboard() {
         {/* Right Sidebar */}
         <div className="space-y-6">
           {/* Top Performing Doctors */}
-          <Card className="bg-white dark:bg-gray-900 border-0 shadow-elegant">
+          <Card className="card-professional">
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center space-x-2 space-x-reverse">
                 <Star className="w-5 h-5 text-yellow-600" />
