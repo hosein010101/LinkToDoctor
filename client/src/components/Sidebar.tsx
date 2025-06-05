@@ -203,7 +203,7 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
         <div className="flex-1 overflow-y-auto py-4">
           <nav className="space-y-2 px-2">
             {navSections.map((section, sectionIndex) => (
-              <div key={sectionIndex} className="space-y-1">
+              <div key={sectionIndex} className="space-y-1 mb-4">
                 {/* Section Header */}
                 {!collapsed && (
                   <motion.button
@@ -211,10 +211,10 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
                     initial="collapsed"
                     animate={collapsed ? "collapsed" : "expanded"}
                     onClick={() => toggleSection(sectionIndex)}
-                    className="w-full flex items-center justify-between p-2 text-xs font-semibold text-gray-500 hover:text-gray-700 transition-colors"
+                    className="w-full flex items-center justify-between p-3 text-sm font-bold text-gray-700 hover:text-gray-900 transition-colors"
                   >
                     <div className="flex items-center">
-                      <section.icon className="w-4 h-4 ml-2" style={{color: section.color}} />
+                      <section.icon className="w-5 h-5 ml-2" style={{color: section.color}} />
                       <span className="sidebar-section-header" data-section={section.title}>{section.title}</span>
                     </div>
                     <ChevronDown
@@ -233,7 +233,7 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
                       animate={collapsed ? {} : { height: "auto", opacity: 1 }}
                       exit={collapsed ? {} : { height: 0, opacity: 0 }}
                       transition={{ duration: 0.2 }}
-                      className="space-y-1"
+                      className="space-y-1 mt-2 pl-6 border-r-2 border-gray-100"
                     >
                       {section.items.map((item, itemIndex) => {
                         const Icon = item.icon;
