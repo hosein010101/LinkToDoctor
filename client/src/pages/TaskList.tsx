@@ -109,15 +109,15 @@ export default function TaskList() {
   const getPriorityColor = (priority: Task["priority"]) => {
     switch (priority) {
       case "low":
-        return "bg-green-100 text-green-800";
+        return "bg-green-100 text-green-900 border border-green-200";
       case "medium":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-100 text-blue-900 border border-blue-200";
       case "high":
-        return "bg-orange-100 text-orange-800";
+        return "bg-orange-100 text-orange-900 border border-orange-200";
       case "urgent":
-        return "bg-red-100 text-red-800";
+        return "bg-red-100 text-red-900 border border-red-200";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-100 text-gray-900 border border-gray-200";
     }
   };
 
