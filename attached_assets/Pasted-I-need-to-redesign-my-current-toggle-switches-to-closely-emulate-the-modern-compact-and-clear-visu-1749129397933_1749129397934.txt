@@ -1,0 +1,36 @@
+I need to redesign my current toggle switches to closely emulate the modern, compact, and clear visual style of iOS toggle switches.
+My current toggles (as seen in an image I can describe as `current_state.PNG`) are too large, and their 'off' state is not visually distinct.
+The target style is similar to the toggles shown in an image I can describe as `desired_style.PNG`, which features a green 'on' state and a generally compact, pill-shaped design typical of iOS.
+
+Please provide the complete HTML structure and Tailwind CSS classes to create these iOS-style toggle switches. Be very explicit with the visual details as I've had trouble conveying this specific style to AI assistants previously.
+
+**Key Visual Requirements for the iOS-style Toggle Switch:**
+
+1.  **Overall Shape and Structure:**
+    * The **track** (background of the switch) must be pill-shaped (a rectangle with fully rounded ends).
+    * The **handle** (the circular part that moves) must be perfectly circular and appear to sit slightly *within* the track, with a small, consistent visual inset or padding from the track's edges when in the 'on' or 'off' position.
+    * The handle should have a very subtle drop shadow to give it a slight 3D/raised appearance.
+
+2.  **Sizing (Aim for a compact iOS feel – standard iOS toggles are often 51px wide and 31px high for the track, with a 27px diameter handle):**
+    * **Track:**
+        * Height: Approximately 31px (e.g., Tailwind `h-[31px]` or a close `h-8` which is 32px).
+        * Width: Approximately 51px (e.g., Tailwind `w-[51px]` or a close equivalent like `w-12` which is 48px, or `w-14` which is 56px, adjust for best proportion to height).
+    * **Handle:**
+        * Diameter: Approximately 27px (e.g., `h-[27px] w-[27px]` or a close `h-7 w-7` which is 28px). It must be visually smaller than the track's height.
+        * Positioning: When 'off', it should be on the left (for LTR). When 'on', it should be on the right (for LTR). There should be a small, equal margin (e.g., 2px) between the handle and the inside edge of the track at either end.
+
+3.  **'On' State Styling (referencing the green toggle in `desired_style.PNG`):**
+    * **Track Color:** A solid, vibrant green (e.g., Tailwind `bg-green-500` or `bg-emerald-500`, similar to iOS). No visible border on the track.
+    * **Handle Color:** Solid white (e.g., `bg-white`).
+
+4.  **'Off' State Styling:**
+    * **Track Color:** A light, neutral gray (standard for iOS 'off' state, e.g., Tailwind `bg-gray-200`, `bg-slate-200`, or `bg-neutral-200`). This is crucial for visibility against a light page background. (Please use light gray for the track, even if `desired_style.PNG` shows a red toggle, as red is not the standard 'off' state).
+    * **Handle Color:** Solid white (e.g., `bg-white`).
+    * Track Border (Optional but common for iOS off-state): A very subtle, slightly darker gray border on the track (e.g., `border border-gray-300` or `border border-slate-300`) can enhance definition.
+
+5.  **Animation and Transitions:**
+    * The handle's movement from left to right (and vice-versa) should be smooth (e.g., using Tailwind's `transition transform duration-200 ease-in-out` or similar).
+    * The change in the track's background color (between gray for 'off' and green for 'on') should also be a smooth transition (e.g., `transition-colors duration-200 ease-in-out`).
+
+Please provide a self-contained HTML and Tailwind CSS code example for a single toggle switch that accurately implements all these visual details. This style needs to be applied to multiple toggles on a settings page (as seen in `current_state.PNG`).
+Ensure the solution is robust and the Tailwind classes clearly define the described iOS aesthetics, especially the sizing, internal padding/margins for the handle relative to the track, colors, and handle shadow.
