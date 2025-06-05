@@ -603,10 +603,12 @@ p {
   line-height: 1.6 !important;
 }
 
-/* Button text coloring based on medical context */
-.Button {
+/* COMPREHENSIVE BUTTON STYLING - Fix Invisible/White Buttons */
+.Button, button {
   font-weight: 500 !important;
   transition: all 0.2s ease !important;
+  min-height: 36px !important;
+  border-radius: 8px !important;
 }
 
 /* Primary action buttons */
@@ -614,15 +616,66 @@ p {
 .Button.bg-medical-blue,
 .Button.bg-blue-600 {
   color: #ffffff !important;
+  background-color: #3b82f6 !important;
 }
 
-/* Secondary buttons */
-.Button[variant="outline"] {
+/* Secondary/Outline buttons - Fix invisible state */
+.Button[variant="outline"], 
+button[data-variant="outline"] {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
   color: #475569 !important;
 }
 
-.Button[variant="outline"]:hover {
+.Button[variant="outline"]:hover,
+button[data-variant="outline"]:hover {
+  background-color: #e2e8f0 !important;
   color: #1e293b !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Ghost buttons - Make them visible by default */
+.Button[variant="ghost"],
+button[data-variant="ghost"] {
+  background-color: #f1f5f9 !important;
+  color: #64748b !important;
+  border: 1px solid transparent !important;
+}
+
+.Button[variant="ghost"]:hover,
+button[data-variant="ghost"]:hover {
+  background-color: #e2e8f0 !important;
+  color: #475569 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Default button styling for undefined variants */
+.Button:not([variant]),
+button:not([data-variant]) {
+  background-color: #f8fafc !important;
+  color: #475569 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.Button:not([variant]):hover,
+button:not([data-variant]):hover {
+  background-color: #e2e8f0 !important;
+  color: #1e293b !important;
+}
+
+/* Link-style buttons */
+.Button[variant="link"],
+button[data-variant="link"] {
+  background-color: transparent !important;
+  color: #3b82f6 !important;
+  text-decoration: underline !important;
+  border: none !important;
+}
+
+.Button[variant="link"]:hover,
+button[data-variant="link"]:hover {
+  color: #2563eb !important;
+  background-color: #eff6ff !important;
 }
 
 /* Form labels and inputs - Modern styling */
@@ -637,6 +690,7 @@ p {
   color: #1f2937 !important;
   font-weight: 400 !important;
   border-color: #d1d5db !important;
+  background-color: #ffffff !important;
 }
 
 .Input:focus, input:focus {
@@ -647,6 +701,80 @@ p {
 .Input::placeholder, input::placeholder {
   color: #9ca3af !important;
   font-weight: 400 !important;
+}
+
+/* COMPREHENSIVE TEXT VISIBILITY FIXES */
+/* Fix white/invisible text elements across dashboard */
+.text-white {
+  color: #1f2937 !important;
+}
+
+.text-transparent {
+  color: #475569 !important;
+}
+
+/* Badge and chip styling - make them visible */
+.Badge, .badge {
+  background-color: #e2e8f0 !important;
+  color: #475569 !important;
+  border: 1px solid #cbd5e1 !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+.Badge[variant="secondary"], .badge[data-variant="secondary"] {
+  background-color: #f1f5f9 !important;
+  color: #64748b !important;
+}
+
+.Badge[variant="destructive"], .badge[data-variant="destructive"] {
+  background-color: #fef2f2 !important;
+  color: #dc2626 !important;
+  border-color: #fecaca !important;
+}
+
+.Badge[variant="outline"], .badge[data-variant="outline"] {
+  background-color: transparent !important;
+  color: #475569 !important;
+  border: 1px solid #d1d5db !important;
+}
+
+/* Link styling - make links visible */
+a, .link {
+  color: #3b82f6 !important;
+  text-decoration: none !important;
+}
+
+a:hover, .link:hover {
+  color: #2563eb !important;
+  text-decoration: underline !important;
+}
+
+/* Card content styling */
+.Card, .card {
+  background-color: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  color: #1f2937 !important;
+}
+
+/* Dropdown and menu styling */
+.DropdownMenuContent, .dropdown-content {
+  background-color: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  color: #1f2937 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.DropdownMenuItem, .dropdown-item {
+  color: #475569 !important;
+  padding: 8px 12px !important;
+}
+
+.DropdownMenuItem:hover, .dropdown-item:hover {
+  background-color: #f3f4f6 !important;
+  color: #1f2937 !important;
 }
 
 /* Footer styling */
