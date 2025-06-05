@@ -74,17 +74,30 @@ body {
   background: hsl(var(--background));
 }
 
-/* Remove all yellow backgrounds and borders, replace with appropriate colors */
+/* Comprehensive removal of all yellow/amber colors - replace with dark/gray colors */
 .bg-yellow-50,
 .bg-yellow-100,
 .bg-yellow-200,
 .bg-yellow-300,
 .bg-yellow-400,
+.bg-yellow-500,
+.bg-yellow-600,
+.bg-yellow-700,
+.bg-yellow-800,
+.bg-yellow-900,
 .bg-amber-50,
 .bg-amber-100,
 .bg-amber-200,
+.bg-amber-300,
+.bg-amber-400,
+.bg-amber-500,
+.bg-amber-600,
+.bg-amber-700,
+.bg-amber-800,
+.bg-amber-900,
 .bg-orange-50,
 .bg-orange-100,
+.bg-orange-200,
 [class*="bg-yellow"],
 [class*="bg-amber"],
 [class*="from-yellow"],
@@ -96,37 +109,53 @@ body {
 .bg-gradient-to-br.from-yellow-50,
 .bg-gradient-to-br.from-amber-50,
 .bg-gradient-to-l.from-yellow-50,
-.bg-gradient-to-l.from-amber-50 {
-  background-color: #ffffff !important;
+.bg-gradient-to-l.from-amber-50,
+.bg-gradient-to-br.from-yellow-600,
+.bg-gradient-to-br.from-amber-600,
+.bg-gradient-to-orange-600 {
+  background-color: #1e1e1e !important;
 }
 
-/* Fix yellow borders and replace with gray/black */
-.border-yellow-50,
-.border-yellow-100,
-.border-yellow-200,
-.border-yellow-300,
-.border-yellow-400,
-.border-yellow-500,
-.border-amber-50,
-.border-amber-100,
-.border-amber-200,
-.border-amber-300,
-.border-amber-400,
-.border-amber-500,
-[class*="border-yellow"],
-[class*="border-amber"] {
-  border-color: #374151 !important;
+/* Comprehensive yellow/amber border removal */
+.border-yellow-50, .border-yellow-100, .border-yellow-200, .border-yellow-300, .border-yellow-400,
+.border-yellow-500, .border-yellow-600, .border-yellow-700, .border-yellow-800, .border-yellow-900,
+.border-amber-50, .border-amber-100, .border-amber-200, .border-amber-300, .border-amber-400,
+.border-amber-500, .border-amber-600, .border-amber-700, .border-amber-800, .border-amber-900,
+.border-orange-50, .border-orange-100, .border-orange-200, .border-orange-300, .border-orange-400,
+[class*="border-yellow"], [class*="border-amber"], [class*="border-orange"],
+.border-l-yellow-500, .border-r-yellow-500, .border-t-yellow-500, .border-b-yellow-500,
+.border-l-amber-500, .border-r-amber-500, .border-t-amber-500, .border-b-amber-500 {
+  border-color: #374151 !important; /* gray-700 */
 }
 
-/* Fix yellow text colors */
-.text-yellow-600,
-.text-amber-600 {
-  color: #374151 !important;
+/* Comprehensive yellow/amber text color removal */
+.text-yellow-50, .text-yellow-100, .text-yellow-200, .text-yellow-300, .text-yellow-400,
+.text-yellow-500, .text-yellow-600, .text-yellow-700, .text-yellow-800, .text-yellow-900,
+.text-amber-50, .text-amber-100, .text-amber-200, .text-amber-300, .text-amber-400,
+.text-amber-500, .text-amber-600, .text-amber-700, .text-amber-800, .text-amber-900,
+.text-orange-50, .text-orange-100, .text-orange-200, .text-orange-300, .text-orange-400,
+[class*="text-yellow"], [class*="text-amber"], [class*="text-orange"] {
+  color: #374151 !important; /* gray-700 */
 }
 
-/* Fix yellow progress bars */
-.bg-yellow-500 {
-  background-color: #6b7280 !important;
+/* Fix hover and focus states */
+.hover\:bg-yellow-50:hover, .hover\:bg-yellow-100:hover, .hover\:bg-amber-50:hover, .hover\:bg-amber-100:hover,
+.focus\:bg-yellow-50:focus, .focus\:bg-yellow-100:focus, .focus\:bg-amber-50:focus, .focus\:bg-amber-100:focus,
+.active\:bg-yellow-50:active, .active\:bg-yellow-100:active, .active\:bg-amber-50:active, .active\:bg-amber-100:active {
+  background-color: #f3f4f6 !important; /* gray-100 */
+}
+
+/* Ring colors - focus states */
+.ring-yellow-500, .ring-amber-500, .ring-orange-500,
+.focus\:ring-yellow-500:focus, .focus\:ring-amber-500:focus, .focus\:ring-orange-500:focus {
+  --tw-ring-color: #6b7280 !important; /* gray-500 */
+}
+
+/* Component specific overrides */
+.bg-gradient-to-r.from-yellow-50.to-orange-50,
+.bg-gradient-to-l.from-yellow-50.to-orange-50,
+.bg-gradient-to-br.from-yellow-50.to-orange-50 {
+  background: linear-gradient(to right, #f9fafb, #f3f4f6) !important; /* gray gradients */
 }
 
 /* Consistent input styling - remove all yellow backgrounds */
@@ -284,6 +313,74 @@ body button[role="combobox"],
 body [data-radix-select-trigger] {
   background-color: #ffffff !important;
   color: #1f2937 !important;
+}
+
+/* Scrollbar styling - remove any yellow tints */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9 !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #64748b !important;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569 !important;
+}
+
+/* Universal yellow color override for any remaining elements */
+*[style*="background-color: yellow"],
+*[style*="background-color: #FFD700"],
+*[style*="background-color: #FFEB3B"],
+*[style*="background-color: #FFC107"],
+*[style*="background-color: #F59E0B"],
+*[style*="background: yellow"],
+*[style*="background: #FFD700"],
+*[style*="background: #FFEB3B"],
+*[style*="background: #FFC107"],
+*[style*="background: #F59E0B"],
+*[style*="border-color: yellow"],
+*[style*="border-color: #FFD700"],
+*[style*="border-color: #FFEB3B"],
+*[style*="border-color: #FFC107"],
+*[style*="border-color: #F59E0B"] {
+  background-color: #1e1e1e !important;
+  border-color: #374151 !important;
+}
+
+/* Additional comprehensive overrides for all yellow/amber variations */
+.bg-yellow-50, .bg-yellow-100, .bg-yellow-200, .bg-yellow-300, .bg-yellow-400, .bg-yellow-500, .bg-yellow-600,
+.bg-amber-50, .bg-amber-100, .bg-amber-200, .bg-amber-300, .bg-amber-400, .bg-amber-500, .bg-amber-600,
+.bg-orange-50, .bg-orange-100, .bg-orange-200, .bg-orange-300, .bg-orange-400,
+.hover\:bg-yellow-50:hover, .hover\:bg-amber-50:hover, .hover\:bg-orange-50:hover,
+.group-hover\:bg-yellow-50:group-hover, .group-hover\:bg-amber-50:group-hover,
+.focus\:bg-yellow-50:focus, .focus\:bg-amber-50:focus,
+.active\:bg-yellow-50:active, .active\:bg-amber-50:active,
+[data-state="active"].bg-yellow-50, [data-state="active"].bg-amber-50,
+[aria-selected="true"].bg-yellow-50, [aria-selected="true"].bg-amber-50 {
+  background-color: #1e1e1e !important;
+  background-image: none !important;
+}
+
+/* Table, card, and component specific overrides */
+table .bg-yellow-50, table .bg-amber-50,
+.card .bg-yellow-50, .card .bg-amber-50,
+.modal .bg-yellow-50, .modal .bg-amber-50,
+.dropdown .bg-yellow-50, .dropdown .bg-amber-50,
+.popover .bg-yellow-50, .popover .bg-amber-50,
+.tooltip .bg-yellow-50, .tooltip .bg-amber-50 {
+  background-color: #f8fafc !important;
+}
+
+/* Force gray scrollbars globally */
+* {
+  scrollbar-color: #64748b #f1f5f9 !important;
 }
 
 /* Footer styling */
