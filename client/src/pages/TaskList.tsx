@@ -111,7 +111,7 @@ export default function TaskList() {
   const getPriorityBg = (priority: Task["priority"]) => {
     switch (priority) {
       case "low":
-        return "bg-amber-50 border border-amber-200";
+        return "bg-emerald-50 border border-emerald-200";
       case "medium":
         return "bg-emerald-50 border border-emerald-200";
       case "high":
@@ -132,7 +132,7 @@ export default function TaskList() {
       case "medium":
         return <Clock className="w-3 h-3" style={{color: '#10B981'}} />;
       case "low":
-        return <ArrowDown className="w-3 h-3" style={{color: '#F59E0B'}} />;
+        return <ArrowDown className="w-3 h-3" style={{color: '#059669'}} />;
       default:
         return <Clock className="w-3 h-3" style={{color: '#6B7280'}} />;
     }
