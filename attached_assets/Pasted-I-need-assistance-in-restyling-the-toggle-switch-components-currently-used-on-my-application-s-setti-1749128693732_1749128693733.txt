@@ -1,0 +1,23 @@
+I need assistance in restyling the toggle switch components currently used on my application's settings page (as depicted in the provided image). These toggles are for various options such as 'System Sounds', 'Email Notifications', 'SMS Notifications', etc..
+
+The current toggle switches have two primary visual issues:
+1.  **Size:** They appear too large in proportion to the surrounding UI elements and text.
+2.  **'Off' State Visibility:** The 'off' state is not clearly distinguishable. It seems to use a white or very light-colored track with a white handle, which lacks contrast against the page's light background, making it difficult to see if the toggle is off.
+
+I would like to implement the following changes using Tailwind CSS to achieve a more modern and user-friendly appearance:
+
+* **Reduce Overall Size:**
+    * The toggle track (the background element of the switch) should be made more compact. I'm aiming for a height of approximately 24px (e.g., Tailwind class `h-6`) and a width of about 44px (e.g., Tailwind class `w-11`).
+    * The circular handle (the draggable part) should be resized proportionally to fit the new track size (e.g., to `h-5 w-5` or 20x20px).
+
+* **Enhance 'Off' State Clarity:**
+    * For the 'off' state, the track should have a distinct light gray background color (e.g., Tailwind `bg-gray-200`, `bg-gray-300`, or `bg-slate-300`).
+    * The handle should remain white (`bg-white`) in both 'on' and 'off' states to maintain good contrast with the track.
+    * The 'on' state can retain its current green background color (e.g., `bg-green-500` or a similar shade), with a white handle.
+
+Could you please provide:
+1.  A clear example of the HTML structure for a single, improved toggle switch.
+2.  The specific Tailwind CSS classes that should be applied to the track and the handle elements to achieve the desired smaller size and the more distinct 'off' state (light gray track, white handle).
+3.  Any tips on ensuring these styles are applied consistently across all toggle instances on the settings page.
+
+The goal is to have smaller, more refined toggle switches with a clearly visible and distinguishable 'off' state, improving the overall aesthetics and usability of the settings page.
