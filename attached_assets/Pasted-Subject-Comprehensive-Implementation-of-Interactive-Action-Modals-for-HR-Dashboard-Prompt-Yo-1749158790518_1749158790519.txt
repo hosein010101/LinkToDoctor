@@ -1,0 +1,69 @@
+Subject: Comprehensive Implementation of Interactive Action Modals for HR Dashboard
+
+Prompt:
+
+You are an expert frontend developer. Your task is to implement the full functionality for the three action buttons (View, Edit, Manage Documents) in the "اقدامات" column of the employee list, based on the provided screenshot (`hr3.PNG`).
+
+The implementation should be professional, modern, and user-friendly, primarily using modal windows to keep the user on the main page. The entire UI must be in Persian.
+
+**I. Core Objective:**
+Create interactive modal windows for viewing, editing, and managing employee data, triggered by the action buttons in each row of the employee table. The solution should be a frontend prototype; no backend connection is required.
+
+**II. Recommended "Gold Standard" Implementation (Tabbed Modal Approach):**
+This is the preferred approach for the most professional and integrated user experience. It combines "View" and "Document Management" into a single, powerful modal.
+
+* **1. Implement a single, versatile modal component.** This modal will have a tabbed interface.
+* **2. When the "مشاهده پروفایل" (Eye icon) is clicked:**
+    * Open the modal.
+    * The "پروفایل کارمند" (Employee Profile) tab should be active.
+    * This tab displays the employee's information in a **read-only** format, grouped into sections:
+        * **اطلاعات پایه:** نام کامل, کد پرسنلی, کد ملی, واحد سازمانی, سمت.
+        * **اطلاعات تماس:** شماره تلفن, ایمیل, آدرس.
+        * **اطلاعات قرارداد:** نوع قرارداد, تاریخ شروع, تاریخ پایان.
+* **3. When the "مدیریت مدارک" (Document icon) is clicked:**
+    * Open the same modal.
+    * The "مدیریت مدارک" (Document Management) tab should be active.
+    * This tab should contain:
+        * A list of dummy documents (e.g., "قرارداد کاری.pdf", "اسکن شناسنامه.jpg").
+        * Next to each document, include "دانلود" (Download) and "حذف" (Delete) icons.
+        * An "آپلود مدرک جدید" (Upload New Document) button or a drag-and-drop area.
+* **4. When the "ویرایش اطلاعات" (Pencil icon) is clicked:**
+    * Open a **separate modal** specifically for editing.
+    * This modal contains a form with the employee's information pre-filled in **editable fields** (inputs, dropdowns, etc.).
+    * The bottom of the modal must have two buttons:
+        * **"ذخیره تغییرات"** (Saves the data - for this prototype, it can just close the modal and log the data to the console).
+        * **"انصراف"** (Closes the modal without saving).
+
+---
+
+**III. Alternative (Simpler) Implementation (Separate Modals):**
+If the tabbed modal approach is too complex, implement three distinct modals.
+
+* **Modal 1 (View Profile - Eye Icon):** A simple, read-only display of employee data with a "Close" button.
+* **Modal 2 (Edit Profile - Pencil Icon):** A form with editable fields and "Save"/"Cancel" buttons.
+* **Modal 3 (Manage Documents - Document Icon):** A modal with a file list (with download/delete buttons) and an upload section.
+
+---
+
+**IV. Technical and UX Requirements:**
+
+* **Dynamic Data Population:** The modals must be populated dynamically with data corresponding to the specific employee row that was clicked. Use JavaScript to get the data from the clicked row (you can use `data-*` attributes on the row element) and inject it into the modal content.
+* **Modal Structure (HTML):** The HTML for all modals should be pre-written but hidden by default (e.g., with `display: none;`).
+* **Modal Logic (JavaScript):**
+    * Write JavaScript event listeners for all action buttons.
+    * Create functions to `openModal()` and `closeModal()`.
+    * The `openModal()` function should take employee data as an argument to populate the modal's content.
+    * For the "Save" button in the edit modal, log the form data to the console.
+    * For the "Upload" functionality, simply opening the file dialog is sufficient.
+* **Styling (CSS):**
+    * The modals must be styled professionally, matching the existing dashboard's aesthetic.
+    * They should appear as an overlay on top of the main content (e.g., with a semi-transparent dark background).
+    * Ensure they are responsive and look good on different screen sizes.
+* **Language:** All text inside the modals, including titles, labels, and buttons, must be in professional Persian as specified above.
+
+**V. Deliverables:**
+* **HTML:** Updated HTML file including the structure for the hidden modal(s).
+* **CSS:** Updated CSS file with styling for the modals, overlay, tabs, and internal components.
+* **JavaScript:** A JavaScript file containing all the logic for event handling, showing/hiding modals, and populating them with data.
+
+Please proceed with the **"Gold Standard" Tabbed Modal Approach** as the primary goal, falling back to the simpler "Separate Modals" approach only if necessary.

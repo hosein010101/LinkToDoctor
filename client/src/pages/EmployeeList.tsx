@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Modal } from "@/components/ui/modal";
 import { 
   Users, 
   UserPlus, 
@@ -15,7 +16,10 @@ import {
   Search,
   Plus,
   TrendingUp,
-  Building2
+  Building2,
+  Download,
+  Trash2,
+  Upload
 } from "lucide-react";
 import {
   Chart as ChartJS,
@@ -43,16 +47,37 @@ interface Employee {
   id: number;
   fullName: string;
   employeeId: string;
+  nationalId: string;
   department: string;
   position: string;
   status: "فعال" | "در مرخصی" | "تعلیق";
   hireDate: string;
+  phone: string;
+  email: string;
+  address: string;
+  contractType: string;
+  contractStartDate: string;
+  contractEndDate: string;
+}
+
+interface Document {
+  id: number;
+  name: string;
+  type: string;
+  uploadDate: string;
 }
 
 export default function EmployeeList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [departmentFilter, setDepartmentFilter] = useState("همه");
   const [statusFilter, setStatusFilter] = useState("همه");
+  
+  // Modal states
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+  const [activeTab, setActiveTab] = useState("profile");
+  const [editFormData, setEditFormData] = useState<Employee | null>(null);
 
   // KPI Data
   const kpis = [
@@ -92,64 +117,113 @@ export default function EmployeeList() {
       id: 1,
       fullName: "دکتر علی احمدی",
       employeeId: "EMP001",
+      nationalId: "0012345678",
       department: "بخش آزمایشگاه",
       position: "مدیر آزمایشگاه",
       status: "فعال",
-      hireDate: "۱۴۰۰/۰۳/۱۵"
+      hireDate: "۱۴۰۰/۰۳/۱۵",
+      phone: "۰۹۱۲۳۴۵۶۷۸۹",
+      email: "ali.ahmadi@linktodoctor.ir",
+      address: "تهران، خیابان ولیعصر، پلاک ۱۲۳",
+      contractType: "تمام وقت",
+      contractStartDate: "۱۴۰۰/۰۳/۱۵",
+      contractEndDate: "۱۴۰۵/۰۳/۱۵"
     },
     {
       id: 2,
       fullName: "فاطمه محمدی",
       employeeId: "EMP002",
+      nationalId: "0023456789",
       department: "نمونه‌گیری",
       position: "تکنسین آزمایشگاه",
       status: "فعال",
-      hireDate: "۱۴۰۱/۰۷/۱۰"
+      hireDate: "۱۴۰۱/۰۷/۱۰",
+      phone: "۰۹۳۵۱۲۳۴۵۶۷",
+      email: "fatemeh.mohammadi@linktodoctor.ir",
+      address: "مشهد، خیابان امام رضا، پلاک ۴۵",
+      contractType: "تمام وقت",
+      contractStartDate: "۱۴۰۱/۰۷/۱۰",
+      contractEndDate: "۱۴۰۶/۰۷/۱۰"
     },
     {
       id: 3,
       fullName: "حسین رضایی",
       employeeId: "EMP003",
+      nationalId: "0034567890",
       department: "اداری",
       position: "کارشناس منابع انسانی",
       status: "در مرخصی",
-      hireDate: "۱۳۹۹/۱۱/۲۲"
+      hireDate: "۱۳۹۹/۱۱/۲۲",
+      phone: "۰۹۱۷۸۹۰۱۲۳۴",
+      email: "hossein.rezaei@linktodoctor.ir",
+      address: "شیراز، خیابان زند، پلاک ۶۷",
+      contractType: "تمام وقت",
+      contractStartDate: "۱۳۹۹/۱۱/۲۲",
+      contractEndDate: "۱۴۰۴/۱۱/۲۲"
     },
     {
       id: 4,
       fullName: "مریم کریمی",
       employeeId: "EMP004",
+      nationalId: "0045678901",
       department: "امور مالی",
       position: "حسابدار",
       status: "فعال",
-      hireDate: "۱۴۰۲/۰۲/۰۸"
+      hireDate: "۱۴۰۲/۰۲/۰۸",
+      phone: "۰۹۱۲۲۳۴۵۶۷۸",
+      email: "maryam.karimi@linktodoctor.ir",
+      address: "اصفهان، خیابان چهارباغ، پلاک ۸۹",
+      contractType: "پاره وقت",
+      contractStartDate: "۱۴۰۲/۰۲/۰۸",
+      contractEndDate: "۱۴۰۵/۰۲/۰۸"
     },
     {
       id: 5,
       fullName: "محمد حسینی",
       employeeId: "EMP005",
+      nationalId: "0056789012",
       department: "پذیرش",
       position: "کارشناس پذیرش",
       status: "فعال",
-      hireDate: "۱۴۰۱/۰۹/۱۲"
+      hireDate: "۱۴۰۱/۰۹/۱۲",
+      phone: "۰۹۳۳۴۵۶۷۸۹۰",
+      email: "mohammad.hosseini@linktodoctor.ir",
+      address: "تبریز، خیابان شهریور، پلاک ۱۰۱",
+      contractType: "تمام وقت",
+      contractStartDate: "۱۴۰۱/۰۹/۱۲",
+      contractEndDate: "۱۴۰۶/۰۹/۱۲"
     },
     {
       id: 6,
       fullName: "زهرا نوری",
       employeeId: "EMP006",
+      nationalId: "0067890123",
       department: "بخش آزمایشگاه",
       position: "تکنسین ارشد",
       status: "تعلیق",
-      hireDate: "۱۳۹۸/۰۵/۲۰"
+      hireDate: "۱۳۹۸/۰۵/۲۰",
+      phone: "۰۹۱۵۶۷۸۹۰۱۲",
+      email: "zahra.noori@linktodoctor.ir",
+      address: "کرمان، خیابان جمهوری، پلاک ۱۲۳",
+      contractType: "تمام وقت",
+      contractStartDate: "۱۳۹۸/۰۵/۲۰",
+      contractEndDate: "۱۴۰۳/۰۵/۲۰"
     },
     {
       id: 7,
       fullName: "رضا موسوی",
       employeeId: "EMP007",
+      nationalId: "0078901234",
       department: "فناوری اطلاعات",
       position: "برنامه‌نویس",
       status: "فعال",
-      hireDate: "۱۴۰۲/۰۱/۱۵"
+      hireDate: "۱۴۰۲/۰۱/۱۵",
+      phone: "۰۹۱۹۰۱۲۳۴۵۶",
+      email: "reza.mousavi@linktodoctor.ir",
+      address: "قم، خیابان معلم، پلاک ۱۴۵",
+      contractType: "تمام وقت",
+      contractStartDate: "۱۴۰۲/۰۱/۱۵",
+      contractEndDate: "۱۴۰۷/۰۱/۱۵"
     }
   ];
 
@@ -177,10 +251,48 @@ export default function EmployeeList() {
   };
 
   const handleAction = (action: string, employee: Employee) => {
+    setSelectedEmployee(employee);
+    
+    if (action === 'view') {
+      setActiveTab("profile");
+      setIsViewModalOpen(true);
+    } else if (action === 'edit') {
+      setEditFormData({ ...employee });
+      setIsEditModalOpen(true);
+    } else if (action === 'document') {
+      setActiveTab("documents");
+      setIsViewModalOpen(true);
+    }
+    
     const actionName = action === 'view' ? 'مشاهده پروفایل' : 
                       action === 'edit' ? 'ویرایش اطلاعات' : 'مدیریت مدارک';
     console.log(`اقدام: ${actionName}، کد پرسنلی: ${employee.employeeId}، نام: ${employee.fullName}`);
   };
+
+  const handleSaveEdit = () => {
+    if (editFormData) {
+      console.log('ذخیره تغییرات:', editFormData);
+      setIsEditModalOpen(false);
+      setEditFormData(null);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditModalOpen(false);
+    setEditFormData(null);
+  };
+
+  const handleDocumentAction = (action: string, documentName: string) => {
+    console.log(`${action}: ${documentName}`);
+  };
+
+  // Sample documents data
+  const sampleDocuments: Document[] = [
+    { id: 1, name: "قرارداد کاری.pdf", type: "pdf", uploadDate: "۱۴۰۲/۰۱/۱۵" },
+    { id: 2, name: "اسکن شناسنامه.jpg", type: "image", uploadDate: "۱۴۰۲/۰۱/۱۶" },
+    { id: 3, name: "گواهی تحصیلات.pdf", type: "pdf", uploadDate: "۱۴۰۲/۰۱/۱۷" },
+    { id: 4, name: "معافیت نظام وظیفه.pdf", type: "pdf", uploadDate: "۱۴۰۲/۰۱/۱۸" }
+  ];
 
   // Chart Data
   const departmentData = {
@@ -439,6 +551,289 @@ export default function EmployeeList() {
           </CardContent>
         </Card>
       </div>
+
+      {/* View/Document Modal with Tabs */}
+      <Modal
+        isOpen={isViewModalOpen}
+        onClose={() => setIsViewModalOpen(false)}
+        title={selectedEmployee ? `${selectedEmployee.fullName} (${selectedEmployee.employeeId})` : ""}
+        size="xl"
+      >
+        <div className="p-6" dir="rtl">
+          {/* Tab Navigation */}
+          <div className="flex border-b border-gray-200 mb-6">
+            <button
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === "profile"
+                  ? "border-blue-500 text-blue-600"
+                  : "border-transparent text-gray-500 hover:text-gray-700"
+              }`}
+              onClick={() => setActiveTab("profile")}
+            >
+              پروفایل کارمند
+            </button>
+            <button
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === "documents"
+                  ? "border-blue-500 text-blue-600"
+                  : "border-transparent text-gray-500 hover:text-gray-700"
+              }`}
+              onClick={() => setActiveTab("documents")}
+            >
+              مدیریت مدارک
+            </button>
+          </div>
+
+          {/* Profile Tab Content */}
+          {activeTab === "profile" && selectedEmployee && (
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Basic Information */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">اطلاعات پایه</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">نام کامل:</span>
+                      <span className="font-medium">{selectedEmployee.fullName}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">کد پرسنلی:</span>
+                      <span className="font-medium">{selectedEmployee.employeeId}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">کد ملی:</span>
+                      <span className="font-medium">{selectedEmployee.nationalId}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">واحد سازمانی:</span>
+                      <span className="font-medium">{selectedEmployee.department}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">سمت:</span>
+                      <span className="font-medium">{selectedEmployee.position}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Contact Information */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">اطلاعات تماس</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">شماره تلفن:</span>
+                      <span className="font-medium">{selectedEmployee.phone}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">ایمیل:</span>
+                      <span className="font-medium">{selectedEmployee.email}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">آدرس:</span>
+                      <span className="font-medium">{selectedEmployee.address}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Contract Information */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">اطلاعات قرارداد</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">نوع قرارداد:</span>
+                      <span className="font-medium">{selectedEmployee.contractType}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">تاریخ شروع:</span>
+                      <span className="font-medium">{selectedEmployee.contractStartDate}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">تاریخ پایان:</span>
+                      <span className="font-medium">{selectedEmployee.contractEndDate}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Documents Tab Content */}
+          {activeTab === "documents" && (
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h3 className="text-lg font-semibold">مدارک کارمند</h3>
+                <Button 
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                  onClick={() => handleDocumentAction('آپلود', 'مدرک جدید')}
+                >
+                  <Upload className="w-4 h-4 ml-2" />
+                  آپلود مدرک جدید
+                </Button>
+              </div>
+
+              <div className="space-y-3">
+                {sampleDocuments.map((doc) => (
+                  <div key={doc.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                    <div className="flex items-center space-x-3 space-x-reverse">
+                      <FileText className="w-5 h-5 text-blue-600" />
+                      <div>
+                        <p className="font-medium">{doc.name}</p>
+                        <p className="text-sm text-gray-500">تاریخ آپلود: {doc.uploadDate}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2 space-x-reverse">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-600 hover:bg-blue-50"
+                        onClick={() => handleDocumentAction('دانلود', doc.name)}
+                      >
+                        <Download className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-red-600 hover:bg-red-50"
+                        onClick={() => handleDocumentAction('حذف', doc.name)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </Modal>
+
+      {/* Edit Modal */}
+      <Modal
+        isOpen={isEditModalOpen}
+        onClose={handleCancelEdit}
+        title="ویرایش اطلاعات کارمند"
+        size="xl"
+      >
+        <div className="p-6" dir="rtl">
+          {editFormData && (
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">نام کامل</label>
+                  <Input
+                    value={editFormData.fullName}
+                    onChange={(e) => setEditFormData({ ...editFormData, fullName: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">کد ملی</label>
+                  <Input
+                    value={editFormData.nationalId}
+                    onChange={(e) => setEditFormData({ ...editFormData, nationalId: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">واحد سازمانی</label>
+                  <Select 
+                    value={editFormData.department} 
+                    onValueChange={(value) => setEditFormData({ ...editFormData, department: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="بخش آزمایشگاه">بخش آزمایشگاه</SelectItem>
+                      <SelectItem value="نمونه‌گیری">نمونه‌گیری</SelectItem>
+                      <SelectItem value="اداری">اداری</SelectItem>
+                      <SelectItem value="امور مالی">امور مالی</SelectItem>
+                      <SelectItem value="پذیرش">پذیرش</SelectItem>
+                      <SelectItem value="فناوری اطلاعات">فناوری اطلاعات</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">سمت</label>
+                  <Input
+                    value={editFormData.position}
+                    onChange={(e) => setEditFormData({ ...editFormData, position: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">شماره تلفن</label>
+                  <Input
+                    value={editFormData.phone}
+                    onChange={(e) => setEditFormData({ ...editFormData, phone: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">ایمیل</label>
+                  <Input
+                    value={editFormData.email}
+                    onChange={(e) => setEditFormData({ ...editFormData, email: e.target.value })}
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">آدرس</label>
+                <Input
+                  value={editFormData.address}
+                  onChange={(e) => setEditFormData({ ...editFormData, address: e.target.value })}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">نوع قرارداد</label>
+                  <Select 
+                    value={editFormData.contractType} 
+                    onValueChange={(value) => setEditFormData({ ...editFormData, contractType: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="تمام وقت">تمام وقت</SelectItem>
+                      <SelectItem value="پاره وقت">پاره وقت</SelectItem>
+                      <SelectItem value="پروژه‌ای">پروژه‌ای</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">تاریخ شروع قرارداد</label>
+                  <Input
+                    value={editFormData.contractStartDate}
+                    onChange={(e) => setEditFormData({ ...editFormData, contractStartDate: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">تاریخ پایان قرارداد</label>
+                  <Input
+                    value={editFormData.contractEndDate}
+                    onChange={(e) => setEditFormData({ ...editFormData, contractEndDate: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end space-x-3 space-x-reverse pt-6 border-t">
+                <Button variant="outline" onClick={handleCancelEdit}>
+                  انصراف
+                </Button>
+                <Button className="bg-green-600 hover:bg-green-700 text-white" onClick={handleSaveEdit}>
+                  ذخیره تغییرات
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </Modal>
     </div>
   );
 }
