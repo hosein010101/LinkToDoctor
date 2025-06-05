@@ -350,28 +350,28 @@ export default function CRM() {
 
       {/* Main Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-6">
-          <TabsTrigger value="contacts" className="flex items-center space-x-2 space-x-reverse text-medical-secondary hover:text-medical-primary">
+        <TabsList className="grid w-full grid-cols-6 bg-gradient-to-r from-slate-50 to-blue-50 p-2 rounded-xl shadow-sm">
+          <TabsTrigger value="contacts" className="flex items-center space-x-2 space-x-reverse text-slate-700 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-100 data-[state=active]:to-blue-100 data-[state=active]:text-cyan-700 data-[state=active]:shadow-md hover:bg-cyan-50 transition-all duration-200 rounded-lg">
             <Users className="w-4 h-4" />
             <span>فهرست مخاطبین</span>
           </TabsTrigger>
-          <TabsTrigger value="sms" className="flex items-center space-x-2 space-x-reverse text-medical-secondary hover:text-medical-primary">
+          <TabsTrigger value="sms" className="flex items-center space-x-2 space-x-reverse text-slate-700 data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-100 data-[state=active]:to-green-100 data-[state=active]:text-emerald-700 data-[state=active]:shadow-md hover:bg-emerald-50 transition-all duration-200 rounded-lg">
             <MessageCircle className="w-4 h-4" />
             <span>پیامک انبوه</span>
           </TabsTrigger>
-          <TabsTrigger value="vip" className="flex items-center space-x-2 space-x-reverse text-medical-secondary hover:text-medical-primary">
+          <TabsTrigger value="vip" className="flex items-center space-x-2 space-x-reverse text-slate-700 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-100 data-[state=active]:to-orange-100 data-[state=active]:text-amber-700 data-[state=active]:shadow-md hover:bg-amber-50 transition-all duration-200 rounded-lg">
             <Crown className="w-4 h-4" />
             <span>بیماران VIP</span>
           </TabsTrigger>
-          <TabsTrigger value="analytics" className="flex items-center space-x-2 space-x-reverse">
+          <TabsTrigger value="analytics" className="flex items-center space-x-2 space-x-reverse text-slate-700 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-100 data-[state=active]:to-violet-100 data-[state=active]:text-purple-700 data-[state=active]:shadow-md hover:bg-purple-50 transition-all duration-200 rounded-lg">
             <TrendingUp className="w-4 h-4" />
             <span>تحلیل مشتری</span>
           </TabsTrigger>
-          <TabsTrigger value="campaigns" className="flex items-center space-x-2 space-x-reverse">
+          <TabsTrigger value="campaigns" className="flex items-center space-x-2 space-x-reverse text-slate-700 data-[state=active]:bg-gradient-to-r data-[state=active]:from-rose-100 data-[state=active]:to-pink-100 data-[state=active]:text-rose-700 data-[state=active]:shadow-md hover:bg-rose-50 transition-all duration-200 rounded-lg">
             <Zap className="w-4 h-4" />
             <span>کمپین خودکار</span>
           </TabsTrigger>
-          <TabsTrigger value="support" className="flex items-center space-x-2 space-x-reverse">
+          <TabsTrigger value="support" className="flex items-center space-x-2 space-x-reverse text-slate-700 data-[state=active]:bg-gradient-to-r data-[state=active]:from-indigo-100 data-[state=active]:to-blue-100 data-[state=active]:text-indigo-700 data-[state=active]:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded-lg">
             <HeadphonesIcon className="w-4 h-4" />
             <span>تیکت پشتیبانی</span>
           </TabsTrigger>
