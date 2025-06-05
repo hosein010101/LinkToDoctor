@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
+import { ToggleSwitch } from "@/components/ui/toggle-switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
@@ -293,8 +293,7 @@ export default function Settings() {
                         <Mail className="w-4 h-4 text-gray-400" />
                         <Label htmlFor="email-notifications">اعلان‌های ایمیل</Label>
                       </div>
-                      <Switch
-                        id="email-notifications"
+                      <ToggleSwitch
                         checked={notifications.emailNotifications}
                         onCheckedChange={(checked) => 
                           setNotifications({...notifications, emailNotifications: checked})
@@ -307,8 +306,7 @@ export default function Settings() {
                         <Phone className="w-4 h-4 text-gray-400" />
                         <Label htmlFor="sms-notifications">اعلان‌های پیامکی</Label>
                       </div>
-                      <Switch
-                        id="sms-notifications"
+                      <ToggleSwitch
                         checked={notifications.smsNotifications}
                         onCheckedChange={(checked) => 
                           setNotifications({...notifications, smsNotifications: checked})
@@ -325,8 +323,7 @@ export default function Settings() {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <Label htmlFor="order-updates">به‌روزرسانی سفارشات</Label>
-                      <Switch
-                        id="order-updates"
+                      <ToggleSwitch
                         checked={notifications.orderUpdates}
                         onCheckedChange={(checked) => 
                           setNotifications({...notifications, orderUpdates: checked})
@@ -336,8 +333,7 @@ export default function Settings() {
 
                     <div className="flex items-center justify-between">
                       <Label htmlFor="result-ready">آمادگی نتایج</Label>
-                      <Switch
-                        id="result-ready"
+                      <ToggleSwitch
                         checked={notifications.resultReady}
                         onCheckedChange={(checked) => 
                           setNotifications({...notifications, resultReady: checked})
@@ -347,8 +343,7 @@ export default function Settings() {
 
                     <div className="flex items-center justify-between">
                       <Label htmlFor="low-inventory">کمبود موجودی</Label>
-                      <Switch
-                        id="low-inventory"
+                      <ToggleSwitch
                         checked={notifications.lowInventory}
                         onCheckedChange={(checked) => 
                           setNotifications({...notifications, lowInventory: checked})
@@ -358,8 +353,7 @@ export default function Settings() {
 
                     <div className="flex items-center justify-between">
                       <Label htmlFor="system-alerts">هشدارهای سیستم</Label>
-                      <Switch
-                        id="system-alerts"
+                      <ToggleSwitch
                         checked={notifications.systemAlerts}
                         onCheckedChange={(checked) => 
                           setNotifications({...notifications, systemAlerts: checked})
@@ -376,8 +370,7 @@ export default function Settings() {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <Label htmlFor="daily-reports">گزارش‌های روزانه</Label>
-                      <Switch
-                        id="daily-reports"
+                      <ToggleSwitch
                         checked={notifications.dailyReports}
                         onCheckedChange={(checked) => 
                           setNotifications({...notifications, dailyReports: checked})
@@ -387,8 +380,7 @@ export default function Settings() {
 
                     <div className="flex items-center justify-between">
                       <Label htmlFor="weekly-reports">گزارش‌های هفتگی</Label>
-                      <Switch
-                        id="weekly-reports"
+                      <ToggleSwitch
                         checked={notifications.weeklyReports}
                         onCheckedChange={(checked) => 
                           setNotifications({...notifications, weeklyReports: checked})
@@ -531,8 +523,7 @@ export default function Settings() {
 
                   <div className="flex items-center justify-between">
                     <Label htmlFor="auto-backup">پشتیبان‌گیری خودکار</Label>
-                    <Switch
-                      id="auto-backup"
+                    <ToggleSwitch
                       checked={systemSettings.autoBackup}
                       onCheckedChange={(checked) => 
                         setSystemSettings({...systemSettings, autoBackup: checked})
@@ -609,8 +600,7 @@ export default function Settings() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <Label htmlFor="two-factor">احراز هویت دو مرحله‌ای</Label>
-                    <Switch
-                      id="two-factor"
+                    <ToggleSwitch
                       checked={securitySettings.twoFactorAuth}
                       onCheckedChange={(checked) => 
                         setSecuritySettings({...securitySettings, twoFactorAuth: checked})
@@ -620,8 +610,7 @@ export default function Settings() {
 
                   <div className="flex items-center justify-between">
                     <Label htmlFor="audit-log">ثبت گزارش‌های حسابرسی</Label>
-                    <Switch
-                      id="audit-log"
+                    <ToggleSwitch
                       checked={securitySettings.auditLog}
                       onCheckedChange={(checked) => 
                         setSecuritySettings({...securitySettings, auditLog: checked})
