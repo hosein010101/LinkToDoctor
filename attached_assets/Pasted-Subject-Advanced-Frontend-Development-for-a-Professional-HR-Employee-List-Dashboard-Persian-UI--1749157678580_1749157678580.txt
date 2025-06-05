@@ -1,0 +1,96 @@
+Subject: Advanced Frontend Development for a Professional HR Employee List Dashboard (Persian UI)
+
+Prompt:
+
+You are an expert UI/UX designer and senior frontend developer specializing in modern dashboard interfaces. Your task is to design and implement a highly professional, data-driven, and interactive **main content area** for an "Employee List" (فهرست کارکنان) page of an HR management system. This will replace the central icon-based layout shown in the previously provided screenshot (HR.png), creating a more functional and visually appealing experience. The entire UI must be in Persian.
+
+**I. Project Goal:**
+Develop a responsive frontend prototype for the main content area of the "فهرست کارکنان" page, suitable for execution in a Replit environment (using HTML, CSS, JavaScript, and optionally a framework like React or Vue.js with Tailwind CSS).
+
+**II. Core Design Philosophy:**
+* **Modern & Clean:** Minimalist approach with excellent readability and visual appeal.
+* **Data-Centric:** Prioritize clear presentation of key HR data and statistics.
+* **User-Friendly & Intuitive:** Easy navigation and interaction.
+* **Professional Aesthetics:** Colors, typography, and spacing that convey trust and efficiency.
+* **Persian UI:** All text elements must be in fluent and professional Persian.
+
+**III. Key Sections to Design and Implement in the Main Content Area:**
+
+1.  **A. KPI Summary Cards (Top Section):**
+    * Implement a row of 3-4 visually distinct "Key Performance Indicator" (KPI) cards.
+    * Each card should display a title, a large statistic (placeholder number), and a relevant small icon.
+    * **Card 1:**
+        * Title: "تعداد کل کارکنان"
+        * Statistic: (e.g., "۱۲۵")
+        * Icon: (e.g., users/group icon)
+    * **Card 2:**
+        * Title: "استخدام جدید (این ماه)"
+        * Statistic: (e.g., "۷")
+        * Icon: (e.g., user-plus/new-hire icon)
+    * **Card 3:**
+        * Title: "قراردادهای در شرف اتمام (۳۰ روز آتی)"
+        * Statistic: (e.g., "۳")
+        * Icon: (e.g., calendar-check/warning icon)
+    * **Card 4 (Optional):**
+        * Title: "درخواست‌های مرخصی معلق"
+        * Statistic: (e.g., "۵")
+        * Icon: (e.g., clipboard-list/pending-icon)
+
+2.  **B. Primary Action Button & Table Title:**
+    * Display the title "فهرست کارکنان" prominently.
+    * Next to or below the title, include a primary action button:
+        * Button Text: "افزودن کارمند جدید +"
+        * Style: Clearly distinguishable as a primary call-to-action.
+
+3.  **C. Advanced Employee Data Table (Main Section):**
+    * Implement a responsive and well-styled data table to list employees.
+    * **Table Columns (All text in Persian):**
+        1.  نام کامل (Full Name)
+        2.  کد پرسنلی (Employee ID)
+        3.  واحد سازمانی (Department)
+        4.  سمت (Position)
+        5.  وضعیت (Status - e.g., فعال، در مرخصی)
+        6.  تاریخ استخدام (Hire Date)
+        7.  اقدامات (Actions)
+    * **Dummy Data:** Populate the table with at least 5-7 rows of realistic placeholder Persian data.
+    * **Row Actions ("اقدامات"):** For each row, include small, modern icons for actions like:
+        * مشاهده پروفایل (View Profile - e.g., eye icon)
+        * ویرایش (Edit - e.g., pencil icon)
+        * مدیریت مدارک (Manage Documents - e.g., file-text icon)
+    * **Table Features (Implement as much as feasible):**
+        * **Search Bar:** A search input field above the table to filter by name or Employee ID.
+        * **Filter Dropdowns (Optional):** Simple dropdowns to filter by "واحد سازمانی" or "وضعیت".
+        * **Sortable Columns:** Indicate that columns should ideally be sortable (even if full JS sort functionality is not implemented in the first pass, design for it).
+
+4.  **D. (Optional but Recommended) Data Visualization Placeholder Section:**
+    * Below or next to the table (if layout allows), include placeholders for 1-2 charts.
+    * **Chart Placeholder 1:**
+        * Title: "توزیع کارکنان بر اساس واحد سازمانی"
+        * Type: Suggest a Pie Chart (can be a static image or a simple CSS/SVG representation).
+    * **Chart Placeholder 2 (Optional):**
+        * Title: "روند استخدام (۶ ماه گذشته)"
+        * Type: Suggest a Bar Chart (static image or simple CSS/SVG representation).
+
+**IV. Styling, UX, and Technical Specifications:**
+
+* **Layout:** Use modern CSS (Flexbox/Grid) for a responsive layout of the content area.
+* **Visual Style:** Employ a card-based design for KPI Crads and chart sections. Ensure generous use of whitespace.
+* **Color Palette:** Use a professional and harmonious color scheme. You can take cues from the "LinkToDoctor" branding in the original screenshot for consistency or propose a new scheme suitable for an HR dashboard. Ensure high contrast for accessibility.
+* **Typography:** Use a clean, modern, and highly readable Persian web font (e.g., IRANSans, Vazirmatn, or similar, linked via CDN if possible). Implement proper type hierarchy.
+* **Iconography:** Use a consistent set of modern SVG icons (e.g., from a library like Font Awesome, Material Icons, or custom SVGs).
+* **Interactivity:** Implement subtle hover effects for buttons, links, table rows, and KPI cards. Active states should be clear.
+* **Technology Stack:**
+    * **Required:** HTML5, CSS3, JavaScript (ES6+).
+    * **Highly Recommended for Professional Result:**
+        * **Framework:** React.js or Vue.js for component-based structure.
+        * **Styling:** Tailwind CSS for utility-first styling, or well-organized custom CSS (e.g., BEM or SCSS).
+* **Context Note:** Focus solely on the **main content area**. The existing top navigation bar (with logo, search, user profile) and the left sidebar navigation (سامانه جامع سلامت الکترونیک, عملیات آزمایشگاه, etc.) from the screenshot (HR.png) are considered out of scope for this specific task but ensure your design fits harmoniously within such a broader application structure.
+
+**V. Deliverables (for Replit Environment):**
+* Well-organized and commented HTML, CSS, and JavaScript files (or component files if using a framework).
+* All UI text strictly in Persian, using the provided labels or professional equivalents.
+* All necessary assets (e.g., SVG icons or links to icon/font libraries).
+* The implementation should be a static prototype, but with clear indications of interactive elements.
+* A brief `README.md` explaining any significant design choices (e.g., chosen color palette, font) and instructions on how to view/run the project.
+
+Please proceed with creating a visually impressive, highly functional, and modern dashboard content area based on these specifications.

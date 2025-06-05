@@ -36,6 +36,7 @@ import UserProfile from "@/pages/UserProfile";
 import AccountSettings from "@/pages/AccountSettings";
 import SecurityPrivacy from "@/pages/SecurityPrivacy";
 import HelpSupport from "@/pages/HelpSupport";
+import EmployeeList from "@/pages/EmployeeList";
 
 import { queryClient } from "@/lib/queryClient";
 
@@ -74,6 +75,7 @@ function Router() {
         
         {/* Human Resources */}
         <Route path="/hr" component={HR} />
+        <Route path="/employee-list" component={EmployeeList} />
         <Route path="/hr-shifts" component={HRShifts} />
         <Route path="/hr-payroll" component={HRPayroll} />
         <Route path="/hr-performance" component={HRPerformance} />

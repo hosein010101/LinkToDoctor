@@ -128,7 +128,8 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
       icon: Users,
       color: "text-teal-600",
       items: [
-        { icon: Users, label: "فهرست کارکنان", path: "/hr", color: "text-teal-600" },
+        { icon: Users, label: "خلاصه منابع انسانی", path: "/hr", color: "text-teal-600" },
+        { icon: Users, label: "فهرست کارکنان", path: "/employee-list", color: "text-blue-600" },
         { icon: Calendar, label: "مدیریت شیفت‌ها", path: "/hr-shifts", color: "text-orange-600" },
         { icon: DollarSign, label: "حقوق و دستمزد", path: "/hr-payroll", color: "text-indigo-600" },
         { icon: TrendingUp, label: "ارزیابی عملکرد", path: "/hr-performance", color: "text-cyan-600" },
