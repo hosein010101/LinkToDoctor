@@ -159,15 +159,15 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
     <motion.div 
       className={`
         fixed top-0 right-0 h-screen bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 
-        z-50 shadow-xl overflow-hidden
+        z-50 shadow-xl flex flex-col
         ${isMobile && collapsed ? '-translate-x-full' : 'translate-x-0'}
       `}
       variants={sidebarVariants}
       animate={collapsed ? "collapsed" : "expanded"}
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
-      {/* Header */}
-      <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-l from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
+      {/* Header - Fixed */}
+      <div className="flex-shrink-0 p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-l from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
         <div className="flex items-center justify-center">
           {!collapsed ? (
             <motion.div 
@@ -197,8 +197,8 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto p-3 space-y-2">
+      {/* Navigation - Scrollable */}
+      <nav className="flex-1 overflow-y-auto overflow-x-hidden p-3 space-y-2 custom-scrollbar">
         {navSections.map((section, sectionIndex) => {
           const SectionIcon = section.icon;
           const isExpanded = expandedSections.includes(sectionIndex);
