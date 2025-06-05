@@ -176,21 +176,21 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
               animate={collapsed ? "collapsed" : "expanded"}
               transition={{ duration: 0.2, delay: 0.1 }}
             >
-              <div className="flex items-center justify-center mb-2">
+              <div className="flex items-center justify-center mb-3">
                 <img 
                   src={logoPath} 
                   alt="LinkToDoctor" 
-                  className="h-8 w-auto object-contain"
+                  className="h-12 w-auto max-w-full object-contain"
                 />
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400">سامانه جامع سلامت الکترونیک</p>
             </motion.div>
           ) : (
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center">
               <img 
                 src={logoPath} 
                 alt="LinkToDoctor" 
-                className="h-6 w-auto object-contain"
+                className="h-8 w-auto max-w-full object-contain"
               />
             </div>
           )}
