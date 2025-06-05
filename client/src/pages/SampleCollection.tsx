@@ -425,7 +425,7 @@ export default function SampleCollection() {
                     <div className="flex items-center space-x-2 space-x-reverse">
                       <div className="text-left text-sm">
                         <div className="flex items-center text-gray-600">
-                          <Star className="w-4 h-4 text-yellow-500 ml-1" />
+                          <Star className="w-4 h-4 text-orange-500 ml-1" />
                           {collector.rating}
                         </div>
                         <div className="text-xs text-gray-500">
@@ -648,7 +648,7 @@ export default function SampleCollection() {
                         </td>
                         <td className="py-3 px-4">
                           <div className="flex items-center">
-                            <Star className="w-4 h-4 text-yellow-500 ml-1" />
+                            <Star className="w-4 h-4 text-orange-500 ml-1" />
                             <span className="font-medium">{collector.rating}</span>
                           </div>
                         </td>
