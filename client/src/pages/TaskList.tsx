@@ -240,8 +240,8 @@ export default function TaskList() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">مدیریت وظایف</h1>
-          <p className="text-gray-600 mt-1">مدیریت و پیگیری وظایف تیم</p>
+          <h1 className="text-3xl font-bold text-indigo-700">مدیریت وظایف</h1>
+          <p className="text-slate-600 mt-1">مدیریت و پیگیری وظایف تیم</p>
         </div>
         <div className="flex items-center space-x-3 space-x-reverse">
           <div className="flex items-center bg-slate-100 rounded-lg p-1">
@@ -319,7 +319,7 @@ export default function TaskList() {
           {(["pending", "in_progress", "done"] as const).map((status) => (
             <div key={status} className={`${getStatusColor(status)} border-2 rounded-lg p-4`}>
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-gray-900">{getStatusTitle(status)}</h3>
+                <h3 className="font-semibold text-blue-700">{getStatusTitle(status)}</h3>
                 <Badge variant="secondary">{tasksByStatus[status].length}</Badge>
               </div>
               
@@ -407,14 +407,14 @@ export default function TaskList() {
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50 border-b">
+                <thead className="bg-slate-50 border-b">
                   <tr>
-                    <th className="text-right p-4 font-semibold text-gray-900">عنوان</th>
-                    <th className="text-right p-4 font-semibold text-gray-900">مسئول</th>
-                    <th className="text-right p-4 font-semibold text-gray-900">اولویت</th>
-                    <th className="text-right p-4 font-semibold text-gray-900">وضعیت</th>
-                    <th className="text-right p-4 font-semibold text-gray-900">موعد</th>
-                    <th className="text-right p-4 font-semibold text-gray-900">اقدامات</th>
+                    <th className="text-right p-4 font-semibold text-slate-700">عنوان</th>
+                    <th className="text-right p-4 font-semibold text-slate-700">مسئول</th>
+                    <th className="text-right p-4 font-semibold text-slate-700">اولویت</th>
+                    <th className="text-right p-4 font-semibold text-slate-700">وضعیت</th>
+                    <th className="text-right p-4 font-semibold text-slate-700">موعد</th>
+                    <th className="text-right p-4 font-semibold text-slate-700">اقدامات</th>
                   </tr>
                 </thead>
                 <tbody>
