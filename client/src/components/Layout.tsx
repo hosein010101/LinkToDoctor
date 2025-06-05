@@ -46,7 +46,7 @@ export default function Layout({ children }: LayoutProps) {
       }`}>
         <TopBar onToggleSidebar={toggleSidebar} />
         <main className="flex-1 overflow-auto bg-gray-50 dark:bg-gray-900 dashboard-content">
-          <div className="min-h-full p-6">
+          <div className="min-h-full p-6 pb-32">
             {children}
           </div>
         </main>
