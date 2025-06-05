@@ -17,6 +17,7 @@ import History from "@/pages/History";
 import PatientHistory from "@/pages/PatientHistory";
 import SurveyReports from "@/pages/SurveyReports";
 import WeeklyPerformance from "@/pages/WeeklyPerformance";
+import CollectorProfiles from "@/pages/CollectorProfiles";
 import Inventory from "@/pages/Inventory";
 import Reports from "@/pages/Reports";
 import Settings from "@/pages/Settings";
@@ -65,6 +66,7 @@ function Router() {
         <Route path="/collection" component={Collection} />
         <Route path="/sample-collection" component={SampleCollection} />
         <Route path="/collectors" component={Collectors} />
+        <Route path="/collector-profiles" component={CollectorProfiles} />
         <Route path="/test-packages" component={TestPackages} />
         <Route path="/results" component={Results} />
         <Route path="/delivery" component={Delivery} />
