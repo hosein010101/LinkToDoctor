@@ -203,7 +203,11 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
         <div className="flex-1 overflow-y-auto py-4">
           <nav className="space-y-2 px-2">
             {navSections.map((section, sectionIndex) => (
-              <div key={sectionIndex} className="space-y-1 mb-4">
+              <div key={sectionIndex} className="space-y-1 mb-6">
+                {/* Separator Line */}
+                {sectionIndex > 0 && !collapsed && (
+                  <div className="border-t border-gray-200 my-4"></div>
+                )}
                 {/* Section Header */}
                 {!collapsed && (
                   <motion.button
