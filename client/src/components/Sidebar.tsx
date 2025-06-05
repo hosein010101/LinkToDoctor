@@ -180,7 +180,7 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
                 <img 
                   src={logoPath} 
                   alt="LinkToDoctor" 
-                  className="h-12 w-auto max-w-full object-contain"
+                  className="h-20 w-auto max-w-full object-contain"
                 />
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400">سامانه جامع سلامت الکترونیک</p>
@@ -190,7 +190,7 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
               <img 
                 src={logoPath} 
                 alt="LinkToDoctor" 
-                className="h-8 w-auto max-w-full object-contain"
+                className="h-10 w-auto max-w-full object-contain"
               />
             </div>
           )}
