@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -21,7 +21,11 @@ import {
   CheckCircle, 
   Clock, 
   AlertTriangle,
-  TestTube
+  TestTube,
+  Filter,
+  Download,
+  Upload,
+  XCircle
 } from "lucide-react";
 import type { OrderWithDetails, TestResult, LabService } from "@/lib/types";
 
@@ -38,9 +42,20 @@ export default function Results() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedOrder, setSelectedOrder] = useState<OrderWithDetails | null>(null);
   const [editingResult, setEditingResult] = useState<TestResult | null>(null);
+  const [filterStatus, setFilterStatus] = useState("all");
   
   const { toast } = useToast();
   const queryClient = useQueryClient();
+
+  const form = useForm<ResultForm>({
+    resolver: zodResolver(resultSchema),
+    defaultValues: {
+      result: "",
+      normalRange: "",
+      unit: "",
+      status: "pending",
+    },
+  });
 
   const { data: orders, isLoading } = useQuery<OrderWithDetails[]>({
     queryKey: ["/api/lab-orders"],
@@ -50,19 +65,9 @@ export default function Results() {
     queryKey: ["/api/lab-services"],
   });
 
-  const form = useForm<ResultForm>({
-    resolver: zodResolver(resultSchema),
-    defaultValues: {
-      result: "",
-      normalRange: "",
-      unit: "",
-      status: "completed",
-    },
-  });
-
   const createResultMutation = useMutation({
     mutationFn: async (data: { orderId: number; serviceId: number; result: ResultForm }) => {
-      const response = await apiRequest("POST", "/api/test-results", {
+      const response = await apiRequest("POST", `/api/test-results`, {
         orderId: data.orderId,
         serviceId: data.serviceId,
         ...data.result,
@@ -75,8 +80,9 @@ export default function Results() {
         title: "موفقیت",
         description: "نتیجه آزمایش با موفقیت ثبت شد",
       });
-      form.reset();
+      setSelectedOrder(null);
       setEditingResult(null);
+      form.reset();
     },
     onError: () => {
       toast({
@@ -117,10 +123,12 @@ export default function Results() {
     order.status === "collected" || order.status === "processing"
   ) || [];
 
-  const filteredOrders = eligibleOrders.filter((order) =>
-    order.orderNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    order.patient.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredOrders = eligibleOrders.filter((order) => {
+    const matchesSearch = order.orderNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         order.patient.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = filterStatus === "all" || order.status === filterStatus;
+    return matchesSearch && matchesStatus;
+  });
 
   const getStatusBadge = (status: string) => {
     const statusMap = {
@@ -128,16 +136,16 @@ export default function Results() {
       completed: { label: "تکمیل شده", class: "bg-blue-100 text-blue-800", icon: FileText },
       reviewed: { label: "بررسی شده", class: "bg-purple-100 text-purple-800", icon: Eye },
       validated: { label: "تایید شده", class: "bg-green-100 text-green-800", icon: CheckCircle },
-    };
+    } as const;
     
-    const statusInfo = statusMap[status as keyof typeof statusMap] || statusMap.pending;
-    const Icon = statusInfo.icon;
+    const config = statusMap[status as keyof typeof statusMap] || statusMap.pending;
+    const IconComponent = config.icon;
     
     return (
-      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusInfo.class}`}>
-        <Icon className="w-3 h-3 ml-1" />
-        {statusInfo.label}
-      </span>
+      <Badge className={`${config.class} hover:${config.class} flex items-center space-x-1 space-x-reverse`}>
+        <IconComponent className="w-3 h-3" />
+        <span>{config.label}</span>
+      </Badge>
     );
   };
 
@@ -180,18 +188,21 @@ export default function Results() {
         status: existingResult.status,
       });
     } else {
+      // Create new result entry
       setEditingResult({
         id: 0,
         orderId: order.id,
-        serviceId,
+        serviceId: serviceId,
+        result: "",
+        normalRange: "",
+        unit: "",
         status: "pending",
-        enteredAt: new Date().toISOString(),
       });
       form.reset({
         result: "",
         normalRange: "",
         unit: "",
-        status: "completed",
+        status: "pending",
       });
     }
   };
@@ -201,228 +212,305 @@ export default function Results() {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Orders List */}
-      <div className="lg:col-span-2">
-        <Card>
+    <div className="p-6 space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">ورود نتایج آزمایش</h1>
+          <p className="text-gray-600 mt-1">سفارشات آماده ورود نتیجه</p>
+        </div>
+        <div className="flex items-center space-x-3 space-x-reverse">
+          <Button variant="outline">
+            <Download className="w-4 h-4 ml-2" />
+            گزارش نتایج
+          </Button>
+          <Button className="bg-purple-600 hover:bg-purple-700 text-white">
+            <TestTube className="w-4 h-4 ml-2" />
+            تست کیفیت
+          </Button>
+        </div>
+      </div>
+
+      {/* Summary Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <Card className="card-professional">
           <CardContent className="p-6">
-            <div className="border-b border-gray-200 pb-4 mb-6">
-              <h3 className="text-lg font-semibold text-medical-text">ورود نتایج آزمایش</h3>
-              <p className="text-sm text-gray-500">سفارشات آماده ورود نتیجه</p>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600">آماده ورود نتیجه</p>
+                <p className="text-2xl font-bold text-gray-900">{eligibleOrders.length}</p>
+              </div>
+              <TestTube className="w-8 h-8 text-purple-600" />
             </div>
-            
-            {/* Search */}
-            <div className="relative mb-6">
-              <Search className="absolute right-3 top-3 w-4 h-4 text-gray-400" />
-              <Input
-                placeholder="جستجوی سفارش..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pr-10"
-              />
+          </CardContent>
+        </Card>
+
+        <Card className="card-professional">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600">در انتظار</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {eligibleOrders.filter(o => o.status === "collected").length}
+                </p>
+              </div>
+              <Clock className="w-8 h-8 text-yellow-600" />
             </div>
+          </CardContent>
+        </Card>
 
-            {/* Orders */}
-            <div className="space-y-4">
-              {filteredOrders.map((order) => (
-                <div key={order.id} className="border border-gray-200 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <div>
-                      <h4 className="font-medium text-medical-text">{order.patient.name}</h4>
-                      <p className="text-sm text-gray-500">{order.orderNumber}</p>
-                    </div>
-                    <Badge variant="outline">
-                      {order.status === "collected" ? "نمونه‌گیری شده" : "در حال پردازش"}
-                    </Badge>
-                  </div>
+        <Card className="card-professional">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600">در حال پردازش</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {eligibleOrders.filter(o => o.status === "processing").length}
+                </p>
+              </div>
+              <FileText className="w-8 h-8 text-blue-600" />
+            </div>
+          </CardContent>
+        </Card>
 
-                  <div className="space-y-2">
-                    {order.services.map((orderService) => {
-                      const existingResult = order.results?.find(r => r.serviceId === orderService.serviceId);
-                      const serviceName = getServiceName(orderService.serviceId);
-                      
-                      return (
-                        <div key={orderService.serviceId} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                          <div className="flex-1">
-                            <p className="text-sm font-medium text-medical-text">{serviceName}</p>
-                            {existingResult && (
-                              <div className="mt-1">
-                                {getStatusBadge(existingResult.status)}
-                                {existingResult.result && (
-                                  <p className="text-xs text-gray-600 mt-1">
-                                    نتیجه: {existingResult.result} {existingResult.unit}
-                                  </p>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                          <Button
-                            size="sm"
-                            variant={existingResult ? "outline" : "default"}
-                            onClick={() => startEditing(order, orderService.serviceId)}
-                            className={!existingResult ? "bg-medical-teal hover:bg-opacity-90 text-white" : ""}
-                          >
-                            {existingResult ? <Edit className="w-4 h-4" /> : <FileText className="w-4 h-4" />}
-                            {existingResult ? "ویرایش" : "ورود نتیجه"}
-                          </Button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-              
-              {filteredOrders.length === 0 && (
-                <div className="text-center py-12">
-                  <TestTube className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-500 mb-2">سفارشی برای ورود نتیجه یافت نشد</h3>
-                  <p className="text-sm text-gray-400">هیچ سفارش آماده‌ای برای ورود نتیجه وجود ندارد</p>
-                </div>
-              )}
+        <Card className="card-professional">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600">تکمیل شده امروز</p>
+                <p className="text-2xl font-bold text-gray-900">0</p>
+              </div>
+              <CheckCircle className="w-8 h-8 text-green-600" />
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Result Entry Form */}
-      <div>
-        <Card>
-          <CardContent className="p-6">
-            <div className="border-b border-gray-200 pb-4 mb-6">
-              <h3 className="text-lg font-semibold text-medical-text">فرم ورود نتیجه</h3>
-              {selectedOrder && editingResult && (
-                <div className="mt-2">
-                  <p className="text-sm text-gray-600">{selectedOrder.patient.name}</p>
-                  <p className="text-xs text-gray-500">{getServiceName(editingResult.serviceId)}</p>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Orders List */}
+        <div className="lg:col-span-2">
+          <Card className="card-professional">
+            <CardHeader>
+              <CardTitle>سفارشات آماده ورود نتیجه</CardTitle>
+            </CardHeader>
+            <CardContent className="p-6">
+              {/* Filters */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div className="relative">
+                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Input
+                    placeholder="جستجوی سفارش..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pr-10"
+                  />
                 </div>
-              )}
-            </div>
-
-            {selectedOrder && editingResult ? (
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                  <FormField
-                    control={form.control}
-                    name="result"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>نتیجه آزمایش</FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            placeholder="نتیجه آزمایش را وارد کنید..."
-                            rows={4}
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="normalRange"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>محدوده طبیعی</FormLabel>
-                        <FormControl>
-                          <Input placeholder="مثال: 10-15 mg/dl" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="unit"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>واحد</FormLabel>
-                        <FormControl>
-                          <Input placeholder="مثال: mg/dl" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="status"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>وضعیت</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="completed">تکمیل شده</SelectItem>
-                            <SelectItem value="reviewed">بررسی شده</SelectItem>
-                            <SelectItem value="validated">تایید شده</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className="flex space-x-2 space-x-reverse pt-4">
-                    <Button
-                      type="submit"
-                      className="bg-medical-teal hover:bg-opacity-90 text-white flex-1"
-                      disabled={createResultMutation.isPending || updateResultMutation.isPending}
-                    >
-                      <Save className="ml-2 w-4 h-4" />
-                      {createResultMutation.isPending || updateResultMutation.isPending ? "در حال ذخیره..." : "ذخیره نتیجه"}
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => {
-                        setSelectedOrder(null);
-                        setEditingResult(null);
-                        form.reset();
-                      }}
-                    >
-                      انصراف
-                    </Button>
-                  </div>
-                </form>
-              </Form>
-            ) : (
-              <div className="text-center py-8">
-                <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h4 className="text-lg font-medium text-gray-500 mb-2">آزمایش انتخاب کنید</h4>
-                <p className="text-sm text-gray-400">برای ورود نتیجه، یکی از آزمایش‌ها را انتخاب کنید</p>
+                <Select value={filterStatus} onValueChange={setFilterStatus}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="وضعیت" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">همه وضعیت‌ها</SelectItem>
+                    <SelectItem value="collected">نمونه‌گیری شده</SelectItem>
+                    <SelectItem value="processing">در حال پردازش</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
-            )}
-          </CardContent>
-        </Card>
 
-        {/* Quick Actions */}
-        <Card className="mt-6">
-          <CardContent className="p-6">
-            <h4 className="text-lg font-semibold text-medical-text mb-4">اقدامات سریع</h4>
-            <div className="space-y-3">
-              <Button variant="outline" className="w-full justify-start">
-                <AlertTriangle className="ml-2 w-4 h-4" />
-                نتایج نیازمند بررسی
-              </Button>
-              <Button variant="outline" className="w-full justify-start">
-                <CheckCircle className="ml-2 w-4 h-4" />
-                نتایج تایید شده امروز
-              </Button>
-              <Button variant="outline" className="w-full justify-start">
-                <Clock className="ml-2 w-4 h-4" />
-                نتایج معوق
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+              {/* Orders */}
+              <div className="space-y-4">
+                {filteredOrders.map((order) => (
+                  <div key={order.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex items-center justify-between mb-3">
+                      <div>
+                        <h4 className="font-medium text-gray-900">{order.patient.name}</h4>
+                        <p className="text-sm text-gray-600">{order.orderNumber}</p>
+                      </div>
+                      <Badge variant="outline">
+                        {order.status === "collected" ? "نمونه‌گیری شده" : "در حال پردازش"}
+                      </Badge>
+                    </div>
+
+                    <div className="space-y-2">
+                      {order.services.map((orderService) => {
+                        const existingResult = order.results?.find(r => r.serviceId === orderService.serviceId);
+                        const serviceName = getServiceName(orderService.serviceId);
+                        
+                        return (
+                          <div key={orderService.serviceId} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div className="flex-1">
+                              <p className="text-sm font-medium text-gray-900">{serviceName}</p>
+                              {existingResult && (
+                                <div className="mt-1">
+                                  {getStatusBadge(existingResult.status)}
+                                </div>
+                              )}
+                            </div>
+                            <Button
+                              size="sm"
+                              variant={existingResult ? "outline" : "default"}
+                              onClick={() => startEditing(order, orderService.serviceId)}
+                              className={existingResult ? "" : "bg-purple-600 hover:bg-purple-700 text-white"}
+                            >
+                              {existingResult ? (
+                                <>
+                                  <Edit className="w-4 h-4 ml-1" />
+                                  ویرایش
+                                </>
+                              ) : (
+                                <>
+                                  <FileText className="w-4 h-4 ml-1" />
+                                  ورود نتیجه
+                                </>
+                              )}
+                            </Button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+
+                {filteredOrders.length === 0 && (
+                  <div className="text-center py-8">
+                    <TestTube className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-600">هیچ سفارشی برای ورود نتیجه یافت نشد</p>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Result Entry Form */}
+        <div>
+          {selectedOrder && editingResult ? (
+            <Card className="card-professional">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2 space-x-reverse">
+                  <FileText className="w-5 h-5 text-purple-600" />
+                  <span>ورود نتیجه آزمایش</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="mb-4 p-3 bg-blue-50 rounded-lg">
+                  <p className="text-sm font-medium text-blue-900">{selectedOrder.patient.name}</p>
+                  <p className="text-xs text-blue-700">{selectedOrder.orderNumber}</p>
+                  <p className="text-xs text-blue-700 mt-1">
+                    {getServiceName(editingResult.serviceId)}
+                  </p>
+                </div>
+
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <FormField
+                      control={form.control}
+                      name="result"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>نتیجه آزمایش</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder="نتیجه آزمایش را وارد کنید..."
+                              {...field}
+                              rows={4}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="normalRange"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>محدوده طبیعی (اختیاری)</FormLabel>
+                          <FormControl>
+                            <Input placeholder="مثال: 10-15 mg/dL" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="unit"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>واحد (اختیاری)</FormLabel>
+                          <FormControl>
+                            <Input placeholder="مثال: mg/dL, IU/L" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="status"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>وضعیت</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="انتخاب وضعیت" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="pending">در انتظار</SelectItem>
+                              <SelectItem value="completed">تکمیل شده</SelectItem>
+                              <SelectItem value="reviewed">بررسی شده</SelectItem>
+                              <SelectItem value="validated">تایید شده</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <div className="flex space-x-2 space-x-reverse pt-4">
+                      <Button
+                        type="submit"
+                        disabled={createResultMutation.isPending || updateResultMutation.isPending}
+                        className="bg-purple-600 hover:bg-purple-700 text-white flex-1"
+                      >
+                        <Save className="w-4 h-4 ml-2" />
+                        {editingResult.id ? "به‌روزرسانی" : "ثبت نتیجه"}
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => {
+                          setSelectedOrder(null);
+                          setEditingResult(null);
+                          form.reset();
+                        }}
+                      >
+                        <XCircle className="w-4 h-4 ml-2" />
+                        انصراف
+                      </Button>
+                    </div>
+                  </form>
+                </Form>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card className="card-professional">
+              <CardContent className="p-6">
+                <div className="text-center py-8">
+                  <TestTube className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-600 mb-2">سفارش مورد نظر را انتخاب کنید</p>
+                  <p className="text-sm text-gray-500">برای ورود یا ویرایش نتیجه آزمایش</p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       </div>
     </div>
   );
