@@ -343,12 +343,10 @@ export default function TaskList() {
                         
                         <div className="flex items-center justify-between text-xs">
                           <div className="flex items-center space-x-2 space-x-reverse">
-                            <Badge className={`${getPriorityColor(task.priority)} text-xs px-2 py-1`}>
-                              <span className="flex items-center space-x-1 space-x-reverse">
-                                {getPriorityIcon(task.priority)}
-                                <span>{task.priority === "urgent" ? "فوری" : task.priority === "high" ? "بالا" : task.priority === "medium" ? "متوسط" : "پایین"}</span>
-                              </span>
-                            </Badge>
+                            <div className={`${getPriorityColor(task.priority)} text-xs px-2 py-1 rounded-full inline-flex items-center space-x-1 space-x-reverse`}>
+                              {getPriorityIcon(task.priority)}
+                              <span style={{color: '#1f2937', fontWeight: '600'}}>{task.priority === "urgent" ? "فوری" : task.priority === "high" ? "بالا" : task.priority === "medium" ? "متوسط" : "پایین"}</span>
+                            </div>
                           </div>
                           
                           {task.deadline && (
@@ -426,23 +424,21 @@ export default function TaskList() {
                       </td>
                       <td className="p-4 text-gray-600">{task.assignee}</td>
                       <td className="p-4">
-                        <Badge className={`${getPriorityColor(task.priority)} text-xs`}>
-                          <span className="flex items-center space-x-1 space-x-reverse">
-                            {getPriorityIcon(task.priority)}
-                            <span>{task.priority === "urgent" ? "فوری" : task.priority === "high" ? "بالا" : task.priority === "medium" ? "متوسط" : "پایین"}</span>
-                          </span>
-                        </Badge>
+                        <div className={`${getPriorityColor(task.priority)} text-xs px-2 py-1 rounded-full inline-flex items-center space-x-1 space-x-reverse`}>
+                          {getPriorityIcon(task.priority)}
+                          <span style={{color: '#1f2937', fontWeight: '600'}}>{task.priority === "urgent" ? "فوری" : task.priority === "high" ? "بالا" : task.priority === "medium" ? "متوسط" : "پایین"}</span>
+                        </div>
                       </td>
                       <td className="p-4">
-                        <Badge 
-                          className={
-                            task.status === "pending" ? "bg-yellow-100 text-yellow-800" :
-                            task.status === "in_progress" ? "bg-blue-100 text-blue-800" :
-                            "bg-green-100 text-green-800"
-                          }
+                        <div 
+                          className={`text-xs px-2 py-1 rounded-full inline-flex items-center ${
+                            task.status === "pending" ? "bg-yellow-100 border border-yellow-200" :
+                            task.status === "in_progress" ? "bg-blue-100 border border-blue-200" :
+                            "bg-green-100 border border-green-200"
+                          }`}
                         >
-                          {getStatusTitle(task.status)}
-                        </Badge>
+                          <span style={{color: '#1f2937', fontWeight: '600'}}>{getStatusTitle(task.status)}</span>
+                        </div>
                       </td>
                       <td className="p-4 text-gray-600">{task.deadline || "-"}</td>
                       <td className="p-4">
