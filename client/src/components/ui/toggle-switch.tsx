@@ -14,35 +14,31 @@ export function ToggleSwitch({
   className 
 }: ToggleSwitchProps) {
   return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={checked}
-      disabled={disabled}
-      onClick={() => onCheckedChange(!checked)}
-      className={cn(
-        // Track styling exactly matching the provided design
-        "relative inline-flex h-7 w-12 shrink-0 cursor-pointer rounded-full transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-        // Colors: bright green for on, bright red for off
-        checked 
-          ? "bg-green-500 focus:ring-green-300" 
-          : "bg-red-500 focus:ring-red-300",
-        className
-      )}
-    >
-      <span className="sr-only">Toggle setting</span>
-      <span
-        aria-hidden="true"
-        className={cn(
-          // Handle styling with clean white circle
-          "pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-lg transition-transform duration-300 ease-in-out",
-          // Positioning based on the design image
-          checked ? "translate-x-5" : "translate-x-0"
-        )}
-        style={{
-          margin: "2px"
-        }}
+    <div className="relative">
+      <input
+        type="checkbox"
+        role="switch"
+        checked={checked}
+        onChange={(e) => onCheckedChange(e.target.checked)}
+        disabled={disabled}
+        className="sr-only"
       />
-    </button>
+      <div
+        onClick={() => !disabled && onCheckedChange(!checked)}
+        className={cn(
+          "relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 cursor-pointer",
+          checked ? "bg-green-500" : "bg-red-500",
+          disabled && "opacity-50 cursor-not-allowed",
+          className
+        )}
+      >
+        <div
+          className={cn(
+            "inline-block h-6 w-6 transform rounded-full bg-white shadow-lg transition-transform duration-300",
+            checked ? "translate-x-7" : "translate-x-1"
+          )}
+        />
+      </div>
+    </div>
   );
 }
