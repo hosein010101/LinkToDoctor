@@ -28,6 +28,7 @@ import {
   ChevronLeft,
   Heart
 } from "lucide-react";
+import logoPath from "@assets/logo_1749113951949.png";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -175,17 +176,22 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
               animate={collapsed ? "collapsed" : "expanded"}
               transition={{ duration: 0.2, delay: 0.1 }}
             >
-              <div className="flex items-center justify-center space-x-3 space-x-reverse mb-2">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
-                  <Heart className="text-white w-5 h-5" />
-                </div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">LinkToDoctor</h1>
+              <div className="flex items-center justify-center mb-2">
+                <img 
+                  src={logoPath} 
+                  alt="LinkToDoctor" 
+                  className="h-8 w-auto object-contain"
+                />
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">سامانه آزمایشگاه</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">سامانه جامع سلامت الکترونیک</p>
             </motion.div>
           ) : (
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
-              <Heart className="text-white w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center">
+              <img 
+                src={logoPath} 
+                alt="LinkToDoctor" 
+                className="h-6 w-auto object-contain"
+              />
             </div>
           )}
         </div>
