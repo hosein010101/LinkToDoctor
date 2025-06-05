@@ -119,17 +119,30 @@ button:not(.btn-primary):not(.btn-secondary),
   color: #6B46C1 !important;
 }
 
-/* Preserve Status Colors - Do NOT Override */
-.text-green-800,
-.text-red-800,
-.text-orange-800,
-.text-yellow-800,
-.bg-green-100,
-.bg-red-100,
+/* FORCE ALL BADGE TEXT TO BE BLACK - CRITICAL FIX */
 .bg-orange-100,
+.bg-orange-100 *,
+.bg-orange-100 span,
+.bg-red-100,
+.bg-red-100 *,
+.bg-red-100 span,
+.bg-green-100,
+.bg-green-100 *,
+.bg-green-100 span,
+.bg-blue-100,
+.bg-blue-100 *,
+.bg-blue-100 span,
 .bg-yellow-100,
-.badge {
-  /* Preserve existing status colors */
+.bg-yellow-100 *,
+.bg-yellow-100 span,
+.badge,
+.badge *,
+.badge span,
+[class*="bg-"][class*="100"],
+[class*="bg-"][class*="100"] *,
+[class*="bg-"][class*="100"] span {
+  color: #000000 !important;
+  font-weight: 600 !important;
 }
 
 /* Table Specific Fixes */
