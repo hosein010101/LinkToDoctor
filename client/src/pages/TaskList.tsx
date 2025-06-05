@@ -244,12 +244,12 @@ export default function TaskList() {
           <p className="text-gray-600 mt-1">مدیریت و پیگیری وظایف تیم</p>
         </div>
         <div className="flex items-center space-x-3 space-x-reverse">
-          <div className="flex items-center bg-gray-100 rounded-lg p-1">
+          <div className="flex items-center bg-slate-100 rounded-lg p-1">
             <Button
               variant={viewMode === "kanban" ? "default" : "ghost"}
               size="sm"
               onClick={() => setViewMode("kanban")}
-              className="flex items-center"
+              className={`flex items-center ${viewMode === "kanban" ? "bg-white shadow-sm border-0 text-indigo-600" : "text-slate-600 hover:text-indigo-600"}`}
             >
               <LayoutGrid className="w-4 h-4 ml-2" />
               کانبان
@@ -258,13 +258,13 @@ export default function TaskList() {
               variant={viewMode === "table" ? "default" : "ghost"}
               size="sm"
               onClick={() => setViewMode("table")}
-              className="flex items-center"
+              className={`flex items-center ${viewMode === "table" ? "bg-white shadow-sm border-0 text-indigo-600" : "text-slate-600 hover:text-indigo-600"}`}
             >
               <List className="w-4 h-4 ml-2" />
               جدول
             </Button>
           </div>
-          <Button onClick={handleAddTask} className="bg-blue-600 hover:bg-blue-700 text-white">
+          <Button onClick={handleAddTask} className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg border-0">
             <Plus className="w-4 h-4 ml-2" />
             وظیفه جدید
           </Button>
