@@ -14,27 +14,37 @@ export function ToggleSwitch({
   className 
 }: ToggleSwitchProps) {
   return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={checked}
-      disabled={disabled}
-      onClick={() => onCheckedChange(!checked)}
+    <label 
       className={cn(
-        "relative inline-flex h-7 w-12 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-        checked 
-          ? "bg-green-500 focus:ring-green-300" 
-          : "bg-gray-300 focus:ring-gray-300",
+        "relative inline-block w-[60px] h-[34px] cursor-pointer",
+        disabled && "opacity-50 cursor-not-allowed",
         className
       )}
     >
-      <span className="sr-only">Toggle</span>
-      <span
-        className={cn(
-          "inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
-          checked ? "translate-x-6" : "translate-x-1"
-        )}
+      {/* مخفی کردن چک‌باکس اصلی */}
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => !disabled && onCheckedChange(e.target.checked)}
+        disabled={disabled}
+        className="opacity-0 w-0 h-0"
       />
-    </button>
+      
+      {/* مسیر (Track) */}
+      <span 
+        className={cn(
+          "absolute inset-0 rounded-full transition-colors duration-300 ease-in-out",
+          checked ? "bg-[#4CD964]" : "bg-[#ccc]"
+        )}
+      >
+        {/* دستگیره (Knob) */}
+        <span 
+          className={cn(
+            "absolute top-[2px] left-[2px] w-[30px] h-[30px] bg-white rounded-full shadow-md transition-transform duration-300 ease-in-out",
+            checked && "transform translate-x-[26px]"
+          )}
+        />
+      </span>
+    </label>
   );
 }

@@ -100,7 +100,10 @@ export default function AccountSettings() {
                     دریافت اعلانات مهم از طریق ایمیل
                   </div>
                 </div>
-                {/* Toggle removed */}
+                <ToggleSwitch
+                  checked={settings.notifications.emailNotifications}
+                  onCheckedChange={(checked) => handleNotificationChange('emailNotifications', checked)}
+                />
               </div>
 
               <div className="flex items-center justify-between">
@@ -110,7 +113,10 @@ export default function AccountSettings() {
                     دریافت اطلاعیه‌های فوری از طریق پیامک
                   </div>
                 </div>
-                {/* Toggle removed */}
+                <ToggleSwitch
+                  checked={settings.notifications.smsNotifications}
+                  onCheckedChange={(checked) => handleNotificationChange('smsNotifications', checked)}
+                />
               </div>
 
               <div className="flex items-center justify-between">
@@ -120,7 +126,10 @@ export default function AccountSettings() {
                     اطلاع از تغییرات وضعیت سفارشات
                   </div>
                 </div>
-                {/* Toggle removed */}
+                <ToggleSwitch
+                  checked={settings.notifications.orderUpdates}
+                  onCheckedChange={(checked) => handleNotificationChange('orderUpdates', checked)}
+                />
               </div>
 
               <div className="flex items-center justify-between">
@@ -130,7 +139,10 @@ export default function AccountSettings() {
                     اعلانات مربوط به مسائل فنی و امنیتی
                   </div>
                 </div>
-                {/* Toggle removed */}
+                <ToggleSwitch
+                  checked={settings.notifications.systemAlerts}
+                  onCheckedChange={(checked) => handleNotificationChange('systemAlerts', checked)}
+                />
               </div>
             </div>
           </CardContent>
@@ -207,7 +219,10 @@ export default function AccountSettings() {
                     پخش صدا برای اعلانات و هشدارها
                   </div>
                 </div>
-                {/* Toggle removed */}
+                <ToggleSwitch
+                  checked={settings.preferences.soundEnabled}
+                  onCheckedChange={(checked) => handlePreferenceChange('soundEnabled', checked)}
+                />
               </div>
             </div>
           </CardContent>
@@ -243,7 +258,10 @@ export default function AccountSettings() {
                     ذخیره تاریخچه فعالیت‌های شما
                   </div>
                 </div>
-                {/* Toggle removed */}
+                <ToggleSwitch
+                  checked={settings.privacy.activityLog}
+                  onCheckedChange={(checked) => handlePrivacyChange('activityLog', checked)}
+                />
               </div>
             </div>
           </CardContent>
