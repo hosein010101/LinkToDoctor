@@ -103,7 +103,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           {/* Language Switcher */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="text-slate-600 hover:text-slate-700 hover:bg-slate-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg flex items-center space-x-2 space-x-reverse px-3 py-2">
+              <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg flex items-center space-x-2 space-x-reverse px-3 py-2">
                 <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
                   {languages.find(lang => lang.code === currentLanguage)?.code.toUpperCase()}
                 </div>
