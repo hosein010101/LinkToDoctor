@@ -113,8 +113,8 @@ export default function EmployeeList() {
       title: "قراردادهای در شرف اتمام (۳۰ روز آتی)",
       value: "۳",
       icon: Calendar,
-      color: "bg-orange-500",
-      bgColor: "bg-orange-50"
+      color: "bg-red-500",
+      bgColor: "bg-red-50"
     },
     {
       title: "درخواست‌های مرخصی معلق",
