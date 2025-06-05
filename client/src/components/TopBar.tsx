@@ -139,9 +139,9 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                 <div className="relative">
                   <Bell className="w-5 h-5" fill="#FF0000" stroke="#FF0000" />
                   {unreadCount > 0 && (
-                    <div className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-bold rounded-full min-w-[16px] h-[16px] flex items-center justify-center border-2 border-white shadow-lg">
+                    <span className="absolute -top-1 -right-1 text-red-600 text-[10px] font-bold">
                       {unreadCount > 99 ? '99+' : unreadCount}
-                    </div>
+                    </span>
                   )}
                 </div>
               </Button>
