@@ -67,90 +67,90 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
     {
       title: "اصلی",
       icon: LayoutDashboard,
-      color: "text-blue-500",
+      color: "text-sky-400",
       items: [
-        { icon: LayoutDashboard, label: "داشبورد اصلی", path: "/", color: "text-blue-500" },
-        { icon: ShoppingCart, label: "مدیریت سفارشات", path: "/orders", color: "text-emerald-500" },
-        { icon: Plus, label: "ثبت سفارش جدید", path: "/new-order", color: "text-violet-500" },
+        { icon: LayoutDashboard, label: "داشبورد اصلی", path: "/", color: "text-sky-400" },
+        { icon: ShoppingCart, label: "مدیریت سفارشات", path: "/orders", color: "text-emerald-400" },
+        { icon: Plus, label: "ثبت سفارش جدید", path: "/new-order", color: "text-violet-400" },
       ]
     },
     {
       title: "بیماران",
       icon: Users,
-      color: "text-teal-500",
+      color: "text-teal-400",
       items: [
-        { icon: Users, label: "بیماران و مراجعین", path: "/patients", color: "text-teal-500" },
-        { icon: History, label: "سوابق و تاریخچه بیماران", path: "/history", color: "text-slate-500" },
-        { icon: UserPlus, label: "مدیریت ارتباط با مشتریان (CRM)", path: "/crm", color: "text-orange-500" },
+        { icon: Users, label: "بیماران و مراجعین", path: "/patients", color: "text-teal-400" },
+        { icon: History, label: "سوابق و تاریخچه بیماران", path: "/history", color: "text-slate-400" },
+        { icon: UserPlus, label: "مدیریت ارتباط با مشتریان (CRM)", path: "/crm", color: "text-orange-400" },
       ]
     },
     {
       title: "سازمان‌ها",
       icon: Building2,
-      color: "text-indigo-500",
+      color: "text-indigo-400",
       items: [
-        { icon: Building2, label: "معاینات سازمانی", path: "/organizational", color: "text-indigo-500" },
+        { icon: Building2, label: "معاینات سازمانی", path: "/organizational", color: "text-indigo-400" },
       ]
     },
     {
       title: "عملیات آزمایشگاه",
       icon: TestTube,
-      color: "text-cyan-500",
+      color: "text-cyan-400",
       items: [
-        { icon: ClipboardList, label: "مدیریت نمونه‌گیری", path: "/collection", color: "text-cyan-500" },
-        { icon: Stethoscope, label: "مدیریت نمونه‌گیری پیشرفته", path: "/sample-collection", color: "text-pink-500" },
-        { icon: Users, label: "پروفایل نمونه‌گیران", path: "/collectors", color: "text-amber-500" },
-        { icon: TestTube, label: "مدیریت پکیج‌های آزمایشگاهی", path: "/test-packages", color: "text-emerald-500" },
-        { icon: Microscope, label: "ورود نتایج آزمایش", path: "/results", color: "text-violet-500" },
-        { icon: Truck, label: "تحویل نتایج", path: "/delivery", color: "text-rose-500" },
+        { icon: ClipboardList, label: "مدیریت نمونه‌گیری", path: "/collection", color: "text-cyan-400" },
+        { icon: Stethoscope, label: "مدیریت نمونه‌گیری پیشرفته", path: "/sample-collection", color: "text-pink-400" },
+        { icon: Users, label: "پروفایل نمونه‌گیران", path: "/collectors", color: "text-amber-400" },
+        { icon: TestTube, label: "مدیریت پکیج‌های آزمایشگاهی", path: "/test-packages", color: "text-emerald-400" },
+        { icon: Microscope, label: "ورود نتایج آزمایش", path: "/results", color: "text-violet-400" },
+        { icon: Truck, label: "تحویل نتایج", path: "/delivery", color: "text-rose-400" },
       ]
     },
     {
       title: "موجودی",
       icon: Package,
-      color: "text-lime-500",
+      color: "text-lime-400",
       items: [
-        { icon: Package, label: "مدیریت موجودی", path: "/inventory", color: "text-lime-500" },
-        { icon: Wrench, label: "تجهیزات آزمایشگاه", path: "/equipment", color: "text-slate-500" },
+        { icon: Package, label: "مدیریت موجودی", path: "/inventory", color: "text-lime-400" },
+        { icon: Wrench, label: "تجهیزات آزمایشگاه", path: "/equipment", color: "text-slate-400" },
       ]
     },
     {
       title: "گزارشات",
       icon: BarChart3,
-      color: "text-blue-600",
+      color: "text-blue-400",
       items: [
-        { icon: BarChart3, label: "گزارشات و تحلیل", path: "/reports", color: "text-blue-600" },
-        { icon: FileText, label: "خروجی گزارشات (PDF/Excel)", path: "/exports", color: "text-green-600" },
-        { icon: Bell, label: "اعلان‌ها و لاگ سیستم", path: "/notifications", color: "text-purple-600" },
+        { icon: BarChart3, label: "گزارشات و تحلیل", path: "/reports", color: "text-blue-400" },
+        { icon: FileText, label: "خروجی گزارشات (PDF/Excel)", path: "/exports", color: "text-green-400" },
+        { icon: Bell, label: "اعلان‌ها و لاگ سیستم", path: "/notifications", color: "text-purple-400" },
       ]
     },
     {
       title: "مدیریت وظایف",
       icon: CheckSquare,
-      color: "text-purple-600",
+      color: "text-purple-400",
       items: [
-        { icon: CheckSquare, label: "فهرست وظایف", path: "/tasks", color: "text-purple-600" },
+        { icon: CheckSquare, label: "فهرست وظایف", path: "/tasks", color: "text-purple-400" },
       ]
     },
     {
       title: "منابع انسانی",
       icon: Users,
-      color: "text-teal-600",
+      color: "text-teal-400",
       items: [
-        { icon: Users, label: "خلاصه منابع انسانی", path: "/hr", color: "text-teal-600" },
-        { icon: Users, label: "فهرست کارکنان", path: "/employee-list", color: "text-blue-600" },
-        { icon: Calendar, label: "مدیریت شیفت‌ها", path: "/hr-shifts", color: "text-orange-600" },
-        { icon: DollarSign, label: "حقوق و دستمزد", path: "/hr-payroll", color: "text-indigo-600" },
-        { icon: TrendingUp, label: "ارزیابی عملکرد", path: "/hr-performance", color: "text-cyan-600" },
+        { icon: Users, label: "خلاصه منابع انسانی", path: "/hr", color: "text-teal-400" },
+        { icon: Users, label: "فهرست کارکنان", path: "/employee-list", color: "text-blue-400" },
+        { icon: Calendar, label: "مدیریت شیفت‌ها", path: "/hr-shifts", color: "text-orange-400" },
+        { icon: DollarSign, label: "حقوق و دستمزد", path: "/hr-payroll", color: "text-indigo-400" },
+        { icon: TrendingUp, label: "ارزیابی عملکرد", path: "/hr-performance", color: "text-cyan-400" },
       ]
     },
     {
       title: "تنظیمات",
       icon: Settings,
-      color: "text-gray-600",
+      color: "text-gray-400",
       items: [
-        { icon: Settings, label: "تنظیمات آزمایشگاه", path: "/settings", color: "text-gray-600" },
-        { icon: Shield, label: "مدیریت دسترسی کاربران", path: "/access-management", color: "text-red-600" },
+        { icon: Settings, label: "تنظیمات آزمایشگاه", path: "/settings", color: "text-gray-400" },
+        { icon: Shield, label: "مدیریت دسترسی کاربران", path: "/access-management", color: "text-red-400" },
       ]
     }
   ];
