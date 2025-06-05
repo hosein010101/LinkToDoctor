@@ -258,7 +258,7 @@ export default function AccountSettings() {
                     ذخیره تاریخچه فعالیت‌های شما
                   </div>
                 </div>
-                <Switch
+                <ToggleSwitch
                   checked={settings.privacy.activityLog}
                   onCheckedChange={(checked) => handlePrivacyChange('activityLog', checked)}
                 />
