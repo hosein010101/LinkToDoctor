@@ -44,7 +44,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
   };
 
   return (
-    <header className="h-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-soft">
+    <header className="h-16 bg-gradient-to-r from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 border-b border-slate-200 dark:border-gray-700 shadow-lg backdrop-blur-sm">
       <div className="flex items-center justify-between h-full px-6">
         {/* Right Side - Menu Button */}
         <div className="flex items-center space-x-4 space-x-reverse">
@@ -52,19 +52,19 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
             variant="ghost"
             size="sm"
             onClick={onToggleSidebar}
-            className="hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="text-medical-secondary hover:text-medical-primary hover:bg-blue-100 dark:hover:bg-gray-800 transition-all duration-200"
           >
             <Menu className="w-5 h-5" />
           </Button>
           
           {/* Search Bar */}
           <div className="relative hidden md:block">
-            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-medical-muted" />
             <Input
               placeholder="جستجو در سامانه..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-80 pr-10 search-input"
+              className="w-80 pr-10 border-slate-200 bg-white/70 backdrop-blur-sm focus:border-medical-info focus:ring-medical-info/20 transition-all duration-200"
             />
           </div>
         </div>
@@ -76,10 +76,10 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           {/* Notifications */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="relative hover:bg-gray-100 dark:hover:bg-gray-800">
+              <Button variant="ghost" size="sm" className="relative text-medical-secondary hover:text-medical-primary hover:bg-orange-100 dark:hover:bg-gray-800 transition-all duration-200">
                 <Bell className="w-5 h-5" />
                 {unreadCount > 0 && (
-                  <Badge className="absolute -top-1 -left-1 w-5 h-5 p-0 text-xs bg-red-500 text-white rounded-full flex items-center justify-center">
+                  <Badge className="absolute -top-1 -left-1 w-5 h-5 p-0 text-xs bg-medical-error text-white rounded-full flex items-center justify-center animate-pulse">
                     {unreadCount}
                   </Badge>
                 )}
@@ -118,7 +118,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           {/* Quick Actions */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="hover:bg-gray-100 dark:hover:bg-gray-800">
+              <Button variant="ghost" size="sm" className="text-medical-secondary hover:text-medical-primary hover:bg-green-100 dark:hover:bg-gray-800 transition-all duration-200">
                 <Activity className="w-5 h-5" />
               </Button>
             </DropdownMenuTrigger>
@@ -145,7 +145,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
             variant="ghost"
             size="sm"
             onClick={toggleDarkMode}
-            className="hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="text-medical-secondary hover:text-medical-primary hover:bg-purple-100 dark:hover:bg-gray-800 transition-all duration-200"
           >
             {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </Button>
