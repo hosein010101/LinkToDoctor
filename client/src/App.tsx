@@ -32,6 +32,10 @@ import HRShifts from "@/pages/HRShifts";
 import HRPayroll from "@/pages/HRPayroll";
 import HRPerformance from "@/pages/HRPerformance";
 import AccessManagement from "@/pages/AccessManagement";
+import UserProfile from "@/pages/UserProfile";
+import AccountSettings from "@/pages/AccountSettings";
+import SecurityPrivacy from "@/pages/SecurityPrivacy";
+import HelpSupport from "@/pages/HelpSupport";
 
 import { queryClient } from "@/lib/queryClient";
 
@@ -77,6 +81,12 @@ function Router() {
         {/* System Settings */}
         <Route path="/settings" component={Settings} />
         <Route path="/access-management" component={AccessManagement} />
+        
+        {/* User Profile & Account */}
+        <Route path="/profile" component={UserProfile} />
+        <Route path="/account-settings" component={AccountSettings} />
+        <Route path="/security-privacy" component={SecurityPrivacy} />
+        <Route path="/help-support" component={HelpSupport} />
         
         {/* Legacy routes for compatibility */}
         <Route path="/history" component={History} />
