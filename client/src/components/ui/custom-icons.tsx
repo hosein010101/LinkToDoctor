@@ -7,27 +7,31 @@ interface IconProps {
 }
 
 // Clear Notification Bell Icon - Modern, recognizable bell design
-export const NotificationBellIcon = ({ className = "", size = 20, hasNotification = false }: IconProps & { hasNotification?: boolean }) => (
-  <svg 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="1.8" 
-    strokeLinecap="round" 
-    strokeLinejoin="round"
-    className={className}
-  >
-    {/* Bell body */}
-    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" fill="none" />
-    {/* Bell clapper */}
-    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-    {/* Notification indicator dot */}
-    {hasNotification && (
-      <circle cx="19" cy="5" r="3" fill="#dc2626" stroke="#ffffff" strokeWidth="1.5" />
+export const NotificationBellIcon = ({ className = "", size = 20, notificationCount = 0 }: IconProps & { notificationCount?: number }) => (
+  <div className="relative inline-block">
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="#dc2626" 
+      stroke="#dc2626" 
+      strokeWidth="1.5" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+      className={className}
+    >
+      {/* Bell body - filled red */}
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" fill="#dc2626" stroke="#b91c1c" strokeWidth="1" />
+      {/* Bell clapper */}
+      <path d="M13.73 21a2 2 0 0 1-3.46 0" fill="#dc2626" stroke="#b91c1c" strokeWidth="1" />
+    </svg>
+    {/* Notification count badge */}
+    {notificationCount > 0 && (
+      <div className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center border-2 border-white shadow-lg">
+        {notificationCount > 99 ? '99+' : notificationCount}
+      </div>
     )}
-  </svg>
+  </div>
 );
 
 // Sample Collection Queue/List Icon - Colorful and modern
