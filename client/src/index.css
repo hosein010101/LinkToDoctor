@@ -145,6 +145,43 @@ button:not(.btn-primary):not(.btn-secondary),
   font-weight: 600 !important;
 }
 
+/* SIDEBAR SECTION HEADERS WITH PASTEL COLORS */
+.sidebar-section-header[data-section="اصلی"] {
+  color: #7dd3fc !important;
+}
+
+.sidebar-section-header[data-section="بیماران"] {
+  color: #5eead4 !important;
+}
+
+.sidebar-section-header[data-section="سازمان‌ها"] {
+  color: #a5b4fc !important;
+}
+
+.sidebar-section-header[data-section="عملیات آزمایشگاه"] {
+  color: #67e8f9 !important;
+}
+
+.sidebar-section-header[data-section="موجودی"] {
+  color: #bef264 !important;
+}
+
+.sidebar-section-header[data-section="گزارشات"] {
+  color: #60a5fa !important;
+}
+
+.sidebar-section-header[data-section="مدیریت وظایف"] {
+  color: #d8b4fe !important;
+}
+
+.sidebar-section-header[data-section="منابع انسانی"] {
+  color: #5eead4 !important;
+}
+
+.sidebar-section-header[data-section="تنظیمات"] {
+  color: #d1d5db !important;
+}
+
 /* Table Specific Fixes */
 table {
   color: #2D3748 !important;
