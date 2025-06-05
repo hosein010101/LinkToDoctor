@@ -1726,6 +1726,62 @@ button[data-variant="outline"] {
   background: #fff7ed !important;
 }
 
+/* REPORT PROBLEM BUTTON - Soft Pastel Orange Styling */
+/* Universal styling for گزارش مشکل buttons across dashboard */
+button:has(.lucide-alert-triangle),
+.Button:has(.lucide-alert-triangle),
+button:contains("گزارش مشکل"),
+[aria-label*="گزارش مشکل"],
+[title*="گزارش مشکل"] {
+  background-color: #FFD3A5 !important;
+  background: #FFD3A5 !important;
+  border: 1px solid #FFB366 !important;
+  border-color: #FFB366 !important;
+  color: #374151 !important; /* Dark gray text */
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  padding: 8px 16px !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+button:has(.lucide-alert-triangle):hover,
+.Button:has(.lucide-alert-triangle):hover,
+button:contains("گزارش مشکل"):hover,
+[aria-label*="گزارش مشکل"]:hover,
+[title*="گزارش مشکل"]:hover {
+  background-color: #FFCC99 !important;
+  background: #FFCC99 !important;
+  border-color: #FF9933 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* AlertTriangle icon styling */
+.lucide-alert-triangle,
+svg[data-lucide="alert-triangle"] {
+  color: #6b7280 !important; /* Gray 500 for icon */
+}
+
+/* Ensure proper text contrast */
+button:has(.lucide-alert-triangle) .lucide-alert-triangle,
+.Button:has(.lucide-alert-triangle) .lucide-alert-triangle {
+  color: #6b7280 !important;
+}
+
+/* Focus states for accessibility */
+button:has(.lucide-alert-triangle):focus,
+.Button:has(.lucide-alert-triangle):focus {
+  outline: 2px solid #FFB366 !important;
+  outline-offset: 2px !important;
+}
+
+/* Override any conflicting styles */
+button[style*="background"]:has(.lucide-alert-triangle) {
+  background-color: #FFD3A5 !important;
+  background: #FFD3A5 !important;
+}
+
 /* Avatar fallback backgrounds */
 .AvatarFallback, .avatar-fallback {
   background-color: #e2e8f0 !important; /* Slate 200 */

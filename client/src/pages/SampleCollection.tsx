@@ -337,10 +337,20 @@ export default function SampleCollection() {
                         </Button>
                         <Button 
                           size="sm" 
-                          className="bg-orange-50 border border-orange-200 text-orange-700 hover:bg-orange-100 hover:border-orange-300"
-                          style={{ backgroundColor: '#fff7ed', borderColor: '#fed7aa' }}
+                          className="text-gray-800 font-medium rounded-lg px-4 py-2 transition-all duration-200 hover:shadow-sm"
+                          style={{ 
+                            backgroundColor: '#FFD3A5', 
+                            borderColor: '#FFB366',
+                            border: '1px solid #FFB366'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = '#FFCC99';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = '#FFD3A5';
+                          }}
                         >
-                          <AlertTriangle className="w-4 h-4 ml-1" />
+                          <AlertTriangle className="w-4 h-4 ml-1 text-gray-700" />
                           گزارش مشکل
                         </Button>
                         <Button size="sm" variant="outline" className="border-red-300 text-red-700 hover:bg-red-50">
