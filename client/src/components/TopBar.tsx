@@ -20,7 +20,8 @@ import {
   MessageSquare,
   Calendar,
   Clock,
-  ChevronDown
+  ChevronDown,
+  Languages
 } from "lucide-react";
 
 interface TopBarProps {
@@ -30,11 +31,18 @@ interface TopBarProps {
 export default function TopBar({ onToggleSidebar }: TopBarProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState("fa");
   const [notifications] = useState([
     { id: 1, title: "سفارش جدید ثبت شد", time: "2 دقیقه پیش", type: "order", unread: true },
     { id: 2, title: "نتایج آزمایش آماده است", time: "10 دقیقه پیش", type: "result", unread: true },
     { id: 3, title: "نمونه‌گیری تکمیل شد", time: "1 ساعت پیش", type: "sample", unread: false },
   ]);
+
+  const languages = [
+    { code: "fa", name: "فارسی", flag: "🇮🇷" },
+    { code: "en", name: "English", flag: "🇺🇸" },
+    { code: "ar", name: "العربية", flag: "🇸🇦" },
+  ];
 
   const unreadCount = notifications.filter(n => n.unread).length;
 
@@ -44,7 +52,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
   };
 
   return (
-    <header className="h-16 bg-gradient-to-r from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 border-b border-slate-200 dark:border-gray-700 shadow-lg backdrop-blur-sm">
+    <header className="h-16 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-700 shadow-sm backdrop-blur-md bg-white/95 dark:bg-gray-900/95">
       <div className="flex items-center justify-between h-full px-6">
         {/* Right Side - Menu Button */}
         <div className="flex items-center space-x-4 space-x-reverse">
@@ -52,19 +60,19 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
             variant="ghost"
             size="sm"
             onClick={onToggleSidebar}
-            className="text-slate-600 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-gray-800 transition-all duration-200"
+            className="text-slate-600 hover:text-blue-600 hover:bg-blue-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg"
           >
             <Menu className="w-5 h-5" />
           </Button>
           
           {/* Search Bar */}
           <div className="relative hidden md:block">
-            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-medical-muted" />
+            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
             <Input
               placeholder="جستجو در سامانه..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-80 pr-10 border-slate-200 bg-white/70 backdrop-blur-sm focus:border-medical-info focus:ring-medical-info/20 transition-all duration-200"
+              className="w-80 pr-10 border-gray-200 bg-gray-50/50 hover:bg-white focus:bg-white focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all duration-200 rounded-lg"
             />
           </div>
         </div>
@@ -73,13 +81,45 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
 
         {/* Left Side - User Actions */}
         <div className="flex items-center space-x-3 space-x-reverse">
+          {/* Language Switcher */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="text-blue-500 hover:text-blue-600 hover:bg-blue-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg flex items-center space-x-1 space-x-reverse">
+                <Globe className="w-4 h-4" />
+                <span className="text-xs font-medium hidden sm:block">
+                  {languages.find(lang => lang.code === currentLanguage)?.flag}
+                </span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-44">
+              <DropdownMenuLabel className="flex items-center space-x-2 space-x-reverse">
+                <Languages className="w-4 h-4 text-blue-500" />
+                <span>انتخاب زبان</span>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {languages.map((language) => (
+                <DropdownMenuItem 
+                  key={language.code}
+                  onClick={() => setCurrentLanguage(language.code)}
+                  className={`cursor-pointer ${currentLanguage === language.code ? 'bg-blue-50 text-blue-700' : ''}`}
+                >
+                  <div className="flex items-center space-x-3 space-x-reverse w-full">
+                    <span className="text-lg">{language.flag}</span>
+                    <span className="flex-1">{language.name}</span>
+                    <span className="text-xs text-gray-500 uppercase">{language.code}</span>
+                  </div>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           {/* Notifications */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="relative text-orange-500 hover:text-orange-600 hover:bg-orange-50 dark:hover:bg-gray-800 transition-all duration-200">
+              <Button variant="ghost" size="sm" className="relative text-orange-500 hover:text-orange-600 hover:bg-orange-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg">
                 <Bell className="w-5 h-5" />
                 {unreadCount > 0 && (
-                  <Badge className="absolute -top-1 -left-1 w-5 h-5 p-0 text-xs bg-red-500 text-white rounded-full flex items-center justify-center animate-pulse">
+                  <Badge className="absolute -top-1 -left-1 w-5 h-5 p-0 text-xs bg-red-500 text-white rounded-full flex items-center justify-center animate-pulse shadow-sm">
                     {unreadCount}
                   </Badge>
                 )}
@@ -115,10 +155,31 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Messages */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="text-green-500 hover:text-green-600 hover:bg-green-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg">
+                <MessageSquare className="w-5 h-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuLabel>پیام‌ها</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <MessageSquare className="w-4 h-4 ml-2" />
+                پیام‌های جدید
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Activity className="w-4 h-4 ml-2" />
+                گزارش‌های فوری
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           {/* Quick Actions */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="text-green-500 hover:text-green-600 hover:bg-green-50 dark:hover:bg-gray-800 transition-all duration-200">
+              <Button variant="ghost" size="sm" className="text-purple-500 hover:text-purple-600 hover:bg-purple-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg">
                 <Activity className="w-5 h-5" />
               </Button>
             </DropdownMenuTrigger>
@@ -145,7 +206,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
             variant="ghost"
             size="sm"
             onClick={toggleDarkMode}
-            className="text-purple-500 hover:text-purple-600 hover:bg-purple-50 dark:hover:bg-gray-800 transition-all duration-200"
+            className="text-indigo-500 hover:text-indigo-600 hover:bg-indigo-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg"
           >
             {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </Button>
