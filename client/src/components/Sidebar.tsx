@@ -99,7 +99,6 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
       color: "#67e8f9",
       items: [
         { icon: Stethoscope, label: "مدیریت نمونه‌گیری پیشرفته", path: "/sample-collection", color: "#f9a8d4" },
-        { icon: Users, label: "پروفایل نمونه‌گیران", path: "/collectors", color: "#fcd34d" },
         { icon: TestTube, label: "مدیریت پکیج‌های آزمایشگاهی", path: "/test-packages", color: "#6ee7b7" },
         { icon: Microscope, label: "ورود نتایج آزمایش", path: "/results", color: "#c4b5fd" },
         { icon: Truck, label: "تحویل نتایج", path: "/delivery", color: "#fda4af" },
