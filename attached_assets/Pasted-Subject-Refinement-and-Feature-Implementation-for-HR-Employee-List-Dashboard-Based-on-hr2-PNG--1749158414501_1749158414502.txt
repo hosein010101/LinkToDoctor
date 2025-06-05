@@ -1,0 +1,57 @@
+Subject: Refinement and Feature Implementation for HR Employee List Dashboard (Based on hr2.PNG)
+
+Prompt:
+
+You are a skilled frontend developer. Based on the provided screenshot (`hr2.PNG`) of an existing "Employee List" (فهرست کارکنان) dashboard, please implement the following refinements and features. All UI elements and text must remain in Persian.
+
+**I. Task Overview:**
+1.  Implement the two data visualization charts at the bottom of the page.
+2.  Correct the font color of the "وضعیت" (Status) field for employee "حسین رضایی" to ensure visibility.
+3.  Add basic interactivity to the three action buttons under "اقدامات" (Actions) for each employee row.
+
+**II. Detailed Implementation Requirements:**
+
+1.  **Data Visualization Charts (Bottom Section):**
+    * Implement the two chart placeholders visible at the bottom of `hr2.PNG`.
+    * Use simple, static visual representations (e.g., using HTML/CSS/SVG, or a lightweight charting library like Chart.js if easily integrable for this task).
+    * **Chart 1: "توزیع کارکنان بر اساس واحد سازمانی" (Pie Chart)**
+        * **Type:** Pie Chart.
+        * **Title (already present):** "توزیع کارکنان بر اساس واحد سازمانی"
+        * **Placeholder Data (Persian Labels & Values):**
+            * بخش آزمایشگاه: ۳ نفر
+            * واحد نمونه‌گیری: ۱ نفر
+            * اداری: ۱ نفر
+            * امور مالی: ۱ نفر
+            * پذیرش: ۱ نفر
+            * فناوری اطلاعات: ۱ نفر
+        * Ensure labels are visible and legible.
+    * **Chart 2: "روند استخدام (۶ ماه گذشته)" (Bar Chart)**
+        * **Type:** Bar Chart.
+        * **Title (already present):** "روند استخدام (۶ ماه گذشته)"
+        * **Placeholder Data (Persian Labels for X-axis, Numeric for Y-axis):**
+            * X-axis (Months): ["دی", "بهمن", "اسفند", "فروردین", "اردیبهشت", "خرداد"] (مثال برای ۶ ماه گذشته)
+            * Y-axis (Number of Hires): [۲, ۱, ۳, ۲, ۴, ۱] (مثال تعداد استخدام)
+        * Ensure axis labels and bar values (if displayed) are clear.
+
+2.  **CSS Fix for "وضعیت" (Status) Field:**
+    * In the employee table, the "وضعیت" (Status) for "حسین رضایی" (EMP003) appears to have a white or transparent font color, making it invisible against its likely light-colored or empty background.
+    * **Action:** Identify the CSS class or style responsible for this. Modify the CSS to ensure the font color for this status (and any other status styled similarly) is clearly visible (e.g., a dark grey like `#333333` or black `#000000`, or an appropriate color if statuses are color-coded, for instance, orange/red for "معلق"). The text in the screenshot for "زهرا نوری" with status "معلق" is red and visible; "حسین رضایی" needs similar visibility.
+
+3.  **Functionality for "اقدامات" (Actions) Buttons:**
+    * For each employee row, there are three action buttons (View, Edit, Document icons). Currently, they are non-functional.
+    * **Action:** Implement basic frontend interactivity for these buttons. When any of these buttons are clicked, they should log a message to the browser's console. The message should indicate:
+        * Which action was performed (e.g., "مشاهده پروفایل", "ویرایش اطلاعات", "مدیریت مدارک").
+        * The "کد پرسنلی" (Employee ID) and "نام کامل" (Full Name) of the employee for that row.
+        * **Example Console Log Output on clicking the 'View' icon for "حسین رضایی":**
+            ```
+            اقدام: مشاهده پروفایل، کد پرسنلی: EMP003، نام: حسین رضایی
+            ```
+    * **Alternative (if simple modals are feasible):** Optionally, instead of console logs, each button click could trigger a basic modal dialog displaying the same information (e.g., Modal Title: "مشاهده پروفایل: حسین رضایی (EMP003)"). The modal should have a "بستن" (Close) button. *Prioritize console logging if modal implementation is too complex for this update.*
+
+**III. General Guidelines:**
+* Ensure all new code integrates seamlessly with the existing design shown in `hr2.PNG`.
+* Maintain the existing visual style, fonts, and color scheme (except for the specific color fix requested).
+* All text generated or modified must be in professional Persian.
+* The solution should use HTML, CSS, and JavaScript, consistent with the likely existing technology stack.
+
+Please proceed with these updates to enhance the dashboard's functionality and user experience.

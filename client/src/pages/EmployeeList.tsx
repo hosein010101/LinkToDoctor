@@ -17,6 +17,27 @@ import {
   TrendingUp,
   Building2
 } from "lucide-react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from 'chart.js';
+import { Bar, Pie } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement
+);
 
 interface Employee {
   id: number;
@@ -145,14 +166,99 @@ export default function EmployeeList() {
   const getStatusBadge = (status: Employee["status"]) => {
     switch (status) {
       case "فعال":
-        return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">فعال</Badge>;
+        return <Badge className="bg-green-100 text-green-800 hover:bg-green-100 font-medium">فعال</Badge>;
       case "در مرخصی":
-        return <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">در مرخصی</Badge>;
+        return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100 font-medium">در مرخصی</Badge>;
       case "تعلیق":
-        return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">تعلیق</Badge>;
+        return <Badge className="bg-red-100 text-red-800 hover:bg-red-100 font-medium">تعلیق</Badge>;
       default:
-        return <Badge variant="secondary">{status}</Badge>;
+        return <Badge variant="secondary" className="font-medium text-gray-800">{status}</Badge>;
     }
+  };
+
+  const handleAction = (action: string, employee: Employee) => {
+    const actionName = action === 'view' ? 'مشاهده پروفایل' : 
+                      action === 'edit' ? 'ویرایش اطلاعات' : 'مدیریت مدارک';
+    console.log(`اقدام: ${actionName}، کد پرسنلی: ${employee.employeeId}، نام: ${employee.fullName}`);
+  };
+
+  // Chart Data
+  const departmentData = {
+    labels: ['بخش آزمایشگاه', 'نمونه‌گیری', 'اداری', 'امور مالی', 'پذیرش', 'فناوری اطلاعات'],
+    datasets: [
+      {
+        data: [3, 1, 1, 1, 1, 1],
+        backgroundColor: [
+          '#3B82F6', // Blue
+          '#10B981', // Green
+          '#F59E0B', // Orange
+          '#8B5CF6', // Purple
+          '#EF4444', // Red
+          '#06B6D4', // Cyan
+        ],
+        borderWidth: 0,
+      },
+    ],
+  };
+
+  const hiringTrendData = {
+    labels: ['دی', 'بهمن', 'اسفند', 'فروردین', 'اردیبهشت', 'خرداد'],
+    datasets: [
+      {
+        label: 'تعداد استخدام',
+        data: [2, 1, 3, 2, 4, 1],
+        backgroundColor: '#10B981',
+        borderColor: '#059669',
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom' as const,
+        labels: {
+          font: {
+            family: 'IRANSans, Tahoma, Arial, sans-serif',
+            size: 12,
+          },
+          padding: 20,
+        },
+      },
+      tooltip: {
+        titleFont: {
+          family: 'IRANSans, Tahoma, Arial, sans-serif',
+        },
+        bodyFont: {
+          family: 'IRANSans, Tahoma, Arial, sans-serif',
+        },
+      },
+    },
+  };
+
+  const barChartOptions = {
+    ...chartOptions,
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          stepSize: 1,
+          font: {
+            family: 'IRANSans, Tahoma, Arial, sans-serif',
+          },
+        },
+      },
+      x: {
+        ticks: {
+          font: {
+            family: 'IRANSans, Tahoma, Arial, sans-serif',
+          },
+        },
+      },
+    },
   };
 
   return (
@@ -260,13 +366,28 @@ export default function EmployeeList() {
                     <td className="p-4 text-gray-600">{employee.hireDate}</td>
                     <td className="p-4">
                       <div className="flex items-center space-x-2 space-x-reverse">
-                        <Button variant="ghost" size="sm" className="text-blue-600 hover:bg-blue-50">
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-blue-600 hover:bg-blue-50"
+                          onClick={() => handleAction('view', employee)}
+                        >
                           <Eye className="w-4 h-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" className="text-green-600 hover:bg-green-50">
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-green-600 hover:bg-green-50"
+                          onClick={() => handleAction('edit', employee)}
+                        >
                           <Edit className="w-4 h-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" className="text-purple-600 hover:bg-purple-50">
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-purple-600 hover:bg-purple-50"
+                          onClick={() => handleAction('document', employee)}
+                        >
                           <FileText className="w-4 h-4" />
                         </Button>
                       </div>
@@ -297,14 +418,8 @@ export default function EmployeeList() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Building2 className="w-8 h-8 text-white" />
-                </div>
-                <p className="text-gray-600 font-medium">نمودار دایره‌ای توزیع واحدها</p>
-                <p className="text-sm text-gray-500 mt-2">داده‌های واقعی در نسخه نهایی نمایش داده خواهد شد</p>
-              </div>
+            <div className="h-64">
+              <Pie data={departmentData} options={chartOptions} />
             </div>
           </CardContent>
         </Card>
@@ -318,14 +433,8 @@ export default function EmployeeList() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-green-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <TrendingUp className="w-8 h-8 text-white" />
-                </div>
-                <p className="text-gray-600 font-medium">نمودار میله‌ای روند استخدام</p>
-                <p className="text-sm text-gray-500 mt-2">داده‌های واقعی در نسخه نهایی نمایش داده خواهد شد</p>
-              </div>
+            <div className="h-64">
+              <Bar data={hiringTrendData} options={barChartOptions} />
             </div>
           </CardContent>
         </Card>
