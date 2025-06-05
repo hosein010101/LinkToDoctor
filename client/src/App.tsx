@@ -15,6 +15,7 @@ import Results from "@/pages/Results";
 import Delivery from "@/pages/Delivery";
 import History from "@/pages/History";
 import PatientHistory from "@/pages/PatientHistory";
+import SurveyReports from "@/pages/SurveyReports";
 import Inventory from "@/pages/Inventory";
 import Reports from "@/pages/Reports";
 import Settings from "@/pages/Settings";
@@ -56,6 +57,7 @@ function Router() {
         {/* Patients & Clients */}
         <Route path="/patients" component={Patients} />
         <Route path="/crm" component={CRM} />
+        <Route path="/survey-reports" component={SurveyReports} />
         <Route path="/organizational" component={Organizational} />
         
         {/* Lab Operations */}

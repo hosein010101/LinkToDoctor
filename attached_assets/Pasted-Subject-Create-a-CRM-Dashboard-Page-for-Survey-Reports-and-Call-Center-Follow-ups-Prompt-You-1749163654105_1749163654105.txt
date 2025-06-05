@@ -1,0 +1,61 @@
+Subject: Create a CRM Dashboard Page for Survey Reports and Call Center Follow-ups
+
+Prompt:
+
+You are an expert UI/UX designer and senior frontend developer specializing in data-driven CRM dashboards. Your task is to design and implement a new page for a CRM system titled "Survey & Customer Follow-up Report" (گزارش نظرسنجی و پیگیری مشتریان).
+
+This page must serve two primary functions:
+1.  Display incoming survey results in a clear, actionable list.
+2.  Provide a dedicated area for the call center team to log their follow-up actions for dissatisfied customers.
+3.  **Crucial Feature:** Automatically highlight low-scoring surveys with a distinct color scheme to draw immediate attention.
+
+**I. Page Layout and Components:**
+
+**1. KPI Cards (Top Section):**
+   - Implement a row of 4 summary cards at the top of the page.
+   - **Card 1:** Title: "تعداد کل نظرسنجی‌ها", Value: (e.g., "۱,۲۴۰").
+   - **Card 2:** Title: "میانگین امتیاز رضایت", Value: (e.g., "۷.۸ / ۱۰").
+   - **Card 3 (Most Important):** Title: "مشتریان ناراضی (نیاز به پیگیری)", Value: (e.g., "۱۵"). Style this card with a prominent red border or background to indicate urgency.
+   - **Card 4:** Title: "پیگیری‌های موفق", Value: (e.g., "۸۲").
+
+**2. Survey Results Table (Main Content):**
+   - Title: "آخرین نتایج نظرسنجی".
+   - Implement a data table with the following columns:
+     - `نام مشتری` (Customer Name)
+     - `امتیاز کل` (Overall Score)
+     - `وضعیت پیگیری` (Follow-up Status)
+     - `تاریخ نظرسنجی` (Survey Date)
+     - `مسئول پیگیری` (Assigned Agent)
+   - **Critical Highlighting Logic:**
+     - For any row where the "امتیاز کل" is **4 or less (out of 10)**, apply a light red background color to the entire table row (e.g., `<tr>` style with `background-color: #FFF5F5;`).
+     - The "وضعیت پیگیری" column should display a colored tag/badge:
+       - "نیاز به پیگیری": Red background.
+       - "در حال پیگیری": Yellow background.
+       - "پیگیری شده": Green background.
+   - The table rows should be clickable.
+
+**3. Follow-up & Details Panel (Right Sidebar or Dynamic Panel):**
+   - This panel should be dynamically populated when a user clicks on a row in the Survey Results Table.
+   - **Section 3a: Survey Details:**
+     - Display the selected customer's name and their overall score.
+     - Show the specific questions they answered with a low score.
+   - **Section 3b: Log Follow-up Form (فرم ثبت گزارش پیگیری):**
+     - An input form with the following fields:
+       - `نوع پیگیری` (Dropdown: "تماس تلفنی", "ایمیل", "پیامک").
+       - `نتیجه پیگیری` (Dropdown: "مشکل حل شد", "نیاز به ارجاع", "عدم پاسخگویی").
+       - `یادداشت‌ها و توضیحات` (Textarea).
+       - A primary button labeled **"ثبت گزارش"**.
+   - **Section 3c: Follow-up History (تاریخچه پیگیری‌ها):**
+     - A chronological list displaying past follow-up logs for the selected customer. Each entry should show the agent, date, and notes.
+
+**II. Interactivity and UX:**
+- The entire interface must be in **Persian**.
+- Clicking a row in the survey table should smoothly load the corresponding data into the right-hand panel without a full page refresh (use JavaScript).
+- The design should be clean, professional, and spacious. Use modern UI elements.
+- Populate the page with realistic placeholder/dummy data that clearly demonstrates all features, especially the color-coding for multiple low-scoring customers.
+
+**III. Technology Stack:**
+- **Required:** HTML5, CSS3 (Flexbox/Grid for layout), JavaScript (ES6+).
+- **Recommended:** A JavaScript framework like React or Vue.js to handle the dynamic panel and state management efficiently.
+
+Please proceed with creating this functional and visually intuitive dashboard page.

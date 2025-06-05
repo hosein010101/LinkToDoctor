@@ -82,6 +82,7 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
         { icon: Users, label: "بیماران و مراجعین", path: "/patients", color: "#5eead4" },
         { icon: History, label: "سوابق و تاریخچه بیماران", path: "/history", color: "#cbd5e1" },
         { icon: UserPlus, label: "مدیریت ارتباط با مشتریان (CRM)", path: "/crm", color: "#fdba74" },
+        { icon: BarChart3, label: "گزارش نظرسنجی و پیگیری مشتریان", path: "/survey-reports", color: "#f472b6" },
       ]
     },
     {
