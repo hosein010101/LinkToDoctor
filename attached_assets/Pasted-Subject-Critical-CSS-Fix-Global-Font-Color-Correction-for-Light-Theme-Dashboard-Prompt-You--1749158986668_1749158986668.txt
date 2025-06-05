@@ -1,0 +1,57 @@
+Subject: Critical CSS Fix: Global Font Color Correction for Light Theme Dashboard
+
+Prompt:
+
+You are an expert frontend developer tasked with a critical CSS fix. The current dashboard has a fundamental design flaw: it uses white or very light-colored fonts on a white background, making most of the text invisible across the entire application.
+
+**I. The Core Problem:**
+The text color throughout the dashboard is not visible. This issue likely stems from a leftover style from a dark theme template. Your primary mission is to correct this globally, ensuring all text is perfectly readable while maintaining a professional and visually harmonious aesthetic.
+
+**II. The Objective:**
+Systematically audit and update the CSS to change all invisible font colors to a new, professional color palette suitable for a light background. This is not just about changing one or two elements; it's a global fix.
+
+**III. Proposed Professional Color Palette:**
+Instead of using pure black (`#000000`), which can be harsh on the eyes, implement the following color hierarchy for better visual harmony:
+
+* **Primary Text Color (برای عناوین اصلی، متن‌های مهم، داده‌های جدول):**
+    * A dark, charcoal grey. **Example: `#2D3748`**
+* **Secondary Text Color (برای توضیحات، زیرنویس‌ها، عناوین ستون جدول):**
+    * A medium grey to create visual distinction. **Example: `#718096`**
+* **Accent & Link Color (برای لینک‌ها، دکمه‌های اصلی، آیکون‌های رنگی):**
+    * The primary brand color, which appears to be a shade of purple from the screenshots. **Example: `#6B46C1`** (or a similar purple from the existing design).
+* **Important Exception - Status Colors:**
+    * Do NOT override the specific colors used for status tags (e.g., the green for "فعال" or red for "معلق"). These colors convey meaning and must be preserved.
+
+**IV. Step-by-Step Action Plan:**
+
+1.  **Identify and Fix the Root Cause (Global Style):**
+    * Inspect the main CSS file (`style.css`, `main.css`, etc.).
+    * Find the global style rule that is causing the problem. This is most likely:
+        * A style on the `body` or `html` tag, like `body { color: #fff; }`.
+        * A global CSS variable, like `:root { --text-color: #ffffff; }`.
+    * **Action:** Change this root style to use the **Primary Text Color** proposed above (e.g., `color: #2D3748;`). This single change should fix the majority of the text.
+
+2.  **Audit and Correct Specific Element Overrides:**
+    * After the global fix, systematically check for any elements that still have an invisible font color due to more specific CSS rules.
+    * Pay close attention to the following elements and ensure they inherit the new colors correctly or are assigned a suitable color from the new palette:
+        * **Headings:** `h1`, `h2`, `h3`, `h4` (e.g., "فهرست کارکنان" and chart titles).
+        * **Table Elements:**
+            * Table Headers (`th`): Should use the **Secondary Text Color** (`#718096`).
+            * Table Body Cells (`td`): Should use the **Primary Text Color** (`#2D3748`).
+        * **KPI Cards (بالای صفحه):** The numbers and titles in these cards must be clearly visible.
+        * **Input Fields & Dropdowns:** Placeholder text and selected values in filters like "همه واحدها" must be visible.
+        * **Buttons:** Text inside buttons like "افزودن کارمند جدید".
+        * **Paragraphs and Labels:** Any descriptive text on the page.
+
+3.  **Verify All Components:**
+    * Once the changes are made, perform a final visual check on every component in the dashboard (`hr2.PNG` is a good reference) to confirm that:
+        * No text is invisible.
+        * The new color hierarchy is applied correctly.
+        * The dashboard looks clean, professional, and visually balanced.
+        * The meaningful status colors (green/red) are untouched.
+
+**V. Deliverables:**
+* The updated CSS file(s) with all the necessary color corrections.
+* A brief confirmation that the issue of invisible text has been resolved across the entire dashboard interface.
+
+Please proceed with this critical fix, focusing on creating a clean, readable, and professional user interface.

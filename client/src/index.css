@@ -6,25 +6,30 @@
 
 :root {
   --background: 248 250 252; /* #F8FAFC */
-  --foreground: 15 23 42; /* #0F172A */
+  --foreground: 45 55 72; /* #2D3748 - Professional Dark Grey for Primary Text */
   --card: 255 255 255; /* #FFFFFF */
-  --card-foreground: 15 23 42; /* #0F172A */
+  --card-foreground: 45 55 72; /* #2D3748 - Professional Dark Grey */
   --popover: 255 255 255; /* #FFFFFF */
-  --popover-foreground: 15 23 42; /* #0F172A */
-  --primary: 59 130 246; /* #3B82F6 - Modern Blue */
+  --popover-foreground: 45 55 72; /* #2D3748 - Professional Dark Grey */
+  --primary: 107 70 193; /* #6B46C1 - Professional Purple Brand Color */
   --primary-foreground: 255 255 255; /* #FFFFFF */
   --secondary: 241 245 249; /* #F1F5F9 */
-  --secondary-foreground: 15 23 42; /* #0F172A */
+  --secondary-foreground: 113 128 150; /* #718096 - Medium Grey for Secondary Text */
   --muted: 248 250 252; /* #F8FAFC */
-  --muted-foreground: 100 116 139; /* #64748B */
-  --accent: 16 185 129; /* #10B981 - Modern Green */
+  --muted-foreground: 113 128 150; /* #718096 - Medium Grey for Descriptions */
+  --accent: 107 70 193; /* #6B46C1 - Professional Purple for Links & Accents */
   --accent-foreground: 255 255 255; /* #FFFFFF */
   --destructive: 239 68 68; /* #EF4444 */
   --destructive-foreground: 255 255 255; /* #FFFFFF */
   --border: 226 232 240; /* #E2E8F0 */
   --input: 255 255 255; /* #FFFFFF */
-  --ring: 59 130 246; /* #3B82F6 */
+  --ring: 107 70 193; /* #6B46C1 - Professional Purple */
   --radius: 0.75rem;
+  
+  /* Professional Color Hierarchy */
+  --text-primary: 45 55 72; /* #2D3748 - Primary Text (Headers, Important Data) */
+  --text-secondary: 113 128 150; /* #718096 - Secondary Text (Descriptions, Labels) */
+  --text-accent: 107 70 193; /* #6B46C1 - Links & Interactive Elements */
   
   /* LinkToDoctor Custom Colors */
   --linkto-primary: 37 99 235; /* #2563EB - Professional Blue */
@@ -62,12 +67,254 @@
 }
 
 body {
-  color: hsl(var(--foreground));
+  color: #2D3748; /* Primary text color - Professional Dark Grey */
   background: #ffffff;
   font-family: 'Vazirmatn', 'Inter', system-ui, sans-serif;
   direction: rtl;
   text-align: right;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* GLOBAL PROFESSIONAL COLOR HIERARCHY - CRITICAL FIX */
+/* Primary Text Elements - Dark Charcoal Grey (#2D3748) */
+h1, h2, h3, h4, h5, h6,
+.text-gray-900,
+.font-bold,
+.font-semibold,
+table td,
+table th,
+.card-title,
+.modal-title,
+strong,
+b,
+[role="heading"],
+.heading,
+.title {
+  color: #2D3748 !important;
+}
+
+/* Secondary Text Elements - Medium Grey (#718096) */
+.text-gray-600,
+.text-gray-500,
+.text-sm,
+label,
+.label,
+.description,
+.subtitle,
+.secondary-text,
+.muted,
+th,
+.table-header {
+  color: #718096 !important;
+}
+
+/* Interactive Elements - Professional Purple (#6B46C1) */
+a,
+button:not(.btn-primary):not(.btn-secondary),
+.link,
+.text-blue-600,
+.text-purple-600,
+.interactive,
+[role="button"]:not(.btn-primary) {
+  color: #6B46C1 !important;
+}
+
+/* Preserve Status Colors - Do NOT Override */
+.text-green-800,
+.text-red-800,
+.text-orange-800,
+.text-yellow-800,
+.bg-green-100,
+.bg-red-100,
+.bg-orange-100,
+.bg-yellow-100,
+.badge {
+  /* Preserve existing status colors */
+}
+
+/* Table Specific Fixes */
+table {
+  color: #2D3748 !important;
+}
+
+table thead th {
+  color: #718096 !important;
+  font-weight: 600 !important;
+}
+
+table tbody td {
+  color: #2D3748 !important;
+}
+
+/* Card and Component Text */
+.card-content,
+.card-header,
+.modal-content,
+.form-label,
+.input-label {
+  color: #2D3748 !important;
+}
+
+/* Input and Form Elements */
+input, textarea, select {
+  color: #2D3748 !important;
+  background-color: #ffffff !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #718096 !important;
+}
+
+/* Button Text Colors */
+.btn-primary {
+  color: #ffffff !important;
+}
+
+.btn-secondary {
+  color: #2D3748 !important;
+}
+
+/* KPI Cards and Metrics */
+.metric-value,
+.kpi-value,
+.stat-number {
+  color: #2D3748 !important;
+  font-weight: 700 !important;
+}
+
+.metric-label,
+.kpi-label,
+.stat-label {
+  color: #718096 !important;
+}
+
+/* COMPREHENSIVE TEXT VISIBILITY FIXES - React Components & Tailwind Classes */
+/* All text elements with specific targeting */
+p, span, div, 
+.text-base,
+.text-lg,
+.text-xl,
+.text-2xl,
+.text-3xl,
+[data-testid],
+[data-radix-select-value],
+[data-radix-select-trigger],
+.font-medium,
+.font-normal,
+.leading-tight,
+.leading-normal {
+  color: #2D3748 !important;
+}
+
+/* Employee List Page Specific Fixes */
+.employee-name,
+.employee-id,
+.employee-department,
+.employee-position,
+.employee-data,
+.table-cell-data,
+.data-row,
+.grid-data {
+  color: #2D3748 !important;
+}
+
+/* Card Title and Content Specific */
+[class*="CardTitle"],
+[class*="CardContent"],
+[class*="CardHeader"] {
+  color: #2D3748 !important;
+}
+
+/* Modal and Dialog Text */
+[role="dialog"] *,
+[data-radix-dialog-content] *,
+.modal-content *,
+.dialog-content * {
+  color: #2D3748 !important;
+}
+
+/* Preserve meaningful colors but fix invisible text */
+[role="dialog"] .text-blue-600,
+[role="dialog"] .text-green-600,
+[role="dialog"] .text-purple-600,
+[role="dialog"] .text-red-600 {
+  color: inherit !important;
+}
+
+/* Button Text - Ensure visibility */
+button span,
+button div,
+.btn span,
+.btn div,
+[role="button"] span,
+[role="button"] div {
+  color: inherit !important;
+}
+
+/* Tab Components */
+[role="tab"],
+[role="tabpanel"] *,
+.tab-content *,
+.tabs-trigger,
+.tabs-content * {
+  color: #2D3748 !important;
+}
+
+/* Search and Filter Components */
+[placeholder*="جستجو"] {
+  color: #2D3748 !important;
+}
+
+[placeholder*="جستجو"]::placeholder {
+  color: #718096 !important;
+}
+
+/* Select Dropdown Text */
+[role="combobox"] span,
+[data-radix-select-value] span,
+select option {
+  color: #2D3748 !important;
+}
+
+/* Chart Labels and Data */
+.chart-label,
+.chart-title,
+canvas + div,
+.recharts-text,
+.chart-legend {
+  color: #2D3748 !important;
+}
+
+/* Form Labels and Descriptions */
+.form-item label,
+.form-label,
+.field-label,
+.input-description,
+.form-description {
+  color: #718096 !important;
+}
+
+/* Grid and Flex Layout Text */
+.grid > div,
+.flex > div,
+.space-y-6 > div,
+.space-y-4 > div,
+.space-y-3 > div {
+  color: #2D3748 !important;
+}
+
+/* Ensure all children inherit proper colors */
+* {
+  color: inherit;
+}
+
+/* Override any remaining white or light text */
+.text-white:not(.bg-blue-600):not(.bg-green-600):not(.bg-red-600):not(.bg-purple-600),
+.text-gray-100,
+.text-gray-200,
+.text-gray-300 {
+  color: #2D3748 !important;
 }
 
 .dark body {
