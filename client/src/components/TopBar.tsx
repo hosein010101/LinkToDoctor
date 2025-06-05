@@ -262,40 +262,62 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
 
               {/* Menu Items */}
               <div className="space-y-1">
-                <a href="#" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
+                <Link href="/profile" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
                   <span className="flex-1 text-right">پروفایل کاربری</span>
                   <UserProfileIcon className="w-5 h-5 text-slate-500 group-hover:text-slate-600 mr-3" />
-                </a>
+                </Link>
                 
-                <a href="#" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
+                <Link href="/account-settings" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
                   <span className="flex-1 text-right">تنظیمات حساب</span>
                   <SettingsIcon className="w-5 h-5 text-slate-500 group-hover:text-slate-600 mr-3" />
-                </a>
+                </Link>
                 
-                <a href="#" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
+                <Link href="/security-privacy" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
                   <span className="flex-1 text-right">امنیت و حریم خصوصی</span>
                   <Shield className="w-5 h-5 text-slate-500 group-hover:text-slate-600 mr-3" />
-                </a>
+                </Link>
                 
-                <a href="#" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
+                <Link href="/account-settings" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
                   <span className="flex-1 text-right">تغییر زبان</span>
                   <LanguageIcon className="w-5 h-5 text-slate-500 group-hover:text-slate-600 mr-3" />
-                </a>
+                </Link>
                 
-                <a href="#" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
+                <Link href="/help-support" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
                   <span className="flex-1 text-right">راهنما و پشتیبانی</span>
                   <HelpCircle className="w-5 h-5 text-slate-500 group-hover:text-slate-600 mr-3" />
-                </a>
+                </Link>
               </div>
 
               {/* Separator */}
               <hr className="my-3 border-slate-200" />
 
               {/* Logout Item */}
-              <a href="#" className="flex items-center px-3 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 hover:text-red-700 rounded-md transition-colors duration-150 ease-in-out group w-full">
-                <span className="flex-1 text-right">خروج از سامانه</span>
-                <LogOut className="w-5 h-5 text-red-500 group-hover:text-red-600 mr-3" />
-              </a>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button className="flex items-center px-3 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 hover:text-red-700 rounded-md transition-colors duration-150 ease-in-out group w-full">
+                    <span className="flex-1 text-right">خروج از سامانه</span>
+                    <LogOut className="w-5 h-5 text-red-500 group-hover:text-red-600 mr-3" />
+                  </button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>تأیید خروج</DialogTitle>
+                    <DialogDescription>
+                      آیا مطمئن هستید که می‌خواهید از سامانه خارج شوید؟
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter className="flex-row-reverse space-x-2 space-x-reverse">
+                    <Button variant="outline">لغو</Button>
+                    <Button variant="destructive" onClick={() => {
+                      // Clear session/auth state
+                      // Redirect to login page
+                      window.location.href = '/login';
+                    }}>
+                      خروج از سامانه
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
