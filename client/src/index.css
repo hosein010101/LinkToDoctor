@@ -1782,6 +1782,202 @@ button[style*="background"]:has(.lucide-alert-triangle) {
   background: #FFD3A5 !important;
 }
 
+/* UNIVERSAL BLACK BACKGROUND REPLACEMENT - Apply Soft Pastel Pattern */
+/* Replace ALL black backgrounds throughout the application */
+
+/* Forms and Input Elements */
+form,
+.form,
+.form-container,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="search"],
+textarea,
+select {
+  background-color: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  color: #374151 !important;
+}
+
+form:focus-within,
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #FFB366 !important;
+  box-shadow: 0 0 0 3px rgba(255, 179, 102, 0.1) !important;
+}
+
+/* All Black Backgrounds - Replace with Soft Pastels */
+.bg-black,
+.bg-gray-900,
+.bg-slate-900,
+.bg-neutral-900,
+.bg-stone-900,
+[style*="background-color: black"],
+[style*="background: black"],
+[style*="background-color: #000000"],
+[style*="background-color: #000"],
+[style*="background-color: rgb(0, 0, 0)"],
+[style*="background: #000000"],
+[style*="background: #000"] {
+  background-color: #f8fafc !important; /* Very light gray */
+  background: #f8fafc !important;
+  color: #374151 !important;
+}
+
+/* Icon Containers - Soft Pastel Backgrounds */
+.icon-container,
+.icon-wrapper,
+.icon-bg,
+[class*="icon-"],
+.w-8.h-8,
+.w-10.h-10,
+.w-12.h-12,
+.w-16.h-16 {
+  background-color: #f1f5f9 !important; /* Light slate */
+  border-radius: 8px !important;
+  padding: 6px !important;
+}
+
+/* Button Backgrounds - Soft Pastels by Context */
+/* Primary Action Buttons */
+button[class*="primary"],
+.Button[class*="primary"],
+button[type="submit"],
+.submit-button {
+  background-color: #dbeafe !important; /* Light blue */
+  border-color: #93c5fd !important;
+  color: #1e40af !important;
+}
+
+button[class*="primary"]:hover,
+.Button[class*="primary"]:hover,
+button[type="submit"]:hover {
+  background-color: #bfdbfe !important;
+  border-color: #60a5fa !important;
+}
+
+/* Secondary Buttons */
+button[class*="secondary"],
+.Button[class*="secondary"],
+button[variant="secondary"] {
+  background-color: #f3f4f6 !important; /* Light gray */
+  border-color: #d1d5db !important;
+  color: #374151 !important;
+}
+
+button[class*="secondary"]:hover,
+.Button[class*="secondary"]:hover {
+  background-color: #e5e7eb !important;
+  border-color: #9ca3af !important;
+}
+
+/* Danger/Delete Buttons */
+button[class*="danger"],
+button[class*="delete"],
+button[class*="destructive"],
+.Button[class*="danger"],
+.Button[class*="delete"],
+.Button[class*="destructive"] {
+  background-color: #fef2f2 !important; /* Light red */
+  border-color: #fecaca !important;
+  color: #dc2626 !important;
+}
+
+button[class*="danger"]:hover,
+button[class*="delete"]:hover,
+button[class*="destructive"]:hover {
+  background-color: #fee2e2 !important;
+  border-color: #fca5a5 !important;
+}
+
+/* Success/Confirm Buttons */
+button[class*="success"],
+button[class*="confirm"],
+.Button[class*="success"],
+.Button[class*="confirm"] {
+  background-color: #f0fdf4 !important; /* Light green */
+  border-color: #bbf7d0 !important;
+  color: #16a34a !important;
+}
+
+button[class*="success"]:hover,
+button[class*="confirm"]:hover {
+  background-color: #dcfce7 !important;
+  border-color: #86efac !important;
+}
+
+/* Warning Buttons */
+button[class*="warning"],
+.Button[class*="warning"] {
+  background-color: #FFD3A5 !important; /* Soft orange - same as report problem */
+  border-color: #FFB366 !important;
+  color: #374151 !important;
+}
+
+button[class*="warning"]:hover,
+.Button[class*="warning"]:hover {
+  background-color: #FFCC99 !important;
+  border-color: #FF9933 !important;
+}
+
+/* Card and Panel Backgrounds */
+.card,
+.Card,
+.panel,
+.modal,
+.dialog,
+.dropdown,
+.popover {
+  background-color: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+/* Navigation Elements */
+nav,
+.navbar,
+.sidebar,
+.menu {
+  background-color: #ffffff !important;
+  border-color: #e5e7eb !important;
+}
+
+/* Table Elements */
+table,
+.table,
+thead,
+tbody,
+tr,
+td,
+th {
+  background-color: #ffffff !important;
+}
+
+tr:hover,
+.table-row:hover {
+  background-color: #f9fafb !important;
+}
+
+/* Badge and Tag Elements */
+.badge,
+.Badge,
+.tag,
+.chip {
+  background-color: #f3f4f6 !important;
+  border: 1px solid #d1d5db !important;
+  color: #374151 !important;
+}
+
+/* Override any remaining dark elements */
+[class*="dark"]:not(.dark):not([data-theme="dark"]),
+[class*="black"]:not([data-theme="dark"]) {
+  background-color: #ffffff !important;
+  color: #374151 !important;
+}
+
 /* Avatar fallback backgrounds */
 .AvatarFallback, .avatar-fallback {
   background-color: #e2e8f0 !important; /* Slate 200 */
