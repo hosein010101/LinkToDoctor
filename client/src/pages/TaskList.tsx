@@ -325,17 +325,15 @@ export default function TaskList() {
                         <div className="flex items-start justify-between">
                           <h4 className="font-medium text-gray-900 text-sm leading-relaxed">{task.title}</h4>
                           <div className="flex items-center space-x-1 space-x-reverse">
-                            <Button variant="ghost" size="sm" className="text-blue-600 hover:bg-blue-50 p-1">
+                            <button className="p-1 text-gray-700 hover:bg-gray-100 rounded">
                               <Edit3 className="w-3 h-3" />
-                            </Button>
-                            <Button 
-                              variant="ghost" 
-                              size="sm" 
-                              className="text-red-600 hover:bg-red-50 p-1"
+                            </button>
+                            <button 
+                              className="p-1 text-gray-700 hover:bg-gray-100 rounded"
                               onClick={() => handleDeleteTask(task.id)}
                             >
                               <Trash2 className="w-3 h-3" />
-                            </Button>
+                            </button>
                           </div>
                         </div>
                         
@@ -370,25 +368,21 @@ export default function TaskList() {
                           {status !== "done" && (
                             <div className="flex space-x-1 space-x-reverse">
                               {status === "pending" && (
-                                <Button
-                                  size="sm"
-                                  variant="outline"
-                                  className="text-xs px-2 py-1 h-6"
+                                <button
+                                  className="text-xs px-2 py-1 h-6 bg-white border border-gray-300 rounded text-gray-900 hover:bg-gray-50 font-medium"
                                   onClick={() => handleTaskStatusChange(task.id, "in_progress")}
                                 >
                                   شروع
-                                </Button>
+                                </button>
                               )}
                               {status === "in_progress" && (
-                                <Button
-                                  size="sm"
-                                  variant="outline"
-                                  className="text-xs px-2 py-1 h-6"
+                                <button
+                                  className="text-xs px-2 py-1 h-6 bg-white border border-gray-300 rounded text-gray-900 hover:bg-gray-50 font-medium flex items-center"
                                   onClick={() => handleTaskStatusChange(task.id, "done")}
                                 >
                                   <CheckCircle className="w-3 h-3 ml-1" />
                                   تمام
-                                </Button>
+                                </button>
                               )}
                             </div>
                           )}
@@ -453,17 +447,15 @@ export default function TaskList() {
                       <td className="p-4 text-gray-600">{task.deadline || "-"}</td>
                       <td className="p-4">
                         <div className="flex items-center space-x-2 space-x-reverse">
-                          <Button variant="ghost" size="sm" className="text-blue-600 hover:bg-blue-50">
+                          <button className="p-2 text-gray-700 hover:bg-gray-100 rounded">
                             <Edit3 className="w-4 h-4" />
-                          </Button>
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            className="text-red-600 hover:bg-red-50"
+                          </button>
+                          <button 
+                            className="p-2 text-gray-700 hover:bg-gray-100 rounded"
                             onClick={() => handleDeleteTask(task.id)}
                           >
                             <Trash2 className="w-4 h-4" />
-                          </Button>
+                          </button>
                         </div>
                       </td>
                     </tr>
