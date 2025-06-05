@@ -217,8 +217,8 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
                     onClick={() => toggleSection(sectionIndex)}
                     className="w-full flex items-center justify-between p-4 text-base font-extrabold text-gray-800 hover:text-gray-900 transition-colors"
                   >
-                    <div className="flex items-center">
-                      <section.icon className="w-6 h-6 ml-3" style={{color: section.color}} />
+                    <div className="flex items-center group">
+                      <section.icon className="w-6 h-6 ml-3 transition-all duration-300 group-hover:scale-110 group-hover:brightness-125 group-hover:drop-shadow-lg group-hover:animate-pulse" style={{color: section.color}} />
                       <span className="sidebar-section-header" data-section={section.title}>{section.title}</span>
                     </div>
                     <ChevronDown
