@@ -17,7 +17,9 @@ import {
   LayoutGrid,
   List,
   Flag,
-  Search
+  Search,
+  TrendingUp,
+  ArrowDown
 } from "lucide-react";
 
 interface Task {
@@ -109,37 +111,41 @@ export default function TaskList() {
   const getPriorityBg = (priority: Task["priority"]) => {
     switch (priority) {
       case "low":
-        return "bg-green-100 border border-green-200";
+        return "bg-amber-50 border border-amber-200";
       case "medium":
-        return "bg-blue-100 border border-blue-200";
+        return "bg-emerald-50 border border-emerald-200";
       case "high":
-        return "bg-orange-100 border border-orange-200";
+        return "bg-blue-50 border border-blue-200";
       case "urgent":
-        return "bg-red-100 border border-red-200";
+        return "bg-purple-50 border border-purple-200";
       default:
-        return "bg-gray-100 border border-gray-200";
+        return "bg-gray-50 border border-gray-200";
     }
   };
 
   const getPriorityIcon = (priority: Task["priority"]) => {
     switch (priority) {
       case "urgent":
-        return <AlertTriangle className="w-4 h-4" />;
+        return <AlertTriangle className="w-3 h-3" style={{color: '#7C3AED'}} />;
       case "high":
-        return <Flag className="w-4 h-4" />;
+        return <TrendingUp className="w-3 h-3" style={{color: '#2563EB'}} />;
+      case "medium":
+        return <Clock className="w-3 h-3" style={{color: '#10B981'}} />;
+      case "low":
+        return <ArrowDown className="w-3 h-3" style={{color: '#F59E0B'}} />;
       default:
-        return <Flag className="w-4 h-4" />;
+        return <Clock className="w-3 h-3" style={{color: '#6B7280'}} />;
     }
   };
 
   const getStatusColor = (status: Task["status"]) => {
     switch (status) {
       case "pending":
-        return "bg-yellow-50 border-yellow-200";
+        return "bg-slate-50 border-slate-200";
       case "in_progress":
-        return "bg-blue-50 border-blue-200";
+        return "bg-indigo-50 border-indigo-200";
       case "done":
-        return "bg-green-50 border-green-200";
+        return "bg-emerald-50 border-emerald-200";
       default:
         return "bg-gray-50 border-gray-200";
     }
