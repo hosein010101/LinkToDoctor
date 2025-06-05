@@ -1669,6 +1669,63 @@ button:has(.lucide-alert-triangle):hover,
   border-color: #fdba74 !important;
 }
 
+/* FORCE OVERRIDE - گزارش مشکل Button Background Fix */
+/* Target any button containing AlertTriangle with highest specificity */
+button[class*="Button"]:has(svg[data-lucide="alert-triangle"]),
+.Button:has(svg[data-lucide="alert-triangle"]),
+button:has(svg[class*="lucide-alert-triangle"]),
+button:contains("گزارش مشکل"),
+*:contains("گزارش مشکل") button {
+  background-color: #fff7ed !important;
+  background: #fff7ed !important;
+  border-color: #fed7aa !important;
+  color: #ea580c !important;
+}
+
+/* Remove any black or dark backgrounds specifically */
+button:has(svg[data-lucide="alert-triangle"])[style*="background"],
+.Button:has(svg[data-lucide="alert-triangle"])[style*="background"] {
+  background-color: #fff7ed !important;
+  background: #fff7ed !important;
+}
+
+/* Target by text content */
+button:contains("گزارش مشکل") {
+  background-color: #fff7ed !important;
+  background: #fff7ed !important;
+  border-color: #fed7aa !important;
+  color: #ea580c !important;
+}
+
+/* ULTIMATE OVERRIDE - Force orange background on any remaining black buttons */
+/* Use attribute selectors and highest specificity */
+button[style*="background-color: black"],
+button[style*="background: black"],
+button[class*="bg-black"],
+.Button[class*="bg-black"] {
+  background-color: #fff7ed !important;
+  background: #fff7ed !important;
+  border-color: #fed7aa !important;
+}
+
+/* Target SampleCollection specific buttons */
+[class*="SampleCollection"] button:has(svg),
+[class*="sample-collection"] button:has(svg) {
+  background-color: inherit !important;
+}
+
+/* Force light backgrounds on all outline variant buttons */
+.Button[data-variant="outline"],
+button[data-variant="outline"] {
+  background-color: #ffffff !important;
+}
+
+/* Specific class targeting */
+.bg-orange-50[style] {
+  background-color: #fff7ed !important;
+  background: #fff7ed !important;
+}
+
 /* Avatar fallback backgrounds */
 .AvatarFallback, .avatar-fallback {
   background-color: #e2e8f0 !important; /* Slate 200 */
