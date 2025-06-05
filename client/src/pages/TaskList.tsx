@@ -106,18 +106,18 @@ export default function TaskList() {
     }
   ]);
 
-  const getPriorityColor = (priority: Task["priority"]) => {
+  const getPriorityBg = (priority: Task["priority"]) => {
     switch (priority) {
       case "low":
-        return "bg-green-100 text-green-900 border border-green-200";
+        return "bg-green-100 border border-green-200";
       case "medium":
-        return "bg-blue-100 text-blue-900 border border-blue-200";
+        return "bg-blue-100 border border-blue-200";
       case "high":
-        return "bg-orange-100 text-orange-900 border border-orange-200";
+        return "bg-orange-100 border border-orange-200";
       case "urgent":
-        return "bg-red-100 text-red-900 border border-red-200";
+        return "bg-red-100 border border-red-200";
       default:
-        return "bg-gray-100 text-gray-900 border border-gray-200";
+        return "bg-gray-100 border border-gray-200";
     }
   };
 
@@ -343,7 +343,7 @@ export default function TaskList() {
                         
                         <div className="flex items-center justify-between text-xs">
                           <div className="flex items-center space-x-2 space-x-reverse">
-                            <div className={`${getPriorityColor(task.priority)} text-xs px-2 py-1 rounded-full inline-flex items-center space-x-1 space-x-reverse`}>
+                            <div className={`${getPriorityBg(task.priority)} text-xs px-2 py-1 rounded-full inline-flex items-center space-x-1 space-x-reverse`}>
                               {getPriorityIcon(task.priority)}
                               <span style={{color: '#1f2937', fontWeight: '600'}}>{task.priority === "urgent" ? "فوری" : task.priority === "high" ? "بالا" : task.priority === "medium" ? "متوسط" : "پایین"}</span>
                             </div>
@@ -424,7 +424,7 @@ export default function TaskList() {
                       </td>
                       <td className="p-4 text-gray-600">{task.assignee}</td>
                       <td className="p-4">
-                        <div className={`${getPriorityColor(task.priority)} text-xs px-2 py-1 rounded-full inline-flex items-center space-x-1 space-x-reverse`}>
+                        <div className={`${getPriorityBg(task.priority)} text-xs px-2 py-1 rounded-full inline-flex items-center space-x-1 space-x-reverse`}>
                           {getPriorityIcon(task.priority)}
                           <span style={{color: '#1f2937', fontWeight: '600'}}>{task.priority === "urgent" ? "فوری" : task.priority === "high" ? "بالا" : task.priority === "medium" ? "متوسط" : "پایین"}</span>
                         </div>
