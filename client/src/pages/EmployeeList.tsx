@@ -242,9 +242,9 @@ export default function EmployeeList() {
       case "فعال":
         return <Badge className="bg-green-100 text-green-800 hover:bg-green-100 font-medium">فعال</Badge>;
       case "در مرخصی":
-        return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100 font-medium">در مرخصی</Badge>;
+        return <Badge className="bg-red-50 text-red-700 hover:bg-red-50 font-bold border border-red-200">در مرخصی</Badge>;
       case "تعلیق":
-        return <Badge className="bg-red-100 text-red-800 hover:bg-red-100 font-medium">تعلیق</Badge>;
+        return <Badge className="bg-gray-100 text-gray-800 hover:bg-gray-100 font-medium">تعلیق</Badge>;
       default:
         return <Badge variant="secondary" className="font-medium text-gray-800">{status}</Badge>;
     }

@@ -323,12 +323,16 @@ canvas + div,
   color: #065f46 !important; /* Dark green text */
 }
 
-.bg-orange-100 {
-  color: #9a3412 !important; /* Dark orange text */
+.bg-red-50 {
+  color: #b91c1c !important; /* Dark red text for leave status */
 }
 
 .bg-red-100 {
   color: #991b1b !important; /* Dark red text */
+}
+
+.bg-gray-100 {
+  color: #374151 !important; /* Dark gray text */
 }
 
 .bg-yellow-100 {
@@ -388,14 +392,16 @@ span[class*="bg-yellow"] {
   font-weight: 600 !important;
 }
 
-/* Specific fix for "در مرخصی" status */
-span:contains("در مرخصی"),
-*[textContent*="در مرخصی"],
-.bg-orange-100.text-orange-800,
-.text-orange-800 {
-  color: #9a3412 !important;
-  background-color: #fed7aa !important;
-  font-weight: 600 !important;
+/* Specific fix for "در مرخصی" status - Force Red Color */
+.bg-red-50,
+.bg-red-50 *,
+span[class*="bg-red-50"],
+.text-red-700,
+*:contains("در مرخصی") {
+  color: #b91c1c !important;
+  background-color: #fef2f2 !important;
+  border-color: #fecaca !important;
+  font-weight: 700 !important;
 }
 
 /* Emergency override for any remaining invisible text */
