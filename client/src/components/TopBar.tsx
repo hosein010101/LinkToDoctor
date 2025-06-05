@@ -126,12 +126,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="relative text-red-600 hover:text-red-700 hover:bg-red-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg">
-                <NotificationBellIcon className="w-5 h-5 notification-icon adaptive-icon" hasNotification={unreadCount > 0} />
-                {unreadCount > 0 && (
-                  <Badge className="absolute -top-1 -left-1 w-5 h-5 p-0 text-xs bg-white text-red-500 border-2 border-red-500 rounded-full flex items-center justify-center animate-pulse shadow-sm">
-                    {unreadCount}
-                  </Badge>
-                )}
+                <NotificationBellIcon className="w-5 h-5 notification-icon adaptive-icon" hasNotification={false} />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-80">
@@ -174,13 +169,13 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
             <DropdownMenuContent align="end" className="w-48">
               <DropdownMenuLabel>پیام‌ها</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem className="dropdown-menu-item">
                 <MessagesIcon className="w-4 h-4 ml-2" />
-                پیام‌های جدید
+                <span className="dropdown-text">پیام‌های جدید</span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="dropdown-menu-item">
                 <Activity className="w-4 h-4 ml-2" />
-                گزارش‌های فوری
+                <span className="dropdown-text">گزارش‌های فوری</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -258,25 +253,25 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem className="dropdown-menu-item">
                 <UserProfileIcon className="w-4 h-4 ml-2" />
-                پروفایل کاربری
+                <span className="dropdown-text">پروفایل کاربری</span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="dropdown-menu-item">
                 <SettingsIcon className="w-4 h-4 ml-2" />
-                تنظیمات حساب
+                <span className="dropdown-text">تنظیمات حساب</span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="dropdown-menu-item">
                 <Shield className="w-4 h-4 ml-2" />
-                امنیت و حریم خصوصی
+                <span className="dropdown-text">امنیت و حریم خصوصی</span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="dropdown-menu-item">
                 <LanguageIcon className="w-4 h-4 ml-2" />
-                تغییر زبان
+                <span className="dropdown-text">تغییر زبان</span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="dropdown-menu-item">
                 <HelpCircle className="w-4 h-4 ml-2" />
-                راهنما و پشتیبانی
+                <span className="dropdown-text">راهنما و پشتیبانی</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="text-red-600 dark:text-red-400">

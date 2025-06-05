@@ -2006,7 +2006,7 @@ button:active svg,
   transition: all 0.1s ease !important;
 }
 
-/* Notification icons - Pulse animation on new notifications */
+/* Notification Bell - Red Color */
 .notification-icon,
 .bell-icon,
 [data-icon="notification"] {
@@ -2027,6 +2027,15 @@ button:active svg,
   fill: currentColor !important;
 }
 
+/* Hide Notification Badge/Circular Indicator */
+.notification-badge,
+.Badge[class*="absolute"],
+.notification-count,
+[class*="badge"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
 @keyframes pulse-glow {
   0%, 100% {
     transform: scale(1);
@@ -2036,6 +2045,22 @@ button:active svg,
     transform: scale(1.05);
     box-shadow: 0 0 0 8px rgba(251, 146, 60, 0);
   }
+}
+
+/* Header Text Elements - Stay Black on Hover */
+.header-text,
+.dropdown-menu-item,
+[role="menuitem"],
+.dropdown-text {
+  color: #111827 !important; /* text-gray-900 */
+}
+
+.header-text:hover,
+.dropdown-menu-item:hover,
+[role="menuitem"]:hover,
+.dropdown-text:hover {
+  color: #111827 !important; /* Keep black/dark gray on hover */
+  background-color: #f3f4f6 !important; /* Light gray background on hover */
 }
 
 /* Interactive state colors */

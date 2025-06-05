@@ -1,0 +1,16 @@
+I need to modify the styling of a web dashboard's header. Please provide instructions or code snippets, preferably using Tailwind CSS classes, to achieve the following UI changes. I am referencing a UI where, for example, header dropdown menu items like 'User Profile' ('پروفایل کاربری') turn yellow on hover, and a notification icon (which should be a bell) has a circular badge.
+
+1.  **Header Text Options Styling:**
+    * **Target Elements:** All interactive text elements, links, and navigation options located within the main header bar. This also includes items within any dropdown menus originating from the header (such as items in a user profile dropdown, like 'User Profile' or 'Account Settings').
+    * **Default Font Color:** Ensure these text elements consistently display a solid black font color. (e.g., using Tailwind CSS `text-black` or a dark gray like `text-gray-900`).
+    * **Hover Font Color:** Crucially, when the mouse hovers over these text elements, they **must retain their black (or dark gray) font color**. Any existing hover effect that changes the font color (e.g., to yellow, as seen with 'User Profile' in the provided image) must be removed or overridden so that the text color remains unchanged on hover.
+
+2.  **Notification Icon Styling:**
+    * **Notification Bell Icon:**
+        * **Target Element:** The primary notification icon in the header, which is intended to be a bell shape (this might be an SVG element or a font icon).
+        * **Desired Color:** Change the color of the bell icon itself to red (e.g., using Tailwind CSS `text-red-500` or `text-red-600`).
+    * **Notification Circular Badge/Indicator:**
+        * **Target Element:** The small circular badge or background that is often positioned on or near the notification bell icon. This badge might display a notification count or just be a colored circle (similar to the pink circle with a '2' seen on an icon in the header area in the image).
+        * **Desired Change:** This circular badge (the entire circle, including any number it might contain) must be completely **removed or hidden** from view (e.g., by applying the Tailwind CSS `hidden` class to the badge element, or by using CSS `display: none;`).
+
+Please provide clear examples of how to apply these styles. For instance, if a text link element currently has Tailwind classes like `text-black hover:text-yellow-400`, explain exactly how to modify these classes to meet the new requirement of staying black on hover. Similarly, provide guidance on targeting the notification bell and its badge for the specified changes.
