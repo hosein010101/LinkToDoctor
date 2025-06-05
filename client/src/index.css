@@ -2011,12 +2011,20 @@ button:active svg,
 .bell-icon,
 [data-icon="notification"] {
   animation: none !important;
+  color: #dc2626 !important; /* Red-600 */
+  fill: #dc2626 !important; /* Solid red fill */
 }
 
 .notification-icon.has-new,
 .bell-icon.has-new,
 [data-icon="notification"].has-new {
   animation: pulse-glow 2s infinite !important;
+}
+
+/* Ensure bell icon is filled/solid */
+.notification-icon.fill-current,
+.bell-icon.fill-current {
+  fill: currentColor !important;
 }
 
 @keyframes pulse-glow {
