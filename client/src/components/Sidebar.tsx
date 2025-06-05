@@ -27,7 +27,8 @@ import {
   ChevronDown,
   ChevronLeft,
   Heart,
-  CheckSquare
+  CheckSquare,
+  Activity
 } from "lucide-react";
 import logoPath from "@assets/logo_1749113951949.png";
 
@@ -119,7 +120,8 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
       icon: BarChart3,
       color: "#60a5fa",
       items: [
-        { icon: BarChart3, label: "گزارشات و تحلیل", path: "/reports", color: "#60a5fa" },
+        { icon: BarChart3, label: "گزارشات ساده", path: "/reports", color: "#60a5fa" },
+        { icon: Activity, label: "گزارشات و تحلیل پیشرفته", path: "/reports-analytics", color: "#34d399" },
         { icon: TrendingUp, label: "عملکرد هفتگی", path: "/weekly-performance", color: "#8b5cf6" },
         { icon: FileText, label: "خروجی گزارشات (PDF/Excel)", path: "/exports", color: "#86efac" },
         { icon: Bell, label: "اعلان‌ها و لاگ سیستم", path: "/notifications", color: "#d8b4fe" },
