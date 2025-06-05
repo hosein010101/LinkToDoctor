@@ -1360,6 +1360,116 @@ button:has(> svg) {
   color: #1f2937 !important;
 }
 
+/* DASHBOARD CARDS - Fix Specific Black Icon Backgrounds */
+/* Target dashboard stat cards and summary widgets */
+.card-professional .w-12.h-12,
+.card-professional .w-10.h-10,
+.card-professional .w-8.h-8,
+[class*="w-12"][class*="h-12"],
+[class*="w-10"][class*="h-10"],
+[class*="w-8"][class*="h-8"] {
+  background-color: transparent !important;
+}
+
+/* Medical/sample collection icons - Light green */
+.card-professional .w-12.h-12:has(svg[class*="truck"]),
+.card-professional .w-12.h-12:has(svg[class*="test"]),
+.card-professional .w-12.h-12:has(svg[class*="sample"]),
+[data-icon="medical"] {
+  background-color: #e6f4ea !important; /* Soft green */
+  border-radius: 6px !important;
+  padding: 8px !important;
+}
+
+.card-professional .w-12.h-12:has(svg[class*="truck"]):hover,
+.card-professional .w-12.h-12:has(svg[class*="test"]):hover,
+.card-professional .w-12.h-12:has(svg[class*="sample"]):hover {
+  background-color: #d4f1d9 !important; /* Darker green */
+}
+
+/* Doctor/user icons - Light blue */
+.card-professional .w-12.h-12:has(svg[class*="user"]),
+.card-professional .w-12.h-12:has(svg[class*="star"]),
+.card-professional .w-10.h-10:has(svg[class*="user"]),
+[data-icon="doctor"] {
+  background-color: #eaf6fb !important; /* Light blue */
+  border-radius: 6px !important;
+  padding: 8px !important;
+}
+
+.card-professional .w-12.h-12:has(svg[class*="user"]):hover,
+.card-professional .w-12.h-12:has(svg[class*="star"]):hover {
+  background-color: #d6eff7 !important; /* Darker blue */
+}
+
+/* Alert/status icons - Pastel orange */
+.card-professional .w-12.h-12:has(svg[class*="alert"]),
+.card-professional .w-12.h-12:has(svg[class*="warning"]),
+.card-professional .w-12.h-12:has(svg[class*="clock"]),
+[data-icon="alert"] {
+  background-color: #fff3e0 !important; /* Pastel orange */
+  border-radius: 6px !important;
+  padding: 8px !important;
+}
+
+.card-professional .w-12.h-12:has(svg[class*="alert"]):hover,
+.card-professional .w-12.h-12:has(svg[class*="warning"]):hover,
+.card-professional .w-12.h-12:has(svg[class*="clock"]):hover {
+  background-color: #ffe7cc !important; /* Darker orange */
+}
+
+/* General stat icons - Light gray */
+.card-professional .w-12.h-12:has(svg[class*="chart"]),
+.card-professional .w-12.h-12:has(svg[class*="activity"]),
+.card-professional .w-12.h-12:has(svg[class*="file"]),
+[data-icon="stat"] {
+  background-color: #f5f5f5 !important; /* Light gray */
+  border-radius: 6px !important;
+  padding: 8px !important;
+}
+
+.card-professional .w-12.h-12:has(svg[class*="chart"]):hover,
+.card-professional .w-12.h-12:has(svg[class*="activity"]):hover,
+.card-professional .w-12.h-12:has(svg[class*="file"]):hover {
+  background-color: #eeeeee !important; /* Darker gray */
+}
+
+/* Remove black backgrounds from all dashboard icon containers */
+.dashboard .bg-black,
+.dashboard .bg-gray-900,
+.dashboard .bg-slate-900,
+.card .bg-black,
+.card .bg-gray-900,
+.card .bg-slate-900,
+.widget .bg-black,
+.widget .bg-gray-900,
+.summary .bg-black,
+.summary .bg-gray-900 {
+  background-color: #f8fafc !important;
+}
+
+/* Target specific classes that might be generating black backgrounds */
+.bg-medical-teal.bg-opacity-20,
+.bg-medical-green.bg-opacity-20,
+.bg-medical-orange.bg-opacity-20 {
+  background-color: #f0f9ff !important; /* Light blue fallback */
+}
+
+/* Fix any avatar fallbacks that might be black */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+}
+
+/* Ensure all card icons have proper backgrounds */
+.CardContent .w-12,
+.CardContent .w-10,
+.CardContent .w-8,
+.card-content .w-12,
+.card-content .w-10,
+.card-content .w-8 {
+  background-color: inherit !important;
+}
+
 /* Avatar fallback backgrounds */
 .AvatarFallback, .avatar-fallback {
   background-color: #e2e8f0 !important; /* Slate 200 */
