@@ -22,7 +22,7 @@ import {
   Users, Search, Filter, Plus, Star, MapPin, Phone, Mail, 
   Clock, Award, TrendingUp, Target, Activity, CheckCircle,
   Eye, Edit, MoreHorizontal, Calendar, UserCheck, Navigation,
-  Timer, Zap, Shield, Heart, MessageSquare
+  Timer, Zap, Shield, Heart, MessageSquare, X
 } from "lucide-react";
 
 interface CollectorProfile {
@@ -601,8 +601,14 @@ export default function CollectorProfiles() {
 
       {/* Detailed Profile Modal */}
       {selectedCollector && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          onClick={() => setSelectedCollector(null)}
+        >
+          <div 
+            className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="p-6 border-b border-gray-200">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4 space-x-reverse">
@@ -626,8 +632,14 @@ export default function CollectorProfiles() {
                     </div>
                   </div>
                 </div>
-                <Button variant="outline" onClick={() => setSelectedCollector(null)}>
-                  بستن
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => setSelectedCollector(null)}
+                  className="flex items-center space-x-2 space-x-reverse"
+                >
+                  <X className="w-4 h-4" />
+                  <span>بستن</span>
                 </Button>
               </div>
             </div>
