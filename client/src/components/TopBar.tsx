@@ -52,7 +52,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
             variant="ghost"
             size="sm"
             onClick={onToggleSidebar}
-            className="text-medical-secondary hover:text-medical-primary hover:bg-blue-100 dark:hover:bg-gray-800 transition-all duration-200"
+            className="text-slate-600 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-gray-800 transition-all duration-200"
           >
             <Menu className="w-5 h-5" />
           </Button>
@@ -76,10 +76,10 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           {/* Notifications */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="relative text-medical-secondary hover:text-medical-primary hover:bg-orange-100 dark:hover:bg-gray-800 transition-all duration-200">
+              <Button variant="ghost" size="sm" className="relative text-orange-500 hover:text-orange-600 hover:bg-orange-50 dark:hover:bg-gray-800 transition-all duration-200">
                 <Bell className="w-5 h-5" />
                 {unreadCount > 0 && (
-                  <Badge className="absolute -top-1 -left-1 w-5 h-5 p-0 text-xs bg-medical-error text-white rounded-full flex items-center justify-center animate-pulse">
+                  <Badge className="absolute -top-1 -left-1 w-5 h-5 p-0 text-xs bg-red-500 text-white rounded-full flex items-center justify-center animate-pulse">
                     {unreadCount}
                   </Badge>
                 )}
@@ -118,7 +118,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           {/* Quick Actions */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="text-medical-secondary hover:text-medical-primary hover:bg-green-100 dark:hover:bg-gray-800 transition-all duration-200">
+              <Button variant="ghost" size="sm" className="text-green-500 hover:text-green-600 hover:bg-green-50 dark:hover:bg-gray-800 transition-all duration-200">
                 <Activity className="w-5 h-5" />
               </Button>
             </DropdownMenuTrigger>
@@ -145,7 +145,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
             variant="ghost"
             size="sm"
             onClick={toggleDarkMode}
-            className="text-medical-secondary hover:text-medical-primary hover:bg-purple-100 dark:hover:bg-gray-800 transition-all duration-200"
+            className="text-purple-500 hover:text-purple-600 hover:bg-purple-50 dark:hover:bg-gray-800 transition-all duration-200"
           >
             {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </Button>
