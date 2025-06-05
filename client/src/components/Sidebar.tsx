@@ -211,10 +211,10 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
                     initial="collapsed"
                     animate={collapsed ? "collapsed" : "expanded"}
                     onClick={() => toggleSection(sectionIndex)}
-                    className="w-full flex items-center justify-between p-3 text-sm font-bold text-gray-700 hover:text-gray-900 transition-colors"
+                    className="w-full flex items-center justify-between p-4 text-base font-extrabold text-gray-800 hover:text-gray-900 transition-colors"
                   >
                     <div className="flex items-center">
-                      <section.icon className="w-5 h-5 ml-2" style={{color: section.color}} />
+                      <section.icon className="w-6 h-6 ml-3" style={{color: section.color}} />
                       <span className="sidebar-section-header" data-section={section.title}>{section.title}</span>
                     </div>
                     <ChevronDown
