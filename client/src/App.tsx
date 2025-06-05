@@ -37,6 +37,7 @@ import AccountSettings from "@/pages/AccountSettings";
 import SecurityPrivacy from "@/pages/SecurityPrivacy";
 import HelpSupport from "@/pages/HelpSupport";
 import EmployeeList from "@/pages/EmployeeList";
+import TaskList from "@/pages/TaskList";
 
 import { queryClient } from "@/lib/queryClient";
 
@@ -79,6 +80,9 @@ function Router() {
         <Route path="/hr-shifts" component={HRShifts} />
         <Route path="/hr-payroll" component={HRPayroll} />
         <Route path="/hr-performance" component={HRPerformance} />
+        
+        {/* Task Management */}
+        <Route path="/tasks" component={TaskList} />
         
         {/* System Settings */}
         <Route path="/settings" component={Settings} />

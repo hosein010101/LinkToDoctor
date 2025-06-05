@@ -26,7 +26,8 @@ import {
   Wrench,
   ChevronDown,
   ChevronLeft,
-  Heart
+  Heart,
+  CheckSquare
 } from "lucide-react";
 import logoPath from "@assets/logo_1749113951949.png";
 
@@ -121,6 +122,14 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
         { icon: BarChart3, label: "گزارشات و تحلیل", path: "/reports", color: "text-blue-600" },
         { icon: FileText, label: "خروجی گزارشات (PDF/Excel)", path: "/exports", color: "text-green-600" },
         { icon: Bell, label: "اعلان‌ها و لاگ سیستم", path: "/notifications", color: "text-purple-600" },
+      ]
+    },
+    {
+      title: "مدیریت وظایف",
+      icon: CheckSquare,
+      color: "text-purple-600",
+      items: [
+        { icon: CheckSquare, label: "فهرست وظایف", path: "/tasks", color: "text-purple-600" },
       ]
     },
     {
