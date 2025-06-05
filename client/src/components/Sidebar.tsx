@@ -52,7 +52,7 @@ interface NavSection {
 
 export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
   const [location] = useLocation();
-  const [expandedSections, setExpandedSections] = useState<number[]>([]);
+  const [expandedSections, setExpandedSections] = useState<number[]>([0, 1, 2, 3, 4, 5, 6, 7, 8]);
 
   const toggleSection = (sectionIndex: number) => {
     if (collapsed) return;
@@ -224,7 +224,7 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
 
                 {/* Section Items */}
                 <AnimatePresence>
-                  {(collapsed || expandedSections.includes(sectionIndex) || expandedSections.length === 0) && (
+                  {(collapsed || expandedSections.includes(sectionIndex)) && (
                     <motion.div
                       initial={collapsed ? {} : { height: 0, opacity: 0 }}
                       animate={collapsed ? {} : { height: "auto", opacity: 1 }}
