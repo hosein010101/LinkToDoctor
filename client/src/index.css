@@ -317,6 +317,103 @@ canvas + div,
   color: #2D3748 !important;
 }
 
+/* CRITICAL FIX: Status Badge Text Visibility */
+/* Ensure all status badges have visible text */
+.bg-green-100 {
+  color: #065f46 !important; /* Dark green text */
+}
+
+.bg-orange-100 {
+  color: #9a3412 !important; /* Dark orange text */
+}
+
+.bg-red-100 {
+  color: #991b1b !important; /* Dark red text */
+}
+
+.bg-yellow-100 {
+  color: #92400e !important; /* Dark yellow text */
+}
+
+/* Specific targeting for status badges */
+[class*="bg-green-100"],
+[class*="bg-orange-100"], 
+[class*="bg-red-100"],
+[class*="bg-yellow-100"] {
+  color: #2D3748 !important;
+  font-weight: 600 !important;
+}
+
+/* Badge component specific fixes */
+.inline-flex.items-center.rounded-full,
+.inline-flex.items-center.rounded-md,
+span[class*="bg-"],
+.badge,
+[role="status"] {
+  color: #2D3748 !important;
+  font-weight: 600 !important;
+}
+
+/* Override any inherited light colors in badges */
+.bg-green-100 *,
+.bg-orange-100 *,
+.bg-red-100 *,
+.bg-yellow-100 * {
+  color: inherit !important;
+}
+
+/* Ensure badge text is never white */
+.badge .text-white,
+[class*="bg-"] .text-white {
+  color: #2D3748 !important;
+}
+
+/* ULTIMATE FIX: Force all badge and status text to be visible */
+/* Target all possible badge implementations with maximum specificity */
+table td span,
+table tbody td span,
+tr td span,
+.table-cell span,
+[class*="Badge"],
+span[class*="inline-flex"],
+span[class*="rounded"],
+span[class*="px-"],
+span[class*="py-"],
+span[class*="text-"],
+span[class*="bg-green"],
+span[class*="bg-orange"], 
+span[class*="bg-red"],
+span[class*="bg-yellow"] {
+  color: #2D3748 !important;
+  font-weight: 600 !important;
+}
+
+/* Specific fix for "در مرخصی" status */
+span:contains("در مرخصی"),
+*[textContent*="در مرخصی"],
+.bg-orange-100.text-orange-800,
+.text-orange-800 {
+  color: #9a3412 !important;
+  background-color: #fed7aa !important;
+  font-weight: 600 !important;
+}
+
+/* Emergency override for any remaining invisible text */
+table td *,
+table tbody td *,
+tr td * {
+  color: #2D3748 !important;
+}
+
+/* Force visibility on all table content */
+table {
+  color: #2D3748 !important;
+}
+
+table * {
+  color: inherit !important;
+}
+
 .dark body {
   background: hsl(var(--background));
 }
