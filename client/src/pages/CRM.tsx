@@ -351,15 +351,15 @@ export default function CRM() {
       {/* Main Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-6">
-          <TabsTrigger value="contacts" className="flex items-center space-x-2 space-x-reverse">
+          <TabsTrigger value="contacts" className="flex items-center space-x-2 space-x-reverse text-medical-secondary hover:text-medical-primary">
             <Users className="w-4 h-4" />
             <span>فهرست مخاطبین</span>
           </TabsTrigger>
-          <TabsTrigger value="sms" className="flex items-center space-x-2 space-x-reverse">
+          <TabsTrigger value="sms" className="flex items-center space-x-2 space-x-reverse text-medical-secondary hover:text-medical-primary">
             <MessageCircle className="w-4 h-4" />
             <span>پیامک انبوه</span>
           </TabsTrigger>
-          <TabsTrigger value="vip" className="flex items-center space-x-2 space-x-reverse">
+          <TabsTrigger value="vip" className="flex items-center space-x-2 space-x-reverse text-medical-secondary hover:text-medical-primary">
             <Crown className="w-4 h-4" />
             <span>بیماران VIP</span>
           </TabsTrigger>

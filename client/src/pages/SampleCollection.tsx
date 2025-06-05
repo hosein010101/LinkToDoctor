@@ -280,11 +280,11 @@ export default function SampleCollection() {
 
       <Tabs defaultValue="active" className="space-y-6">
         <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="active">نمونه‌گیری فعال</TabsTrigger>
-          <TabsTrigger value="collectors">نمونه‌گیران</TabsTrigger>
-          <TabsTrigger value="assign">تخصیص ماموریت</TabsTrigger>
-          <TabsTrigger value="map">نقشه زنده</TabsTrigger>
-          <TabsTrigger value="performance">عملکرد روزانه</TabsTrigger>
+          <TabsTrigger value="active" className="text-medical-secondary hover:text-medical-primary">نمونه‌گیری فعال</TabsTrigger>
+          <TabsTrigger value="collectors" className="text-medical-secondary hover:text-medical-primary">نمونه‌گیران</TabsTrigger>
+          <TabsTrigger value="assign" className="text-medical-secondary hover:text-medical-primary">تخصیص ماموریت</TabsTrigger>
+          <TabsTrigger value="map" className="text-medical-secondary hover:text-medical-primary">نقشه زنده</TabsTrigger>
+          <TabsTrigger value="performance" className="text-medical-secondary hover:text-medical-primary">عملکرد روزانه</TabsTrigger>
         </TabsList>
 
         {/* Active Collections */}

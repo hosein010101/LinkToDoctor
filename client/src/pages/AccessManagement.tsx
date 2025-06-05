@@ -411,15 +411,15 @@ export default function AccessManagement() {
         {/* Main Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-6">
-            <TabsTrigger value="groups" className="flex items-center space-x-2 space-x-reverse">
+            <TabsTrigger value="groups" className="flex items-center space-x-2 space-x-reverse text-medical-secondary hover:text-medical-primary">
               <Users className="w-4 h-4" />
               <span>گروه‌های کاربری</span>
             </TabsTrigger>
-            <TabsTrigger value="permissions" className="flex items-center space-x-2 space-x-reverse">
+            <TabsTrigger value="permissions" className="flex items-center space-x-2 space-x-reverse text-medical-secondary hover:text-medical-primary">
               <Lock className="w-4 h-4" />
               <span>سطوح دسترسی</span>
             </TabsTrigger>
-            <TabsTrigger value="custom" className="flex items-center space-x-2 space-x-reverse">
+            <TabsTrigger value="custom" className="flex items-center space-x-2 space-x-reverse text-medical-secondary hover:text-medical-primary">
               <Key className="w-4 h-4" />
               <span>مجوزهای خاص</span>
             </TabsTrigger>
