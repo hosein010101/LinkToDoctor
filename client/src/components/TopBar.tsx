@@ -64,6 +64,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
   ];
 
   const unreadCount = notifications.filter(n => n.unread).length;
+  const messageCount = 5; // تعداد پیام‌های جدید
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -107,7 +108,6 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                 <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
                   {languages.find(lang => lang.code === currentLanguage)?.code.toUpperCase()}
                 </div>
-                <Globe className="w-4 h-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-44">
@@ -180,19 +180,39 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="text-green-500 hover:text-green-600 hover:bg-green-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg">
-                <MessagesIcon className="w-5 h-5" />
+                <div className="relative">
+                  <MessagesIcon className="w-5 h-5" />
+                  {messageCount > 0 && (
+                    <span className="absolute -top-1 -right-1 text-green-600 text-[10px] font-bold">
+                      {messageCount > 99 ? '99+' : messageCount}
+                    </span>
+                  )}
+                </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuLabel>پیام‌ها</DropdownMenuLabel>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuLabel className="flex items-center justify-between">
+                <span>پیام‌ها</span>
+                <Badge variant="secondary" className="text-xs">{messageCount} جدید</Badge>
+              </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="dropdown-menu-item">
-                <MessagesIcon className="w-4 h-4 ml-2" />
-                <span className="dropdown-text">پیام‌های جدید</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="dropdown-menu-item">
-                <Activity className="w-4 h-4 ml-2" />
-                <span className="dropdown-text">گزارش‌های فوری</span>
+              <Link href="/messages">
+                <DropdownMenuItem className="dropdown-menu-item cursor-pointer">
+                  <MessagesIcon className="w-4 h-4 ml-2" />
+                  <span className="dropdown-text">پیام‌های جدید</span>
+                </DropdownMenuItem>
+              </Link>
+              <Link href="/reports">
+                <DropdownMenuItem className="dropdown-menu-item cursor-pointer">
+                  <Activity className="w-4 h-4 ml-2" />
+                  <span className="dropdown-text">گزارش‌های فوری</span>
+                </DropdownMenuItem>
+              </Link>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="text-center p-2">
+                <Button variant="ghost" size="sm" className="w-full">
+                  مشاهده همه پیام‌ها
+                </Button>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
