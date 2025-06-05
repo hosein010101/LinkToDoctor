@@ -345,7 +345,7 @@ export default function TaskList() {
                           <div className="flex items-center space-x-2 space-x-reverse">
                             <div className={`${getPriorityBg(task.priority)} text-xs px-2 py-1 rounded-full inline-flex items-center space-x-1 space-x-reverse`}>
                               {getPriorityIcon(task.priority)}
-                              <span style={{color: '#1f2937', fontWeight: '600'}}>{task.priority === "urgent" ? "فوری" : task.priority === "high" ? "بالا" : task.priority === "medium" ? "متوسط" : "پایین"}</span>
+                              <span style={{color: '#1f2937', fontWeight: '600'}}>{task.priority === "urgent" ? "فوری" : task.priority === "high" ? "" : task.priority === "medium" ? "متوسط" : "پایین"}</span>
                             </div>
                           </div>
                           
@@ -426,7 +426,7 @@ export default function TaskList() {
                       <td className="p-4">
                         <div className={`${getPriorityBg(task.priority)} text-xs px-2 py-1 rounded-full inline-flex items-center space-x-1 space-x-reverse`}>
                           {getPriorityIcon(task.priority)}
-                          <span style={{color: '#1f2937', fontWeight: '600'}}>{task.priority === "urgent" ? "فوری" : task.priority === "high" ? "بالا" : task.priority === "medium" ? "متوسط" : "پایین"}</span>
+                          <span style={{color: '#1f2937', fontWeight: '600'}}>{task.priority === "urgent" ? "فوری" : task.priority === "high" ? "" : task.priority === "medium" ? "متوسط" : "پایین"}</span>
                         </div>
                       </td>
                       <td className="p-4">
