@@ -13,21 +13,44 @@ export const NotificationBellIcon = ({ className = "", size = 20, notificationCo
       width={size} 
       height={size} 
       viewBox="0 0 24 24" 
-      fill="#dc2626" 
-      stroke="#dc2626" 
-      strokeWidth="1.5" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
+      fill="none"
       className={className}
     >
-      {/* Bell body - filled red */}
-      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" fill="#dc2626" stroke="#b91c1c" strokeWidth="1" />
+      {/* Bell body */}
+      <path 
+        d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" 
+        fill="#E74C3C" 
+        stroke="#C0392B" 
+        strokeWidth="1"
+      />
+      {/* Bell handle/top */}
+      <path 
+        d="M10 5a2 2 0 0 1 4 0" 
+        stroke="#C0392B" 
+        strokeWidth="2" 
+        strokeLinecap="round"
+        fill="none"
+      />
       {/* Bell clapper */}
-      <path d="M13.73 21a2 2 0 0 1-3.46 0" fill="#dc2626" stroke="#b91c1c" strokeWidth="1" />
+      <path 
+        d="M13.73 21a2 2 0 0 1-3.46 0" 
+        fill="#E74C3C" 
+        stroke="#C0392B" 
+        strokeWidth="1"
+      />
+      {/* Bell highlight for 3D effect */}
+      <ellipse 
+        cx="10" 
+        cy="11" 
+        rx="2" 
+        ry="4" 
+        fill="#F1948A" 
+        opacity="0.4"
+      />
     </svg>
     {/* Notification count badge */}
     {notificationCount > 0 && (
-      <div className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center border-2 border-white shadow-lg">
+      <div className="absolute -top-1 -right-1 bg-red-700 text-white text-[10px] font-bold rounded-full min-w-[16px] h-[16px] flex items-center justify-center border-2 border-white shadow-md">
         {notificationCount > 99 ? '99+' : notificationCount}
       </div>
     )}
