@@ -1181,6 +1181,85 @@ button:has(.lucide-chevron-down):hover {
   color: #475569 !important; /* Slate 600 */
 }
 
+/* HEADER ICON FIXES - Remove Black Icons */
+/* Fix specific header dropdown icons that appear black */
+.DropdownMenuTrigger svg,
+.DropdownMenuItem svg {
+  color: inherit !important;
+}
+
+/* User profile chevron icon */
+[data-lucide="chevron-down"] {
+  color: #64748b !important; /* Slate 500 */
+}
+
+/* Theme toggle icons */
+[data-lucide="sun"],
+[data-lucide="moon"],
+.lucide-sun,
+.lucide-moon {
+  color: #6366f1 !important; /* Indigo 500 */
+}
+
+/* STAR ICONS - Golden Color Scheme */
+[data-lucide="star"],
+.lucide-star,
+svg[class*="star"] {
+  color: #f59e0b !important; /* Amber 500 - Golden */
+}
+
+/* Star icon backgrounds */
+.Button:has([data-lucide="star"]),
+.Button:has(.lucide-star),
+button:has([data-lucide="star"]),
+button:has(.lucide-star) {
+  background-color: #fef3c7 !important; /* Amber 100 */
+  border-color: #fed7aa !important; /* Amber 200 */
+}
+
+.Button:has([data-lucide="star"]):hover,
+.Button:has(.lucide-star):hover,
+button:has([data-lucide="star"]):hover,
+button:has(.lucide-star):hover {
+  background-color: #fed7aa !important; /* Amber 200 */
+  border-color: #fdba74 !important; /* Amber 300 */
+}
+
+/* Star ratings and favorites */
+.star-rating svg,
+.favorite-star svg,
+.rating svg {
+  color: #f59e0b !important; /* Golden */
+}
+
+/* Star filled state */
+.star-filled,
+.star-active,
+[data-star="filled"] {
+  color: #f59e0b !important; /* Golden */
+  fill: #f59e0b !important;
+}
+
+/* Star empty state */
+.star-empty,
+.star-inactive,
+[data-star="empty"] {
+  color: #d1d5db !important; /* Gray 300 */
+  fill: none !important;
+}
+
+/* Fix any remaining black icons in header specifically */
+.header svg:not([style*="color"]):not([color]),
+.topbar svg:not([style*="color"]):not([color]) {
+  color: #64748b !important; /* Default to slate 500 */
+}
+
+/* Profile and user menu icons */
+.user-menu svg,
+.profile-dropdown svg {
+  color: #6b7280 !important; /* Gray 500 */
+}
+
 /* Footer styling */
 .dashboard-footer {
   background-color: #ffffff;

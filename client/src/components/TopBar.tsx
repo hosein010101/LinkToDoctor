@@ -119,7 +119,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
               <Button variant="ghost" size="sm" className="relative text-orange-500 hover:text-orange-600 hover:bg-orange-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg">
                 <Bell className="w-5 h-5" />
                 {unreadCount > 0 && (
-                  <Badge className="absolute -top-1 -left-1 w-5 h-5 p-0 text-xs bg-red-500 text-white rounded-full flex items-center justify-center animate-pulse shadow-sm">
+                  <Badge className="absolute -top-1 -left-1 w-5 h-5 p-0 text-xs bg-white text-red-500 border-2 border-red-500 rounded-full flex items-center justify-center animate-pulse shadow-sm">
                     {unreadCount}
                   </Badge>
                 )}
