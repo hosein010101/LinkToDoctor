@@ -1598,6 +1598,77 @@ div:has(> svg):not([class*="avatar"]):not([class*="gradient"]) {
   color: #dc2626 !important;
 }
 
+/* SAMPLE COLLECTION PAGE - Fix Report Problem Button */
+/* Target گزارش مشکل button specifically */
+.Button:has(svg[class*="alert-triangle"]),
+.Button:has(.lucide-alert-triangle),
+button:has([data-lucide="alert-triangle"]),
+button:has(.lucide-alert-triangle) {
+  background-color: #fff7ed !important; /* Very light orange */
+  border-color: #fed7aa !important; /* Light orange border */
+  color: #ea580c !important; /* Orange text */
+}
+
+.Button:has(svg[class*="alert-triangle"]):hover,
+.Button:has(.lucide-alert-triangle):hover,
+button:has([data-lucide="alert-triangle"]):hover,
+button:has(.lucide-alert-triangle):hover {
+  background-color: #ffedd5 !important; /* Slightly darker orange */
+  border-color: #fdba74 !important; /* Darker orange border */
+}
+
+/* Additional targeting for report problem buttons */
+button[class*="border-orange"]:has(svg),
+.Button[class*="border-orange"]:has(svg) {
+  background-color: #fff7ed !important;
+  border-color: #fed7aa !important;
+  color: #ea580c !important;
+}
+
+button[class*="border-orange"]:has(svg):hover,
+.Button[class*="border-orange"]:has(svg):hover {
+  background-color: #ffedd5 !important;
+  border-color: #fdba74 !important;
+}
+
+/* Override any black backgrounds on alert triangle icons */
+svg[class*="alert-triangle"],
+.lucide-alert-triangle,
+[data-lucide="alert-triangle"] {
+  color: #ea580c !important; /* Orange color for the icon */
+}
+
+/* STRONGER OVERRIDE - Sample Collection Report Problem Button */
+/* Force orange pastel background on گزارش مشکل button */
+.bg-orange-50 {
+  background-color: #fff7ed !important;
+}
+
+.border-orange-200 {
+  border-color: #fed7aa !important;
+}
+
+.hover\:bg-orange-100:hover {
+  background-color: #ffedd5 !important;
+}
+
+.hover\:border-orange-300:hover {
+  border-color: #fdba74 !important;
+}
+
+/* Ensure AlertTriangle buttons always have light orange background */
+button:has(.lucide-alert-triangle),
+.Button:has(.lucide-alert-triangle) {
+  background-color: #fff7ed !important;
+  border-color: #fed7aa !important;
+}
+
+button:has(.lucide-alert-triangle):hover,
+.Button:has(.lucide-alert-triangle):hover {
+  background-color: #ffedd5 !important;
+  border-color: #fdba74 !important;
+}
+
 /* Avatar fallback backgrounds */
 .AvatarFallback, .avatar-fallback {
   background-color: #e2e8f0 !important; /* Slate 200 */

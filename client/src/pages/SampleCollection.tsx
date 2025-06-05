@@ -335,7 +335,7 @@ export default function SampleCollection() {
                           <Phone className="w-4 h-4 ml-1" />
                           تماس
                         </Button>
-                        <Button size="sm" variant="outline" className="border-orange-300 text-orange-700 hover:bg-orange-50">
+                        <Button size="sm" variant="outline" className="bg-orange-50 border-orange-200 text-orange-700 hover:bg-orange-100 hover:border-orange-300">
                           <AlertTriangle className="w-4 h-4 ml-1" />
                           گزارش مشکل
                         </Button>
