@@ -21,10 +21,12 @@ export function ToggleSwitch({
       disabled={disabled}
       onClick={() => onCheckedChange(!checked)}
       className={cn(
-        // Base track styling with improved dimensions
-        "relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-        // Enhanced off state - light gray background for better visibility
-        checked ? "bg-green-500" : "bg-gray-300",
+        // Base track styling with refined dimensions and modern design
+        "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-slate-200 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50",
+        // Enhanced states with better colors and shadows
+        checked 
+          ? "bg-gradient-to-r from-emerald-400 to-emerald-500 border-emerald-400 shadow-sm" 
+          : "bg-slate-100 border-slate-200 hover:bg-slate-150",
         className
       )}
     >
@@ -32,11 +34,17 @@ export function ToggleSwitch({
       <span
         aria-hidden="true"
         className={cn(
-          // Handle styling - white background with proper sizing
-          "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out",
-          // Positioning for on/off states
-          checked ? "translate-x-5" : "translate-x-0"
+          // Handle styling with refined proportions and enhanced shadows
+          "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-md ring-1 ring-slate-200 transition-all duration-300 ease-in-out",
+          // Improved positioning with proper spacing
+          checked ? "translate-x-4" : "translate-x-0.5",
+          // Additional styling for active state
+          checked ? "shadow-lg" : "shadow-sm"
         )}
+        style={{
+          top: "1px",
+          marginTop: "1px"
+        }}
       />
     </button>
   );
