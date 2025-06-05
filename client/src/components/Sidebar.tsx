@@ -50,7 +50,7 @@ interface NavSection {
 
 export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
   const [location] = useLocation();
-  const [expandedSections, setExpandedSections] = useState<number[]>([0, 1, 2, 3, 4, 5, 6, 7]);
+  const [expandedSections, setExpandedSections] = useState<number[]>([]);
 
   const toggleSection = (sectionIndex: number) => {
     if (collapsed) return;
@@ -205,9 +205,11 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
                 <motion.button
                   onClick={() => toggleSection(sectionIndex)}
                   className={`
-                    w-full flex items-center justify-between p-3 rounded-lg transition-all duration-200
-                    hover:bg-gray-50 dark:hover:bg-gray-800 group
-                    ${hasActiveItem ? 'bg-blue-50 dark:bg-blue-900/20' : ''}
+                    w-full flex items-center justify-between p-3 rounded-lg transition-all duration-200 group
+                    ${hasActiveItem 
+                      ? 'bg-gradient-to-l from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-900/20 dark:via-indigo-900/20 dark:to-purple-900/20 border border-blue-100 dark:border-blue-800' 
+                      : 'bg-gradient-to-l from-gray-50 via-slate-50 to-gray-50 dark:from-gray-800 dark:via-gray-800 dark:to-gray-700 hover:from-blue-50 hover:via-indigo-50 hover:to-purple-50 dark:hover:from-blue-900/10 dark:hover:via-indigo-900/10 dark:hover:to-purple-900/10'
+                    }
                   `}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -215,11 +217,11 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
                   <div className="flex items-center space-x-3 space-x-reverse">
                     <div className={`
                       w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200
-                      ${hasActiveItem ? 'bg-white shadow-sm' : 'bg-gray-100 dark:bg-gray-700 group-hover:bg-white dark:group-hover:bg-gray-600'}
+                      ${hasActiveItem ? 'bg-white shadow-sm' : 'bg-white/60 dark:bg-gray-700 group-hover:bg-white dark:group-hover:bg-gray-600'}
                     `}>
-                      <SectionIcon className={`w-4 h-4 ${hasActiveItem ? section.color : 'text-gray-500 dark:text-gray-400'}`} />
+                      <SectionIcon className={`w-4 h-4 ${section.color}`} />
                     </div>
-                    <span className={`text-sm font-semibold ${hasActiveItem ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-300'}`}>
+                    <span className={`text-sm font-semibold ${hasActiveItem ? 'text-gray-900 dark:text-white' : 'text-gray-700 dark:text-gray-300'}`}>
                       {section.title}
                     </span>
                   </div>
@@ -266,7 +268,7 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
                                 : 'bg-gray-100 dark:bg-gray-700 group-hover:bg-white dark:group-hover:bg-gray-600'
                               }
                             `}>
-                              <Icon className={`w-5 h-5 ${isActive ? item.color : 'text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300'}`} />
+                              <Icon className={`w-5 h-5 ${item.color}`} />
                             </div>
                             
                             <AnimatePresence>

@@ -42,7 +42,7 @@ export default function Layout({ children }: LayoutProps) {
       <Sidebar collapsed={sidebarCollapsed} isMobile={isMobile} />
       
       <div className={`flex-1 flex flex-col transition-all duration-300 ${
-        isMobile ? 'w-full' : sidebarCollapsed ? 'ml-16' : 'ml-80'
+        isMobile ? 'w-full' : sidebarCollapsed ? 'mr-16' : 'mr-80'
       }`}>
         <TopBar onToggleSidebar={toggleSidebar} />
         <main className="flex-1 overflow-auto bg-gray-50 dark:bg-gray-900 dashboard-content">
