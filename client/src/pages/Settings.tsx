@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ToggleSwitch } from "@/components/ui/toggle-switch";
+import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
@@ -29,7 +29,10 @@ import {
   Download,
   Upload,
   Trash2,
-  AlertTriangle
+  AlertTriangle,
+  CheckCircle,
+  XCircle,
+  Info
 } from "lucide-react";
 
 export default function Settings() {
@@ -37,55 +40,52 @@ export default function Settings() {
   
   // Lab Information State
   const [labInfo, setLabInfo] = useState({
-    name: "آزمایشگاه پارس",
+    name: "آزمایشگاه لینک تو دکتر",
     license: "LAB-2024-001",
     phone: "021-12345678",
-    email: "info@parslab.ir",
+    email: "info@linkto.doctor",
     address: "تهران، خیابان ولیعصر، پلاک 123",
-    website: "www.parslab.ir",
-    manager: "دکتر احمد محمدی",
-    establishedYear: "1398",
+    website: "www.linkto.doctor",
+    manager: "دکتر حسین هددی",
+    establishedYear: "1401",
   });
 
   // Notification Settings
   const [notifications, setNotifications] = useState({
     emailNotifications: true,
-    smsNotifications: true,
+    smsNotifications: false,
+    pushNotifications: true,
+    dailyReports: true,
+    weeklyReports: false,
     orderUpdates: true,
-    resultReady: true,
-    lowInventory: true,
     systemAlerts: true,
-    dailyReports: false,
-    weeklyReports: true,
+    reminderTime: "08:00",
   });
 
   // System Settings
   const [systemSettings, setSystemSettings] = useState({
     language: "fa",
     timezone: "Asia/Tehran",
-    dateFormat: "jalali",
+    dateFormat: "persian",
     currency: "IRR",
-    workingHours: {
-      start: "08:00",
-      end: "18:00",
-    },
-    workingDays: ["saturday", "sunday", "monday", "tuesday", "wednesday"],
     autoBackup: true,
-    backupFrequency: "daily",
+    maintenanceMode: false,
+    debugMode: false,
+    sessionTimeout: "30",
   });
 
   // Security Settings
   const [securitySettings, setSecuritySettings] = useState({
-    passwordExpiry: 90,
-    sessionTimeout: 120,
     twoFactorAuth: false,
-    loginAttempts: 5,
-    ipWhitelist: "",
+    passwordExpiry: "90",
+    loginAttempts: "5",
+    sessionLock: true,
+    ipWhitelist: false,
     auditLog: true,
+    encryptData: true,
   });
 
   const handleSaveLabInfo = () => {
-    // In a real app, this would make an API call
     toast({
       title: "موفقیت",
       description: "اطلاعات آزمایشگاه به‌روزرسانی شد",
@@ -95,7 +95,7 @@ export default function Settings() {
   const handleSaveNotifications = () => {
     toast({
       title: "موفقیت", 
-      description: "تنظیمات اعلان‌ها ذخیره شد",
+      description: "تنظیمات اعلان‌ها به‌روزرسانی شد",
     });
   };
 
@@ -136,21 +136,24 @@ export default function Settings() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="p-6 space-y-6">
       {/* Header */}
-      <Card>
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-xl font-semibold text-medical-text">تنظیمات آزمایشگاه</h3>
-              <p className="text-sm text-gray-500 mt-1">مدیریت تنظیمات و پیکربندی سیستم</p>
-            </div>
-            <div className="w-12 h-12 bg-medical-teal bg-opacity-20 rounded-lg flex items-center justify-center">
-              <SettingsIcon className="text-medical-teal" size={24} />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">تنظیمات آزمایشگاه</h1>
+          <p className="text-gray-600 mt-1">مدیریت تنظیمات و پیکربندی سیستم</p>
+        </div>
+        <div className="flex items-center space-x-3 space-x-reverse">
+          <Button variant="outline" onClick={handleExportData}>
+            <Download className="w-4 h-4 ml-2" />
+            خروجی تنظیمات
+          </Button>
+          <Button className="bg-blue-600 hover:bg-blue-700 text-white" onClick={handleSaveSystem}>
+            <Save className="w-4 h-4 ml-2" />
+            ذخیره تغییرات
+          </Button>
+        </div>
+      </div>
 
       {/* Settings Tabs */}
       <Tabs defaultValue="lab-info" className="w-full">
@@ -164,13 +167,14 @@ export default function Settings() {
 
         {/* Lab Information Tab */}
         <TabsContent value="lab-info" className="mt-6">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-2 space-x-reverse mb-6">
-                <Building className="w-5 h-5 text-medical-teal" />
-                <h4 className="text-lg font-semibold text-medical-text">اطلاعات آزمایشگاه</h4>
-              </div>
-
+          <Card className="card-professional">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2 space-x-reverse">
+                <Building className="w-5 h-5 text-blue-600" />
+                <span>اطلاعات آزمایشگاه</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
@@ -217,21 +221,21 @@ export default function Settings() {
 
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="website">وب‌سایت</Label>
-                    <Input
-                      id="website"
-                      value={labInfo.website}
-                      onChange={(e) => setLabInfo({...labInfo, website: e.target.value})}
-                      className="mt-1"
-                    />
-                  </div>
-
-                  <div>
                     <Label htmlFor="manager">مدیر آزمایشگاه</Label>
                     <Input
                       id="manager"
                       value={labInfo.manager}
                       onChange={(e) => setLabInfo({...labInfo, manager: e.target.value})}
+                      className="mt-1"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="website">وب‌سایت</Label>
+                    <Input
+                      id="website"
+                      value={labInfo.website}
+                      onChange={(e) => setLabInfo({...labInfo, website: e.target.value})}
                       className="mt-1"
                     />
                   </div>
@@ -252,23 +256,19 @@ export default function Settings() {
                       id="address"
                       value={labInfo.address}
                       onChange={(e) => setLabInfo({...labInfo, address: e.target.value})}
-                      rows={3}
                       className="mt-1"
+                      rows={3}
                     />
                   </div>
                 </div>
               </div>
 
-              <Separator className="my-6" />
+              <Separator />
 
-              <div className="flex justify-end space-x-3 space-x-reverse">
-                <Button variant="outline">
-                  <RotateCcw className="ml-2 w-4 h-4" />
-                  بازنشانی
-                </Button>
-                <Button onClick={handleSaveLabInfo} className="bg-medical-teal hover:bg-opacity-90 text-white">
-                  <Save className="ml-2 w-4 h-4" />
-                  ذخیره تغییرات
+              <div className="flex justify-end">
+                <Button onClick={handleSaveLabInfo} className="bg-blue-600 hover:bg-blue-700 text-white">
+                  <Save className="w-4 h-4 ml-2" />
+                  ذخیره اطلاعات
                 </Button>
               </div>
             </CardContent>
@@ -277,123 +277,113 @@ export default function Settings() {
 
         {/* Notifications Tab */}
         <TabsContent value="notifications" className="mt-6">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-2 space-x-reverse mb-6">
-                <Bell className="w-5 h-5 text-medical-teal" />
-                <h4 className="text-lg font-semibold text-medical-text">تنظیمات اعلان‌ها</h4>
-              </div>
-
-              <div className="space-y-6">
-                <div>
-                  <h5 className="text-md font-medium text-medical-text mb-4">روش‌های اعلان</h5>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3 space-x-reverse">
-                        <Mail className="w-4 h-4 text-gray-400" />
-                        <Label htmlFor="email-notifications">اعلان‌های ایمیل</Label>
-                      </div>
-                      <ToggleSwitch
-                        checked={notifications.emailNotifications}
-                        onCheckedChange={(checked) => 
-                          setNotifications({...notifications, emailNotifications: checked})
-                        }
-                      />
+          <Card className="card-professional">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2 space-x-reverse">
+                <Bell className="w-5 h-5 text-orange-600" />
+                <span>تنظیمات اعلان‌ها</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>اعلان‌های ایمیل</Label>
+                      <p className="text-sm text-gray-600">دریافت اعلان‌ها از طریق ایمیل</p>
                     </div>
+                    <Switch
+                      checked={notifications.emailNotifications}
+                      onCheckedChange={(checked) => setNotifications({...notifications, emailNotifications: checked})}
+                    />
+                  </div>
 
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3 space-x-reverse">
-                        <Phone className="w-4 h-4 text-gray-400" />
-                        <Label htmlFor="sms-notifications">اعلان‌های پیامکی</Label>
-                      </div>
-                      <ToggleSwitch
-                        checked={notifications.smsNotifications}
-                        onCheckedChange={(checked) => 
-                          setNotifications({...notifications, smsNotifications: checked})
-                        }
-                      />
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>اعلان‌های پیامکی</Label>
+                      <p className="text-sm text-gray-600">دریافت اعلان‌ها از طریق پیامک</p>
                     </div>
+                    <Switch
+                      checked={notifications.smsNotifications}
+                      onCheckedChange={(checked) => setNotifications({...notifications, smsNotifications: checked})}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>اعلان‌های فوری</Label>
+                      <p className="text-sm text-gray-600">اعلان‌های فوری در مرورگر</p>
+                    </div>
+                    <Switch
+                      checked={notifications.pushNotifications}
+                      onCheckedChange={(checked) => setNotifications({...notifications, pushNotifications: checked})}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>گزارش‌های روزانه</Label>
+                      <p className="text-sm text-gray-600">ارسال گزارش عملکرد روزانه</p>
+                    </div>
+                    <Switch
+                      checked={notifications.dailyReports}
+                      onCheckedChange={(checked) => setNotifications({...notifications, dailyReports: checked})}
+                    />
                   </div>
                 </div>
 
-                <Separator />
-
-                <div>
-                  <h5 className="text-md font-medium text-medical-text mb-4">انواع اعلان</h5>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="order-updates">به‌روزرسانی سفارشات</Label>
-                      <ToggleSwitch
-                        checked={notifications.orderUpdates}
-                        onCheckedChange={(checked) => 
-                          setNotifications({...notifications, orderUpdates: checked})
-                        }
-                      />
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>گزارش‌های هفتگی</Label>
+                      <p className="text-sm text-gray-600">ارسال گزارش عملکرد هفتگی</p>
                     </div>
-
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="result-ready">آمادگی نتایج</Label>
-                      <ToggleSwitch
-                        checked={notifications.resultReady}
-                        onCheckedChange={(checked) => 
-                          setNotifications({...notifications, resultReady: checked})
-                        }
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="low-inventory">کمبود موجودی</Label>
-                      <ToggleSwitch
-                        checked={notifications.lowInventory}
-                        onCheckedChange={(checked) => 
-                          setNotifications({...notifications, lowInventory: checked})
-                        }
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="system-alerts">هشدارهای سیستم</Label>
-                      <ToggleSwitch
-                        checked={notifications.systemAlerts}
-                        onCheckedChange={(checked) => 
-                          setNotifications({...notifications, systemAlerts: checked})
-                        }
-                      />
-                    </div>
+                    <Switch
+                      checked={notifications.weeklyReports}
+                      onCheckedChange={(checked) => setNotifications({...notifications, weeklyReports: checked})}
+                    />
                   </div>
-                </div>
 
-                <Separator />
-
-                <div>
-                  <h5 className="text-md font-medium text-medical-text mb-4">گزارش‌های دوره‌ای</h5>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="daily-reports">گزارش‌های روزانه</Label>
-                      <ToggleSwitch
-                        checked={notifications.dailyReports}
-                        onCheckedChange={(checked) => 
-                          setNotifications({...notifications, dailyReports: checked})
-                        }
-                      />
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>به‌روزرسانی سفارشات</Label>
+                      <p className="text-sm text-gray-600">اطلاع از تغییرات وضعیت سفارشات</p>
                     </div>
+                    <Switch
+                      checked={notifications.orderUpdates}
+                      onCheckedChange={(checked) => setNotifications({...notifications, orderUpdates: checked})}
+                    />
+                  </div>
 
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="weekly-reports">گزارش‌های هفتگی</Label>
-                      <ToggleSwitch
-                        checked={notifications.weeklyReports}
-                        onCheckedChange={(checked) => 
-                          setNotifications({...notifications, weeklyReports: checked})
-                        }
-                      />
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>هشدارهای سیستم</Label>
+                      <p className="text-sm text-gray-600">اطلاع از مشکلات سیستم</p>
                     </div>
+                    <Switch
+                      checked={notifications.systemAlerts}
+                      onCheckedChange={(checked) => setNotifications({...notifications, systemAlerts: checked})}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="reminder-time">زمان یادآوری روزانه</Label>
+                    <Input
+                      id="reminder-time"
+                      type="time"
+                      value={notifications.reminderTime}
+                      onChange={(e) => setNotifications({...notifications, reminderTime: e.target.value})}
+                      className="mt-1"
+                    />
                   </div>
                 </div>
               </div>
 
-              <div className="flex justify-end mt-6">
-                <Button onClick={handleSaveNotifications} className="bg-medical-teal hover:bg-opacity-90 text-white">
-                  <Save className="ml-2 w-4 h-4" />
+              <Separator />
+
+              <div className="flex justify-end">
+                <Button onClick={handleSaveNotifications} className="bg-orange-600 hover:bg-orange-700 text-white">
+                  <Save className="w-4 h-4 ml-2" />
                   ذخیره تنظیمات
                 </Button>
               </div>
@@ -401,141 +391,127 @@ export default function Settings() {
           </Card>
         </TabsContent>
 
-        {/* System Settings Tab */}
+        {/* System Tab */}
         <TabsContent value="system" className="mt-6">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-2 space-x-reverse mb-6">
-                <Database className="w-5 h-5 text-medical-teal" />
-                <h4 className="text-lg font-semibold text-medical-text">تنظیمات سیستم</h4>
-              </div>
-
+          <Card className="card-professional">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2 space-x-reverse">
+                <SettingsIcon className="w-5 h-5 text-purple-600" />
+                <span>تنظیمات سیستم</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
                     <Label htmlFor="language">زبان سیستم</Label>
-                    <Select value={systemSettings.language} onValueChange={(value) => 
-                      setSystemSettings({...systemSettings, language: value})
-                    }>
+                    <Select value={systemSettings.language} onValueChange={(value) => setSystemSettings({...systemSettings, language: value})}>
                       <SelectTrigger className="mt-1">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="fa">فارسی</SelectItem>
                         <SelectItem value="en">English</SelectItem>
+                        <SelectItem value="ar">العربية</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div>
                     <Label htmlFor="timezone">منطقه زمانی</Label>
-                    <Select value={systemSettings.timezone} onValueChange={(value) => 
-                      setSystemSettings({...systemSettings, timezone: value})
-                    }>
+                    <Select value={systemSettings.timezone} onValueChange={(value) => setSystemSettings({...systemSettings, timezone: value})}>
                       <SelectTrigger className="mt-1">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Asia/Tehran">تهران (UTC+3:30)</SelectItem>
-                        <SelectItem value="UTC">UTC (UTC+0)</SelectItem>
+                        <SelectItem value="Asia/Tehran">تهران</SelectItem>
+                        <SelectItem value="Asia/Dubai">دبی</SelectItem>
+                        <SelectItem value="Europe/London">لندن</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div>
                     <Label htmlFor="date-format">فرمت تاریخ</Label>
-                    <Select value={systemSettings.dateFormat} onValueChange={(value) => 
-                      setSystemSettings({...systemSettings, dateFormat: value})
-                    }>
+                    <Select value={systemSettings.dateFormat} onValueChange={(value) => setSystemSettings({...systemSettings, dateFormat: value})}>
                       <SelectTrigger className="mt-1">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="jalali">شمسی</SelectItem>
+                        <SelectItem value="persian">شمسی</SelectItem>
                         <SelectItem value="gregorian">میلادی</SelectItem>
+                        <SelectItem value="hijri">قمری</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div>
+                    <Label htmlFor="session-timeout">مدت زمان نشست (دقیقه)</Label>
+                    <Input
+                      id="session-timeout"
+                      type="number"
+                      value={systemSettings.sessionTimeout}
+                      onChange={(e) => setSystemSettings({...systemSettings, sessionTimeout: e.target.value})}
+                      className="mt-1"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>پشتیبان‌گیری خودکار</Label>
+                      <p className="text-sm text-gray-600">پشتیبان‌گیری روزانه از داده‌ها</p>
+                    </div>
+                    <Switch
+                      checked={systemSettings.autoBackup}
+                      onCheckedChange={(checked) => setSystemSettings({...systemSettings, autoBackup: checked})}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>حالت تعمیر و نگهداری</Label>
+                      <p className="text-sm text-gray-600">غیرفعال کردن موقت سیستم</p>
+                    </div>
+                    <Switch
+                      checked={systemSettings.maintenanceMode}
+                      onCheckedChange={(checked) => setSystemSettings({...systemSettings, maintenanceMode: checked})}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>حالت اشکال‌زدایی</Label>
+                      <p className="text-sm text-gray-600">فعال‌سازی لاگ‌های تفصیلی</p>
+                    </div>
+                    <Switch
+                      checked={systemSettings.debugMode}
+                      onCheckedChange={(checked) => setSystemSettings({...systemSettings, debugMode: checked})}
+                    />
+                  </div>
+
+                  <div>
                     <Label htmlFor="currency">واحد پول</Label>
-                    <Select value={systemSettings.currency} onValueChange={(value) => 
-                      setSystemSettings({...systemSettings, currency: value})
-                    }>
+                    <Select value={systemSettings.currency} onValueChange={(value) => setSystemSettings({...systemSettings, currency: value})}>
                       <SelectTrigger className="mt-1">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="IRR">ریال ایران</SelectItem>
                         <SelectItem value="USD">دلار آمریکا</SelectItem>
+                        <SelectItem value="EUR">یورو</SelectItem>
                       </SelectContent>
                     </Select>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <Label>ساعات کاری</Label>
-                    <div className="grid grid-cols-2 gap-2 mt-1">
-                      <div>
-                        <Label htmlFor="start-time" className="text-xs">شروع</Label>
-                        <Input
-                          id="start-time"
-                          type="time"
-                          value={systemSettings.workingHours.start}
-                          onChange={(e) => setSystemSettings({
-                            ...systemSettings,
-                            workingHours: {...systemSettings.workingHours, start: e.target.value}
-                          })}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="end-time" className="text-xs">پایان</Label>
-                        <Input
-                          id="end-time"
-                          type="time"
-                          value={systemSettings.workingHours.end}
-                          onChange={(e) => setSystemSettings({
-                            ...systemSettings,
-                            workingHours: {...systemSettings.workingHours, end: e.target.value}
-                          })}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="backup-frequency">تکرار پشتیبان‌گیری</Label>
-                    <Select value={systemSettings.backupFrequency} onValueChange={(value) => 
-                      setSystemSettings({...systemSettings, backupFrequency: value})
-                    }>
-                      <SelectTrigger className="mt-1">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="hourly">ساعتی</SelectItem>
-                        <SelectItem value="daily">روزانه</SelectItem>
-                        <SelectItem value="weekly">هفتگی</SelectItem>
-                        <SelectItem value="monthly">ماهانه</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="auto-backup">پشتیبان‌گیری خودکار</Label>
-                    <ToggleSwitch
-                      checked={systemSettings.autoBackup}
-                      onCheckedChange={(checked) => 
-                        setSystemSettings({...systemSettings, autoBackup: checked})
-                      }
-                    />
                   </div>
                 </div>
               </div>
 
-              <div className="flex justify-end mt-6">
-                <Button onClick={handleSaveSystem} className="bg-medical-teal hover:bg-opacity-90 text-white">
-                  <Save className="ml-2 w-4 h-4" />
+              <Separator />
+
+              <div className="flex justify-end">
+                <Button onClick={handleSaveSystem} className="bg-purple-600 hover:bg-purple-700 text-white">
+                  <Save className="w-4 h-4 ml-2" />
                   ذخیره تنظیمات
                 </Button>
               </div>
@@ -543,101 +519,104 @@ export default function Settings() {
           </Card>
         </TabsContent>
 
-        {/* Security Settings Tab */}
+        {/* Security Tab */}
         <TabsContent value="security" className="mt-6">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-2 space-x-reverse mb-6">
-                <Shield className="w-5 h-5 text-medical-teal" />
-                <h4 className="text-lg font-semibold text-medical-text">تنظیمات امنیتی</h4>
-              </div>
-
+          <Card className="card-professional">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2 space-x-reverse">
+                <Shield className="w-5 h-5 text-red-600" />
+                <span>تنظیمات امنیتی</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>احراز هویت دو مرحله‌ای</Label>
+                      <p className="text-sm text-gray-600">افزایش امنیت ورود</p>
+                    </div>
+                    <Switch
+                      checked={securitySettings.twoFactorAuth}
+                      onCheckedChange={(checked) => setSecuritySettings({...securitySettings, twoFactorAuth: checked})}
+                    />
+                  </div>
+
                   <div>
                     <Label htmlFor="password-expiry">انقضای رمز عبور (روز)</Label>
                     <Input
                       id="password-expiry"
                       type="number"
                       value={securitySettings.passwordExpiry}
-                      onChange={(e) => setSecuritySettings({
-                        ...securitySettings, 
-                        passwordExpiry: parseInt(e.target.value)
-                      })}
+                      onChange={(e) => setSecuritySettings({...securitySettings, passwordExpiry: e.target.value})}
                       className="mt-1"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="session-timeout">زمان انقضای جلسه (دقیقه)</Label>
-                    <Input
-                      id="session-timeout"
-                      type="number"
-                      value={securitySettings.sessionTimeout}
-                      onChange={(e) => setSecuritySettings({
-                        ...securitySettings, 
-                        sessionTimeout: parseInt(e.target.value)
-                      })}
-                      className="mt-1"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="login-attempts">حداکثر تلاش ورود ناموفق</Label>
+                    <Label htmlFor="login-attempts">حداکثر تلاش‌های ورود</Label>
                     <Input
                       id="login-attempts"
                       type="number"
                       value={securitySettings.loginAttempts}
-                      onChange={(e) => setSecuritySettings({
-                        ...securitySettings, 
-                        loginAttempts: parseInt(e.target.value)
-                      })}
+                      onChange={(e) => setSecuritySettings({...securitySettings, loginAttempts: e.target.value})}
                       className="mt-1"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>قفل خودکار نشست</Label>
+                      <p className="text-sm text-gray-600">قفل کردن پس از عدم فعالیت</p>
+                    </div>
+                    <Switch
+                      checked={securitySettings.sessionLock}
+                      onCheckedChange={(checked) => setSecuritySettings({...securitySettings, sessionLock: checked})}
                     />
                   </div>
                 </div>
 
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="two-factor">احراز هویت دو مرحله‌ای</Label>
-                    <ToggleSwitch
-                      checked={securitySettings.twoFactorAuth}
-                      onCheckedChange={(checked) => 
-                        setSecuritySettings({...securitySettings, twoFactorAuth: checked})
-                      }
+                    <div>
+                      <Label>فهرست سفید IP</Label>
+                      <p className="text-sm text-gray-600">محدود کردن دسترسی به IP های خاص</p>
+                    </div>
+                    <Switch
+                      checked={securitySettings.ipWhitelist}
+                      onCheckedChange={(checked) => setSecuritySettings({...securitySettings, ipWhitelist: checked})}
                     />
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="audit-log">ثبت گزارش‌های حسابرسی</Label>
-                    <ToggleSwitch
+                    <div>
+                      <Label>لاگ حسابرسی</Label>
+                      <p className="text-sm text-gray-600">ثبت تمام فعالیت‌های کاربران</p>
+                    </div>
+                    <Switch
                       checked={securitySettings.auditLog}
-                      onCheckedChange={(checked) => 
-                        setSecuritySettings({...securitySettings, auditLog: checked})
-                      }
+                      onCheckedChange={(checked) => setSecuritySettings({...securitySettings, auditLog: checked})}
                     />
                   </div>
 
-                  <div>
-                    <Label htmlFor="ip-whitelist">فهرست سفید IP (اختیاری)</Label>
-                    <Textarea
-                      id="ip-whitelist"
-                      value={securitySettings.ipWhitelist}
-                      onChange={(e) => setSecuritySettings({
-                        ...securitySettings, 
-                        ipWhitelist: e.target.value
-                      })}
-                      placeholder="192.168.1.0/24"
-                      rows={3}
-                      className="mt-1"
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>رمزگذاری داده‌ها</Label>
+                      <p className="text-sm text-gray-600">رمزگذاری اطلاعات حساس</p>
+                    </div>
+                    <Switch
+                      checked={securitySettings.encryptData}
+                      onCheckedChange={(checked) => setSecuritySettings({...securitySettings, encryptData: checked})}
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="flex justify-end mt-6">
-                <Button onClick={handleSaveSecurity} className="bg-medical-teal hover:bg-opacity-90 text-white">
-                  <Save className="ml-2 w-4 h-4" />
+              <Separator />
+
+              <div className="flex justify-end">
+                <Button onClick={handleSaveSecurity} className="bg-red-600 hover:bg-red-700 text-white">
+                  <Save className="w-4 h-4 ml-2" />
                   ذخیره تنظیمات
                 </Button>
               </div>
@@ -647,100 +626,79 @@ export default function Settings() {
 
         {/* Data Management Tab */}
         <TabsContent value="data" className="mt-6">
-          <div className="space-y-6">
-            {/* Export/Import */}
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center space-x-2 space-x-reverse mb-6">
-                  <Database className="w-5 h-5 text-medical-teal" />
-                  <h4 className="text-lg font-semibold text-medical-text">مدیریت داده‌ها</h4>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card className="card-professional">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2 space-x-reverse">
+                  <Database className="w-5 h-5 text-green-600" />
+                  <span>مدیریت داده‌ها</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="p-4 bg-blue-50 rounded-lg">
+                  <div className="flex items-center space-x-2 space-x-reverse mb-2">
+                    <Info className="w-4 h-4 text-blue-600" />
+                    <span className="text-sm font-medium text-blue-900">پشتیبان‌گیری</span>
+                  </div>
+                  <p className="text-xs text-blue-700 mb-3">
+                    آخرین پشتیبان‌گیری: 1403/05/30 - 14:30
+                  </p>
+                  <Button variant="outline" className="w-full">
+                    <Download className="w-4 h-4 ml-2" />
+                    دانلود پشتیبان
+                  </Button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h5 className="text-md font-medium text-medical-text">خروجی داده‌ها</h5>
-                    <p className="text-sm text-gray-500">
-                      تمام داده‌های سیستم را به فرمت JSON یا CSV خروجی بگیرید
-                    </p>
-                    <div className="flex space-x-2 space-x-reverse">
-                      <Button onClick={handleExportData} variant="outline">
-                        <Download className="ml-2 w-4 h-4" />
-                        خروجی JSON
-                      </Button>
-                      <Button onClick={handleExportData} variant="outline">
-                        <Printer className="ml-2 w-4 h-4" />
-                        خروجی CSV
-                      </Button>
-                    </div>
+                <div className="p-4 bg-orange-50 rounded-lg">
+                  <div className="flex items-center space-x-2 space-x-reverse mb-2">
+                    <Upload className="w-4 h-4 text-orange-600" />
+                    <span className="text-sm font-medium text-orange-900">بازیابی داده‌ها</span>
                   </div>
-
-                  <div className="space-y-4">
-                    <h5 className="text-md font-medium text-medical-text">ورودی داده‌ها</h5>
-                    <p className="text-sm text-gray-500">
-                      داده‌های از پیش تهیه شده را به سیستم وارد کنید
-                    </p>
-                    <Button onClick={handleImportData} variant="outline">
-                      <Upload className="ml-2 w-4 h-4" />
-                      انتخاب فایل
-                    </Button>
-                  </div>
+                  <p className="text-xs text-orange-700 mb-3">
+                    بازگردانی داده‌ها از فایل پشتیبان
+                  </p>
+                  <Button variant="outline" className="w-full" onClick={handleImportData}>
+                    <Upload className="w-4 h-4 ml-2" />
+                    آپلود فایل
+                  </Button>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Backup & Restore */}
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center space-x-2 space-x-reverse mb-6">
-                  <Shield className="w-5 h-5 text-medical-orange" />
-                  <h4 className="text-lg font-semibold text-medical-text">پشتیبان‌گیری و بازیابی</h4>
+            <Card className="card-professional">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2 space-x-reverse">
+                  <AlertTriangle className="w-5 h-5 text-red-600" />
+                  <span>عملیات حساس</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="p-4 bg-yellow-50 rounded-lg">
+                  <div className="flex items-center space-x-2 space-x-reverse mb-2">
+                    <RotateCcw className="w-4 h-4 text-yellow-600" />
+                    <span className="text-sm font-medium text-yellow-900">بازنشانی تنظیمات</span>
+                  </div>
+                  <p className="text-xs text-yellow-700 mb-3">
+                    بازگردانی تنظیمات به حالت پیش‌فرض
+                  </p>
+                  <Button variant="outline" className="w-full">
+                    <RotateCcw className="w-4 h-4 ml-2" />
+                    بازنشانی
+                  </Button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h5 className="text-md font-medium text-medical-text">پشتیبان‌گیری دستی</h5>
-                    <p className="text-sm text-gray-500">
-                      یک نسخه پشتیبان کامل از سیستم تهیه کنید
-                    </p>
-                    <Button className="bg-medical-green hover:bg-opacity-90 text-white">
-                      <Download className="ml-2 w-4 h-4" />
-                      ایجاد پشتیبان
-                    </Button>
+                <div className="p-4 bg-red-50 rounded-lg">
+                  <div className="flex items-center space-x-2 space-x-reverse mb-2">
+                    <Trash2 className="w-4 h-4 text-red-600" />
+                    <span className="text-sm font-medium text-red-900">حذف کامل داده‌ها</span>
                   </div>
-
-                  <div className="space-y-4">
-                    <h5 className="text-md font-medium text-medical-text">بازیابی سیستم</h5>
-                    <p className="text-sm text-gray-500">
-                      سیستم را از یک نسخه پشتیبان بازیابی کنید
-                    </p>
-                    <Button variant="outline">
-                      <Upload className="ml-2 w-4 h-4" />
-                      انتخاب فایل پشتیبان
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Danger Zone */}
-            <Card className="border-red-200">
-              <CardContent className="p-6">
-                <div className="flex items-center space-x-2 space-x-reverse mb-6">
-                  <AlertTriangle className="w-5 h-5 text-red-500" />
-                  <h4 className="text-lg font-semibold text-red-600">منطقه خطر</h4>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                    <h5 className="text-md font-medium text-red-800 mb-2">بازنشانی سیستم</h5>
-                    <p className="text-sm text-red-600 mb-4">
-                      تمام داده‌ها و تنظیمات حذف خواهند شد. این عمل غیرقابل بازگشت است.
-                    </p>
-                    <Button onClick={handleResetSystem} variant="destructive">
-                      <Trash2 className="ml-2 w-4 h-4" />
-                      بازنشانی کامل سیستم
-                    </Button>
-                  </div>
+                  <p className="text-xs text-red-700 mb-3">
+                    حذف تمام داده‌ها - غیرقابل بازگشت
+                  </p>
+                  <Button variant="destructive" className="w-full" onClick={handleResetSystem}>
+                    <Trash2 className="w-4 h-4 ml-2" />
+                    حذف داده‌ها
+                  </Button>
                 </div>
               </CardContent>
             </Card>
