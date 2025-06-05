@@ -175,6 +175,91 @@ textarea::placeholder {
   color: #2D3748 !important;
 }
 
+/* CRITICAL FIX: Task Management Button Visibility */
+/* Force all buttons in task cards to be visible */
+.bg-blue-50 button,
+.bg-yellow-50 button,
+.bg-green-50 button,
+button[variant="outline"],
+button[size="sm"],
+[role="button"] {
+  color: #2D3748 !important;
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  font-weight: 500 !important;
+}
+
+/* Hover states for buttons */
+.bg-blue-50 button:hover,
+.bg-yellow-50 button:hover,
+.bg-green-50 button:hover,
+button[variant="outline"]:hover,
+button[size="sm"]:hover {
+  background-color: #f3f4f6 !important;
+  color: #1f2937 !important;
+}
+
+/* Primary buttons should remain blue */
+.bg-blue-600,
+.bg-green-600,
+button[class*="bg-blue"],
+button[class*="bg-green"] {
+  color: #ffffff !important;
+  background-color: #2563eb !important;
+}
+
+/* Action buttons in task cards */
+.text-blue-600,
+.text-green-600,
+.text-red-600,
+.text-purple-600 {
+  color: #2D3748 !important;
+}
+
+/* EMERGENCY FIX: Force ALL button text to be dark and visible */
+button,
+.button,
+[type="button"],
+input[type="submit"],
+input[type="button"] {
+  color: #1f2937 !important;
+  font-weight: 500 !important;
+}
+
+/* Override any button that might be white/invisible */
+button *,
+.button *,
+[type="button"] *,
+button span,
+button div,
+.inline-flex span,
+.inline-flex div {
+  color: inherit !important;
+}
+
+/* Specific targeting for outline buttons */
+button[class*="outline"],
+.border.rounded,
+.border-gray-300 {
+  color: #1f2937 !important;
+  background-color: #ffffff !important;
+  border-color: #d1d5db !important;
+}
+
+/* Task card buttons - maximum priority */
+div[class*="bg-"] button,
+.card button,
+.space-x-1 button,
+.space-x-reverse button {
+  color: #1f2937 !important;
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 0.375rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+}
+
 /* KPI Cards and Metrics */
 .metric-value,
 .kpi-value,
