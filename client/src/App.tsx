@@ -14,6 +14,7 @@ import Collectors from "@/pages/Collectors";
 import Results from "@/pages/Results";
 import Delivery from "@/pages/Delivery";
 import History from "@/pages/History";
+import PatientHistory from "@/pages/PatientHistory";
 import Inventory from "@/pages/Inventory";
 import Reports from "@/pages/Reports";
 import Settings from "@/pages/Settings";
@@ -95,7 +96,7 @@ function Router() {
         <Route path="/help-support" component={HelpSupport} />
         
         {/* Legacy routes for compatibility */}
-        <Route path="/history" component={History} />
+        <Route path="/history" component={PatientHistory} />
         <Route path="/services" component={TestPackages} />
         
         {/* 404 Page */}
