@@ -128,67 +128,63 @@ export default function Reports() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="p-6 space-y-6">
       {/* Header */}
-      <Card>
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h3 className="text-xl font-semibold text-medical-text">گزارشات و تحلیل</h3>
-              <p className="text-sm text-gray-500 mt-1">تحلیل عملکرد و آمارهای آزمایشگاه</p>
-            </div>
-            <div className="flex space-x-3 space-x-reverse">
-              <Select value={dateRange} onValueChange={setDateRange}>
-                <SelectTrigger className="w-40">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="7">7 روز گذشته</SelectItem>
-                  <SelectItem value="30">30 روز گذشته</SelectItem>
-                  <SelectItem value="90">90 روز گذشته</SelectItem>
-                  <SelectItem value="365">1 سال گذشته</SelectItem>
-                </SelectContent>
-              </Select>
-              <Button variant="outline">
-                <Filter className="ml-2 w-4 h-4" />
-                فیلترها
-              </Button>
-              <Button className="bg-medical-teal hover:bg-opacity-90 text-white">
-                <Download className="ml-2 w-4 h-4" />
-                خروجی PDF
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">گزارشات ساده</h1>
+          <p className="text-gray-600 mt-1">تحلیل عملکرد و آمارهای آزمایشگاه</p>
+        </div>
+        <div className="flex items-center space-x-3 space-x-reverse">
+          <Select value={dateRange} onValueChange={setDateRange}>
+            <SelectTrigger className="w-40">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="7">7 روز گذشته</SelectItem>
+              <SelectItem value="30">30 روز گذشته</SelectItem>
+              <SelectItem value="90">90 روز گذشته</SelectItem>
+              <SelectItem value="365">1 سال گذشته</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button variant="outline">
+            <Filter className="w-4 h-4 ml-2" />
+            فیلترها
+          </Button>
+          <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+            <Download className="w-4 h-4 ml-2" />
+            خروجی PDF
+          </Button>
+        </div>
+      </div>
 
       {/* Key Metrics */}
       {analyticsData && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card>
+          <Card className="card-professional">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-500 mb-1">کل سفارشات</p>
-                  <p className="text-2xl font-bold text-medical-text">{analyticsData.totalOrders}</p>
-                  <p className="text-xs text-medical-teal mt-2">
+                  <p className="text-sm text-gray-600 mb-1">کل سفارشات</p>
+                  <p className="text-2xl font-bold text-gray-900">{analyticsData.totalOrders}</p>
+                  <p className="text-xs text-blue-600 mt-2">
                     <TrendingUp className="inline w-3 h-3 ml-1" />
                     {dateRange} روز گذشته
                   </p>
                 </div>
-                <div className="w-12 h-12 bg-medical-teal bg-opacity-20 rounded-lg flex items-center justify-center">
-                  <BarChart3 className="text-medical-teal" size={24} />
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <BarChart3 className="text-blue-600" size={24} />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="card-professional">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-500 mb-1">نرخ تکمیل</p>
-                  <p className="text-2xl font-bold text-medical-green">
+                  <p className="text-sm text-gray-600 mb-1">نرخ تکمیل</p>
+                  <p className="text-2xl font-bold text-gray-900">
                     {analyticsData.completionRate.toFixed(1)}%
                   </p>
                   <p className="text-xs text-green-600 mt-2">
@@ -196,19 +192,19 @@ export default function Reports() {
                     {analyticsData.completedOrders} تحویل شده
                   </p>
                 </div>
-                <div className="w-12 h-12 bg-medical-green bg-opacity-20 rounded-lg flex items-center justify-center">
-                  <Target className="text-medical-green" size={24} />
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                  <Target className="text-green-600" size={24} />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="card-professional">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-500 mb-1">کل درآمد</p>
-                  <p className="text-2xl font-bold text-medical-orange">
+                  <p className="text-sm text-gray-600 mb-1">کل درآمد</p>
+                  <p className="text-2xl font-bold text-gray-900">
                     {formatCurrency(analyticsData.totalRevenue)}
                   </p>
                   <p className="text-xs text-orange-600 mt-2">
@@ -216,28 +212,28 @@ export default function Reports() {
                     {dateRange} روز گذشته
                   </p>
                 </div>
-                <div className="w-12 h-12 bg-medical-orange bg-opacity-20 rounded-lg flex items-center justify-center">
-                  <DollarSign className="text-medical-orange" size={24} />
+                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                  <DollarSign className="text-orange-600" size={24} />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="card-professional">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-500 mb-1">میانگین ارزش سفارش</p>
-                  <p className="text-2xl font-bold text-medical-blue">
+                  <p className="text-sm text-gray-600 mb-1">میانگین ارزش سفارش</p>
+                  <p className="text-2xl font-bold text-gray-900">
                     {formatCurrency(analyticsData.avgOrderValue)}
                   </p>
-                  <p className="text-xs text-blue-600 mt-2">
+                  <p className="text-xs text-purple-600 mt-2">
                     <Activity className="inline w-3 h-3 ml-1" />
                     به ازای هر سفارش
                   </p>
                 </div>
-                <div className="w-12 h-12 bg-medical-blue bg-opacity-20 rounded-lg flex items-center justify-center">
-                  <Activity className="text-medical-blue" size={24} />
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <Activity className="text-purple-600" size={24} />
                 </div>
               </div>
             </CardContent>
@@ -257,10 +253,10 @@ export default function Reports() {
         <TabsContent value="performance" className="mt-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Orders Trend Chart */}
-            <Card>
+            <Card className="card-professional">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h4 className="text-lg font-semibold text-medical-text">روند سفارشات</h4>
+                  <h4 className="text-lg font-semibold text-gray-900">روند سفارشات</h4>
                   <Button variant="ghost" size="sm">
                     <Download className="w-4 h-4" />
                   </Button>
@@ -272,7 +268,7 @@ export default function Reports() {
                         {analyticsData.dailyOrders.slice(-10).map((day, index) => (
                           <div key={index} className="flex flex-col items-center flex-1">
                             <div 
-                              className="bg-medical-teal rounded-t w-full min-h-2 transition-all"
+                              className="bg-blue-500 rounded-t w-full min-h-2 transition-all"
                               style={{ 
                                 height: `${Math.max(day.orders * 10, 8)}px`,
                                 maxHeight: '200px'
@@ -281,7 +277,7 @@ export default function Reports() {
                             <span className="text-xs text-gray-500 mt-1 transform rotate-45 origin-left">
                               {day.date}
                             </span>
-                            <span className="text-xs font-medium text-medical-text mt-1">
+                            <span className="text-xs font-medium text-gray-900 mt-1">
                               {day.orders}
                             </span>
                           </div>
@@ -294,9 +290,9 @@ export default function Reports() {
             </Card>
 
             {/* Status Distribution */}
-            <Card>
+            <Card className="card-professional">
               <CardContent className="p-6">
-                <h4 className="text-lg font-semibold text-medical-text mb-4">توزیع وضعیت سفارشات</h4>
+                <h4 className="text-lg font-semibold text-gray-900 mb-4">توزیع وضعیت سفارشات</h4>
                 <div className="space-y-3">
                   {analyticsData && Object.entries(analyticsData.statusDistribution).map(([status, count]) => {
                     const percentage = analyticsData.totalOrders > 0 ? 
