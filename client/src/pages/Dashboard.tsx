@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import logoPath from "@assets/logo_1749120300661.png";
 import { 
   TrendingUp, 
   TrendingDown,
@@ -184,7 +185,11 @@ export default function Dashboard() {
     return (
       <div className="dashboard-loading">
         <div className="main-icon">
-          <Heart className="site-logo" />
+          <img 
+            src={logoPath} 
+            alt="LinkToDoctor Logo" 
+            className="w-16 h-16 object-contain site-logo"
+          />
         </div>
         <div className="text-center space-y-2">
           <p className="text-xl font-semibold text-gray-900">سامانه LinkToDoctor</p>
