@@ -168,14 +168,14 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="text-green-500 hover:text-green-600 hover:bg-green-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg">
-                <MessageSquare className="w-5 h-5" />
+                <MessagesIcon className="w-5 h-5" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
               <DropdownMenuLabel>پیام‌ها</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <MessageSquare className="w-4 h-4 ml-2" />
+                <MessagesIcon className="w-4 h-4 ml-2" />
                 پیام‌های جدید
               </DropdownMenuItem>
               <DropdownMenuItem>
@@ -259,11 +259,11 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <User className="w-4 h-4 ml-2" />
+                <UserProfileIcon className="w-4 h-4 ml-2" />
                 پروفایل کاربری
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Settings className="w-4 h-4 ml-2" />
+                <SettingsIcon className="w-4 h-4 ml-2" />
                 تنظیمات حساب
               </DropdownMenuItem>
               <DropdownMenuItem>
@@ -271,7 +271,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                 امنیت و حریم خصوصی
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Globe className="w-4 h-4 ml-2" />
+                <LanguageIcon className="w-4 h-4 ml-2" />
                 تغییر زبان
               </DropdownMenuItem>
               <DropdownMenuItem>
