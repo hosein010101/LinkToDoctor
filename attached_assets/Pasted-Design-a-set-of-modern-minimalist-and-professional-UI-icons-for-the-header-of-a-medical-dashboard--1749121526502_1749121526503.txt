@@ -1,0 +1,30 @@
+Design a set of modern, minimalist, and professional UI icons for the header of a medical dashboard named 'LinkToDoctor'. These icons must be stylistically consistent, easily recognizable, and suitable for an RTL (Persian) interface. The focus is on improving and modernizing the current icons, especially the notification icon.
+
+**Required Icons:**
+
+1.  **Notifications Icon:**
+    * Create a contemporary alternative to the standard bell icon. It should clearly indicate alerts or new information but with a sleeker, less generic look. Consider incorporating a small badge for notification counts. (Examples: a line-art style modern bell, or a circle with an internal dot to signify new alerts).
+2.  **User Profile/Settings Icon:**
+    * An icon to represent the user's account, access to settings, or profile. (Examples: a simple, modern user silhouette or a minimalist gear icon).
+3.  **Language/Region Selector Icon:**
+    * A modern and clear 'globe' icon or an equivalent symbol for language selection.
+4.  **Theme Toggle Icon (Light/Dark Mode):**
+    * A creative and clear icon to switch between interface themes (e.g., a line-art sun/moon).
+5.  **Messages/Support Icon:**
+    * A modern icon for user messages or help requests (e.g., a simple, clean chat bubble design).
+6.  **[Optional] System Status/Quick Link Icon:**
+    * (If still needed, similar to the previous pulse icon) A simple, abstract icon for critical system status or a quick access link.
+
+**Key Characteristics for All Icons:**
+
+* **Style:** Flat, vector, outline, or with a subtle fill. Avoid overly detailed illustrations, 3D effects, or heavy shadows.
+* **Clarity:** The function of each icon should be instantly recognizable.
+* **Consistency:** Maintain uniform line weight, corner radius, and overall visual language across all icons.
+* **Color:** Primarily monochromatic (e.g., dark gray or a subtle blue from the LinkToDoctor logo) with the potential for a single accent color for notification badges.
+* **Scalability:** Icons should look sharp and clear at small sizes typical for dashboard headers.
+* **Modernity:** Icons should feel current and align with contemporary UI design trends.
+
+**Additional instructions for the AI (optional, you can add these if the platform allows):**
+* "Provide several design variations for each icon."
+* "Ensure icons are legible and aesthetically pleasing on both light and dark header backgrounds."
+* "Consider using a consistent stroke width of X pixels (e.g., 1.5px or 2px) for outline styles."

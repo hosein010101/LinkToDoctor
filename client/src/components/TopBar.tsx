@@ -6,23 +6,32 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { 
   Menu,
-  Search,
-  Bell,
-  Settings,
-  User,
   LogOut,
   Moon,
   Sun,
-  Globe,
   HelpCircle,
   Shield,
   Activity,
-  MessageSquare,
   Calendar,
   Clock,
   ChevronDown,
+  Search,
+  Bell,
+  MessageSquare,
+  User,
+  Settings,
+  Globe,
   Languages
 } from "lucide-react";
+import { 
+  BellNotificationIcon,
+  SearchIcon,
+  MessagesIcon,
+  UserProfileIcon,
+  SettingsIcon,
+  ThemeToggleIcon,
+  LanguageIcon
+} from "@/components/ui/custom-icons";
 
 interface TopBarProps {
   onToggleSidebar: () => void;
@@ -67,7 +76,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           
           {/* Search Bar */}
           <div className="relative hidden md:block">
-            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400 search-icon adaptive-icon" />
+            <SearchIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400 search-icon adaptive-icon" />
             <Input
               placeholder="جستجو در سامانه..."
               value={searchQuery}
@@ -85,7 +94,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="text-blue-500 hover:text-blue-600 hover:bg-blue-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg flex items-center space-x-1 space-x-reverse">
-                <Globe className="w-4 h-4" />
+                <LanguageIcon className="w-4 h-4" />
                 <span className="text-xs font-medium hidden sm:block">
                   {languages.find(lang => lang.code === currentLanguage)?.flag}
                 </span>
@@ -117,7 +126,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="relative text-red-600 hover:text-red-700 hover:bg-red-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg">
-                <Bell className="w-5 h-5 notification-icon adaptive-icon fill-current" />
+                <BellNotificationIcon className="w-5 h-5 notification-icon adaptive-icon fill-current" />
                 {unreadCount > 0 && (
                   <Badge className="absolute -top-1 -left-1 w-5 h-5 p-0 text-xs bg-white text-red-500 border-2 border-red-500 rounded-full flex items-center justify-center animate-pulse shadow-sm">
                     {unreadCount}
