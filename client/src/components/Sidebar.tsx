@@ -67,90 +67,90 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
     {
       title: "اصلی",
       icon: LayoutDashboard,
-      color: "text-sky-400",
+      color: "#7dd3fc",
       items: [
-        { icon: LayoutDashboard, label: "داشبورد اصلی", path: "/", color: "text-sky-400" },
-        { icon: ShoppingCart, label: "مدیریت سفارشات", path: "/orders", color: "text-emerald-400" },
-        { icon: Plus, label: "ثبت سفارش جدید", path: "/new-order", color: "text-violet-400" },
+        { icon: LayoutDashboard, label: "داشبورد اصلی", path: "/", color: "#7dd3fc" },
+        { icon: ShoppingCart, label: "مدیریت سفارشات", path: "/orders", color: "#6ee7b7" },
+        { icon: Plus, label: "ثبت سفارش جدید", path: "/new-order", color: "#c4b5fd" },
       ]
     },
     {
       title: "بیماران",
       icon: Users,
-      color: "text-teal-400",
+      color: "#5eead4",
       items: [
-        { icon: Users, label: "بیماران و مراجعین", path: "/patients", color: "text-teal-400" },
-        { icon: History, label: "سوابق و تاریخچه بیماران", path: "/history", color: "text-slate-400" },
-        { icon: UserPlus, label: "مدیریت ارتباط با مشتریان (CRM)", path: "/crm", color: "text-orange-400" },
+        { icon: Users, label: "بیماران و مراجعین", path: "/patients", color: "#5eead4" },
+        { icon: History, label: "سوابق و تاریخچه بیماران", path: "/history", color: "#cbd5e1" },
+        { icon: UserPlus, label: "مدیریت ارتباط با مشتریان (CRM)", path: "/crm", color: "#fdba74" },
       ]
     },
     {
       title: "سازمان‌ها",
       icon: Building2,
-      color: "text-indigo-400",
+      color: "#a5b4fc",
       items: [
-        { icon: Building2, label: "معاینات سازمانی", path: "/organizational", color: "text-indigo-400" },
+        { icon: Building2, label: "معاینات سازمانی", path: "/organizational", color: "#a5b4fc" },
       ]
     },
     {
       title: "عملیات آزمایشگاه",
       icon: TestTube,
-      color: "text-cyan-400",
+      color: "#67e8f9",
       items: [
-        { icon: ClipboardList, label: "مدیریت نمونه‌گیری", path: "/collection", color: "text-cyan-400" },
-        { icon: Stethoscope, label: "مدیریت نمونه‌گیری پیشرفته", path: "/sample-collection", color: "text-pink-400" },
-        { icon: Users, label: "پروفایل نمونه‌گیران", path: "/collectors", color: "text-amber-400" },
-        { icon: TestTube, label: "مدیریت پکیج‌های آزمایشگاهی", path: "/test-packages", color: "text-emerald-400" },
-        { icon: Microscope, label: "ورود نتایج آزمایش", path: "/results", color: "text-violet-400" },
-        { icon: Truck, label: "تحویل نتایج", path: "/delivery", color: "text-rose-400" },
+        { icon: ClipboardList, label: "مدیریت نمونه‌گیری", path: "/collection", color: "#67e8f9" },
+        { icon: Stethoscope, label: "مدیریت نمونه‌گیری پیشرفته", path: "/sample-collection", color: "#f9a8d4" },
+        { icon: Users, label: "پروفایل نمونه‌گیران", path: "/collectors", color: "#fcd34d" },
+        { icon: TestTube, label: "مدیریت پکیج‌های آزمایشگاهی", path: "/test-packages", color: "#6ee7b7" },
+        { icon: Microscope, label: "ورود نتایج آزمایش", path: "/results", color: "#c4b5fd" },
+        { icon: Truck, label: "تحویل نتایج", path: "/delivery", color: "#fda4af" },
       ]
     },
     {
       title: "موجودی",
       icon: Package,
-      color: "text-lime-400",
+      color: "#bef264",
       items: [
-        { icon: Package, label: "مدیریت موجودی", path: "/inventory", color: "text-lime-400" },
-        { icon: Wrench, label: "تجهیزات آزمایشگاه", path: "/equipment", color: "text-slate-400" },
+        { icon: Package, label: "مدیریت موجودی", path: "/inventory", color: "#bef264" },
+        { icon: Wrench, label: "تجهیزات آزمایشگاه", path: "/equipment", color: "#cbd5e1" },
       ]
     },
     {
       title: "گزارشات",
       icon: BarChart3,
-      color: "text-blue-400",
+      color: "#60a5fa",
       items: [
-        { icon: BarChart3, label: "گزارشات و تحلیل", path: "/reports", color: "text-blue-400" },
-        { icon: FileText, label: "خروجی گزارشات (PDF/Excel)", path: "/exports", color: "text-green-400" },
-        { icon: Bell, label: "اعلان‌ها و لاگ سیستم", path: "/notifications", color: "text-purple-400" },
+        { icon: BarChart3, label: "گزارشات و تحلیل", path: "/reports", color: "#60a5fa" },
+        { icon: FileText, label: "خروجی گزارشات (PDF/Excel)", path: "/exports", color: "#86efac" },
+        { icon: Bell, label: "اعلان‌ها و لاگ سیستم", path: "/notifications", color: "#d8b4fe" },
       ]
     },
     {
       title: "مدیریت وظایف",
       icon: CheckSquare,
-      color: "text-purple-400",
+      color: "#d8b4fe",
       items: [
-        { icon: CheckSquare, label: "فهرست وظایف", path: "/tasks", color: "text-purple-400" },
+        { icon: CheckSquare, label: "فهرست وظایف", path: "/tasks", color: "#d8b4fe" },
       ]
     },
     {
       title: "منابع انسانی",
       icon: Users,
-      color: "text-teal-400",
+      color: "#5eead4",
       items: [
-        { icon: Users, label: "خلاصه منابع انسانی", path: "/hr", color: "text-teal-400" },
-        { icon: Users, label: "فهرست کارکنان", path: "/employee-list", color: "text-blue-400" },
-        { icon: Calendar, label: "مدیریت شیفت‌ها", path: "/hr-shifts", color: "text-orange-400" },
-        { icon: DollarSign, label: "حقوق و دستمزد", path: "/hr-payroll", color: "text-indigo-400" },
-        { icon: TrendingUp, label: "ارزیابی عملکرد", path: "/hr-performance", color: "text-cyan-400" },
+        { icon: Users, label: "خلاصه منابع انسانی", path: "/hr", color: "#5eead4" },
+        { icon: Users, label: "فهرست کارکنان", path: "/employee-list", color: "#60a5fa" },
+        { icon: Calendar, label: "مدیریت شیفت‌ها", path: "/hr-shifts", color: "#fdba74" },
+        { icon: DollarSign, label: "حقوق و دستمزد", path: "/hr-payroll", color: "#a5b4fc" },
+        { icon: TrendingUp, label: "ارزیابی عملکرد", path: "/hr-performance", color: "#67e8f9" },
       ]
     },
     {
       title: "تنظیمات",
       icon: Settings,
-      color: "text-gray-400",
+      color: "#d1d5db",
       items: [
-        { icon: Settings, label: "تنظیمات آزمایشگاه", path: "/settings", color: "text-gray-400" },
-        { icon: Shield, label: "مدیریت دسترسی کاربران", path: "/access-management", color: "text-red-400" },
+        { icon: Settings, label: "تنظیمات آزمایشگاه", path: "/settings", color: "#d1d5db" },
+        { icon: Shield, label: "مدیریت دسترسی کاربران", path: "/access-management", color: "#fda4af" },
       ]
     }
   ];
@@ -168,198 +168,130 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
   return (
     <motion.div 
       className={`
-        fixed top-0 right-0 h-screen bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 
-        z-50 shadow-xl flex flex-col
-        ${isMobile && collapsed ? '-translate-x-full' : 'translate-x-0'}
+        fixed right-0 top-0 h-full bg-white shadow-lg z-50 border-l border-gray-200
+        ${isMobile ? 'absolute' : 'relative'}
       `}
       variants={sidebarVariants}
       animate={collapsed ? "collapsed" : "expanded"}
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
-      {/* Header - Fixed */}
-      <div className="flex-shrink-0 p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-l from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
-        <div className="flex items-center justify-center">
-          {!collapsed ? (
-            <motion.div 
-              className="text-center"
-              variants={contentVariants}
-              animate={collapsed ? "collapsed" : "expanded"}
-              transition={{ duration: 0.2, delay: 0.1 }}
-            >
-              <div className="flex items-center justify-center mb-3">
-                <img 
-                  src={logoPath} 
-                  alt="LinkToDoctor" 
-                  className="h-20 w-auto max-w-full object-contain"
-                />
-              </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">سامانه جامع سلامت الکترونیک</p>
-            </motion.div>
-          ) : (
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center">
-              <img 
-                src={logoPath} 
-                alt="LinkToDoctor" 
-                className="h-10 w-auto max-w-full object-contain"
-              />
+      <div className="flex flex-col h-full">
+        {/* Header */}
+        <div className="p-4 border-b border-gray-200">
+          <div className="flex items-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <Heart className="w-6 h-6 text-white" />
             </div>
+            {!collapsed && (
+              <motion.div
+                variants={contentVariants}
+                initial="collapsed"
+                animate={collapsed ? "collapsed" : "expanded"}
+                className="mr-3"
+              >
+                <h1 className="text-lg font-bold text-gray-900">LinkToDoctor</h1>
+                <p className="text-xs text-gray-500">سامانه آزمایشگاه</p>
+              </motion.div>
+            )}
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div className="flex-1 overflow-y-auto py-4">
+          <nav className="space-y-2 px-2">
+            {navSections.map((section, sectionIndex) => (
+              <div key={sectionIndex} className="space-y-1">
+                {/* Section Header */}
+                {!collapsed && (
+                  <motion.button
+                    variants={contentVariants}
+                    initial="collapsed"
+                    animate={collapsed ? "collapsed" : "expanded"}
+                    onClick={() => toggleSection(sectionIndex)}
+                    className="w-full flex items-center justify-between p-2 text-xs font-semibold text-gray-500 hover:text-gray-700 transition-colors"
+                  >
+                    <div className="flex items-center">
+                      <section.icon className="w-4 h-4 ml-2" style={{color: section.color}} />
+                      {section.title}
+                    </div>
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform ${
+                        expandedSections.includes(sectionIndex) ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </motion.button>
+                )}
+
+                {/* Section Items */}
+                <AnimatePresence>
+                  {(collapsed || expandedSections.includes(sectionIndex) || expandedSections.length === 0) && (
+                    <motion.div
+                      initial={collapsed ? {} : { height: 0, opacity: 0 }}
+                      animate={collapsed ? {} : { height: "auto", opacity: 1 }}
+                      exit={collapsed ? {} : { height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="space-y-1"
+                    >
+                      {section.items.map((item, itemIndex) => {
+                        const Icon = item.icon;
+                        const isActive = location === item.path;
+                        
+                        return (
+                          <Link key={itemIndex} href={item.path}>
+                            <motion.div
+                              className={`
+                                flex items-center p-2 rounded-lg cursor-pointer transition-all duration-200
+                                ${isActive 
+                                  ? 'bg-blue-50 border-l-4 border-blue-500' 
+                                  : 'hover:bg-gray-50'
+                                }
+                                ${collapsed ? 'justify-center' : 'justify-start'}
+                              `}
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              <div className="flex items-center space-x-3 space-x-reverse">
+                                <Icon className="w-5 h-5 transition-colors" style={{color: item.color}} />
+                                {!collapsed && (
+                                  <motion.span
+                                    variants={contentVariants}
+                                    initial="collapsed"
+                                    animate={collapsed ? "collapsed" : "expanded"}
+                                    className={`text-sm font-medium ${
+                                      isActive ? 'text-blue-600' : 'text-gray-700'
+                                    }`}
+                                  >
+                                    {item.label}
+                                  </motion.span>
+                                )}
+                              </div>
+                            </motion.div>
+                          </Link>
+                        );
+                      })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </nav>
+        </div>
+
+        {/* Footer */}
+        <div className="border-t border-gray-200 p-4">
+          {!collapsed && (
+            <motion.div
+              variants={contentVariants}
+              initial="collapsed"
+              animate={collapsed ? "collapsed" : "expanded"}
+              className="text-center"
+            >
+              <p className="text-xs text-gray-500">سامانه LinkToDoctor</p>
+              <p className="text-xs text-gray-400">نسخه ۱.۰.۰</p>
+            </motion.div>
           )}
         </div>
       </div>
-
-      {/* Navigation - Scrollable */}
-      <nav className="flex-1 overflow-y-auto overflow-x-hidden p-3 space-y-2 custom-scrollbar">
-        {navSections.map((section, sectionIndex) => {
-          const SectionIcon = section.icon;
-          const isExpanded = expandedSections.includes(sectionIndex);
-          const hasActiveItem = section.items.some(item => location === item.path);
-          
-          return (
-            <div key={sectionIndex} className="relative">
-              {/* Section Header */}
-              {!collapsed && (
-                <motion.button
-                  onClick={() => toggleSection(sectionIndex)}
-                  className={`
-                    w-full flex items-center justify-between p-3 rounded-lg transition-all duration-200 group
-                    ${hasActiveItem 
-                      ? 'bg-gradient-to-l from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-900/20 dark:via-indigo-900/20 dark:to-purple-900/20 border border-blue-100 dark:border-blue-800' 
-                      : 'bg-gradient-to-l from-gray-50 via-slate-50 to-gray-50 dark:from-gray-800 dark:via-gray-800 dark:to-gray-700 hover:from-blue-50 hover:via-indigo-50 hover:to-purple-50 dark:hover:from-blue-900/10 dark:hover:via-indigo-900/10 dark:hover:to-purple-900/10'
-                    }
-                  `}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="flex items-center space-x-3 space-x-reverse">
-                    <div className={`
-                      w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200
-                      ${hasActiveItem ? 'bg-white shadow-sm' : 'bg-white/60 dark:bg-gray-700 group-hover:bg-white dark:group-hover:bg-gray-600'}
-                    `}>
-                      <SectionIcon className={`w-4 h-4 ${section.color}`} />
-                    </div>
-                    <span className={`text-sm font-semibold ${hasActiveItem ? 'text-gray-900 dark:text-white' : 'text-gray-700 dark:text-gray-300'}`}>
-                      {section.title}
-                    </span>
-                  </div>
-                  <motion.div
-                    animate={{ rotate: isExpanded ? 0 : -90 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <ChevronDown className="w-4 h-4 text-gray-400" />
-                  </motion.div>
-                </motion.button>
-              )}
-
-              {/* Section Items */}
-              <AnimatePresence>
-                {(collapsed || isExpanded) && (
-                  <motion.div
-                    initial={collapsed ? {} : { height: 0, opacity: 0 }}
-                    animate={collapsed ? {} : { height: "auto", opacity: 1 }}
-                    exit={collapsed ? {} : { height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className={collapsed ? "space-y-1" : "mt-2 space-y-1 pr-4"}
-                  >
-                    {section.items.map((item, itemIndex) => {
-                      const Icon = item.icon;
-                      const isActive = location === item.path;
-                      
-                      return (
-                        <Link key={itemIndex} href={item.path}>
-                          <motion.div 
-                            className={`
-                              group flex items-center p-3 rounded-lg transition-all duration-200 cursor-pointer relative
-                              ${isActive 
-                                ? 'bg-white dark:bg-gray-800 shadow-md border-r-4 border-blue-500' 
-                                : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'
-                              }
-                            `}
-                            whileHover={{ scale: 1.02, x: -2 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            <div className={`
-                              flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 shadow-sm
-                              ${isActive 
-                                ? 'bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30' 
-                                : 'bg-gray-100 dark:bg-gray-700 group-hover:bg-white dark:group-hover:bg-gray-600'
-                              }
-                            `}>
-                              <Icon className={`w-5 h-5 ${item.color}`} />
-                            </div>
-                            
-                            <AnimatePresence>
-                              {!collapsed && (
-                                <motion.div 
-                                  className="mr-3 flex-1 min-w-0"
-                                  variants={contentVariants}
-                                  animate="expanded"
-                                  exit="collapsed"
-                                  transition={{ duration: 0.2 }}
-                                >
-                                  <span className={`text-sm font-medium block truncate ${isActive ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-300'}`}>
-                                    {item.label}
-                                  </span>
-                                  {isActive && (
-                                    <motion.div 
-                                      className="flex items-center mt-1 space-x-2 space-x-reverse"
-                                      initial={{ opacity: 0, y: -5 }}
-                                      animate={{ opacity: 1, y: 0 }}
-                                      transition={{ delay: 0.1 }}
-                                    >
-                                      <div className={`w-2 h-2 rounded-full ${item.color.replace('text-', 'bg-')} animate-pulse`}></div>
-                                      <span className="text-xs text-gray-500 dark:text-gray-400">فعال</span>
-                                    </motion.div>
-                                  )}
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
-
-                            {isActive && (
-                              <motion.div
-                                className="absolute left-2 top-1/2 -translate-y-1/2"
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                              >
-                                <ChevronLeft className="w-4 h-4 text-blue-500" />
-                              </motion.div>
-                            )}
-                          </motion.div>
-                        </Link>
-                      );
-                    })}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              {/* Section Separator */}
-              {!collapsed && sectionIndex < navSections.length - 1 && (
-                <div className="my-4 border-t border-gray-200 dark:border-gray-700"></div>
-              )}
-            </div>
-          );
-        })}
-      </nav>
-
-      {/* Footer Brand */}
-      {!collapsed && (
-        <motion.div 
-          className="p-4 border-t border-gray-200 dark:border-gray-700 bg-gradient-to-l from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-700"
-          variants={contentVariants}
-          animate="expanded"
-          transition={{ duration: 0.2, delay: 0.1 }}
-        >
-          <div className="text-center">
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              طراحی شده برای دکتر حسین حدادی
-            </p>
-            <div className="flex items-center justify-center mt-2 space-x-1 space-x-reverse">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-xs text-gray-600 dark:text-gray-300">سیستم آنلاین</span>
-            </div>
-          </div>
-        </motion.div>
-      )}
     </motion.div>
   );
 }
