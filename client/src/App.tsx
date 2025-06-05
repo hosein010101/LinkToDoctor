@@ -16,6 +16,7 @@ import Delivery from "@/pages/Delivery";
 import History from "@/pages/History";
 import PatientHistory from "@/pages/PatientHistory";
 import SurveyReports from "@/pages/SurveyReports";
+import WeeklyPerformance from "@/pages/WeeklyPerformance";
 import Inventory from "@/pages/Inventory";
 import Reports from "@/pages/Reports";
 import Settings from "@/pages/Settings";
@@ -74,6 +75,7 @@ function Router() {
         
         {/* Reports & Analytics */}
         <Route path="/reports" component={Reports} />
+        <Route path="/weekly-performance" component={WeeklyPerformance} />
         <Route path="/exports" component={Exports} />
         <Route path="/notifications" component={Notifications} />
         

@@ -121,6 +121,7 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
       color: "#60a5fa",
       items: [
         { icon: BarChart3, label: "گزارشات و تحلیل", path: "/reports", color: "#60a5fa" },
+        { icon: TrendingUp, label: "عملکرد هفتگی", path: "/weekly-performance", color: "#8b5cf6" },
         { icon: FileText, label: "خروجی گزارشات (PDF/Excel)", path: "/exports", color: "#86efac" },
         { icon: Bell, label: "اعلان‌ها و لاگ سیستم", path: "/notifications", color: "#d8b4fe" },
       ]
