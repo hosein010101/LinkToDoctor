@@ -21,12 +21,12 @@ export function ToggleSwitch({
       disabled={disabled}
       onClick={() => onCheckedChange(!checked)}
       className={cn(
-        // Base track styling with refined dimensions and modern design
-        "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-slate-200 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50",
-        // Enhanced states with better colors and shadows
+        // Base track styling matching the provided design
+        "relative inline-flex h-6 w-12 shrink-0 cursor-pointer rounded-full transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+        // Color states: green for on, red for off
         checked 
-          ? "bg-gradient-to-r from-emerald-400 to-emerald-500 border-emerald-400 shadow-sm" 
-          : "bg-slate-100 border-slate-200 hover:bg-slate-150",
+          ? "bg-green-500 focus:ring-green-300" 
+          : "bg-red-500 focus:ring-red-300",
         className
       )}
     >
@@ -34,16 +34,14 @@ export function ToggleSwitch({
       <span
         aria-hidden="true"
         className={cn(
-          // Handle styling with refined proportions and enhanced shadows
-          "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-md ring-1 ring-slate-200 transition-all duration-300 ease-in-out",
-          // Improved positioning with proper spacing
-          checked ? "translate-x-4" : "translate-x-0.5",
-          // Additional styling for active state
-          checked ? "shadow-lg" : "shadow-sm"
+          // Handle styling with clean white circle
+          "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-md transition-all duration-300 ease-in-out",
+          // Positioning: right side when on, left side when off
+          checked ? "translate-x-6" : "translate-x-0.5"
         )}
         style={{
-          top: "1px",
-          marginTop: "1px"
+          top: "2px",
+          marginTop: "0px"
         }}
       />
     </button>
