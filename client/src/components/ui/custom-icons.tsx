@@ -6,7 +6,7 @@ interface IconProps {
   size?: number;
 }
 
-// Clear Notification Bell Icon - Modern, recognizable bell design
+// Red Bell Notification Icon - Based on provided design
 export const NotificationBellIcon = ({ className = "", size = 20, notificationCount = 0 }: IconProps & { notificationCount?: number }) => (
   <div className="relative inline-block">
     <svg 
@@ -16,41 +16,22 @@ export const NotificationBellIcon = ({ className = "", size = 20, notificationCo
       fill="none"
       className={className}
     >
-      {/* Bell body */}
+      {/* Bell top knob */}
+      <circle cx="12" cy="4" r="2" fill="#FF0000" />
+      
+      {/* Main bell body */}
       <path 
-        d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" 
-        fill="#E74C3C" 
-        stroke="#C0392B" 
-        strokeWidth="1"
+        d="M6 11C6 7.134 8.686 4 12 4C15.314 4 18 7.134 18 11V16C18 17.105 18.895 18 20 18H4C5.105 18 6 17.105 6 16V11Z" 
+        fill="#FF0000"
       />
-      {/* Bell handle/top */}
-      <path 
-        d="M10 5a2 2 0 0 1 4 0" 
-        stroke="#C0392B" 
-        strokeWidth="2" 
-        strokeLinecap="round"
-        fill="none"
-      />
-      {/* Bell clapper */}
-      <path 
-        d="M13.73 21a2 2 0 0 1-3.46 0" 
-        fill="#E74C3C" 
-        stroke="#C0392B" 
-        strokeWidth="1"
-      />
-      {/* Bell highlight for 3D effect */}
-      <ellipse 
-        cx="10" 
-        cy="11" 
-        rx="2" 
-        ry="4" 
-        fill="#F1948A" 
-        opacity="0.4"
-      />
+      
+      {/* Bell bottom clapper */}
+      <ellipse cx="12" cy="20" rx="2" ry="1.2" fill="#FF0000" />
     </svg>
+    
     {/* Notification count badge */}
     {notificationCount > 0 && (
-      <div className="absolute -top-1 -right-1 bg-red-700 text-white text-[10px] font-bold rounded-full min-w-[16px] h-[16px] flex items-center justify-center border-2 border-white shadow-md">
+      <div className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-bold rounded-full min-w-[16px] h-[16px] flex items-center justify-center border-2 border-white shadow-lg">
         {notificationCount > 99 ? '99+' : notificationCount}
       </div>
     )}
