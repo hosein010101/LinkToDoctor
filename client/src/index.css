@@ -1170,9 +1170,194 @@ button:has(.lucide-chevron-down):hover {
   border-color: #cbd5e1 !important; /* Slate 300 */
 }
 
+/* COMPREHENSIVE BLACK BACKGROUND REMOVAL - All Icons */
 /* Remove any remaining black backgrounds from icon containers */
-.bg-black, .bg-gray-900, .bg-slate-900 {
+.bg-black, .bg-gray-900, .bg-slate-900, .bg-gray-800 {
   background-color: #f8fafc !important; /* Light gray fallback */
+}
+
+/* Target specific black background patterns */
+[style*="background-color: #000000"],
+[style*="background-color: black"],
+[style*="background-color: #111111"],
+[style*="background-color: #1a1a1a"],
+[style*="background-color: #222222"] {
+  background-color: #f3f4f6 !important; /* Light gray */
+}
+
+/* Icon containers with near-black backgrounds */
+.icon-container,
+.icon-wrapper,
+.icon-button,
+.action-icon,
+[class*="icon-bg"] {
+  background-color: #f8fafc !important;
+}
+
+/* Specific icon background fixes by context */
+/* Notification icons */
+.notification-icon,
+.bell-icon,
+[class*="notification"] svg,
+[class*="bell"] svg {
+  background-color: #ffedd5 !important; /* Orange 100 */
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.notification-icon:hover,
+.bell-icon:hover {
+  background-color: #fed7aa !important; /* Orange 200 */
+}
+
+/* Message icons */
+.message-icon,
+.chat-icon,
+[class*="message"] svg,
+[class*="chat"] svg {
+  background-color: #e5faff !important; /* Light blue */
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.message-icon:hover,
+.chat-icon:hover {
+  background-color: #cffafe !important; /* Cyan 100 */
+}
+
+/* Profile/User icons */
+.profile-icon,
+.user-icon,
+.avatar-icon,
+[class*="profile"] svg,
+[class*="user"] svg {
+  background-color: #e8f5e9 !important; /* Light green */
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.profile-icon:hover,
+.user-icon:hover,
+.avatar-icon:hover {
+  background-color: #d4edda !important; /* Slightly darker green */
+}
+
+/* Generic action icons */
+.action-icon,
+.tool-icon,
+.utility-icon,
+[class*="action"] svg,
+[class*="tool"] svg {
+  background-color: #f5f5f5 !important; /* Light gray */
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.action-icon:hover,
+.tool-icon:hover,
+.utility-icon:hover {
+  background-color: #e5e5e5 !important; /* Slightly darker gray */
+}
+
+/* Settings icons */
+.settings-icon,
+.config-icon,
+[class*="settings"] svg,
+[class*="config"] svg {
+  background-color: #e0e7ff !important; /* Indigo 100 */
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.settings-icon:hover,
+.config-icon:hover {
+  background-color: #c7d2fe !important; /* Indigo 200 */
+}
+
+/* GLOBAL BLACK BACKGROUND OVERRIDES - Apply Everywhere */
+/* Force override any inline styles or computed black backgrounds */
+div[style*="background: black"],
+div[style*="background: #000"],
+span[style*="background: black"],
+span[style*="background: #000"],
+button[style*="background: black"],
+button[style*="background: #000"],
+.bg-slate-800,
+.bg-gray-800,
+.bg-neutral-900,
+.bg-stone-900 {
+  background-color: #f8fafc !important;
+  background-image: none !important;
+}
+
+/* Icon button specific overrides */
+button:has(svg)[class*="bg-black"],
+button:has(svg)[class*="bg-gray-9"],
+button:has(svg)[class*="bg-slate-9"],
+div:has(svg)[class*="bg-black"],
+div:has(svg)[class*="bg-gray-9"],
+div:has(svg)[class*="bg-slate-9"] {
+  background-color: #f3f4f6 !important;
+}
+
+/* Header and sidebar icon containers */
+header button[class*="bg-"],
+.sidebar button[class*="bg-"],
+.topbar button[class*="bg-"],
+nav button[class*="bg-"] {
+  background-color: transparent !important;
+}
+
+header button:hover,
+.sidebar button:hover,
+.topbar button:hover,
+nav button:hover {
+  background-color: #f1f5f9 !important;
+}
+
+/* Card and panel icon buttons */
+.card button[class*="bg-"],
+.panel button[class*="bg-"],
+.modal button[class*="bg-"],
+.dropdown button[class*="bg-"] {
+  background-color: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.card button:hover,
+.panel button:hover,
+.modal button:hover,
+.dropdown button:hover {
+  background-color: #f9fafb !important;
+}
+
+/* Floating action buttons and tooltips */
+.fab,
+.floating-button,
+.tooltip-trigger,
+[data-tooltip] {
+  background-color: #f8fafc !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.fab:hover,
+.floating-button:hover,
+.tooltip-trigger:hover {
+  background-color: #f1f5f9 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Ensure all SVG parents have proper backgrounds */
+div:has(> svg),
+span:has(> svg),
+button:has(> svg) {
+  background-color: inherit !important;
+}
+
+/* Force light backgrounds for any remaining dark elements */
+[class*="dark"]:not(.dark):not([data-theme="dark"]) {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
 }
 
 /* Avatar fallback backgrounds */
