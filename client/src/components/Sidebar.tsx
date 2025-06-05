@@ -1,36 +1,32 @@
+import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Badge } from "@/components/ui/badge";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
-  ChartLine, 
-  ClipboardList, 
-  PlusCircle, 
-  Truck, 
+  LayoutDashboard, 
+  ShoppingCart, 
+  Plus, 
   Users, 
-  TestTube2, 
-  FileText, 
-  Send, 
-  History, 
+  ClipboardList, 
+  TestTube, 
+  Truck, 
   Package, 
   BarChart3, 
   Settings,
-  Heart,
-  UserCheck,
-  MessageSquare,
-  Bell,
+  UserPlus,
   Building2,
-  Calendar,
-  MapPin,
   Stethoscope,
+  Microscope,
+  FileText,
+  Calendar,
+  DollarSign,
+  TrendingUp,
   Shield,
-  UserCog,
-  Briefcase,
-  Clock,
-  Star,
-  Target,
-  Workflow,
-  Archive,
-  Database,
-  Activity
+  History,
+  Bell,
+  Wrench,
+  ChevronDown,
+  ChevronLeft,
+  Heart
 } from "lucide-react";
 
 interface SidebarProps {
@@ -38,144 +34,314 @@ interface SidebarProps {
   isMobile?: boolean;
 }
 
-const navigationSections = [
-  {
-    title: "داشبورد و مدیریت اصلی",
-    items: [
-      { path: "/", icon: ChartLine, label: "داشبورد اصلی", module: "dashboard", color: "text-blue-600", bgColor: "bg-blue-50" },
-      { path: "/orders", icon: ClipboardList, label: "مدیریت سفارشات", module: "orders", color: "text-purple-600", bgColor: "bg-purple-50" },
-      { path: "/new-order", icon: PlusCircle, label: "ثبت سفارش جدید", module: "new-order", color: "text-green-600", bgColor: "bg-green-50" },
-    ]
-  },
-  {
-    title: "بیماران و مراجعین",
-    items: [
-      { path: "/patients", icon: UserCheck, label: "سوابق و تاریخچه بیماران", module: "patients", color: "text-emerald-600", bgColor: "bg-emerald-50" },
-      { path: "/crm", icon: MessageSquare, label: "مدیریت ارتباط با مشتریان (CRM)", module: "crm", color: "text-pink-600", bgColor: "bg-pink-50" },
-      { path: "/organizational", icon: Building2, label: "معاینات سازمانی", module: "organizational", color: "text-indigo-600", bgColor: "bg-indigo-50" },
-    ]
-  },
-  {
-    title: "عملیات آزمایشگاه",
-    items: [
-      { path: "/collection", icon: Truck, label: "مدیریت نمونه‌گیری", module: "collection", color: "text-orange-600", bgColor: "bg-orange-50" },
-      { path: "/sample-collection", icon: MapPin, label: "مدیریت نمونه‌گیری پیشرفته", module: "sample-collection", color: "text-rose-600", bgColor: "bg-rose-50" },
-      { path: "/collectors", icon: Users, label: "پروفایل نمونه‌گیران", module: "collectors", color: "text-cyan-600", bgColor: "bg-cyan-50" },
-      { path: "/test-packages", icon: TestTube2, label: "مدیریت پکیج‌های آزمایشگاهی", module: "test-packages", color: "text-violet-600", bgColor: "bg-violet-50" },
-      { path: "/results", icon: FileText, label: "ورود نتایج آزمایش", module: "results", color: "text-teal-600", bgColor: "bg-teal-50" },
-      { path: "/delivery", icon: Send, label: "تحویل نتایج", module: "delivery", color: "text-red-600", bgColor: "bg-red-50" },
-    ]
-  },
-  {
-    title: "موجودی و تجهیزات",
-    items: [
-      { path: "/inventory", icon: Package, label: "مدیریت موجودی", module: "inventory", color: "text-amber-600", bgColor: "bg-amber-50" },
-      { path: "/equipment", icon: Stethoscope, label: "تجهیزات آزمایشگاه", module: "equipment", color: "text-slate-600", bgColor: "bg-slate-50" },
-    ]
-  },
-  {
-    title: "گزارشات و تحلیل",
-    items: [
-      { path: "/reports", icon: BarChart3, label: "گزارشات و تحلیل", module: "reports", color: "text-blue-700", bgColor: "bg-blue-50" },
-      { path: "/exports", icon: Archive, label: "خروجی گزارشات (PDF/Excel)", module: "exports", color: "text-green-700", bgColor: "bg-green-50" },
-      { path: "/notifications", icon: Bell, label: "اعلان‌ها و لاگ سیستم", module: "notifications", color: "text-gray-600", bgColor: "bg-gray-50" },
-    ]
-  },
-  {
-    title: "منابع انسانی",
-    items: [
-      { path: "/hr", icon: UserCog, label: "فهرست کارکنان", module: "hr", color: "text-indigo-700", bgColor: "bg-indigo-50" },
-      { path: "/hr-shifts", icon: Clock, label: "مدیریت شیفت‌ها", module: "hr-shifts", color: "text-purple-700", bgColor: "bg-purple-50" },
-      { path: "/hr-payroll", icon: Briefcase, label: "حقوق و دستمزد", module: "hr-payroll", color: "text-emerald-700", bgColor: "bg-emerald-50" },
-      { path: "/hr-performance", icon: Star, label: "ارزیابی عملکرد", module: "hr-performance", color: "text-orange-700", bgColor: "bg-orange-50" },
-    ]
-  },
-  {
-    title: "تنظیمات سیستم",
-    items: [
-      { path: "/settings", icon: Settings, label: "تنظیمات آزمایشگاه", module: "settings", color: "text-gray-600", bgColor: "bg-gray-50" },
-      { path: "/access-management", icon: Shield, label: "مدیریت دسترسی کاربران", module: "access-management", color: "text-red-700", bgColor: "bg-red-50" },
-    ]
-  }
-];
+interface NavItem {
+  icon: any;
+  label: string;
+  path: string;
+  color: string;
+}
+
+interface NavSection {
+  title: string;
+  items: NavItem[];
+  icon: any;
+  color: string;
+}
 
 export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
   const [location] = useLocation();
+  const [expandedSections, setExpandedSections] = useState<number[]>([0, 1, 2, 3, 4, 5, 6, 7]);
+
+  const toggleSection = (sectionIndex: number) => {
+    if (collapsed) return;
+    setExpandedSections(prev => 
+      prev.includes(sectionIndex) 
+        ? prev.filter(i => i !== sectionIndex)
+        : [...prev, sectionIndex]
+    );
+  };
+
+  const navSections: NavSection[] = [
+    {
+      title: "اصلی",
+      icon: LayoutDashboard,
+      color: "text-blue-500",
+      items: [
+        { icon: LayoutDashboard, label: "داشبورد اصلی", path: "/", color: "text-blue-500" },
+        { icon: ShoppingCart, label: "مدیریت سفارشات", path: "/orders", color: "text-emerald-500" },
+        { icon: Plus, label: "ثبت سفارش جدید", path: "/new-order", color: "text-violet-500" },
+      ]
+    },
+    {
+      title: "بیماران",
+      icon: Users,
+      color: "text-teal-500",
+      items: [
+        { icon: Users, label: "بیماران و مراجعین", path: "/patients", color: "text-teal-500" },
+        { icon: History, label: "سوابق و تاریخچه بیماران", path: "/history", color: "text-slate-500" },
+        { icon: UserPlus, label: "مدیریت ارتباط با مشتریان (CRM)", path: "/crm", color: "text-orange-500" },
+      ]
+    },
+    {
+      title: "سازمان‌ها",
+      icon: Building2,
+      color: "text-indigo-500",
+      items: [
+        { icon: Building2, label: "معاینات سازمانی", path: "/organizational", color: "text-indigo-500" },
+      ]
+    },
+    {
+      title: "عملیات آزمایشگاه",
+      icon: TestTube,
+      color: "text-cyan-500",
+      items: [
+        { icon: ClipboardList, label: "مدیریت نمونه‌گیری", path: "/collection", color: "text-cyan-500" },
+        { icon: Stethoscope, label: "مدیریت نمونه‌گیری پیشرفته", path: "/sample-collection", color: "text-pink-500" },
+        { icon: Users, label: "پروفایل نمونه‌گیران", path: "/collectors", color: "text-amber-500" },
+        { icon: TestTube, label: "مدیریت پکیج‌های آزمایشگاهی", path: "/test-packages", color: "text-emerald-500" },
+        { icon: Microscope, label: "ورود نتایج آزمایش", path: "/results", color: "text-violet-500" },
+        { icon: Truck, label: "تحویل نتایج", path: "/delivery", color: "text-rose-500" },
+      ]
+    },
+    {
+      title: "موجودی",
+      icon: Package,
+      color: "text-lime-500",
+      items: [
+        { icon: Package, label: "مدیریت موجودی", path: "/inventory", color: "text-lime-500" },
+        { icon: Wrench, label: "تجهیزات آزمایشگاه", path: "/equipment", color: "text-slate-500" },
+      ]
+    },
+    {
+      title: "گزارشات",
+      icon: BarChart3,
+      color: "text-blue-600",
+      items: [
+        { icon: BarChart3, label: "گزارشات و تحلیل", path: "/reports", color: "text-blue-600" },
+        { icon: FileText, label: "خروجی گزارشات (PDF/Excel)", path: "/exports", color: "text-green-600" },
+        { icon: Bell, label: "اعلان‌ها و لاگ سیستم", path: "/notifications", color: "text-purple-600" },
+      ]
+    },
+    {
+      title: "منابع انسانی",
+      icon: Users,
+      color: "text-teal-600",
+      items: [
+        { icon: Users, label: "فهرست کارکنان", path: "/hr", color: "text-teal-600" },
+        { icon: Calendar, label: "مدیریت شیفت‌ها", path: "/hr-shifts", color: "text-orange-600" },
+        { icon: DollarSign, label: "حقوق و دستمزد", path: "/hr-payroll", color: "text-indigo-600" },
+        { icon: TrendingUp, label: "ارزیابی عملکرد", path: "/hr-performance", color: "text-cyan-600" },
+      ]
+    },
+    {
+      title: "تنظیمات",
+      icon: Settings,
+      color: "text-gray-600",
+      items: [
+        { icon: Settings, label: "تنظیمات آزمایشگاه", path: "/settings", color: "text-gray-600" },
+        { icon: Shield, label: "مدیریت دسترسی کاربران", path: "/access-management", color: "text-red-600" },
+      ]
+    }
+  ];
+
+  const sidebarVariants = {
+    expanded: { width: 320 },
+    collapsed: { width: 64 }
+  };
+
+  const contentVariants = {
+    expanded: { opacity: 1, x: 0 },
+    collapsed: { opacity: 0, x: 20 }
+  };
 
   return (
-    <div className={`bg-white dark:bg-gray-900 shadow-elegant transition-all duration-300 min-h-screen border-l border-gray-200 dark:border-gray-700 ${
-      isMobile 
-        ? `fixed top-0 right-0 z-50 h-full ${collapsed ? '-translate-x-full' : 'translate-x-0'} w-80`
-        : `${collapsed ? 'w-16' : 'w-80'}`
-    }`}>
+    <motion.div 
+      className={`
+        fixed top-0 right-0 h-screen bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 
+        z-50 shadow-xl overflow-hidden
+        ${isMobile && collapsed ? '-translate-x-full' : 'translate-x-0'}
+      `}
+      variants={sidebarVariants}
+      animate={collapsed ? "collapsed" : "expanded"}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+    >
       {/* Header */}
-      <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700">
-        <div className="flex items-center space-x-3 space-x-reverse">
-          <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center shadow-lg">
-            <Heart className="text-white" size={24} />
-          </div>
-          {!collapsed && (
-            <div>
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">سامانه LinkToDoctor</h1>
-              <p className="text-sm text-gray-600 dark:text-gray-300">مدیریت آزمایشگاه پیشرفته</p>
+      <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-l from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
+        <div className="flex items-center justify-center">
+          {!collapsed ? (
+            <motion.div 
+              className="text-center"
+              variants={contentVariants}
+              animate={collapsed ? "collapsed" : "expanded"}
+              transition={{ duration: 0.2, delay: 0.1 }}
+            >
+              <div className="flex items-center justify-center space-x-3 space-x-reverse mb-2">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
+                  <Heart className="text-white w-5 h-5" />
+                </div>
+                <h1 className="text-xl font-bold text-gray-900 dark:text-white">LinkToDoctor</h1>
+              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-400">سامانه آزمایشگاه</p>
+            </motion.div>
+          ) : (
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
+              <Heart className="text-white w-5 h-5" />
             </div>
           )}
         </div>
       </div>
-      
+
       {/* Navigation */}
-      <nav className="p-4 space-y-6 overflow-y-auto max-h-[calc(100vh-120px)]">
-        {navigationSections.map((section, sectionIndex) => (
-          <div key={sectionIndex} className="space-y-2">
-            {!collapsed && (
-              <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
-                {section.title}
-              </h3>
-            )}
-            <div className="space-y-1">
-              {section.items.map((item) => {
-                const Icon = item.icon;
-                const isActive = location === item.path;
-                
-                return (
-                  <Link key={item.path} href={item.path}>
-                    <div className={`group flex items-center p-3 rounded-xl transition-all duration-200 hover-lift cursor-pointer sidebar-item ${
-                      isActive 
-                        ? `${item.bgColor} ${item.color} shadow-md border border-current/20 active` 
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
-                    }`}>
-                      <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
-                        isActive 
-                          ? 'bg-white/80 shadow-sm' 
-                          : 'bg-gray-100 dark:bg-gray-700 group-hover:bg-white dark:group-hover:bg-gray-600'
-                      }`}>
-                        <Icon className={`w-5 h-5 ${isActive ? item.color : 'text-gray-600 dark:text-gray-400'}`} />
-                      </div>
-                      {!collapsed && (
-                        <div className="mr-3 flex-1 min-w-0">
-                          <span className="text-sm font-medium block truncate">{item.label}</span>
-                          {isActive && (
-                            <Badge variant="secondary" className="text-xs mt-1 bg-white/60">
-                              فعال
-                            </Badge>
-                          )}
-                        </div>
-                      )}
-                      {!collapsed && isActive && (
-                        <div className="flex-shrink-0">
-                          <div className={`w-2 h-2 rounded-full ${item.color.replace('text-', 'bg-')}`}></div>
-                        </div>
-                      )}
+      <nav className="flex-1 overflow-y-auto p-3 space-y-2">
+        {navSections.map((section, sectionIndex) => {
+          const SectionIcon = section.icon;
+          const isExpanded = expandedSections.includes(sectionIndex);
+          const hasActiveItem = section.items.some(item => location === item.path);
+          
+          return (
+            <div key={sectionIndex} className="relative">
+              {/* Section Header */}
+              {!collapsed && (
+                <motion.button
+                  onClick={() => toggleSection(sectionIndex)}
+                  className={`
+                    w-full flex items-center justify-between p-3 rounded-lg transition-all duration-200
+                    hover:bg-gray-50 dark:hover:bg-gray-800 group
+                    ${hasActiveItem ? 'bg-blue-50 dark:bg-blue-900/20' : ''}
+                  `}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="flex items-center space-x-3 space-x-reverse">
+                    <div className={`
+                      w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200
+                      ${hasActiveItem ? 'bg-white shadow-sm' : 'bg-gray-100 dark:bg-gray-700 group-hover:bg-white dark:group-hover:bg-gray-600'}
+                    `}>
+                      <SectionIcon className={`w-4 h-4 ${hasActiveItem ? section.color : 'text-gray-500 dark:text-gray-400'}`} />
                     </div>
-                  </Link>
-                );
-              })}
+                    <span className={`text-sm font-semibold ${hasActiveItem ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-300'}`}>
+                      {section.title}
+                    </span>
+                  </div>
+                  <motion.div
+                    animate={{ rotate: isExpanded ? 0 : -90 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ChevronDown className="w-4 h-4 text-gray-400" />
+                  </motion.div>
+                </motion.button>
+              )}
+
+              {/* Section Items */}
+              <AnimatePresence>
+                {(collapsed || isExpanded) && (
+                  <motion.div
+                    initial={collapsed ? {} : { height: 0, opacity: 0 }}
+                    animate={collapsed ? {} : { height: "auto", opacity: 1 }}
+                    exit={collapsed ? {} : { height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className={collapsed ? "space-y-1" : "mt-2 space-y-1 pr-4"}
+                  >
+                    {section.items.map((item, itemIndex) => {
+                      const Icon = item.icon;
+                      const isActive = location === item.path;
+                      
+                      return (
+                        <Link key={itemIndex} href={item.path}>
+                          <motion.div 
+                            className={`
+                              group flex items-center p-3 rounded-lg transition-all duration-200 cursor-pointer relative
+                              ${isActive 
+                                ? 'bg-white dark:bg-gray-800 shadow-md border-r-4 border-blue-500' 
+                                : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'
+                              }
+                            `}
+                            whileHover={{ scale: 1.02, x: -2 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <div className={`
+                              flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 shadow-sm
+                              ${isActive 
+                                ? 'bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30' 
+                                : 'bg-gray-100 dark:bg-gray-700 group-hover:bg-white dark:group-hover:bg-gray-600'
+                              }
+                            `}>
+                              <Icon className={`w-5 h-5 ${isActive ? item.color : 'text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300'}`} />
+                            </div>
+                            
+                            <AnimatePresence>
+                              {!collapsed && (
+                                <motion.div 
+                                  className="mr-3 flex-1 min-w-0"
+                                  variants={contentVariants}
+                                  animate="expanded"
+                                  exit="collapsed"
+                                  transition={{ duration: 0.2 }}
+                                >
+                                  <span className={`text-sm font-medium block truncate ${isActive ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-300'}`}>
+                                    {item.label}
+                                  </span>
+                                  {isActive && (
+                                    <motion.div 
+                                      className="flex items-center mt-1 space-x-2 space-x-reverse"
+                                      initial={{ opacity: 0, y: -5 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      transition={{ delay: 0.1 }}
+                                    >
+                                      <div className={`w-2 h-2 rounded-full ${item.color.replace('text-', 'bg-')} animate-pulse`}></div>
+                                      <span className="text-xs text-gray-500 dark:text-gray-400">فعال</span>
+                                    </motion.div>
+                                  )}
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+
+                            {isActive && (
+                              <motion.div
+                                className="absolute left-2 top-1/2 -translate-y-1/2"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                              >
+                                <ChevronLeft className="w-4 h-4 text-blue-500" />
+                              </motion.div>
+                            )}
+                          </motion.div>
+                        </Link>
+                      );
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Section Separator */}
+              {!collapsed && sectionIndex < navSections.length - 1 && (
+                <div className="my-4 border-t border-gray-200 dark:border-gray-700"></div>
+              )}
             </div>
-          </div>
-        ))}
+          );
+        })}
       </nav>
 
-
-    </div>
+      {/* Footer Brand */}
+      {!collapsed && (
+        <motion.div 
+          className="p-4 border-t border-gray-200 dark:border-gray-700 bg-gradient-to-l from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-700"
+          variants={contentVariants}
+          animate="expanded"
+          transition={{ duration: 0.2, delay: 0.1 }}
+        >
+          <div className="text-center">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              طراحی شده برای دکتر حسین حدادی
+            </p>
+            <div className="flex items-center justify-center mt-2 space-x-1 space-x-reverse">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-xs text-gray-600 dark:text-gray-300">سیستم آنلاین</span>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </motion.div>
   );
 }
