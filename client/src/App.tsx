@@ -19,6 +19,7 @@ import SurveyReports from "@/pages/SurveyReports";
 import WeeklyPerformance from "@/pages/WeeklyPerformance";
 import CollectorProfiles from "@/pages/CollectorProfiles";
 import ReportsAnalytics from "@/pages/ReportsAnalytics";
+import Tasks from "@/pages/Tasks";
 import Inventory from "@/pages/Inventory";
 import Reports from "@/pages/Reports";
 import Settings from "@/pages/Settings";
@@ -91,7 +92,7 @@ function Router() {
         <Route path="/hr-performance" component={HRPerformance} />
         
         {/* Task Management */}
-        <Route path="/tasks" component={TaskList} />
+        <Route path="/tasks" component={Tasks} />
         
         {/* System Settings */}
         <Route path="/settings" component={Settings} />
