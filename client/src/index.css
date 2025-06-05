@@ -383,6 +383,63 @@ table .bg-yellow-50, table .bg-amber-50,
   scrollbar-color: #64748b #f1f5f9 !important;
 }
 
+/* AGGRESSIVE YELLOW REMOVAL - OVERRIDE ALL POSSIBLE YELLOW ELEMENTS */
+/* Target all yellow/amber class combinations with highest priority */
+*[class*="yellow"]:not(.text-yellow-400):not(.border-yellow-400),
+*[class*="amber"]:not(.text-amber-400):not(.border-amber-400),
+*[class*="orange"]:not(.text-orange-400):not(.border-orange-400),
+.border-yellow-500, .border-amber-500, .border-orange-500,
+.border-yellow-400, .border-amber-400, .border-orange-400,
+.border-yellow-300, .border-amber-300, .border-orange-300,
+.border-yellow-200, .border-amber-200, .border-orange-200,
+.border-yellow-100, .border-amber-100, .border-orange-100,
+.border-yellow-50, .border-amber-50, .border-orange-50,
+.bg-yellow-500, .bg-amber-500, .bg-orange-500,
+.bg-yellow-400, .bg-amber-400, .bg-orange-400,
+.bg-yellow-300, .bg-amber-300, .bg-orange-300,
+.bg-yellow-200, .bg-amber-200, .bg-orange-200,
+.bg-yellow-100, .bg-amber-100, .bg-orange-100,
+.bg-yellow-50, .bg-amber-50, .bg-orange-50 {
+  background-color: #1e1e1e !important;
+  border-color: #374151 !important;
+  color: #f8fafc !important;
+}
+
+/* Specific targeting for cards with yellow borders */
+.card-professional *[class*="yellow"],
+.card-professional *[class*="amber"],
+.card-professional *[class*="orange"],
+Card *[class*="yellow"],
+Card *[class*="amber"],
+Card *[class*="orange"],
+.border-blue-200, .border-blue-300, .border-blue-400, .border-blue-500 {
+  border-color: #374151 !important;
+}
+
+/* Override inline styles that might contain yellow */
+*[style*="border"] {
+  border-color: #374151 !important;
+}
+
+/* Component-specific yellow removal */
+.TabsTrigger[class*="yellow"],
+.TabsTrigger[class*="amber"],
+.Button[class*="yellow"],
+.Button[class*="amber"],
+.Badge[class*="yellow"],
+.Badge[class*="amber"] {
+  background-color: #1e1e1e !important;
+  border-color: #374151 !important;
+  color: #f8fafc !important;
+}
+
+/* Force all borders to be gray unless specifically colored */
+.border:not(.border-red-500):not(.border-green-500):not(.border-blue-500):not(.border-purple-500),
+.border-2:not(.border-red-500):not(.border-green-500):not(.border-blue-500):not(.border-purple-500),
+.border-4:not(.border-red-500):not(.border-green-500):not(.border-blue-500):not(.border-purple-500) {
+  border-color: #374151 !important;
+}
+
 /* Footer styling */
 .dashboard-footer {
   background-color: #ffffff;
