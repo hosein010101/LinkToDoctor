@@ -135,8 +135,15 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           {/* Notifications */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="relative hover:bg-red-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg">
-                <NotificationBellIcon className="notification-icon adaptive-icon" size={20} notificationCount={unreadCount} />
+              <Button variant="ghost" size="sm" className="relative text-red-600 hover:text-red-700 hover:bg-red-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg">
+                <div className="relative">
+                  <Bell className="w-5 h-5" fill="#FF0000" stroke="#FF0000" />
+                  {unreadCount > 0 && (
+                    <div className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-bold rounded-full min-w-[16px] h-[16px] flex items-center justify-center border-2 border-white shadow-lg">
+                      {unreadCount > 99 ? '99+' : unreadCount}
+                    </div>
+                  )}
+                </div>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-80">
