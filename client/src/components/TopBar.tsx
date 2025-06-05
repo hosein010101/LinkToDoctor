@@ -234,50 +234,58 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-64">
-              <DropdownMenuLabel className="text-center">
-                <div className="flex flex-col items-center space-y-2 py-2">
-                  <Avatar className="h-16 w-16 border-4 border-blue-500">
-                    <AvatarImage src="/avatars/dr-hadadi.jpg" alt="دکتر حسین حدادی" />
-                    <AvatarFallback className="bg-gradient-primary text-white text-xl font-bold">
-                      ح.ح
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-semibold text-gray-900 dark:text-gray-100">دکتر حسین حدادی</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">مدیر آزمایشگاه</p>
-                    <Badge variant="outline" className="text-xs mt-1">
-                      دسترسی کامل
-                    </Badge>
-                  </div>
+            <DropdownMenuContent align="end" className="w-64 bg-white shadow-xl rounded-lg p-3 border-0">
+              {/* User Info Header */}
+              <div className="flex items-center space-x-3 space-x-reverse p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg mb-3">
+                <Avatar className="w-12 h-12 border-2 border-white shadow-sm">
+                  <AvatarImage src="/avatars/dr-hadadi.jpg" alt="دکتر حسین حدادی" />
+                  <AvatarFallback className="bg-blue-500 text-white font-semibold text-lg">ح.ح</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="font-semibold text-gray-900">دکتر حسین حدادی</p>
+                  <p className="text-sm text-gray-500">مدیر آزمایشگاه</p>
+                  <Badge variant="outline" className="text-xs mt-1">
+                    دسترسی کامل
+                  </Badge>
                 </div>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="dropdown-menu-item">
-                <UserProfileIcon className="w-4 h-4 ml-2" />
-                <span className="dropdown-text">پروفایل کاربری</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="dropdown-menu-item">
-                <SettingsIcon className="w-4 h-4 ml-2" />
-                <span className="dropdown-text">تنظیمات حساب</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="dropdown-menu-item">
-                <Shield className="w-4 h-4 ml-2" />
-                <span className="dropdown-text">امنیت و حریم خصوصی</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="dropdown-menu-item">
-                <LanguageIcon className="w-4 h-4 ml-2" />
-                <span className="dropdown-text">تغییر زبان</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="dropdown-menu-item">
-                <HelpCircle className="w-4 h-4 ml-2" />
-                <span className="dropdown-text">راهنما و پشتیبانی</span>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-red-600 dark:text-red-400">
-                <LogOut className="w-4 h-4 ml-2" />
-                خروج از سامانه
-              </DropdownMenuItem>
+              </div>
+
+              {/* Menu Items */}
+              <div className="space-y-1">
+                <a href="#" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
+                  <span className="flex-1 text-right">پروفایل کاربری</span>
+                  <UserProfileIcon className="w-5 h-5 text-slate-500 group-hover:text-slate-600 mr-3" />
+                </a>
+                
+                <a href="#" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
+                  <span className="flex-1 text-right">تنظیمات حساب</span>
+                  <SettingsIcon className="w-5 h-5 text-slate-500 group-hover:text-slate-600 mr-3" />
+                </a>
+                
+                <a href="#" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
+                  <span className="flex-1 text-right">امنیت و حریم خصوصی</span>
+                  <Shield className="w-5 h-5 text-slate-500 group-hover:text-slate-600 mr-3" />
+                </a>
+                
+                <a href="#" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
+                  <span className="flex-1 text-right">تغییر زبان</span>
+                  <LanguageIcon className="w-5 h-5 text-slate-500 group-hover:text-slate-600 mr-3" />
+                </a>
+                
+                <a href="#" className="flex items-center px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-md transition-colors duration-150 ease-in-out group w-full">
+                  <span className="flex-1 text-right">راهنما و پشتیبانی</span>
+                  <HelpCircle className="w-5 h-5 text-slate-500 group-hover:text-slate-600 mr-3" />
+                </a>
+              </div>
+
+              {/* Separator */}
+              <hr className="my-3 border-slate-200" />
+
+              {/* Logout Item */}
+              <a href="#" className="flex items-center px-3 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 hover:text-red-700 rounded-md transition-colors duration-150 ease-in-out group w-full">
+                <span className="flex-1 text-right">خروج از سامانه</span>
+                <LogOut className="w-5 h-5 text-red-500 group-hover:text-red-600 mr-3" />
+              </a>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

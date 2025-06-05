@@ -1,0 +1,57 @@
+I need to implement a new design for the user profile dropdown menu within my existing web dashboard application, which is named 'LinkToDoctor'. Please generate the complete HTML structure with Tailwind CSS classes for this redesigned menu. The new design should be modern, clean, optimized for usability, and correctly implemented for an RTL (Persian) interface.
+
+**Most Important Constraint: Preservation of Existing Code**
+The HTML and Tailwind CSS code you provide must be **exclusively for this profile dropdown menu**. It should be a self-contained snippet or component that can directly replace the *current* profile dropdown menu's code. It is critical that implementing this new menu does **not** alter, break, or require changes to any other existing programming, JavaScript logic, unrelated components, or overall styling of the main application. The rest of the dashboard's functionality and code must remain untouched.
+
+**Menu Location and Trigger:**
+This dropdown menu appears when the user clicks on their profile avatar/name in the dashboard's main header.
+
+**Menu Items (Provide Persian text for labels within the code):**
+The dropdown should contain the following interactive items. For an RTL layout, the icon for each item should be positioned visually to the right of its text label, with appropriate spacing.
+
+1.  **User Profile** (پروفایل کاربری)
+2.  **Account Settings** (تنظیمات حساب)
+3.  **Security & Privacy** (امنیت و حریم خصوصی)
+4.  **Change Language** (تغییر زبان)
+5.  **Help & Support** (راهنما و پشتیبانی)
+6.  **(Optional: Insert a subtle horizontal rule/separator here)**
+7.  **Logout** (خروج از سامانه)
+
+**Detailed Design Specifications for the Dropdown and its Items:**
+
+* **Dropdown Container (the main panel):**
+    * Background: White (e.g., Tailwind `bg-white`).
+    * Internal Padding: Around `p-2` or `p-3`.
+    * Shadow: A clear but soft shadow (e.g., `shadow-lg` or `shadow-xl`).
+    * Rounded Corners: Moderately rounded (e.g., `rounded-md` or `rounded-lg`).
+
+* **Individual Menu Items (for each item listed above):**
+    * **Layout:** Each item should be a block-level link (`<a>` tag preferably) using Flexbox for alignment (`flex items-center`). For RTL, the icon should be visually on the right, and the text label to its left. The entire content of the item should be right-aligned if that's the overall text direction.
+    * **Sizing & Spacing:** Full width within the dropdown. Padding like `px-3 py-2.5` for each item.
+    * **Text Labels:**
+        * Font Size: `text-sm`.
+        * Font Weight: `font-medium`.
+        * Default Color: A dark gray (e.g., `text-slate-700` or `text-gray-800`).
+    * **Icons:**
+        * Style: Use a consistent set of modern, minimalist icons (e.g., line icons similar to Heroicons or Feather Icons). Size them appropriately (e.g., `w-5 h-5`).
+        * Default Color: A medium gray (e.g., `text-slate-500` or `text-gray-500`).
+        * Spacing: Add appropriate margin between the icon and the text label (e.g., if icon is on the right and text on its left, icon could have `ml-2` or `ml-3` if using LTR class order with `flex-row-reverse`, or icon could have `mr-2` or `mr-3` if it's the first element in RTL flow). The AI should ensure correct visual spacing for RTL.
+    * **Hover/Focus States for Items:**
+        * Background Color: A light gray (e.g., `hover:bg-slate-100` or `hover:bg-gray-100`).
+        * Text Color: Slightly darker or accent color (e.g., `hover:text-slate-900` or `hover:text-gray-900`).
+        * Icon Color: Can also change subtly (e.g., `group-hover:text-slate-600`).
+        * Rounded Corners: Individual items can also have `rounded-md` applied on hover or by default.
+        * Transitions: Smooth color transitions (e.g., `transition-colors duration-150 ease-in-out`).
+    * **Logout Item Specifics (Optional but Recommended):**
+        * Consider styling the 'Logout' item differently to make it stand out, e.g., with red text and icon (`text-red-600`, icon `text-red-500`).
+        * Hover state for 'Logout': Light red background and darker red text (e.g., `hover:bg-red-50 hover:text-red-700`).
+
+**Icon Suggestions (or choose suitable modern alternatives):**
+* User Profile: A user/person icon.
+* Account Settings: A gear/cog icon.
+* Security & Privacy: A shield or lock icon.
+* Change Language: A globe icon.
+* Help & Support: A question mark icon.
+* Logout: An exit or logout arrow icon.
+
+Please provide the HTML structure fully populated with the specified Tailwind CSS classes to achieve this design. Ensure the solution is robust and directly usable for replacing an existing menu component.
