@@ -98,7 +98,6 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
       icon: TestTube,
       color: "#67e8f9",
       items: [
-        { icon: ClipboardList, label: "مدیریت نمونه‌گیری", path: "/collection", color: "#67e8f9" },
         { icon: Stethoscope, label: "مدیریت نمونه‌گیری پیشرفته", path: "/sample-collection", color: "#f9a8d4" },
         { icon: Users, label: "پروفایل نمونه‌گیران", path: "/collectors", color: "#fcd34d" },
         { icon: TestTube, label: "مدیریت پکیج‌های آزمایشگاهی", path: "/test-packages", color: "#6ee7b7" },
