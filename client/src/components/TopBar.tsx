@@ -24,7 +24,7 @@ import {
   Languages
 } from "lucide-react";
 import { 
-  BellNotificationIcon,
+  NotificationBellIcon,
   SearchIcon,
   MessagesIcon,
   UserProfileIcon,
@@ -126,7 +126,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="relative text-red-600 hover:text-red-700 hover:bg-red-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg">
-                <BellNotificationIcon className="w-5 h-5 notification-icon adaptive-icon fill-current" />
+                <NotificationBellIcon className="w-5 h-5 notification-icon adaptive-icon" hasNotification={unreadCount > 0} />
                 {unreadCount > 0 && (
                   <Badge className="absolute -top-1 -left-1 w-5 h-5 p-0 text-xs bg-white text-red-500 border-2 border-red-500 rounded-full flex items-center justify-center animate-pulse shadow-sm">
                     {unreadCount}

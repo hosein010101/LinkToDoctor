@@ -6,41 +6,100 @@ interface IconProps {
   size?: number;
 }
 
-// Modern Notification Icon - Alternative to standard bell
-export const NotificationIcon = ({ className = "", size = 20 }: IconProps) => (
+// Clear Notification Bell Icon - Modern, recognizable bell design
+export const NotificationBellIcon = ({ className = "", size = 20, hasNotification = false }: IconProps & { hasNotification?: boolean }) => (
   <svg 
     width={size} 
     height={size} 
     viewBox="0 0 24 24" 
     fill="none" 
     stroke="currentColor" 
-    strokeWidth="1.5" 
+    strokeWidth="1.8" 
     strokeLinecap="round" 
     strokeLinejoin="round"
     className={className}
   >
-    <circle cx="12" cy="12" r="10" />
-    <circle cx="12" cy="12" r="3" fill="currentColor" />
-    <path d="M12 2v4m0 12v4M2 12h4m12 0h4" />
+    {/* Bell body */}
+    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" fill="none" />
+    {/* Bell clapper */}
+    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+    {/* Notification indicator dot */}
+    {hasNotification && (
+      <circle cx="19" cy="5" r="3" fill="#dc2626" stroke="#ffffff" strokeWidth="1.5" />
+    )}
   </svg>
 );
 
-// Alternative Notification Icon - Modern Bell Design
-export const BellNotificationIcon = ({ className = "", size = 20 }: IconProps) => (
+// Sample Collection Queue/List Icon - Colorful and modern
+export const SampleCollectionIcon = ({ className = "", size = 20 }: IconProps) => (
   <svg 
     width={size} 
     height={size} 
     viewBox="0 0 24 24" 
     fill="none" 
-    stroke="currentColor" 
-    strokeWidth="1.5" 
-    strokeLinecap="round" 
-    strokeLinejoin="round"
     className={className}
   >
-    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-    <circle cx="18" cy="6" r="3" fill="currentColor" />
+    {/* Background circle with gradient */}
+    <defs>
+      <linearGradient id="sampleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#0ea5e9" />
+        <stop offset="100%" stopColor="#06b6d4" />
+      </linearGradient>
+    </defs>
+    <circle cx="12" cy="12" r="10" fill="url(#sampleGradient)" opacity="0.1" />
+    
+    {/* Test tube with sample */}
+    <rect x="8" y="6" width="3" height="12" rx="1.5" fill="#0ea5e9" stroke="#0369a1" strokeWidth="1.5" />
+    <rect x="8.5" y="8" width="2" height="4" fill="#06b6d4" />
+    
+    {/* Queue indicators */}
+    <circle cx="15" cy="8" r="2" fill="#10b981" />
+    <circle cx="15" cy="12" r="2" fill="#f59e0b" />
+    <circle cx="15" cy="16" r="2" fill="#ef4444" />
+    
+    {/* Connecting lines */}
+    <path d="M11 10h2M11 12h2M11 14h2" stroke="#64748b" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
+// Top Doctors Icon - Colorful award/star design
+export const TopDoctorsIcon = ({ className = "", size = 20 }: IconProps) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    className={className}
+  >
+    {/* Award background */}
+    <defs>
+      <linearGradient id="awardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#f59e0b" />
+        <stop offset="100%" stopColor="#d97706" />
+      </linearGradient>
+      <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#fbbf24" />
+        <stop offset="100%" stopColor="#f59e0b" />
+      </linearGradient>
+    </defs>
+    
+    {/* Award circle */}
+    <circle cx="12" cy="10" r="8" fill="url(#awardGradient)" opacity="0.15" />
+    
+    {/* Medical cross */}
+    <path d="M12 6v8M8 10h8" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" />
+    
+    {/* Star overlay */}
+    <path 
+      d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2L12 17.6l-6 3.6 2.4-7.2-6-4.8h7.6L12 2z" 
+      fill="url(#starGradient)" 
+      stroke="#d97706" 
+      strokeWidth="1"
+      transform="scale(0.4) translate(18, 18)"
+    />
+    
+    {/* Ribbon elements */}
+    <path d="M8 18l4-2 4 2v4l-4-2-4 2v-4z" fill="#3b82f6" stroke="#1d4ed8" strokeWidth="1" />
   </svg>
 );
 

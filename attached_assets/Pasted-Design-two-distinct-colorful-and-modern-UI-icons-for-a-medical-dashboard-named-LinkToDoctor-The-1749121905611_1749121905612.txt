@@ -1,0 +1,17 @@
+Design two distinct, colorful, and modern UI icons for a medical dashboard named 'LinkToDoctor'. These icons should be contextually relevant, visually appealing, and suitable for an RTL (Persian) interface.
+
+1.  **'Sample Collection Queue/List' Icon (for "صف نمونه گیری" or "لیست سفارش‌ها"):**
+    * **Function:** Represents a list or queue of pending medical sample collections. It should evoke efficiency, order, or the sample handling process.
+    * **Visual Ideas:** Consider a stylized checklist with color accents, a test tube with a dynamic queue/list indicator (e.g., using color progression), a location pin combined with a sample vial incorporating blues or greens, or an abstract representation of a process flow with distinct colored stages.
+    * **Color Palette:** Utilize a palette of 2-3 harmonious colors that suggest medical professionalism, efficiency, and clarity. Think blues, greens, teals, possibly with a contrasting but complementary accent color for calls to action or status indication. Ensure the colors are vibrant but not distracting.
+
+2.  **'Top Doctors' Icon (for "پزشکان برتر"):**
+    * **Function:** Represents a section showcasing leading or high-performing doctors. It needs to convey achievement, expertise, and recognition within a medical context, using color to enhance this.
+    * **Visual Ideas:** Consider a medical caduceus intertwined with a star or laurel wreath where elements are colored distinctly (e.g., gold star, green wreath), a stylized doctor figure with an upward trend arrow highlighted in a positive color (e.g., green or gold), or a modern award/rosette symbol with layered colors incorporating a subtle medical cross.
+    * **Color Palette:** Employ colors that inspire trust, excellence, and prestige. Sophisticated blues combined with an accent of gold, silver, or bronze. Alternatively, use a primary brand color with a prestigious accent. Colors should feel premium and professional.
+
+**General Characteristics for Both Icons:**
+* **Style:** Modern, clean, potentially flat design with subtle gradients, layered colors for depth, or duotone effects. Avoid overly complex or photorealistic illustrations.
+* **Recognition:** Ensure the icons are easily understandable at a glance.
+* **Consistency:** While colorful and distinct, they should feel like they belong to the same cohesive UI icon set if used with other dashboard icons.
+* **Application:** Suitable for use as section headers or prominent visual cues within the dashboard.

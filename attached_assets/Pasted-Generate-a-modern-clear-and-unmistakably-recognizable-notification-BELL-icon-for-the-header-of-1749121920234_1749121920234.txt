@@ -1,0 +1,16 @@
+Generate a **modern, clear, and unmistakably recognizable notification BELL icon** for the header of the 'LinkToDoctor' medical dashboard. The primary objective is a distinct 'bell' shape. The AI must render a clear bell symbol.
+
+**Specific Requirements for this BELL Icon:**
+
+* **Core Subject:** Must be a **BELL**. Do not use abstract representations for notifications; the icon must visually be a bell.
+* **Style:** Modern, minimalist, with clean lines. Avoid ornate, cartoonish, or antique/vintage bell designs. The aesthetic should be sleek, professional, and suitable for a contemporary software interface (e.g., iOS style, Material Design influence, or a unique modern take).
+* **Function:** Clearly communicates 'notifications,' 'alerts,' or 'new messages' through the bell imagery.
+* **Visual States (important for UI):**
+    * **Default State:** Bell icon for when there are no new notifications.
+    * **Active/Alert State:** Bell icon indicating new notifications. This MUST be shown with a small, contrasting colored dot (e.g., red, orange, or a theme-appropriate accent color like a vibrant blue) visually attached to or overlapping the bell (typically top-right).
+* **Things to AVOID:** Any shape that does not clearly look like a bell. The AI should not interpret 'notification' abstractly; it must interpret it as needing a 'bell' symbol.
+* **Color:** The bell itself should be primarily monochromatic (e.g., a shade of dark gray, or a blue that matches the LinkToDoctor brand). The notification indicator dot/badge must be a distinct and clearly visible accent color.
+* **Detail & Scalability:** Simple enough to be very clear and recognizable even at small sizes (e.g., 16x16 to 24x24 pixels) typical for dashboard headers. Ensure edges are crisp.
+* **Keywords for AI Style Guidance:** 'line art bell icon', 'flat design notification bell', 'minimalist alert bell UI icon', 'vector bell icon for web dashboard', 'sleek notification symbol (bell)', 'iOS notification bell', 'Material Design alert icon (bell)'.
+
+This icon is critical for user interaction and must be unambiguous. It will be used in an RTL (Persian) layout.

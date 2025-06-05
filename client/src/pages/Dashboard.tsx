@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import logoPath from "@assets/logo_1749120300661.png";
+import { SampleCollectionIcon, TopDoctorsIcon } from "@/components/ui/custom-icons";
 import { 
   TrendingUp, 
   TrendingDown,
@@ -345,7 +346,7 @@ export default function Dashboard() {
           <Card className="card-professional">
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center space-x-2 space-x-reverse">
-                <Star className="w-5 h-5 text-amber-500 star-icon adaptive-icon" style={{ color: '#f59e0b' }} />
+                <TopDoctorsIcon className="w-6 h-6 star-icon adaptive-icon" />
                 <span>پزشکان برتر ماه</span>
               </h3>
               <div className="space-y-4">
