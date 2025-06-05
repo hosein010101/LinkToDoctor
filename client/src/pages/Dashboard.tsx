@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -29,8 +29,37 @@ import {
   Star,
   Target,
   Zap,
-  Shield
+  Shield,
+  PieChart,
+  LineChart
 } from "lucide-react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  PointElement,
+  LineElement,
+  Filler
+} from 'chart.js';
+import { Bar, Pie, Line } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  PointElement,
+  LineElement,
+  Filler
+);
 import type { DashboardStats, OrderWithDetails } from "@/lib/types";
 
 interface QuickStat {
@@ -163,6 +192,142 @@ export default function Dashboard() {
     { name: "دکتر سارا جعفری", orders: 28, avatar: "س.ج", specialty: "زنان" }
   ];
 
+  // Chart Data for Professional Dashboard
+  const monthlyOrdersData = {
+    labels: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور'],
+    datasets: [
+      {
+        label: 'سفارشات ماهانه',
+        data: [420, 380, 465, 520, 480, 540],
+        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+        borderColor: 'rgba(37, 99, 235, 1)',
+        borderWidth: 2,
+        fill: true,
+        tension: 0.4
+      }
+    ]
+  };
+
+  const testTypesData = {
+    labels: ['آزمایش خون', 'آزمایش ادرار', 'آزمایش هورمونی', 'آزمایش میکروبی', 'سایر'],
+    datasets: [
+      {
+        data: [35, 25, 20, 15, 5],
+        backgroundColor: [
+          'rgba(37, 99, 235, 0.8)',
+          'rgba(16, 185, 129, 0.8)',
+          'rgba(245, 158, 11, 0.8)',
+          'rgba(139, 92, 246, 0.8)',
+          'rgba(239, 68, 68, 0.8)'
+        ],
+        borderColor: [
+          'rgba(37, 99, 235, 1)',
+          'rgba(16, 185, 129, 1)',
+          'rgba(245, 158, 11, 1)',
+          'rgba(139, 92, 246, 1)',
+          'rgba(239, 68, 68, 1)'
+        ],
+        borderWidth: 2
+      }
+    ]
+  };
+
+  const weeklyRevenueData = {
+    labels: ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه'],
+    datasets: [
+      {
+        label: 'درآمد روزانه (میلیون تومان)',
+        data: [4.2, 3.8, 5.1, 4.6, 5.5, 4.9, 3.2],
+        backgroundColor: [
+          'rgba(16, 185, 129, 0.8)',
+          'rgba(37, 99, 235, 0.8)',
+          'rgba(139, 92, 246, 0.8)',
+          'rgba(245, 158, 11, 0.8)',
+          'rgba(16, 185, 129, 0.8)',
+          'rgba(37, 99, 235, 0.8)',
+          'rgba(239, 68, 68, 0.8)'
+        ],
+        borderColor: [
+          'rgba(16, 185, 129, 1)',
+          'rgba(37, 99, 235, 1)',
+          'rgba(139, 92, 246, 1)',
+          'rgba(245, 158, 11, 1)',
+          'rgba(16, 185, 129, 1)',
+          'rgba(37, 99, 235, 1)',
+          'rgba(239, 68, 68, 1)'
+        ],
+        borderWidth: 2,
+        borderRadius: 8
+      }
+    ]
+  };
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+        labels: {
+          font: {
+            family: 'Vazirmatn, Inter, sans-serif',
+            size: 12
+          }
+        }
+      },
+      tooltip: {
+        titleFont: {
+          family: 'Vazirmatn, Inter, sans-serif'
+        },
+        bodyFont: {
+          family: 'Vazirmatn, Inter, sans-serif'
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          font: {
+            family: 'Vazirmatn, Inter, sans-serif'
+          }
+        }
+      },
+      x: {
+        ticks: {
+          font: {
+            family: 'Vazirmatn, Inter, sans-serif'
+          }
+        }
+      }
+    }
+  };
+
+  const pieOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom' as const,
+        labels: {
+          font: {
+            family: 'Vazirmatn, Inter, sans-serif',
+            size: 11
+          },
+          padding: 15
+        }
+      },
+      tooltip: {
+        titleFont: {
+          family: 'Vazirmatn, Inter, sans-serif'
+        },
+        bodyFont: {
+          family: 'Vazirmatn, Inter, sans-serif'
+        }
+      }
+    }
+  };
+
   const getActivityIcon = (type: string) => {
     switch (type) {
       case "order": return TestTube2;
@@ -288,6 +453,102 @@ export default function Dashboard() {
             </Card>
           );
         })}
+      </div>
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+        {/* Monthly Orders Trend */}
+        <Card className="card-professional lg:col-span-2 xl:col-span-2">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2 space-x-reverse">
+              <LineChart className="w-5 h-5 text-blue-600" />
+              <span>روند سفارشات ماهانه</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-80">
+              <Line data={monthlyOrdersData} options={chartOptions} />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Test Types Distribution */}
+        <Card className="card-professional">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2 space-x-reverse">
+              <PieChart className="w-5 h-5 text-purple-600" />
+              <span>توزیع انواع آزمایش</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-80">
+              <Pie data={testTypesData} options={pieOptions} />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Weekly Revenue and Performance */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        {/* Weekly Revenue */}
+        <Card className="card-professional">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2 space-x-reverse">
+              <BarChart3 className="w-5 h-5 text-green-600" />
+              <span>درآمد هفتگی</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-80">
+              <Bar data={weeklyRevenueData} options={chartOptions} />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Performance Metrics */}
+        <Card className="card-professional">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2 space-x-reverse">
+              <Target className="w-5 h-5 text-orange-600" />
+              <span>شاخص‌های عملکرد</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-gray-600">نرخ تکمیل سفارشات</span>
+                <span className="text-lg font-bold text-green-600">94.2%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-green-500 h-2 rounded-full" style={{width: '94.2%'}}></div>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-gray-600">رضایت مشتریان</span>
+                <span className="text-lg font-bold text-blue-600">8.7/10</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-blue-500 h-2 rounded-full" style={{width: '87%'}}></div>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-gray-600">زمان پاسخ میانگین</span>
+                <span className="text-lg font-bold text-purple-600">2.4 ساعت</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-purple-500 h-2 rounded-full" style={{width: '76%'}}></div>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-gray-600">دقت نتایج</span>
+                <span className="text-lg font-bold text-emerald-600">99.1%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-emerald-500 h-2 rounded-full" style={{width: '99.1%'}}></div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Main Content Grid */}
