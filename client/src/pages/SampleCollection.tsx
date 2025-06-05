@@ -233,10 +233,10 @@ export default function SampleCollection() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">نمونه‌گیری در انتظار</p>
-                <p className="text-2xl font-bold text-orange-600">{pendingTasks}</p>
+                <p className="text-sm font-medium text-medical-muted">نمونه‌گیری در انتظار</p>
+                <p className="text-2xl font-bold text-medical-warning">{pendingTasks}</p>
               </div>
-              <Clock className="w-8 h-8 text-orange-600" />
+              <Clock className="w-8 h-8 text-medical-warning" />
             </div>
           </CardContent>
         </Card>

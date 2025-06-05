@@ -440,15 +440,19 @@ Card *[class*="orange"],
   border-color: #374151 !important;
 }
 
-/* MEDICAL DASHBOARD TAB STYLING - Minimal Colors with Hover Effects */
-.TabsList {
+/* MEDICAL DASHBOARD TAB STYLING - High Priority Override */
+[role="tablist"], 
+.TabsList,
+div[data-orientation="horizontal"][role="tablist"] {
   background-color: #f8fafc !important;
   border: 1px solid #e2e8f0 !important;
   border-radius: 8px !important;
   padding: 4px !important;
 }
 
-.TabsTrigger {
+[role="tab"],
+.TabsTrigger,
+button[data-orientation="horizontal"][role="tab"] {
   color: #64748b !important;
   background-color: transparent !important;
   border: none !important;
@@ -457,25 +461,32 @@ Card *[class*="orange"],
   font-weight: 500 !important;
   transition: all 0.2s ease !important;
   position: relative !important;
+  margin: 0 2px !important;
 }
 
-/* Tab hover effects */
-.TabsTrigger:hover {
+/* Tab hover effects with highest priority */
+[role="tab"]:hover,
+.TabsTrigger:hover,
+button[data-orientation="horizontal"][role="tab"]:hover {
   background-color: #e2e8f0 !important;
   color: #475569 !important;
   transform: translateY(-1px) !important;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
 }
 
-/* Active tab styling */
-.TabsTrigger[data-state="active"] {
+/* Active tab styling with highest priority */
+[role="tab"][data-state="active"],
+.TabsTrigger[data-state="active"],
+button[data-orientation="horizontal"][role="tab"][data-state="active"] {
   background-color: #0f172a !important;
   color: #ffffff !important;
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.3) !important;
   border: 1px solid #334155 !important;
 }
 
-.TabsTrigger[data-state="active"]:hover {
+[role="tab"][data-state="active"]:hover,
+.TabsTrigger[data-state="active"]:hover,
+button[data-orientation="horizontal"][role="tab"][data-state="active"]:hover {
   background-color: #1e293b !important;
   transform: none !important;
 }
