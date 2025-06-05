@@ -245,10 +245,10 @@ export default function SampleCollection() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">در حال انجام</p>
-                <p className="text-2xl font-bold text-blue-600">{inProgressTasks}</p>
+                <p className="text-sm font-medium text-medical-muted">در حال انجام</p>
+                <p className="text-2xl font-bold text-medical-info">{inProgressTasks}</p>
               </div>
-              <Activity className="w-8 h-8 text-blue-600" />
+              <Activity className="w-8 h-8 text-medical-info" />
             </div>
           </CardContent>
         </Card>
@@ -257,10 +257,10 @@ export default function SampleCollection() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">نمونه‌گیران فعال</p>
-                <p className="text-2xl font-bold text-green-600">{activeCollectors}</p>
+                <p className="text-sm font-medium text-medical-muted">نمونه‌گیران فعال</p>
+                <p className="text-2xl font-bold text-medical-success">{activeCollectors}</p>
               </div>
-              <UserCheck className="w-8 h-8 text-green-600" />
+              <UserCheck className="w-8 h-8 text-medical-success" />
             </div>
           </CardContent>
         </Card>
@@ -269,10 +269,10 @@ export default function SampleCollection() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">نمونه‌گیران آماده</p>
-                <p className="text-2xl font-bold text-purple-600">{availableCollectors}</p>
+                <p className="text-sm font-medium text-medical-muted">نمونه‌گیران آماده</p>
+                <p className="text-2xl font-bold text-medical-action">{availableCollectors}</p>
               </div>
-              <Users className="w-8 h-8 text-purple-600" />
+              <Users className="w-8 h-8 text-medical-action" />
             </div>
           </CardContent>
         </Card>

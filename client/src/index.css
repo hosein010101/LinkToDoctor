@@ -440,14 +440,15 @@ Card *[class*="orange"],
   border-color: #374151 !important;
 }
 
-/* MEDICAL DASHBOARD TAB STYLING - High Priority Override */
+/* MODERN MEDICAL DASHBOARD TAB STYLING - Inspired by SnapDoctor & Apple Health */
 [role="tablist"], 
 .TabsList,
 div[data-orientation="horizontal"][role="tablist"] {
-  background-color: #f8fafc !important;
+  background-color: #f1f5f9 !important;
   border: 1px solid #e2e8f0 !important;
-  border-radius: 8px !important;
-  padding: 4px !important;
+  border-radius: 12px !important;
+  padding: 6px !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
 }
 
 [role="tab"],
@@ -455,102 +456,197 @@ div[data-orientation="horizontal"][role="tablist"] {
 button[data-orientation="horizontal"][role="tab"] {
   color: #64748b !important;
   background-color: transparent !important;
-  border: none !important;
-  padding: 8px 16px !important;
-  border-radius: 6px !important;
+  border: 1px solid transparent !important;
+  padding: 10px 18px !important;
+  border-radius: 8px !important;
   font-weight: 500 !important;
-  transition: all 0.2s ease !important;
+  font-size: 14px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
   position: relative !important;
   margin: 0 2px !important;
+  white-space: nowrap !important;
 }
 
-/* Tab hover effects with highest priority */
+/* Tab hover effects - Modern pastel colors */
 [role="tab"]:hover,
 .TabsTrigger:hover,
 button[data-orientation="horizontal"][role="tab"]:hover {
-  background-color: #e2e8f0 !important;
-  color: #475569 !important;
+  background-color: #e0f2fe !important; /* Light sky blue */
+  color: #0369a1 !important; /* Sky blue 700 */
+  border-color: #bae6fd !important; /* Sky blue 200 */
   transform: translateY(-1px) !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+  box-shadow: 0 4px 12px rgba(3, 105, 161, 0.15) !important;
 }
 
-/* Active tab styling with highest priority */
+/* Active tab styling - Modern mint green */
 [role="tab"][data-state="active"],
 .TabsTrigger[data-state="active"],
 button[data-orientation="horizontal"][role="tab"][data-state="active"] {
-  background-color: #0f172a !important;
-  color: #ffffff !important;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.3) !important;
-  border: 1px solid #334155 !important;
+  background-color: #dcfce7 !important; /* Green 100 */
+  color: #15803d !important; /* Green 700 */
+  border-color: #bbf7d0 !important; /* Green 200 */
+  box-shadow: 0 4px 16px rgba(21, 128, 61, 0.2) !important;
+  font-weight: 600 !important;
 }
 
 [role="tab"][data-state="active"]:hover,
 .TabsTrigger[data-state="active"]:hover,
 button[data-orientation="horizontal"][role="tab"][data-state="active"]:hover {
-  background-color: #1e293b !important;
+  background-color: #bbf7d0 !important; /* Green 200 */
+  color: #166534 !important; /* Green 800 */
   transform: none !important;
+  box-shadow: 0 6px 20px rgba(21, 128, 61, 0.25) !important;
 }
 
-/* Medical platform font coloring logic */
-.text-medical-primary { color: #0f172a !important; } /* Main text - dark slate */
-.text-medical-secondary { color: #475569 !important; } /* Secondary text - slate */
-.text-medical-muted { color: #64748b !important; } /* Muted text - slate */
-.text-medical-success { color: #059669 !important; } /* Success - emerald */
-.text-medical-warning { color: #d97706 !important; } /* Warning - amber */
-.text-medical-error { color: #dc2626 !important; } /* Error - red */
-.text-medical-info { color: #2563eb !important; } /* Info - blue */
-.text-medical-urgent { color: #dc2626 !important; } /* Urgent - red */
-.text-medical-high { color: #ea580c !important; } /* High priority - orange */
-.text-medical-normal { color: #2563eb !important; } /* Normal priority - blue */
-.text-medical-low { color: #64748b !important; } /* Low priority - slate */
+/* MODERN MEDICAL SWITCH/TOGGLE STYLING */
+[role="switch"],
+.Switch,
+button[role="switch"] {
+  background-color: #e2e8f0 !important;
+  border: 2px solid #cbd5e1 !important;
+  border-radius: 16px !important;
+  width: 44px !important;
+  height: 24px !important;
+  position: relative !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+}
+
+/* Switch thumb styling */
+[role="switch"]::after,
+.Switch::after,
+button[role="switch"]::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 1px !important;
+  left: 1px !important;
+  width: 18px !important;
+  height: 18px !important;
+  background-color: #ffffff !important;
+  border-radius: 50% !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+/* Active/ON state - Modern green */
+[role="switch"][data-state="checked"],
+.Switch[data-state="checked"],
+button[role="switch"][data-state="checked"] {
+  background-color: #10b981 !important; /* Emerald 500 */
+  border-color: #059669 !important; /* Emerald 600 */
+}
+
+[role="switch"][data-state="checked"]::after,
+.Switch[data-state="checked"]::after,
+button[role="switch"][data-state="checked"]::after {
+  transform: translateX(20px) !important;
+}
+
+/* Switch hover effects */
+[role="switch"]:hover,
+.Switch:hover,
+button[role="switch"]:hover {
+  background-color: #cbd5e1 !important;
+  border-color: #94a3b8 !important;
+  transform: scale(1.02) !important;
+}
+
+[role="switch"][data-state="checked"]:hover,
+.Switch[data-state="checked"]:hover,
+button[role="switch"][data-state="checked"]:hover {
+  background-color: #059669 !important; /* Emerald 600 */
+  border-color: #047857 !important; /* Emerald 700 */
+}
+
+/* MEDICAL PLATFORM FONT COLORING - Modern & Functional */
+.text-medical-primary { color: #1e293b !important; } /* Strong titles - slate 800 */
+.text-medical-secondary { color: #475569 !important; } /* Secondary text - slate 600 */
+.text-medical-muted { color: #64748b !important; } /* Muted text - slate 500 */
+.text-medical-success { color: #10b981 !important; } /* Success - emerald 500 */
+.text-medical-warning { color: #f59e0b !important; } /* Warning - amber 500 */
+.text-medical-error { color: #ef4444 !important; } /* Error - red 500 */
+.text-medical-info { color: #3b82f6 !important; } /* Info - blue 500 */
+.text-medical-urgent { color: #dc2626 !important; } /* Urgent - red 600 */
+.text-medical-high { color: #ea580c !important; } /* High priority - orange 600 */
+.text-medical-normal { color: #3b82f6 !important; } /* Normal priority - blue 500 */
+.text-medical-low { color: #64748b !important; } /* Low priority - slate 500 */
+.text-medical-link { color: #6366f1 !important; } /* Links - indigo 500 */
+.text-medical-action { color: #8b5cf6 !important; } /* Actions - violet 500 */
 
 /* Status-based coloring for medical dashboard */
-.status-pending { color: #d97706 !important; } /* Pending - amber */
-.status-in-progress { color: #2563eb !important; } /* In progress - blue */
-.status-completed { color: #059669 !important; } /* Completed - emerald */
-.status-cancelled { color: #dc2626 !important; } /* Cancelled - red */
-.status-available { color: #059669 !important; } /* Available - emerald */
-.status-busy { color: #2563eb !important; } /* Busy - blue */
-.status-offline { color: #64748b !important; } /* Offline - slate */
+.status-pending { color: #f59e0b !important; } /* Pending - amber 500 */
+.status-in-progress { color: #3b82f6 !important; } /* In progress - blue 500 */
+.status-completed { color: #10b981 !important; } /* Completed - emerald 500 */
+.status-cancelled { color: #ef4444 !important; } /* Cancelled - red 500 */
+.status-available { color: #10b981 !important; } /* Available - emerald 500 */
+.status-busy { color: #3b82f6 !important; } /* Busy - blue 500 */
+.status-offline { color: #64748b !important; } /* Offline - slate 500 */
 
-/* Apply medical coloring to existing elements */
+/* Apply modern medical coloring to existing elements */
 h1, h2, h3, h4, h5, h6 {
-  color: #0f172a !important;
+  color: #1e293b !important; /* Strong slate for headings */
+  font-weight: 600 !important;
 }
 
 .card-title, .CardTitle {
-  color: #0f172a !important;
+  color: #1e293b !important;
+  font-weight: 600 !important;
 }
 
 .card-description, .CardDescription {
   color: #64748b !important;
+  font-weight: 400 !important;
 }
 
 p {
   color: #475569 !important;
+  line-height: 1.6 !important;
 }
 
 /* Button text coloring based on medical context */
 .Button {
   font-weight: 500 !important;
+  transition: all 0.2s ease !important;
 }
 
-.Button:not(.bg-medical-teal):not(.bg-medical-blue):not(.bg-medical-green):not(.bg-red-600) {
+/* Primary action buttons */
+.Button.bg-medical-teal,
+.Button.bg-medical-blue,
+.Button.bg-blue-600 {
+  color: #ffffff !important;
+}
+
+/* Secondary buttons */
+.Button[variant="outline"] {
   color: #475569 !important;
 }
 
-/* Form labels and inputs */
+.Button[variant="outline"]:hover {
+  color: #1e293b !important;
+}
+
+/* Form labels and inputs - Modern styling */
 .Label, label {
   color: #374151 !important;
   font-weight: 500 !important;
+  font-size: 14px !important;
+  margin-bottom: 4px !important;
 }
 
 .Input, input {
   color: #1f2937 !important;
+  font-weight: 400 !important;
+  border-color: #d1d5db !important;
+}
+
+.Input:focus, input:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
 }
 
 .Input::placeholder, input::placeholder {
   color: #9ca3af !important;
+  font-weight: 400 !important;
 }
 
 /* Footer styling */
