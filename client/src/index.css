@@ -777,6 +777,188 @@ a:hover, .link:hover {
   color: #1f2937 !important;
 }
 
+/* COMPREHENSIVE ICON COLOR SCHEME - Replace Black Icons */
+
+/* Notification icons - Soft red/orange */
+[data-lucide="bell"], 
+.lucide-bell,
+svg[class*="bell"] {
+  color: #f97316 !important; /* Orange 500 */
+}
+
+/* Message/chat icons - Light green/violet */
+[data-lucide="message-square"],
+[data-lucide="message-circle"],
+[data-lucide="chat"],
+.lucide-message-square,
+.lucide-message-circle,
+svg[class*="message"] {
+  color: #10b981 !important; /* Emerald 500 */
+}
+
+/* User/avatar icons - Soft gray/pastel green */
+[data-lucide="user"],
+[data-lucide="users"],
+[data-lucide="user-check"],
+[data-lucide="user-plus"],
+.lucide-user,
+.lucide-users,
+.lucide-user-check,
+.lucide-user-plus,
+svg[class*="user"] {
+  color: #6b7280 !important; /* Gray 500 */
+}
+
+/* Settings/tools icons - Blue-gray/muted blue */
+[data-lucide="settings"],
+[data-lucide="cog"],
+[data-lucide="wrench"],
+[data-lucide="tool"],
+.lucide-settings,
+.lucide-cog,
+.lucide-wrench,
+svg[class*="settings"],
+svg[class*="cog"] {
+  color: #6366f1 !important; /* Indigo 500 */
+}
+
+/* Navigation icons - Muted blue */
+[data-lucide="menu"],
+[data-lucide="chevron-down"],
+[data-lucide="chevron-right"],
+[data-lucide="chevron-left"],
+[data-lucide="arrow-right"],
+[data-lucide="arrow-left"],
+.lucide-menu,
+.lucide-chevron-down,
+.lucide-chevron-right,
+.lucide-chevron-left,
+svg[class*="menu"],
+svg[class*="chevron"] {
+  color: #64748b !important; /* Slate 500 */
+}
+
+/* Action icons - Various functional colors */
+[data-lucide="plus"],
+[data-lucide="edit"],
+[data-lucide="pencil"],
+.lucide-plus,
+.lucide-edit,
+.lucide-pencil,
+svg[class*="plus"],
+svg[class*="edit"] {
+  color: #3b82f6 !important; /* Blue 500 */
+}
+
+[data-lucide="trash"],
+[data-lucide="trash-2"],
+[data-lucide="x"],
+.lucide-trash,
+.lucide-trash-2,
+.lucide-x,
+svg[class*="trash"] {
+  color: #ef4444 !important; /* Red 500 */
+}
+
+[data-lucide="check"],
+[data-lucide="check-circle"],
+.lucide-check,
+.lucide-check-circle,
+svg[class*="check"] {
+  color: #10b981 !important; /* Emerald 500 */
+}
+
+[data-lucide="eye"],
+[data-lucide="search"],
+.lucide-eye,
+.lucide-search,
+svg[class*="eye"],
+svg[class*="search"] {
+  color: #8b5cf6 !important; /* Violet 500 */
+}
+
+/* Medical/health icons - Healthcare colors */
+[data-lucide="activity"],
+[data-lucide="heart"],
+[data-lucide="stethoscope"],
+[data-lucide="pill"],
+.lucide-activity,
+.lucide-heart,
+.lucide-stethoscope,
+svg[class*="activity"],
+svg[class*="heart"] {
+  color: #dc2626 !important; /* Red 600 - Medical */
+}
+
+[data-lucide="test-tube"],
+[data-lucide="flask"],
+.lucide-test-tube,
+.lucide-flask,
+svg[class*="test-tube"],
+svg[class*="flask"] {
+  color: #059669 !important; /* Emerald 600 - Lab */
+}
+
+/* Communication icons */
+[data-lucide="phone"],
+[data-lucide="mail"],
+.lucide-phone,
+.lucide-mail,
+svg[class*="phone"],
+svg[class*="mail"] {
+  color: #0891b2 !important; /* Cyan 600 */
+}
+
+/* Time/calendar icons */
+[data-lucide="clock"],
+[data-lucide="calendar"],
+.lucide-clock,
+.lucide-calendar,
+svg[class*="clock"],
+svg[class*="calendar"] {
+  color: #7c3aed !important; /* Violet 600 */
+}
+
+/* Location icons */
+[data-lucide="map-pin"],
+[data-lucide="navigation"],
+[data-lucide="globe"],
+.lucide-map-pin,
+.lucide-navigation,
+.lucide-globe,
+svg[class*="map-pin"],
+svg[class*="navigation"],
+svg[class*="globe"] {
+  color: #ea580c !important; /* Orange 600 */
+}
+
+/* File/document icons */
+[data-lucide="file"],
+[data-lucide="file-text"],
+[data-lucide="download"],
+[data-lucide="upload"],
+.lucide-file,
+.lucide-file-text,
+.lucide-download,
+.lucide-upload,
+svg[class*="file"],
+svg[class*="download"],
+svg[class*="upload"] {
+  color: #4f46e5 !important; /* Indigo 600 */
+}
+
+/* Generic black icon fallback */
+svg:not([color]):not([fill]):not([style*="color"]) {
+  color: #64748b !important; /* Default to slate 500 */
+}
+
+/* Ensure icon hover states maintain color consistency */
+.Button:hover svg,
+button:hover svg {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
 /* Footer styling */
 .dashboard-footer {
   background-color: #ffffff;
