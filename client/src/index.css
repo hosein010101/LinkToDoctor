@@ -959,6 +959,228 @@ button:hover svg {
   transition: opacity 0.2s ease;
 }
 
+/* COMPREHENSIVE ICON BACKGROUND COLOR FIXES - Remove Black Backgrounds */
+
+/* Notification icon backgrounds - Light red/orange */
+.Button:has([data-lucide="bell"]),
+.Button:has(.lucide-bell),
+button:has([data-lucide="bell"]),
+button:has(.lucide-bell) {
+  background-color: #fed7aa !important; /* Orange 200 */
+  border-color: #fdba74 !important; /* Orange 300 */
+}
+
+.Button:has([data-lucide="bell"]):hover,
+.Button:has(.lucide-bell):hover,
+button:has([data-lucide="bell"]):hover,
+button:has(.lucide-bell):hover {
+  background-color: #fdba74 !important; /* Orange 300 */
+  border-color: #fb923c !important; /* Orange 400 */
+}
+
+/* Message icon backgrounds - Pastel green/light blue */
+.Button:has([data-lucide="message-square"]),
+.Button:has([data-lucide="message-circle"]),
+.Button:has(.lucide-message-square),
+.Button:has(.lucide-message-circle),
+button:has([data-lucide="message-square"]),
+button:has([data-lucide="message-circle"]),
+button:has(.lucide-message-square),
+button:has(.lucide-message-circle) {
+  background-color: #d1fae5 !important; /* Emerald 100 */
+  border-color: #a7f3d0 !important; /* Emerald 200 */
+}
+
+.Button:has([data-lucide="message-square"]):hover,
+.Button:has([data-lucide="message-circle"]):hover,
+.Button:has(.lucide-message-square):hover,
+.Button:has(.lucide-message-circle):hover,
+button:has([data-lucide="message-square"]):hover,
+button:has([data-lucide="message-circle"]):hover,
+button:has(.lucide-message-square):hover,
+button:has(.lucide-message-circle):hover {
+  background-color: #a7f3d0 !important; /* Emerald 200 */
+  border-color: #6ee7b7 !important; /* Emerald 300 */
+}
+
+/* User/profile icon backgrounds - Soft gray/pastel blue */
+.Button:has([data-lucide="user"]),
+.Button:has([data-lucide="users"]),
+.Button:has(.lucide-user),
+.Button:has(.lucide-users),
+button:has([data-lucide="user"]),
+button:has([data-lucide="users"]),
+button:has(.lucide-user),
+button:has(.lucide-users) {
+  background-color: #e2e8f0 !important; /* Slate 200 */
+  border-color: #cbd5e1 !important; /* Slate 300 */
+}
+
+.Button:has([data-lucide="user"]):hover,
+.Button:has([data-lucide="users"]):hover,
+.Button:has(.lucide-user):hover,
+.Button:has(.lucide-users):hover,
+button:has([data-lucide="user"]):hover,
+button:has([data-lucide="users"]):hover,
+button:has(.lucide-user):hover,
+button:has(.lucide-users):hover {
+  background-color: #cbd5e1 !important; /* Slate 300 */
+  border-color: #94a3b8 !important; /* Slate 400 */
+}
+
+/* Settings/tools icon backgrounds - Light indigo */
+.Button:has([data-lucide="settings"]),
+.Button:has([data-lucide="cog"]),
+.Button:has(.lucide-settings),
+.Button:has(.lucide-cog),
+button:has([data-lucide="settings"]),
+button:has([data-lucide="cog"]),
+button:has(.lucide-settings),
+button:has(.lucide-cog) {
+  background-color: #e0e7ff !important; /* Indigo 100 */
+  border-color: #c7d2fe !important; /* Indigo 200 */
+}
+
+.Button:has([data-lucide="settings"]):hover,
+.Button:has([data-lucide="cog"]):hover,
+.Button:has(.lucide-settings):hover,
+.Button:has(.lucide-cog):hover,
+button:has([data-lucide="settings"]):hover,
+button:has([data-lucide="cog"]):hover,
+button:has(.lucide-settings):hover,
+button:has(.lucide-cog):hover {
+  background-color: #c7d2fe !important; /* Indigo 200 */
+  border-color: #a5b4fc !important; /* Indigo 300 */
+}
+
+/* Activity/medical icon backgrounds - Light red */
+.Button:has([data-lucide="activity"]),
+.Button:has(.lucide-activity),
+button:has([data-lucide="activity"]),
+button:has(.lucide-activity) {
+  background-color: #fee2e2 !important; /* Red 100 */
+  border-color: #fecaca !important; /* Red 200 */
+}
+
+.Button:has([data-lucide="activity"]):hover,
+.Button:has(.lucide-activity):hover,
+button:has([data-lucide="activity"]):hover,
+button:has(.lucide-activity):hover {
+  background-color: #fecaca !important; /* Red 200 */
+  border-color: #fca5a5 !important; /* Red 300 */
+}
+
+/* Search/eye icon backgrounds - Light violet */
+.Button:has([data-lucide="search"]),
+.Button:has([data-lucide="eye"]),
+.Button:has(.lucide-search),
+.Button:has(.lucide-eye),
+button:has([data-lucide="search"]),
+button:has([data-lucide="eye"]),
+button:has(.lucide-search),
+button:has(.lucide-eye) {
+  background-color: #ede9fe !important; /* Violet 100 */
+  border-color: #ddd6fe !important; /* Violet 200 */
+}
+
+.Button:has([data-lucide="search"]):hover,
+.Button:has([data-lucide="eye"]):hover,
+.Button:has(.lucide-search):hover,
+.Button:has(.lucide-eye):hover,
+button:has([data-lucide="search"]):hover,
+button:has([data-lucide="eye"]):hover,
+button:has(.lucide-search):hover,
+button:has(.lucide-eye):hover {
+  background-color: #ddd6fe !important; /* Violet 200 */
+  border-color: #c4b5fd !important; /* Violet 300 */
+}
+
+/* Phone/communication icon backgrounds - Light cyan */
+.Button:has([data-lucide="phone"]),
+.Button:has([data-lucide="mail"]),
+.Button:has(.lucide-phone),
+.Button:has(.lucide-mail),
+button:has([data-lucide="phone"]),
+button:has([data-lucide="mail"]),
+button:has(.lucide-phone),
+button:has(.lucide-mail) {
+  background-color: #cffafe !important; /* Cyan 100 */
+  border-color: #a5f3fc !important; /* Cyan 200 */
+}
+
+.Button:has([data-lucide="phone"]):hover,
+.Button:has([data-lucide="mail"]):hover,
+.Button:has(.lucide-phone):hover,
+.Button:has(.lucide-mail):hover,
+button:has([data-lucide="phone"]):hover,
+button:has([data-lucide="mail"]):hover,
+button:has(.lucide-phone):hover,
+button:has(.lucide-mail):hover {
+  background-color: #a5f3fc !important; /* Cyan 200 */
+  border-color: #67e8f9 !important; /* Cyan 300 */
+}
+
+/* Globe/location icon backgrounds - Light orange */
+.Button:has([data-lucide="globe"]),
+.Button:has([data-lucide="map-pin"]),
+.Button:has(.lucide-globe),
+.Button:has(.lucide-map-pin),
+button:has([data-lucide="globe"]),
+button:has([data-lucide="map-pin"]),
+button:has(.lucide-globe),
+button:has(.lucide-map-pin) {
+  background-color: #fed7aa !important; /* Orange 200 */
+  border-color: #fdba74 !important; /* Orange 300 */
+}
+
+.Button:has([data-lucide="globe"]):hover,
+.Button:has([data-lucide="map-pin"]):hover,
+.Button:has(.lucide-globe):hover,
+.Button:has(.lucide-map-pin):hover,
+button:has([data-lucide="globe"]):hover,
+button:has([data-lucide="map-pin"]):hover,
+button:has(.lucide-globe):hover,
+button:has(.lucide-map-pin):hover {
+  background-color: #fdba74 !important; /* Orange 300 */
+  border-color: #fb923c !important; /* Orange 400 */
+}
+
+/* Menu/navigation icon backgrounds - Light slate */
+.Button:has([data-lucide="menu"]),
+.Button:has([data-lucide="chevron-down"]),
+.Button:has(.lucide-menu),
+.Button:has(.lucide-chevron-down),
+button:has([data-lucide="menu"]),
+button:has([data-lucide="chevron-down"]),
+button:has(.lucide-menu),
+button:has(.lucide-chevron-down) {
+  background-color: #f1f5f9 !important; /* Slate 100 */
+  border-color: #e2e8f0 !important; /* Slate 200 */
+}
+
+.Button:has([data-lucide="menu"]):hover,
+.Button:has([data-lucide="chevron-down"]):hover,
+.Button:has(.lucide-menu):hover,
+.Button:has(.lucide-chevron-down):hover,
+button:has([data-lucide="menu"]):hover,
+button:has([data-lucide="chevron-down"]):hover,
+button:has(.lucide-menu):hover,
+button:has(.lucide-chevron-down):hover {
+  background-color: #e2e8f0 !important; /* Slate 200 */
+  border-color: #cbd5e1 !important; /* Slate 300 */
+}
+
+/* Remove any remaining black backgrounds from icon containers */
+.bg-black, .bg-gray-900, .bg-slate-900 {
+  background-color: #f8fafc !important; /* Light gray fallback */
+}
+
+/* Avatar fallback backgrounds */
+.AvatarFallback, .avatar-fallback {
+  background-color: #e2e8f0 !important; /* Slate 200 */
+  color: #475569 !important; /* Slate 600 */
+}
+
 /* Footer styling */
 .dashboard-footer {
   background-color: #ffffff;
