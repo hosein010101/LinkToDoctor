@@ -182,12 +182,18 @@ export default function Dashboard() {
 
   if (statsLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center space-y-4">
-          <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto animate-pulse">
-            <Heart className="text-white" size={32} />
+      <div className="dashboard-loading">
+        <div className="main-icon">
+          <Heart className="site-logo" />
+        </div>
+        <div className="text-center space-y-2">
+          <p className="text-xl font-semibold text-gray-900">سامانه LinkToDoctor</p>
+          <p className="text-sm text-gray-600">در حال بارگذاری داشبورد...</p>
+          <div className="flex items-center justify-center space-x-1 space-x-reverse mt-4">
+            <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+            <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+            <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
           </div>
-          <p className="text-lg font-medium text-gray-900 dark:text-white">در حال بارگذاری داشبورد...</p>
         </div>
       </div>
     );
@@ -334,7 +340,7 @@ export default function Dashboard() {
           <Card className="card-professional">
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center space-x-2 space-x-reverse">
-                <Star className="w-5 h-5 text-yellow-600" />
+                <Star className="w-5 h-5 text-amber-500 star-icon adaptive-icon" style={{ color: '#f59e0b' }} />
                 <span>پزشکان برتر ماه</span>
               </h3>
               <div className="space-y-4">
