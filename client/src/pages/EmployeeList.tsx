@@ -75,9 +75,23 @@ export default function EmployeeList() {
   // Modal states
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
   const [activeTab, setActiveTab] = useState("profile");
   const [editFormData, setEditFormData] = useState<Employee | null>(null);
+  const [newEmployeeData, setNewEmployeeData] = useState({
+    fullName: "",
+    nationalId: "",
+    department: "",
+    position: "",
+    status: "فعال" as Employee["status"],
+    phone: "",
+    email: "",
+    address: "",
+    contractType: "تمام وقت",
+    contractStartDate: "",
+    contractEndDate: ""
+  });
 
   // KPI Data
   const kpis = [
@@ -282,6 +296,54 @@ export default function EmployeeList() {
     setEditFormData(null);
   };
 
+  const handleAddEmployee = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const handleSaveNewEmployee = () => {
+    if (newEmployeeData.fullName && newEmployeeData.nationalId) {
+      const newEmployee: Employee = {
+        ...newEmployeeData as Employee,
+        id: Math.max(...employees.map(e => e.id)) + 1,
+        employeeId: `EMP${String(Math.max(...employees.map(e => parseInt(e.employeeId.slice(3)))) + 1).padStart(3, '0')}`,
+        hireDate: new Date().toLocaleDateString('fa-IR')
+      };
+      
+      console.log('کارمند جدید اضافه شد:', newEmployee);
+      setIsAddModalOpen(false);
+      setNewEmployeeData({
+        fullName: "",
+        nationalId: "",
+        department: "",
+        position: "",
+        status: "فعال",
+        phone: "",
+        email: "",
+        address: "",
+        contractType: "تمام وقت",
+        contractStartDate: "",
+        contractEndDate: ""
+      });
+    }
+  };
+
+  const handleCancelAdd = () => {
+    setIsAddModalOpen(false);
+    setNewEmployeeData({
+      fullName: "",
+      nationalId: "",
+      department: "",
+      position: "",
+      status: "فعال",
+      phone: "",
+      email: "",
+      address: "",
+      contractType: "تمام وقت",
+      contractStartDate: "",
+      contractEndDate: ""
+    });
+  };
+
   const handleDocumentAction = (action: string, documentName: string) => {
     console.log(`${action}: ${documentName}`);
   };
@@ -402,7 +464,10 @@ export default function EmployeeList() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-2xl font-bold text-gray-900">فهرست کارکنان</CardTitle>
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+            <Button 
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+              onClick={handleAddEmployee}
+            >
               <Plus className="w-4 h-4 ml-2" />
               افزودن کارمند جدید
             </Button>
@@ -832,6 +897,166 @@ export default function EmployeeList() {
               </div>
             </div>
           )}
+        </div>
+      </Modal>
+
+      {/* Add New Employee Modal */}
+      <Modal
+        isOpen={isAddModalOpen}
+        onClose={handleCancelAdd}
+        title="افزودن کارمند جدید"
+        size="xl"
+      >
+        <div className="p-6" dir="rtl">
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">نام کامل *</label>
+                <Input
+                  value={newEmployeeData.fullName}
+                  onChange={(e) => setNewEmployeeData({ ...newEmployeeData, fullName: e.target.value })}
+                  placeholder="نام و نام خانوادگی کارمند"
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">کد ملی *</label>
+                <Input
+                  value={newEmployeeData.nationalId}
+                  onChange={(e) => setNewEmployeeData({ ...newEmployeeData, nationalId: e.target.value })}
+                  placeholder="کد ملی ۱۰ رقمی"
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">واحد سازمانی *</label>
+                <Select 
+                  value={newEmployeeData.department} 
+                  onValueChange={(value) => setNewEmployeeData({ ...newEmployeeData, department: value })}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="انتخاب واحد سازمانی" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="بخش آزمایشگاه">بخش آزمایشگاه</SelectItem>
+                    <SelectItem value="نمونه‌گیری">نمونه‌گیری</SelectItem>
+                    <SelectItem value="اداری">اداری</SelectItem>
+                    <SelectItem value="امور مالی">امور مالی</SelectItem>
+                    <SelectItem value="پذیرش">پذیرش</SelectItem>
+                    <SelectItem value="فناوری اطلاعات">فناوری اطلاعات</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">سمت شغلی *</label>
+                <Input
+                  value={newEmployeeData.position}
+                  onChange={(e) => setNewEmployeeData({ ...newEmployeeData, position: e.target.value })}
+                  placeholder="عنوان شغل"
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">شماره تلفن</label>
+                <Input
+                  value={newEmployeeData.phone}
+                  onChange={(e) => setNewEmployeeData({ ...newEmployeeData, phone: e.target.value })}
+                  placeholder="۰۹۱۲۳۴۵۶۷۸۹"
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">ایمیل</label>
+                <Input
+                  type="email"
+                  value={newEmployeeData.email}
+                  onChange={(e) => setNewEmployeeData({ ...newEmployeeData, email: e.target.value })}
+                  placeholder="example@linktodoctor.ir"
+                  className="w-full"
+                />
+              </div>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">آدرس</label>
+              <Input
+                value={newEmployeeData.address}
+                onChange={(e) => setNewEmployeeData({ ...newEmployeeData, address: e.target.value })}
+                placeholder="آدرس کامل محل سکونت"
+                className="w-full"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">نوع قرارداد</label>
+                <Select 
+                  value={newEmployeeData.contractType} 
+                  onValueChange={(value) => setNewEmployeeData({ ...newEmployeeData, contractType: value })}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="تمام وقت">تمام وقت</SelectItem>
+                    <SelectItem value="پاره وقت">پاره وقت</SelectItem>
+                    <SelectItem value="پروژه‌ای">پروژه‌ای</SelectItem>
+                    <SelectItem value="آزمایشی">آزمایشی</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">تاریخ شروع قرارداد</label>
+                <Input
+                  value={newEmployeeData.contractStartDate}
+                  onChange={(e) => setNewEmployeeData({ ...newEmployeeData, contractStartDate: e.target.value })}
+                  placeholder="۱۴۰۳/۰۱/۰۱"
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">تاریخ پایان قرارداد</label>
+                <Input
+                  value={newEmployeeData.contractEndDate}
+                  onChange={(e) => setNewEmployeeData({ ...newEmployeeData, contractEndDate: e.target.value })}
+                  placeholder="۱۴۰۸/۰۱/۰۱"
+                  className="w-full"
+                />
+              </div>
+            </div>
+
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <p className="text-sm text-gray-600 mb-2">وضعیت اولیه کارمند:</p>
+              <div className="flex items-center space-x-4 space-x-reverse">
+                <Select 
+                  value={newEmployeeData.status} 
+                  onValueChange={(value) => setNewEmployeeData({ ...newEmployeeData, status: value as Employee["status"] })}
+                >
+                  <SelectTrigger className="w-48">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="فعال">فعال</SelectItem>
+                    <SelectItem value="در مرخصی">در مرخصی</SelectItem>
+                    <SelectItem value="تعلیق">تعلیق</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="flex justify-end space-x-3 space-x-reverse pt-6 border-t">
+              <Button variant="outline" onClick={handleCancelAdd}>
+                انصراف
+              </Button>
+              <Button 
+                className="bg-blue-600 hover:bg-blue-700 text-white" 
+                onClick={handleSaveNewEmployee}
+                disabled={!newEmployeeData.fullName || !newEmployeeData.nationalId || !newEmployeeData.department || !newEmployeeData.position}
+              >
+                ثبت کارمند جدید
+              </Button>
+            </div>
+          </div>
         </div>
       </Modal>
     </div>
