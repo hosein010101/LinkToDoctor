@@ -212,7 +212,7 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
                   >
                     <div className="flex items-center">
                       <section.icon className="w-4 h-4 ml-2" style={{color: section.color}} />
-                      {section.title}
+                      <span style={{color: section.color}}>{section.title}</span>
                     </div>
                     <ChevronDown
                       className={`w-4 h-4 transition-transform ${
