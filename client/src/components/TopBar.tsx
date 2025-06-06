@@ -112,7 +112,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-gray-900 shadow-2xl border-0 rounded-xl p-2">
+            <DropdownMenuContent align="end" className="w-56 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-2xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl p-2">
               <DropdownMenuLabel className="flex items-center space-x-2 space-x-reverse px-3 py-2 text-gray-900 dark:text-gray-100 font-semibold">
                 <Languages className="w-4 h-4 text-blue-500" />
                 <span>انتخاب زبان</span>
@@ -152,7 +152,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-96 bg-white dark:bg-gray-900 shadow-2xl border-0 rounded-xl p-3">
+            <DropdownMenuContent align="end" className="w-96 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-2xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl p-3">
               <DropdownMenuLabel className="flex items-center justify-between px-3 py-2 text-gray-900 dark:text-gray-100 font-semibold">
                 <span>اعلان‌ها</span>
                 <Badge variant="secondary" className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">{unreadCount} جدید</Badge>
@@ -209,7 +209,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-72 bg-white dark:bg-gray-900 shadow-2xl border-0 rounded-xl p-3">
+            <DropdownMenuContent align="end" className="w-72 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-2xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl p-3">
               <DropdownMenuLabel className="flex items-center justify-between px-3 py-2 text-gray-900 dark:text-gray-100 font-semibold">
                 <span>پیام‌ها</span>
                 <Badge variant="secondary" className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">{messageCount} جدید</Badge>
@@ -244,7 +244,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                 <Activity className="w-5 h-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-64 bg-white dark:bg-gray-900 shadow-2xl border-0 rounded-xl p-3">
+            <DropdownMenuContent align="end" className="w-64 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-2xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl p-3">
               <DropdownMenuLabel className="px-3 py-2 text-gray-900 dark:text-gray-100 font-semibold">عملیات سریع</DropdownMenuLabel>
               <DropdownMenuSeparator className="my-2 bg-gray-100 dark:bg-gray-700" />
               <DropdownMenuItem className="m-1 px-3 py-3 cursor-pointer rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:shadow-sm transition-all duration-200">
@@ -291,7 +291,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-80 bg-white dark:bg-gray-900 shadow-2xl border-0 rounded-xl p-4">
+            <DropdownMenuContent align="end" className="w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-2xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl p-4">
               {/* User Info Header */}
               <div className="flex items-center space-x-4 space-x-reverse p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl mb-4">
                 <Avatar className="w-14 h-14 border-3 border-white shadow-lg">
