@@ -1,0 +1,49 @@
+Subject: Create a High-Fidelity, On-Brand Login Page Using the Official Company Logo
+
+Prompt:
+
+You are a senior UI/UX designer and frontend developer. Your task is to create a polished, modern, and fully functional login page. The design must be based on the provided official company logo (`logo.png`) and adhere strictly to its brand identity.
+
+**I. Core Design Concept: The Two-Column (Split-Screen) Layout**
+Implement a clean, professional two-column layout. This layout will separate the visual branding from the interactive login form, creating a premium user experience.
+
+**II. Color Palette (Extracted from `logo.png`):**
+This is the most critical instruction. You must derive the color palette directly from the provided logo.
+* **`--primary-brand-color:`** The main, darker blue from the "linkToDoctor" text. **(This will be our main action color).**
+* **`--secondary-brand-color:`** The lighter, aqua/turquoise color from the "To" in the logo. **(This will be our accent and highlight color).**
+* **`--neutral-text-color:`** A dark charcoal grey for text (`#2D3748`).
+* **`--background-color:`** A clean white (`#FFFFFF`) for the form area.
+
+**III. Right Column (The Branding & Visual Area):**
+This section must powerfully and elegantly represent the brand.
+
+1.  **Background:** Create a subtle, professional background. Use one of these two options:
+    * **Option A (Preferred):** Use the abstract icon from the logo (the two overlapping rounded squares) as a very large, semi-transparent graphic pattern in the background.
+    * **Option B:** Use a subtle, soft linear gradient background using the `--primary-brand-color` and `--secondary-brand-color`.
+2.  **Logo:** Display the full, official `logo.png` at the top of this column.
+3.  **Tagline:** Below the logo, add the tagline: **"سامانه جامع مدیریت سلامت الکترونیک"**.
+
+**IV. Left Column (The Form & Functional Area):**
+This section must be intuitive, clean, and guide the user to log in effortlessly.
+
+1.  **Title:** A clear heading: **"ورود به سامانه"**.
+2.  **Input Fields:**
+    * **Username/Email:** Labeled **"نام کاربری یا ایمیل"**.
+    * **Password:** Labeled **"رمز عبور"**, with a clickable "eye" icon to toggle password visibility.
+3.  **Helper Options:**
+    * Checkbox labeled **"مرا به خاطر بسپار"**.
+    * Link with the text **"رمز عبور خود را فراموش کرده‌اید؟"**. This link should use the `--secondary-brand-color` (the aqua color) for its text.
+4.  **Login Button:**
+    * A prominent, full-width button with the text **"ورود"**.
+    * Its background color **must** be `var(--primary-brand-color)` (the main blue from the logo).
+5.  **Error Message Area:** A designated space for login error messages, styled with red text.
+
+**V. UI/UX Details & Interactivity:**
+
+* **Consistency:** All interactive elements must use the brand colors. The `:focus` state on input fields should have a border color of `var(--primary-brand-color)`. Hover states for links should use the `--secondary-brand-color`.
+* **Typography:** Use a clean, readable Persian sans-serif font (e.g., Vazirmatn, IRANSans).
+* **JavaScript:** Implement the show/hide password toggle functionality.
+* **Responsiveness:** The layout must be fully responsive, stacking the columns vertically on mobile devices.
+
+**VI. Deliverables:**
+A single, self-contained HTML file with embedded CSS and JS (or separate files) that creates a fully-realized, functional prototype of this high-fidelity login page, perfectly aligned with the provided `logo.png`.
