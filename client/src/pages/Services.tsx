@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +20,7 @@ import {
 import type { LabService } from "@/lib/types";
 
 export default function Services() {
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -83,7 +85,7 @@ export default function Services() {
   };
 
   if (isLoading) {
-    return <div className="p-6">در حال بارگذاری...</div>;
+    return <div className="p-6">{t('common.loading')}...</div>;
   }
 
   return (
@@ -92,10 +94,10 @@ export default function Services() {
       <Card>
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-semibold text-medical-text">کاتالوگ خدمات آزمایشگاهی</h3>
+            <h3 className="text-xl font-semibold text-medical-text">{t('services.title')}</h3>
             <Button className="bg-medical-teal hover:bg-opacity-90 text-white">
               <Plus className="ml-2 w-4 h-4" />
-              خدمت جدید
+              {t('services.addService')}
             </Button>
           </div>
           
@@ -104,7 +106,7 @@ export default function Services() {
             <div className="relative">
               <Search className="absolute right-3 top-3 w-4 h-4 text-gray-400" />
               <Input
-                placeholder="جستجوی خدمات..."
+                placeholder={t('common.search') + '...'}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pr-10"
@@ -113,7 +115,7 @@ export default function Services() {
             
             <Select value={categoryFilter} onValueChange={setCategoryFilter}>
               <SelectTrigger className="bg-white">
-                <SelectValue placeholder="همه دسته‌بندی‌ها" />
+                <SelectValue placeholder={t('common.all') + ' ' + t('services.category')} />
               </SelectTrigger>
               <SelectContent className="bg-white">
                 <SelectItem value="">همه دسته‌بندی‌ها</SelectItem>
