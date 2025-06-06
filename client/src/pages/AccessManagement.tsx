@@ -409,7 +409,7 @@ export default function AccessManagement() {
 
 
         {/* Main Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs defaultValue="groups" className="w-full">
           <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="groups" className="flex items-center space-x-2 space-x-reverse text-medical-secondary hover:text-medical-primary">
               <Users className="w-4 h-4" />

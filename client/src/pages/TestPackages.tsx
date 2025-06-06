@@ -345,7 +345,7 @@ export default function TestPackages() {
       </div>
 
       {/* Main Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <Tabs defaultValue="packages" className="w-full">
         <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="packages" className="flex items-center space-x-2 space-x-reverse">
             <Package className="w-4 h-4" />
