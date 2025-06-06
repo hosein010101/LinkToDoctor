@@ -138,7 +138,7 @@ export default function Delivery() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "completed":
-        return <Badge style={{backgroundColor: '#EBF8FF', color: '#4299E1', border: '1px solid #4299E1'}}>آماده تحویل</Badge>;
+        return <Badge className="bg-orange-100 text-orange-800 border-orange-200">آماده تحویل</Badge>;
       case "delivered":
         return <Badge className="bg-green-100 text-green-800 border-green-200">تحویل شده</Badge>;
       default:
@@ -191,7 +191,7 @@ export default function Delivery() {
             </Button>
             <Button 
               onClick={handleBulkDelivery}
-              style={{backgroundColor: '#48BB78', color: 'white', border: 'none'}}
+              className="bg-green-600 hover:bg-green-700 text-white"
               disabled={deliverResultMutation.isPending}
             >
               <Send className="w-4 h-4 ml-2" />
@@ -401,7 +401,7 @@ export default function Delivery() {
                       <Button 
                         size="sm"
                         onClick={() => handleDelivery(order.id)}
-                        style={{backgroundColor: '#48BB78', color: 'white', border: 'none'}}
+                        className="bg-green-600 hover:bg-green-700 text-white"
                         disabled={deliverResultMutation.isPending}
                       >
                         <Send className="w-4 h-4 ml-1" />
