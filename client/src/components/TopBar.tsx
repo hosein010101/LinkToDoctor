@@ -54,11 +54,11 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
   const { language, setLanguage, t, dir } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [notifications] = useState([
-    { id: 1, title: "سفارش جدید ثبت شد", time: "2 دقیقه پیش", type: "order", unread: true },
-    { id: 2, title: "نتایج آزمایش آماده است", time: "10 دقیقه پیش", type: "result", unread: true },
-    { id: 3, title: "نمونه‌گیری تکمیل شد", time: "1 ساعت پیش", type: "sample", unread: false },
-  ]);
+  const notifications = [
+    { id: 1, title: t('notifications.newOrderRegistered'), time: t('notifications.twoMinutesAgo'), type: "order", unread: true },
+    { id: 2, title: t('notifications.testResultsReady'), time: t('notifications.tenMinutesAgo'), type: "result", unread: true },
+    { id: 3, title: t('notifications.samplingCompleted'), time: t('notifications.oneHourAgo'), type: "sample", unread: false },
+  ];
 
   const languages = [
     { code: "fa", name: "فارسی", flag: "🇮🇷" },

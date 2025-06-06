@@ -248,6 +248,13 @@ const translations = {
     'dashboard.scheduleCollection': 'برنامه‌ریزی نمونه‌گیری',
     'dashboard.enterResults': 'ورود نتایج',
     
+    // Notifications
+    'notifications.newOrderRegistered': 'سفارش جدید ثبت شد',
+    'notifications.testResultsReady': 'نتایج آزمایش آماده است',
+    'notifications.samplingCompleted': 'نمونه‌گیری تکمیل شد',
+    'notifications.twoMinutesAgo': '۲ دقیقه پیش',
+    'notifications.tenMinutesAgo': '۱۰ دقیقه پیش',
+    'notifications.oneHourAgo': '۱ ساعت پیش',
 
   },
   en: {
@@ -550,7 +557,6 @@ const translations = {
     'dashboard.readyResults': 'النتائج جاهزة',
     'dashboard.monthlyRevenue': 'الإيرادات الشهرية',
     'dashboard.recentOrders': 'الطلبات الأخيرة',
-    'dashboard.quickActions': 'إجراءات سريعة',
     'dashboard.viewAll': 'عرض الكل',
     
     // Patients

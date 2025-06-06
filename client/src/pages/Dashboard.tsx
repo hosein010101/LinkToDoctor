@@ -630,7 +630,7 @@ export default function Dashboard() {
                       <p className="text-xs text-gray-500">{doctor.specialty}</p>
                     </div>
                     <Badge variant="secondary" className="text-xs">
-                      {doctor.orders} سفارش
+                      {doctor.orders} {t('orders.orderCount')}
                     </Badge>
                   </div>
                 ))}
