@@ -116,11 +116,112 @@ p, span, div {
 }
 
 /* YELLOW STRICTLY FORBIDDEN - Use Professional Alternatives */
-.bg-yellow-100, .bg-amber-100 { 
-  background-color: var(--info-bg-color) !important; 
-  color: var(--info-text-color) !important; 
-  border: 1px solid var(--info-text-color) !important;
+.bg-yellow-100, .bg-amber-100, .yellow, .bg-yellow-200, .bg-yellow-300, .bg-yellow-400, .bg-yellow-500 { 
+  background-color: #EBF8FF !important; 
+  color: #4299E1 !important; 
+  border: 1px solid #4299E1 !important;
   font-weight: 600;
+}
+
+/* Override all yellow variants */
+.text-yellow-600, .text-yellow-700, .text-yellow-800, .text-amber-600, .text-amber-700 {
+  color: #4299E1 !important;
+}
+
+.border-yellow-200, .border-yellow-300, .border-amber-200 {
+  border-color: #4299E1 !important;
+}
+
+/* Global override for any yellow/amber colors in Tailwind */
+*[class*="yellow"], *[class*="amber"] {
+  background-color: #EBF8FF !important;
+  color: #4299E1 !important;
+  border-color: #4299E1 !important;
+}
+
+/* Override Shadcn button variants that might use yellow */
+.bg-primary {
+  background-color: #4A90E2 !important;
+}
+
+.text-primary {
+  color: #4A90E2 !important;
+}
+
+/* Force override all button states */
+button[class*="yellow"], button[class*="amber"] {
+  background-color: #4A90E2 !important;
+  color: white !important;
+  border-color: #4A90E2 !important;
+}
+
+/* Badge and Orange overrides - Replace with professional colors */
+.bg-orange-100, .text-orange-600, .text-orange-700, .text-orange-800 {
+  background-color: #EBF8FF !important;
+  color: #4299E1 !important;
+  border-color: #4299E1 !important;
+}
+
+/* Comprehensive Tailwind overrides */
+.hover\:bg-yellow-50:hover, .hover\:bg-yellow-100:hover, .hover\:bg-amber-50:hover, .hover\:bg-amber-100:hover {
+  background-color: #EBF8FF !important;
+}
+
+.focus\:ring-yellow-500:focus, .focus\:ring-amber-500:focus {
+  --tw-ring-color: #4299E1 !important;
+}
+
+/* Button component overrides */
+.btn, button {
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* Ensure pagination buttons use professional colors */
+button[aria-current="page"], button[data-state="active"] {
+  background-color: #4A90E2 !important;
+  color: white !important;
+  border-color: #4A90E2 !important;
+}
+
+/* Shadcn Select component overrides */
+[data-state="open"], [data-state="checked"], [aria-selected="true"] {
+  background-color: #4A90E2 !important;
+  color: white !important;
+}
+
+/* Badge component comprehensive override */
+.inline-flex.items-center.rounded-full, .inline-flex.items-center.rounded-md {
+  background-color: #EBF8FF !important;
+  color: #4299E1 !important;
+  border: 1px solid #4299E1 !important;
+}
+
+/* Variant overrides for common UI states */
+[data-variant="default"], [data-variant="secondary"] {
+  background-color: #4A90E2 !important;
+  color: white !important;
+}
+
+[data-variant="outline"] {
+  border-color: #4A90E2 !important;
+  color: #4A90E2 !important;
+}
+
+/* Force override any remaining yellow/orange elements */
+* {
+  --yellow-50: #EBF8FF !important;
+  --yellow-100: #EBF8FF !important;
+  --yellow-200: #EBF8FF !important;
+  --yellow-500: #4299E1 !important;
+  --amber-50: #EBF8FF !important;
+  --amber-100: #EBF8FF !important;
+  --amber-500: #4299E1 !important;
+  --orange-100: #EBF8FF !important;
+  --orange-500: #4299E1 !important;
 }
 
 .bg-purple-100 { 
