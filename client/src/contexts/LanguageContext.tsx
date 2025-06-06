@@ -492,6 +492,14 @@ const translations = {
     'dashboard.scheduleCollection': 'Schedule Collection',
     'dashboard.enterResults': 'Enter Results',
     
+    // Notifications
+    'notifications.newOrderRegistered': 'New Order Registered',
+    'notifications.testResultsReady': 'Test Results Ready',
+    'notifications.samplingCompleted': 'Sampling Completed',
+    'notifications.twoMinutesAgo': '2 minutes ago',
+    'notifications.tenMinutesAgo': '10 minutes ago',
+    'notifications.oneHourAgo': '1 hour ago',
+    
     // Additional Keys for Orders  
     'orders.orderCount': 'order',
     'orders.totalOrders': 'total orders',
@@ -679,6 +687,14 @@ const translations = {
     'dashboard.urgentOrder': 'تسجيل طلب عاجل',
     'dashboard.scheduleCollection': 'جدولة جمع العينات',
     'dashboard.enterResults': 'إدخال النتائج',
+    
+    // Notifications
+    'notifications.newOrderRegistered': 'تم تسجيل طلب جديد',
+    'notifications.testResultsReady': 'نتائج الفحص جاهزة',
+    'notifications.samplingCompleted': 'تم إكمال أخذ العينات',
+    'notifications.twoMinutesAgo': 'منذ دقيقتين',
+    'notifications.tenMinutesAgo': 'منذ ١٠ دقائق',
+    'notifications.oneHourAgo': 'منذ ساعة واحدة',
     
     // Additional Keys for Orders
     'dashboard.reports': 'التقارير',
