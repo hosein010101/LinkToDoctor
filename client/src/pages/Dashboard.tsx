@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -84,6 +85,7 @@ interface RecentActivity {
 
 export default function Dashboard() {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const { t } = useLanguage();
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -101,7 +103,7 @@ export default function Dashboard() {
   // Enhanced demo data for comprehensive dashboard
   const quickStats: QuickStat[] = [
     {
-      title: "سفارشات امروز",
+      title: t('dashboard.todayOrders'),
       value: "142",
       change: "+12.5%",
       changeType: "increase",
@@ -110,7 +112,7 @@ export default function Dashboard() {
       bgColor: "bg-blue-50"
     },
     {
-      title: "در انتظار نمونه‌گیری",
+      title: t('dashboard.pendingCollection'),
       value: "28",
       change: "-8.2%",
       changeType: "decrease",
@@ -119,7 +121,7 @@ export default function Dashboard() {
       bgColor: "bg-orange-50"
     },
     {
-      title: "نتایج آماده",
+      title: t('dashboard.readyResults'),
       value: "76",
       change: "+15.3%",
       changeType: "increase",
@@ -128,7 +130,7 @@ export default function Dashboard() {
       bgColor: "bg-green-50"
     },
     {
-      title: "درآمد ماهانه",
+      title: t('dashboard.monthlyRevenue'),
       value: "۲,۸۴۰,۰۰۰ تومان",
       change: "+9.1%",
       changeType: "increase",
