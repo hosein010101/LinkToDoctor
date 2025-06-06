@@ -92,7 +92,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
           <div className="relative hidden md:block">
             <SearchIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400 search-icon adaptive-icon" />
             <Input
-              placeholder="جستجو در سامانه..."
+              placeholder={t('header.search')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-80 pr-10 border-gray-200 bg-gray-50/50 hover:bg-white focus:bg-white focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all duration-200 rounded-lg"
@@ -109,30 +109,30 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 hover:shadow-sm dark:hover:bg-gray-800 transition-all duration-300 rounded-lg flex items-center space-x-2 space-x-reverse px-3 py-2">
                 <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
-                  {languages.find(lang => lang.code === currentLanguage)?.code.toUpperCase()}
+                  {languages.find(lang => lang.code === language)?.code.toUpperCase()}
                 </div>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-2xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl p-2">
               <DropdownMenuLabel className="flex items-center space-x-2 space-x-reverse px-3 py-2 text-gray-900 dark:text-gray-100 font-semibold">
                 <Languages className="w-4 h-4 text-blue-500" />
-                <span>انتخاب زبان</span>
+                <span>{t('header.languageSelect')}</span>
               </DropdownMenuLabel>
               <DropdownMenuSeparator className="my-2 bg-gray-100 dark:bg-gray-700" />
-              {languages.map((language) => (
+              {languages.map((lang) => (
                 <DropdownMenuItem 
-                  key={language.code}
-                  onClick={() => setCurrentLanguage(language.code)}
+                  key={lang.code}
+                  onClick={() => setLanguage(lang.code as any)}
                   className={`cursor-pointer m-1 px-3 py-3 rounded-lg transition-all duration-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:shadow-sm ${
-                    currentLanguage === language.code 
+                    language === lang.code 
                       ? 'bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700' 
                       : 'text-gray-700 dark:text-gray-300'
                   }`}
                 >
                   <div className="flex items-center space-x-3 space-x-reverse w-full">
-                    <span className="text-xl">{language.flag}</span>
-                    <span className="flex-1 font-medium">{language.name}</span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 uppercase bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-md">{language.code}</span>
+                    <span className="text-xl">{lang.flag}</span>
+                    <span className="flex-1 font-medium">{lang.name}</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 uppercase bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-md">{lang.code}</span>
                   </div>
                 </DropdownMenuItem>
               ))}
@@ -155,8 +155,8 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-96 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-2xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl p-3">
               <DropdownMenuLabel className="flex items-center justify-between px-3 py-2 text-gray-900 dark:text-gray-100 font-semibold">
-                <span>اعلان‌ها</span>
-                <Badge variant="secondary" className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">{unreadCount} جدید</Badge>
+                <span>{t('header.notifications')}</span>
+                <Badge variant="secondary" className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">{unreadCount} {t('header.newNotifications')}</Badge>
               </DropdownMenuLabel>
               <DropdownMenuSeparator className="my-2 bg-gray-100 dark:bg-gray-700" />
               <div className="max-h-80 overflow-y-auto">
