@@ -652,8 +652,27 @@ const translations = {
     
     // Chart Labels
     'chart.monthlyOrders': 'الطلبات الشهرية',
+    'chart.monthlyOrdersTrend': 'اتجاه الطلبات الشهرية',
+    'chart.testTypesDistribution': 'توزيع أنواع الفحوصات',
     'chart.weeklyRevenue': 'الإيرادات الأسبوعية',
+    'chart.performanceMetrics': 'مؤشرات الأداء',
     'chart.testCategories': 'فئات الفحوصات',
+    
+    // Dashboard
+    'dashboard.topDoctorsMonth': 'أفضل الأطباء لهذا الشهر',
+    'dashboard.systemStatus': 'حالة النظام',
+    'dashboard.quickActions': 'إجراءات سريعة',
+    'dashboard.mainServer': 'الخادم الرئيسي',
+    'dashboard.database': 'قاعدة البيانات',
+    'dashboard.collectors': 'جامعو العينات',
+    'dashboard.lastBackup': 'آخر نسخة احتياطية',
+    'dashboard.online': 'متصل',
+    'dashboard.active': 'نشط',
+    'dashboard.peopleOnline': 'أشخاص متصلين',
+    'dashboard.hoursAgo': 'ساعات مضت',
+    'dashboard.urgentOrder': 'تسجيل طلب عاجل',
+    'dashboard.scheduleCollection': 'جدولة جمع العينات',
+    'dashboard.enterResults': 'إدخال النتائج',
     
     // Additional Keys for Orders
     'dashboard.reports': 'التقارير',
