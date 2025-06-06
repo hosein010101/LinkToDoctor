@@ -148,6 +148,16 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
       ]
     },
     {
+      title: "ابزار های هوش مصنوعی و نواورانه",
+      icon: Activity,
+      color: "#10b981",
+      items: [
+        { icon: Activity, label: "تفسیر و تشخیص هوشمند", path: "/ai-diagnosis", color: "#10b981" },
+        { icon: Calendar, label: "یادآور آزمایشات", path: "/test-reminders", color: "#3b82f6" },
+        { icon: Shield, label: "مدیریت بیمه و API", path: "/insurance-api", color: "#8b5cf6" },
+      ]
+    },
+    {
       title: "تنظیمات",
       icon: Settings,
       color: "#d1d5db",

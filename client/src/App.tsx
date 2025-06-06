@@ -47,6 +47,11 @@ import HelpSupport from "@/pages/HelpSupport";
 import EmployeeList from "@/pages/EmployeeList";
 import TaskList from "@/pages/TaskList";
 
+// AI-Powered Tools
+import AIDiagnosis from "@/pages/AIDiagnosis";
+import TestReminders from "@/pages/TestReminders";
+import InsuranceAPI from "@/pages/InsuranceAPI";
+
 import { queryClient } from "@/lib/queryClient";
 
 function Router() {
@@ -105,6 +110,11 @@ function Router() {
         
         {/* Task Management */}
         <Route path="/tasks" component={Tasks} />
+        
+        {/* AI-Powered Tools */}
+        <Route path="/ai-diagnosis" component={AIDiagnosis} />
+        <Route path="/test-reminders" component={TestReminders} />
+        <Route path="/insurance-api" component={InsuranceAPI} />
         
         {/* System Settings */}
         <Route path="/settings" component={Settings} />
