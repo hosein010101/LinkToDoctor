@@ -137,17 +137,17 @@ export default function Reports() {
         </div>
         <div className="flex items-center space-x-3 space-x-reverse">
           <Select value={dateRange} onValueChange={setDateRange}>
-            <SelectTrigger className="w-40">
+            <SelectTrigger className="w-40 bg-white">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               <SelectItem value="7">7 روز گذشته</SelectItem>
               <SelectItem value="30">30 روز گذشته</SelectItem>
               <SelectItem value="90">90 روز گذشته</SelectItem>
               <SelectItem value="365">1 سال گذشته</SelectItem>
             </SelectContent>
           </Select>
-          <Button variant="outline">
+          <Button variant="outline" className="bg-white border-blue-500 text-blue-600 hover:bg-blue-50">
             <Filter className="w-4 h-4 ml-2" />
             فیلترها
           </Button>
