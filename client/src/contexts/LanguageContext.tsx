@@ -233,6 +233,20 @@ const translations = {
     'chart.testTypesDistribution': 'توزیع انواع آزمایش',
     'chart.weeklyRevenue': 'درآمد هفتگی',
     'chart.performanceMetrics': 'شاخص‌های عملکرد',
+    'dashboard.topDoctorsMonth': 'پزشکان برتر ماه',
+    'dashboard.systemStatus': 'وضعیت سیستم',
+    'dashboard.quickActions': 'عملیات سریع',
+    'dashboard.mainServer': 'سرور اصلی',
+    'dashboard.database': 'پایگاه داده',
+    'dashboard.collectors': 'نمونه‌گیران',
+    'dashboard.lastBackup': 'آخرین بکاپ',
+    'dashboard.online': 'آنلاین',
+    'dashboard.active': 'فعال',
+    'dashboard.peopleOnline': 'نفر آنلاین',
+    'dashboard.hoursAgo': 'ساعت پیش',
+    'dashboard.urgentOrder': 'ثبت سفارش فوری',
+    'dashboard.scheduleCollection': 'برنامه‌ریزی نمونه‌گیری',
+    'dashboard.enterResults': 'ورود نتایج',
     
 
   },
@@ -449,8 +463,27 @@ const translations = {
     
     // Chart Labels
     'chart.monthlyOrders': 'Monthly Orders',
+    'chart.monthlyOrdersTrend': 'Monthly Orders Trend',
+    'chart.testTypesDistribution': 'Test Types Distribution',
     'chart.weeklyRevenue': 'Weekly Revenue',
+    'chart.performanceMetrics': 'Performance Metrics',
     'chart.testCategories': 'Test Categories',
+    
+    // Dashboard
+    'dashboard.topDoctorsMonth': 'Top Doctors of the Month',
+    'dashboard.systemStatus': 'System Status',
+    'dashboard.quickActions': 'Quick Actions',
+    'dashboard.mainServer': 'Main Server',
+    'dashboard.database': 'Database',
+    'dashboard.collectors': 'Collectors',
+    'dashboard.lastBackup': 'Last Backup',
+    'dashboard.online': 'Online',
+    'dashboard.active': 'Active',
+    'dashboard.peopleOnline': 'People Online',
+    'dashboard.hoursAgo': 'Hours Ago',
+    'dashboard.urgentOrder': 'Register Urgent Order',
+    'dashboard.scheduleCollection': 'Schedule Collection',
+    'dashboard.enterResults': 'Enter Results',
     
     // Additional Keys for Orders  
     'orders.orderCount': 'order',

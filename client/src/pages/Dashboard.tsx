@@ -512,7 +512,7 @@ export default function Dashboard() {
           <CardHeader>
             <CardTitle className="flex items-center space-x-2 space-x-reverse">
               <Target className="w-5 h-5 text-orange-600" />
-              <span>شاخص‌های عملکرد</span>
+              <span>{t('chart.performanceMetrics')}</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -610,7 +610,7 @@ export default function Dashboard() {
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center space-x-2 space-x-reverse">
                 <TopDoctorsIcon className="w-6 h-6 star-icon adaptive-icon" />
-                <span>پزشکان برتر ماه</span>
+                <span>{t('dashboard.topDoctorsMonth')}</span>
               </h3>
               <div className="space-y-4">
                 {topPerformers.map((doctor, index) => (
@@ -643,33 +643,33 @@ export default function Dashboard() {
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center space-x-2 space-x-reverse">
                 <Shield className="w-5 h-5 text-green-600" />
-                <span>وضعیت سیستم</span>
+                <span>{t('dashboard.systemStatus')}</span>
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">سرور اصلی</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">{t('dashboard.mainServer')}</span>
                   <div className="flex items-center space-x-2 space-x-reverse">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-sm font-medium text-green-600">آنلاین</span>
+                    <span className="text-sm font-medium text-green-600">{t('dashboard.online')}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">پایگاه داده</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">{t('dashboard.database')}</span>
                   <div className="flex items-center space-x-2 space-x-reverse">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-sm font-medium text-green-600">فعال</span>
+                    <span className="text-sm font-medium text-green-600">{t('dashboard.active')}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">نمونه‌گیران</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">{t('dashboard.collectors')}</span>
                   <div className="flex items-center space-x-2 space-x-reverse">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                    <span className="text-sm font-medium text-yellow-600">۸ نفر آنلاین</span>
+                    <span className="text-sm font-medium text-yellow-600">۸ {t('dashboard.peopleOnline')}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">آخرین بکاپ</span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">۲ ساعت پیش</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">{t('dashboard.lastBackup')}</span>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">۲ {t('dashboard.hoursAgo')}</span>
                 </div>
               </div>
             </CardContent>
@@ -680,20 +680,20 @@ export default function Dashboard() {
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2 space-x-reverse">
                 <Zap className="w-5 h-5" />
-                <span>عملیات سریع</span>
+                <span>{t('dashboard.quickActions')}</span>
               </h3>
               <div className="space-y-3">
                 <Button variant="secondary" className="w-full bg-white/20 hover:bg-white/30 text-white border-0">
                   <Plus className="w-4 h-4 ml-2" />
-                  ثبت سفارش فوری
+                  {t('dashboard.urgentOrder')}
                 </Button>
                 <Button variant="secondary" className="w-full bg-white/20 hover:bg-white/30 text-white border-0">
                   <Calendar className="w-4 h-4 ml-2" />
-                  برنامه‌ریزی نمونه‌گیری
+                  {t('dashboard.scheduleCollection')}
                 </Button>
                 <Button variant="secondary" className="w-full bg-white/20 hover:bg-white/30 text-white border-0">
                   <FileText className="w-4 h-4 ml-2" />
-                  ورود نتایج
+                  {t('dashboard.enterResults')}
                 </Button>
               </div>
             </CardContent>
