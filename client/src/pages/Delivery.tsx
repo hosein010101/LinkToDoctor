@@ -208,14 +208,14 @@ export default function Delivery() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600 mb-1">آماده تحویل</p>
-                <p className="text-2xl font-bold" style={{color: '#4299E1'}}>{readyOrders.length}</p>
+                <p className="text-2xl font-bold text-orange-600">{readyOrders.length}</p>
                 <p className="text-xs text-gray-500 mt-1">
                   <TrendingUp className="w-3 h-3 inline mr-1" />
                   نیاز به تحویل فوری
                 </p>
               </div>
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{backgroundColor: '#EBF8FF'}}>
-                <Package className="w-6 h-6" style={{color: '#4299E1'}} />
+              <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                <Package className="w-6 h-6 text-orange-600" />
               </div>
             </div>
           </CardContent>
@@ -476,7 +476,7 @@ export default function Delivery() {
                       variant={currentPage === pageNumber ? "default" : "outline"}
                       size="sm"
                       onClick={() => setCurrentPage(pageNumber)}
-                      style={currentPage === pageNumber ? {backgroundColor: '#4A90E2', color: 'white', border: 'none'} : {}}
+                      className={currentPage === pageNumber ? "bg-blue-600 text-white" : ""}
                     >
                       {pageNumber}
                     </Button>
