@@ -196,6 +196,39 @@ const translations = {
     'orders.orderCount': 'سفارش',
     'orders.totalOrders': 'سفارش کل',
     'orders.addNew': 'سفارش جدید',
+    'dashboard.reports': 'گزارشات',
+    
+    // Activities
+    'activities.newOrder': 'سفارش جدید ثبت شد',
+    'activities.testApproved': 'نتایج آزمایش تایید شد',
+    'activities.sampleCollected': 'نمونه‌گیری تکمیل شد',
+    'activities.paymentReceived': 'پرداخت انجام شد',
+    'activities.urgentOrder': 'سفارش فوری ثبت شد',
+    'activities.doctor': 'دکتر',
+    'activities.patient': 'بیمار',
+    'activities.minutesAgo': 'دقیقه پیش',
+    'activities.area': 'منطقه',
+    'activities.amount': 'مبلغ',
+    'activities.order': 'سفارش',
+    'activities.emergencyTests': 'آزمایش اورژانسی',
+    'activities.medicalCenter': 'مرکز درمانی',
+    
+    // Performers
+    'performers.internal': 'داخلی',
+    'performers.cardiology': 'قلب و عروق',
+    'performers.endocrine': 'غدد',
+    'performers.gynecology': 'زنان',
+    
+    // Months
+    'months.farvardin': 'فروردین',
+    'months.ordibehesht': 'اردیبهشت',
+    'months.khordad': 'خرداد',
+    'months.tir': 'تیر',
+    'months.mordad': 'مرداد',
+    'months.shahrivar': 'شهریور',
+    
+    // Chart
+    'chart.monthlyOrders': 'سفارشات ماهانه',
     
 
   },
@@ -418,6 +451,8 @@ const translations = {
     // Additional Keys for Orders  
     'orders.orderCount': 'order',
     'orders.totalOrders': 'total orders',
+    'orders.addNew': 'New Order',
+    'dashboard.reports': 'Reports',
     
     // Additional Keys for Patients
     'patients.description': 'View and manage patient information',

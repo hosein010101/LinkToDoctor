@@ -412,11 +412,11 @@ export default function Dashboard() {
           <div className="flex space-x-3 space-x-reverse">
             <Button className="bg-gradient-primary text-white hover:shadow-lg">
               <Plus className="w-4 h-4 ml-2" />
-              سفارش جدید
+              {t('orders.addNew')}
             </Button>
             <Button variant="outline" className="hover:shadow-md">
               <BarChart3 className="w-4 h-4 ml-2" />
-              گزارشات
+              {t('dashboard.reports')}
             </Button>
           </div>
         </div>
