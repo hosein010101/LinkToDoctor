@@ -283,10 +283,10 @@ export default function Orders() {
             </div>
             
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger>
+              <SelectTrigger className="bg-white">
                 <SelectValue placeholder="وضعیت" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-white">
                 <SelectItem value="all">همه وضعیت‌ها</SelectItem>
                 <SelectItem value="registered">ثبت شده</SelectItem>
                 <SelectItem value="collection_scheduled">زمان‌بندی شده</SelectItem>
@@ -298,10 +298,10 @@ export default function Orders() {
             </Select>
 
             <Select value={itemsPerPage.toString()} onValueChange={handleItemsPerPageChange}>
-              <SelectTrigger>
+              <SelectTrigger className="bg-white">
                 <SelectValue placeholder="تعداد نمایش" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-white">
                 <SelectItem value="10">۱۰ مورد</SelectItem>
                 <SelectItem value="20">۲۰ مورد</SelectItem>
                 <SelectItem value="50">۵۰ مورد</SelectItem>
@@ -309,12 +309,12 @@ export default function Orders() {
               </SelectContent>
             </Select>
 
-            <Button variant="outline" onClick={clearFilters}>
+            <Button variant="outline" onClick={clearFilters} className="bg-white border-red-500 text-red-600 hover:bg-red-50">
               <XCircle className="w-4 h-4 ml-2" />
               پاک کردن فیلترها
             </Button>
 
-            <Button variant="outline">
+            <Button variant="outline" className="bg-white border-blue-500 text-blue-600 hover:bg-blue-50">
               <Filter className="w-4 h-4 ml-2" />
               فیلترهای پیشرفته
             </Button>
@@ -351,15 +351,15 @@ export default function Orders() {
                   </div>
                   
                   <div className="flex items-center space-x-2 space-x-reverse">
-                    <Button size="sm" variant="outline">
+                    <Button size="sm" variant="outline" className="bg-white border-blue-500 text-blue-600 hover:bg-blue-50">
                       <Eye className="w-4 h-4 ml-1" />
                       جزئیات
                     </Button>
-                    <Button size="sm" variant="outline">
+                    <Button size="sm" variant="outline" className="bg-white border-green-500 text-green-600 hover:bg-green-50">
                       <Edit className="w-4 h-4 ml-1" />
                       ویرایش
                     </Button>
-                    <Button size="sm" variant="outline">
+                    <Button size="sm" variant="outline" className="bg-white border-gray-300 text-gray-600 hover:bg-gray-50">
                       <MoreHorizontal className="w-4 h-4" />
                     </Button>
                   </div>
@@ -422,6 +422,7 @@ export default function Orders() {
                   size="sm"
                   onClick={() => handlePageChange(1)}
                   disabled={currentPage === 1}
+                  className="bg-white border-blue-500 text-blue-600 hover:bg-blue-50 disabled:bg-gray-100 disabled:border-gray-300 disabled:text-gray-400"
                 >
                   اول
                 </Button>
@@ -430,6 +431,7 @@ export default function Orders() {
                   size="sm"
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
+                  className="bg-white border-blue-500 text-blue-600 hover:bg-blue-50 disabled:bg-gray-100 disabled:border-gray-300 disabled:text-gray-400"
                 >
                   <ChevronRight className="w-4 h-4" />
                   قبلی
@@ -455,7 +457,7 @@ export default function Orders() {
                       variant={currentPage === pageNumber ? "default" : "outline"}
                       size="sm"
                       onClick={() => handlePageChange(pageNumber)}
-                      className={currentPage === pageNumber ? "bg-blue-600 text-white" : ""}
+                      className={currentPage === pageNumber ? "bg-blue-600 text-white border-blue-600" : "bg-white border-blue-500 text-blue-600 hover:bg-blue-50"}
                     >
                       {pageNumber}
                     </Button>
@@ -469,6 +471,7 @@ export default function Orders() {
                   size="sm"
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
+                  className="bg-white border-blue-500 text-blue-600 hover:bg-blue-50 disabled:bg-gray-100 disabled:border-gray-300 disabled:text-gray-400"
                 >
                   بعدی
                   <ChevronLeft className="w-4 h-4 mr-1" />
@@ -478,6 +481,7 @@ export default function Orders() {
                   size="sm"
                   onClick={() => handlePageChange(totalPages)}
                   disabled={currentPage === totalPages}
+                  className="bg-white border-blue-500 text-blue-600 hover:bg-blue-50 disabled:bg-gray-100 disabled:border-gray-300 disabled:text-gray-400"
                 >
                   آخر
                 </Button>
