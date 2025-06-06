@@ -1,526 +1,714 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
-import { useLocation } from "wouter";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { 
   User, 
-  Calendar, 
-  MapPin, 
   TestTube, 
+  MapPin, 
+  Calendar as CalendarIcon, 
+  Clock, 
   Plus, 
-  Save, 
-  X, 
-  Check,
-  Clock,
-  CreditCard,
+  Minus, 
+  Search,
+  AlertCircle,
+  CheckCircle,
+  Phone,
+  Mail,
   FileText,
-  Users,
-  Building2
+  CreditCard
 } from "lucide-react";
+import { format } from "date-fns";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/hooks/use-toast";
 
-const newOrderSchema = z.object({
-  patient: z.object({
-    name: z.string().min(2, "نام باید حداقل 2 کاراکتر باشد"),
-    nationalId: z.string().min(10, "کد ملی باید 10 رقم باشد").max(10, "کد ملی باید 10 رقم باشد"),
-    phone: z.string().min(11, "شماره تلفن نامعتبر است"),
-    age: z.number().min(1).max(120),
-    address: z.string().min(10, "آدرس باید حداقل 10 کاراکتر باشد"),
-  }),
-  order: z.object({
-    scheduledDate: z.string().min(1, "تاریخ نمونه‌گیری الزامی است"),
-    scheduledTimeSlot: z.string().min(1, "زمان نمونه‌گیری الزامی است"),
-    collectionAddress: z.string().min(10, "آدرس نمونه‌گیری الزامی است"),
-    priority: z.string().default("normal"),
-    notes: z.string().optional(),
-    totalAmount: z.number().min(0),
-  }),
-  selectedServices: z.array(z.number()).min(1, "حداقل یک آزمایش انتخاب کنید"),
-});
-
-type NewOrderForm = z.infer<typeof newOrderSchema>;
-
-interface LabService {
+interface SelectedService {
   id: number;
   name: string;
   code: string;
-  category: string;
   price: string;
-  sampleType: string;
+  category: string;
+  quantity: number;
 }
 
 export default function NewOrder() {
-  const [, setLocation] = useLocation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const [selectedServices, setSelectedServices] = useState<number[]>([]);
-
-  const { data: labServices, isLoading: servicesLoading } = useQuery<LabService[]>({
-    queryKey: ["/api/lab-services"],
+  
+  const [activeTab, setActiveTab] = useState("patient");
+  const [selectedServices, setSelectedServices] = useState<SelectedService[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date>();
+  const [searchTerm, setSearchTerm] = useState("");
+  
+  const [patientData, setPatientData] = useState({
+    name: "",
+    nationalId: "",
+    phone: "",
+    email: "",
+    age: "",
+    gender: "",
+    address: "",
+    notes: ""
   });
 
-  const form = useForm<NewOrderForm>({
-    resolver: zodResolver(newOrderSchema),
-    defaultValues: {
-      patient: {
-        name: "",
-        nationalId: "",
-        phone: "",
-        age: 0,
-        address: "",
-      },
-      order: {
-        scheduledDate: "",
-        scheduledTimeSlot: "",
-        collectionAddress: "",
-        priority: "normal",
-        notes: "",
-        totalAmount: 0,
-      },
-      selectedServices: [],
-    },
+  const [orderData, setOrderData] = useState({
+    priority: "normal",
+    scheduledTimeSlot: "",
+    collectionAddress: "",
+    specialInstructions: "",
+    paymentMethod: "cash"
   });
 
+  // Fetch lab services
+  const { data: services = [], isLoading: servicesLoading } = useQuery({
+    queryKey: ["/api/lab-services"]
+  });
+
+  // Fetch existing patients for search
+  const { data: patients = [] } = useQuery({
+    queryKey: ["/api/patients"]
+  });
+
+  // Create order mutation
   const createOrderMutation = useMutation({
-    mutationFn: async (data: NewOrderForm) => {
-      const services = selectedServices.map(serviceId => {
-        const service = labServices?.find(s => s.id === serviceId);
-        return {
-          serviceId,
-          quantity: 1,
-          price: parseFloat(service?.price || "0"),
-        };
+    mutationFn: async (orderData: any) => {
+      const response = await fetch("/api/lab-orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData)
       });
-
-      const totalAmount = services.reduce((sum, service) => sum + service.price, 0);
-
-      const response = await apiRequest("POST", "/api/lab-orders", {
-        patient: data.patient,
-        order: {
-          ...data.order,
-          totalAmount,
-        },
-        services,
-      });
+      if (!response.ok) throw new Error("Failed to create order");
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/lab-orders"] });
       toast({
-        title: "موفقیت",
-        description: "سفارش با موفقیت ثبت شد",
+        title: "سفارش با موفقیت ثبت شد",
+        description: "سفارش جدید در سیستم ثبت شده و برای پردازش آماده است",
       });
-      setLocation("/orders");
+      queryClient.invalidateQueries({ queryKey: ["/api/lab-orders"] });
+      resetForm();
     },
     onError: () => {
       toast({
-        title: "خطا",
-        description: "خطا در ثبت سفارش",
-        variant: "destructive",
+        title: "خطا در ثبت سفارش",
+        description: "لطفاً دوباره تلاش کنید",
+        variant: "destructive"
       });
-    },
+    }
   });
 
-  const handleServiceToggle = (serviceId: number, checked: boolean) => {
-    if (checked) {
-      setSelectedServices([...selectedServices, serviceId]);
+  const resetForm = () => {
+    setPatientData({
+      name: "",
+      nationalId: "",
+      phone: "",
+      email: "",
+      age: "",
+      gender: "",
+      address: "",
+      notes: ""
+    });
+    setOrderData({
+      priority: "normal",
+      scheduledTimeSlot: "",
+      collectionAddress: "",
+      specialInstructions: "",
+      paymentMethod: "cash"
+    });
+    setSelectedServices([]);
+    setSelectedDate(undefined);
+    setActiveTab("patient");
+  };
+
+  const addService = (service: any) => {
+    const existing = selectedServices.find(s => s.id === service.id);
+    if (existing) {
+      setSelectedServices(prev => 
+        prev.map(s => s.id === service.id ? { ...s, quantity: s.quantity + 1 } : s)
+      );
     } else {
-      setSelectedServices(selectedServices.filter(id => id !== serviceId));
+      setSelectedServices(prev => [...prev, { ...service, quantity: 1 }]);
     }
+  };
+
+  const removeService = (serviceId: number) => {
+    setSelectedServices(prev => prev.filter(s => s.id !== serviceId));
+  };
+
+  const updateServiceQuantity = (serviceId: number, change: number) => {
+    setSelectedServices(prev => 
+      prev.map(s => {
+        if (s.id === serviceId) {
+          const newQuantity = Math.max(1, s.quantity + change);
+          return { ...s, quantity: newQuantity };
+        }
+        return s;
+      })
+    );
   };
 
   const calculateTotal = () => {
-    return selectedServices.reduce((total, serviceId) => {
-      const service = labServices?.find(s => s.id === serviceId);
-      return total + parseFloat(service?.price || "0");
+    return selectedServices.reduce((total, service) => {
+      return total + (parseFloat(service.price.replace(/[^\d]/g, '')) * service.quantity);
     }, 0);
   };
 
-  const onSubmit = (data: NewOrderForm) => {
-    const formData = {
-      ...data,
-      selectedServices,
-      order: {
-        ...data.order,
-        totalAmount: calculateTotal(),
-      },
+  const filteredServices = Array.isArray(services) ? services.filter((service: any) =>
+    service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    service.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    service.category.toLowerCase().includes(searchTerm.toLowerCase())
+  ) : [];
+
+  const handleSubmit = () => {
+    if (!patientData.name || !patientData.nationalId || !patientData.phone) {
+      toast({
+        title: "اطلاعات ناقص",
+        description: "لطفاً اطلاعات ضروری بیمار را تکمیل کنید",
+        variant: "destructive"
+      });
+      setActiveTab("patient");
+      return;
+    }
+
+    if (selectedServices.length === 0) {
+      toast({
+        title: "آزمایش انتخاب نشده",
+        description: "لطفاً حداقل یک آزمایش انتخاب کنید",
+        variant: "destructive"
+      });
+      setActiveTab("services");
+      return;
+    }
+
+    if (!selectedDate || !orderData.scheduledTimeSlot) {
+      toast({
+        title: "زمان نمونه‌گیری مشخص نشده",
+        description: "لطفاً تاریخ و ساعت نمونه‌گیری را انتخاب کنید",
+        variant: "destructive"
+      });
+      setActiveTab("scheduling");
+      return;
+    }
+
+    const orderPayload = {
+      patient: patientData,
+      services: selectedServices,
+      scheduledDate: selectedDate,
+      scheduledTimeSlot: orderData.scheduledTimeSlot,
+      collectionAddress: orderData.collectionAddress,
+      priority: orderData.priority,
+      notes: orderData.specialInstructions,
+      totalAmount: calculateTotal().toLocaleString(),
+      paymentMethod: orderData.paymentMethod
     };
-    createOrderMutation.mutate(formData);
+
+    createOrderMutation.mutate(orderPayload);
   };
 
   const timeSlots = [
-    "8:00 - 10:00",
+    "08:00 - 10:00",
     "10:00 - 12:00", 
+    "12:00 - 14:00",
     "14:00 - 16:00",
     "16:00 - 18:00",
+    "18:00 - 20:00"
   ];
 
-  const groupedServices = labServices?.reduce((acc, service) => {
-    if (!acc[service.category]) {
-      acc[service.category] = [];
-    }
-    acc[service.category].push(service);
-    return acc;
-  }, {} as Record<string, LabService[]>);
-
-  if (servicesLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-96">
-        <div className="text-center">
-          <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">در حال بارگذاری خدمات آزمایشگاه...</p>
-        </div>
-      </div>
-    );
-  }
+  const categories = Array.isArray(services) ? Array.from(new Set(services.map((s: any) => s.category))) : [];
 
   return (
-    <div className="space-y-6">
-      {/* Header Section */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3 space-x-reverse">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
-            <Plus className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">ثبت سفارش جدید</h1>
-            <p className="text-gray-600 text-sm">اطلاعات بیمار و آزمایش مورد نیاز را وارد کنید</p>
-          </div>
-        </div>
+    <div className="container mx-auto p-6 max-w-6xl" dir="rtl">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">ثبت سفارش جدید</h1>
+        <p className="text-gray-600">اطلاعات بیمار و آزمایش‌های مورد نیاز را وارد کنید</p>
       </div>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <Tabs defaultValue="patient" className="w-full">
+        <TabsList className="grid w-full grid-cols-4 mb-8">
+          <TabsTrigger value="patient" className="flex items-center space-x-2 space-x-reverse">
+            <User className="w-4 h-4" />
+            <span>اطلاعات بیمار</span>
+          </TabsTrigger>
+          <TabsTrigger value="services" className="flex items-center space-x-2 space-x-reverse">
+            <TestTube className="w-4 h-4" />
+            <span>انتخاب آزمایشات</span>
+          </TabsTrigger>
+          <TabsTrigger value="scheduling" className="flex items-center space-x-2 space-x-reverse">
+            <CalendarIcon className="w-4 h-4" />
+            <span>زمان‌بندی</span>
+          </TabsTrigger>
+          <TabsTrigger value="summary" className="flex items-center space-x-2 space-x-reverse">
+            <FileText className="w-4 h-4" />
+            <span>خلاصه و تأیید</span>
+          </TabsTrigger>
+        </TabsList>
+
+        {/* Patient Information Tab */}
+        <TabsContent value="patient" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2 space-x-reverse">
+                <User className="w-5 h-5" />
+                <span>اطلاعات بیمار</span>
+              </CardTitle>
+              <CardDescription>
+                اطلاعات شخصی بیمار را وارد کنید
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name">نام و نام خانوادگی *</Label>
+                  <Input
+                    id="name"
+                    value={patientData.name}
+                    onChange={(e) => setPatientData(prev => ({ ...prev, name: e.target.value }))}
+                    placeholder="نام کامل بیمار"
+                    className="h-11"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="nationalId">کد ملی *</Label>
+                  <Input
+                    id="nationalId"
+                    value={patientData.nationalId}
+                    onChange={(e) => setPatientData(prev => ({ ...prev, nationalId: e.target.value }))}
+                    placeholder="کد ملی ۱۰ رقمی"
+                    className="h-11"
+                    maxLength={10}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="phone">شماره تماس *</Label>
+                  <Input
+                    id="phone"
+                    value={patientData.phone}
+                    onChange={(e) => setPatientData(prev => ({ ...prev, phone: e.target.value }))}
+                    placeholder="09xxxxxxxxx"
+                    className="h-11"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="email">ایمیل</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={patientData.email}
+                    onChange={(e) => setPatientData(prev => ({ ...prev, email: e.target.value }))}
+                    placeholder="example@email.com"
+                    className="h-11"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="age">سن</Label>
+                  <Input
+                    id="age"
+                    type="number"
+                    value={patientData.age}
+                    onChange={(e) => setPatientData(prev => ({ ...prev, age: e.target.value }))}
+                    placeholder="سن بیمار"
+                    className="h-11"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="gender">جنسیت</Label>
+                  <Select value={patientData.gender} onValueChange={(value) => setPatientData(prev => ({ ...prev, gender: value }))}>
+                    <SelectTrigger className="h-11">
+                      <SelectValue placeholder="انتخاب جنسیت" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="male">مرد</SelectItem>
+                      <SelectItem value="female">زن</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="address">آدرس</Label>
+                <Textarea
+                  id="address"
+                  value={patientData.address}
+                  onChange={(e) => setPatientData(prev => ({ ...prev, address: e.target.value }))}
+                  placeholder="آدرس کامل بیمار"
+                  rows={3}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="notes">یادداشت‌های پزشکی</Label>
+                <Textarea
+                  id="notes"
+                  value={patientData.notes}
+                  onChange={(e) => setPatientData(prev => ({ ...prev, notes: e.target.value }))}
+                  placeholder="اطلاعات اضافی، آلرژی‌ها، داروهای مصرفی و غیره"
+                  rows={3}
+                />
+              </div>
+
+              <div className="flex justify-end">
+                <Button onClick={() => setActiveTab("services")} className="bg-blue-600 hover:bg-blue-700">
+                  مرحله بعد: انتخاب آزمایشات
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Services Selection Tab */}
+        <TabsContent value="services" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Form Section */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Patient Information Card */}
-              <Card className="card-professional">
-                <CardHeader className="pb-4">
-                  <CardTitle className="flex items-center space-x-2 space-x-reverse text-lg">
-                    <User className="w-5 h-5 text-blue-600" />
-                    <span>اطلاعات بیمار</span>
+            {/* Services List */}
+            <div className="lg:col-span-2">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2 space-x-reverse">
+                    <TestTube className="w-5 h-5" />
+                    <span>لیست آزمایشات</span>
                   </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="patient.name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>نام بیمار</FormLabel>
-                          <FormControl>
-                            <Input placeholder="نام کامل بیمار" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="patient.nationalId"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>کد ملی</FormLabel>
-                          <FormControl>
-                            <Input placeholder="0000000000" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="patient.phone"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>شماره تلفن</FormLabel>
-                          <FormControl>
-                            <Input placeholder="09123456789" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="patient.age"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>سن</FormLabel>
-                          <FormControl>
-                            <Input 
-                              type="number" 
-                              placeholder="35" 
-                              {...field} 
-                              onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  
-                  <FormField
-                    control={form.control}
-                    name="patient.address"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>آدرس بیمار</FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            placeholder="آدرس کامل بیمار" 
-                            rows={2}
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </CardContent>
-              </Card>
-
-              {/* Collection Information Card */}
-              <Card className="card-professional">
-                <CardHeader className="pb-4">
-                  <CardTitle className="flex items-center space-x-2 space-x-reverse text-lg">
-                    <MapPin className="w-5 h-5 text-green-600" />
-                    <span>اطلاعات نمونه‌گیری</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <FormField
-                    control={form.control}
-                    name="order.collectionAddress"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>آدرس نمونه‌گیری</FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            placeholder="آدرس کامل محل نمونه‌گیری" 
-                            rows={3}
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="order.scheduledDate"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="flex items-center space-x-1 space-x-reverse">
-                            <Calendar className="w-4 h-4" />
-                            <span>تاریخ نمونه‌گیری</span>
-                          </FormLabel>
-                          <FormControl>
-                            <Input type="date" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="order.scheduledTimeSlot"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="flex items-center space-x-1 space-x-reverse">
-                            <Clock className="w-4 h-4" />
-                            <span>زمان ترجیحی</span>
-                          </FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                              <SelectTrigger className="bg-white">
-                                <SelectValue placeholder="انتخاب زمان" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent className="bg-white">
-                              {timeSlots.map((slot) => (
-                                <SelectItem key={slot} value={slot}>
-                                  {slot}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <FormField
-                    control={form.control}
-                    name="order.notes"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center space-x-1 space-x-reverse">
-                          <FileText className="w-4 h-4" />
-                          <span>یادداشت (اختیاری)</span>
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            placeholder="توضیحات اضافی در صورت نیاز" 
-                            rows={2}
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </CardContent>
-              </Card>
-
-              {/* Test Selection Card */}
-              <Card className="card-professional">
-                <CardHeader className="pb-4">
-                  <CardTitle className="flex items-center space-x-2 space-x-reverse text-lg">
-                    <TestTube className="w-5 h-5 text-purple-600" />
-                    <span>انتخاب آزمایش</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  {groupedServices && Object.entries(groupedServices).map(([category, services]) => (
-                    <div key={category} className="space-y-3">
-                      <h4 className="font-medium text-gray-800 border-b border-gray-200 pb-2">
-                        {category}
-                      </h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {services.map((service) => (
-                          <div
-                            key={service.id}
-                            className={`flex items-center p-4 border-2 rounded-lg transition-all cursor-pointer hover:shadow-md ${
-                              selectedServices.includes(service.id)
-                                ? 'border-blue-500 bg-blue-50'
-                                : 'border-gray-200 hover:border-gray-300'
-                            }`}
-                            onClick={() => handleServiceToggle(service.id, !selectedServices.includes(service.id))}
-                          >
-                            <Checkbox
-                              id={`service-${service.id}`}
-                              checked={selectedServices.includes(service.id)}
-                              onCheckedChange={(checked) => handleServiceToggle(service.id, checked as boolean)}
-                              className="ml-3"
-                            />
-                            <div className="flex-1">
-                              <div className="flex items-center justify-between">
-                                <p className="font-medium text-gray-900">{service.name}</p>
-                                <Badge variant="outline" className="text-xs">
-                                  {service.code}
-                                </Badge>
-                              </div>
-                              <p className="text-sm text-gray-600 mt-1">{service.sampleType}</p>
-                              <p className="text-sm font-semibold text-blue-600 mt-1">
-                                {new Intl.NumberFormat('fa-IR').format(parseFloat(service.price))} تومان
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
+                  <div className="flex space-x-4 space-x-reverse">
+                    <div className="relative flex-1">
+                      <Search className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
+                      <Input
+                        placeholder="جستجوی آزمایش..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pr-10 h-11"
+                      />
                     </div>
-                  ))}
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Sidebar - Order Summary */}
-            <div className="space-y-6">
-              <Card className="card-professional sticky top-6">
-                <CardHeader className="pb-4">
-                  <CardTitle className="flex items-center space-x-2 space-x-reverse text-lg">
-                    <CreditCard className="w-5 h-5 text-emerald-600" />
-                    <span>خلاصه سفارش</span>
-                  </CardTitle>
+                  </div>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  {selectedServices.length > 0 ? (
-                    <>
-                      <div className="space-y-2">
-                        {selectedServices.map(serviceId => {
-                          const service = labServices?.find(s => s.id === serviceId);
-                          return service ? (
-                            <div key={serviceId} className="flex justify-between items-center py-2 border-b border-gray-100">
-                              <div>
-                                <p className="text-sm font-medium text-gray-900">{service.name}</p>
-                                <p className="text-xs text-gray-500">{service.code}</p>
-                              </div>
-                              <p className="text-sm font-medium text-blue-600">
-                                {new Intl.NumberFormat('fa-IR').format(parseFloat(service.price))}
-                              </p>
-                            </div>
-                          ) : null;
-                        })}
-                      </div>
-                      
-                      <div className="border-t border-gray-200 pt-4">
-                        <div className="flex justify-between items-center">
-                          <p className="font-semibold text-gray-900">مجموع:</p>
-                          <p className="text-lg font-bold text-blue-600">
-                            {new Intl.NumberFormat('fa-IR').format(calculateTotal())} تومان
-                          </p>
-                        </div>
-                        <p className="text-sm text-gray-600 mt-1">
-                          {selectedServices.length} آزمایش انتخاب شده
-                        </p>
-                      </div>
-
-                      <div className="space-y-2 pt-4">
-                        <Button 
-                          type="submit" 
-                          className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                          disabled={createOrderMutation.isPending || selectedServices.length === 0}
-                        >
-                          <Save className="w-4 h-4 ml-2" />
-                          {createOrderMutation.isPending ? "در حال ثبت..." : "ثبت سفارش"}
-                        </Button>
-                        
-                        <Button 
-                          type="button" 
-                          variant="outline"
-                          className="w-full bg-white border-gray-500 text-gray-600 hover:bg-gray-50"
-                          onClick={() => setLocation("/orders")}
-                        >
-                          <X className="w-4 h-4 ml-2" />
-                          انصراف
-                        </Button>
-                      </div>
-                    </>
+                <CardContent>
+                  {servicesLoading ? (
+                    <div className="text-center py-8">در حال بارگذاری...</div>
                   ) : (
-                    <div className="text-center py-8">
-                      <TestTube className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                      <p className="text-gray-600 text-sm">هیچ آزمایشی انتخاب نشده</p>
-                      <p className="text-gray-500 text-xs mt-1">لطفاً حداقل یک آزمایش انتخاب کنید</p>
+                    <div className="space-y-3 max-h-96 overflow-y-auto">
+                      {categories.map(category => (
+                        <div key={category}>
+                          <h4 className="font-semibold text-sm text-gray-700 mb-2 pr-2">{category}</h4>
+                          {filteredServices
+                            .filter((service: any) => service.category === category)
+                            .map((service: any) => (
+                              <div key={service.id} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                                <div className="flex-1">
+                                  <div className="font-medium">{service.name}</div>
+                                  <div className="text-sm text-gray-500">کد: {service.code}</div>
+                                  <div className="text-sm font-semibold text-green-600">{service.price}</div>
+                                </div>
+                                <Button
+                                  size="sm"
+                                  onClick={() => addService(service)}
+                                  className="bg-blue-600 hover:bg-blue-700"
+                                >
+                                  <Plus className="w-4 h-4" />
+                                </Button>
+                              </div>
+                            ))}
+                        </div>
+                      ))}
                     </div>
                   )}
                 </CardContent>
               </Card>
             </div>
+
+            {/* Selected Services */}
+            <div>
+              <Card>
+                <CardHeader>
+                  <CardTitle>آزمایشات انتخاب شده</CardTitle>
+                  <CardDescription>
+                    {selectedServices.length} آزمایش انتخاب شده
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {selectedServices.length === 0 ? (
+                    <div className="text-center py-8 text-gray-500">
+                      هیچ آزمایشی انتخاب نشده
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      {selectedServices.map((service) => (
+                        <div key={service.id} className="p-3 border rounded-lg">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="font-medium text-sm">{service.name}</div>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => removeService(service.id)}
+                            >
+                              <Minus className="w-3 h-3" />
+                            </Button>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <div className="text-xs text-gray-500">{service.code}</div>
+                            <div className="flex items-center space-x-2 space-x-reverse">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => updateServiceQuantity(service.id, -1)}
+                                disabled={service.quantity <= 1}
+                              >
+                                <Minus className="w-3 h-3" />
+                              </Button>
+                              <span className="text-sm font-medium">{service.quantity}</span>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => updateServiceQuantity(service.id, 1)}
+                              >
+                                <Plus className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          </div>
+                          <div className="text-sm font-semibold text-green-600 mt-1">
+                            {(parseFloat(service.price.replace(/[^\d]/g, '')) * service.quantity).toLocaleString()} تومان
+                          </div>
+                        </div>
+                      ))}
+                      
+                      <div className="border-t pt-3">
+                        <div className="flex justify-between items-center font-bold">
+                          <span>مجموع:</span>
+                          <span className="text-green-600">{calculateTotal().toLocaleString()} تومان</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              <div className="mt-4 flex justify-end">
+                <Button 
+                  onClick={() => setActiveTab("scheduling")} 
+                  className="bg-blue-600 hover:bg-blue-700"
+                  disabled={selectedServices.length === 0}
+                >
+                  مرحله بعد: زمان‌بندی
+                </Button>
+              </div>
+            </div>
           </div>
-        </form>
-      </Form>
+        </TabsContent>
+
+        {/* Scheduling Tab */}
+        <TabsContent value="scheduling" className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2 space-x-reverse">
+                  <CalendarIcon className="w-5 h-5" />
+                  <span>انتخاب تاریخ</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={setSelectedDate}
+                  disabled={(date) => date < new Date() || date.getDay() === 5}
+                  className="rounded-md border"
+                />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2 space-x-reverse">
+                  <Clock className="w-5 h-5" />
+                  <span>تنظیمات نمونه‌گیری</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-2">
+                  <Label>ساعت نمونه‌گیری</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {timeSlots.map((slot) => (
+                      <Button
+                        key={slot}
+                        variant={orderData.scheduledTimeSlot === slot ? "default" : "outline"}
+                        onClick={() => setOrderData(prev => ({ ...prev, scheduledTimeSlot: slot }))}
+                        className="h-11"
+                      >
+                        {slot}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>اولویت</Label>
+                  <Select value={orderData.priority} onValueChange={(value) => setOrderData(prev => ({ ...prev, priority: value }))}>
+                    <SelectTrigger className="h-11">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="low">عادی</SelectItem>
+                      <SelectItem value="normal">متوسط</SelectItem>
+                      <SelectItem value="high">مهم</SelectItem>
+                      <SelectItem value="urgent">فوری</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="collectionAddress">آدرس نمونه‌گیری</Label>
+                  <Textarea
+                    id="collectionAddress"
+                    value={orderData.collectionAddress}
+                    onChange={(e) => setOrderData(prev => ({ ...prev, collectionAddress: e.target.value }))}
+                    placeholder="آدرس محل نمونه‌گیری (در صورت تفاوت با آدرس بیمار)"
+                    rows={3}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="specialInstructions">دستورالعمل‌های ویژه</Label>
+                  <Textarea
+                    id="specialInstructions"
+                    value={orderData.specialInstructions}
+                    onChange={(e) => setOrderData(prev => ({ ...prev, specialInstructions: e.target.value }))}
+                    placeholder="دستورالعمل‌های خاص برای نمونه‌گیری"
+                    rows={3}
+                  />
+                </div>
+
+                <div className="flex justify-end">
+                  <Button onClick={() => setActiveTab("summary")} className="bg-blue-600 hover:bg-blue-700">
+                    مرحله بعد: خلاصه
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* Summary Tab */}
+        <TabsContent value="summary" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2 space-x-reverse">
+                <FileText className="w-5 h-5" />
+                <span>خلاصه سفارش</span>
+              </CardTitle>
+              <CardDescription>
+                اطلاعات وارد شده را بررسی و تأیید کنید
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Patient Summary */}
+              <div className="p-4 border rounded-lg">
+                <h3 className="font-semibold mb-3 flex items-center space-x-2 space-x-reverse">
+                  <User className="w-4 h-4" />
+                  <span>اطلاعات بیمار</span>
+                </h3>
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div><span className="font-medium">نام:</span> {patientData.name}</div>
+                  <div><span className="font-medium">کد ملی:</span> {patientData.nationalId}</div>
+                  <div><span className="font-medium">تلفن:</span> {patientData.phone}</div>
+                  <div><span className="font-medium">ایمیل:</span> {patientData.email || "ندارد"}</div>
+                  {patientData.age && <div><span className="font-medium">سن:</span> {patientData.age}</div>}
+                  {patientData.gender && <div><span className="font-medium">جنسیت:</span> {patientData.gender === 'male' ? 'مرد' : 'زن'}</div>}
+                </div>
+                {patientData.address && (
+                  <div className="mt-2 text-sm">
+                    <span className="font-medium">آدرس:</span> {patientData.address}
+                  </div>
+                )}
+              </div>
+
+              {/* Services Summary */}
+              <div className="p-4 border rounded-lg">
+                <h3 className="font-semibold mb-3 flex items-center space-x-2 space-x-reverse">
+                  <TestTube className="w-4 h-4" />
+                  <span>آزمایشات انتخاب شده</span>
+                </h3>
+                <div className="space-y-2">
+                  {selectedServices.map((service) => (
+                    <div key={service.id} className="flex justify-between items-center text-sm">
+                      <span>{service.name} ({service.code})</span>
+                      <span>
+                        {service.quantity} × {service.price} = {(parseFloat(service.price.replace(/[^\d]/g, '')) * service.quantity).toLocaleString()} تومان
+                      </span>
+                    </div>
+                  ))}
+                  <div className="border-t pt-2 flex justify-between font-bold">
+                    <span>مجموع:</span>
+                    <span className="text-green-600">{calculateTotal().toLocaleString()} تومان</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Scheduling Summary */}
+              <div className="p-4 border rounded-lg">
+                <h3 className="font-semibold mb-3 flex items-center space-x-2 space-x-reverse">
+                  <CalendarIcon className="w-4 h-4" />
+                  <span>زمان‌بندی</span>
+                </h3>
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div><span className="font-medium">تاریخ:</span> {selectedDate ? format(selectedDate, 'yyyy/MM/dd') : "انتخاب نشده"}</div>
+                  <div><span className="font-medium">ساعت:</span> {orderData.scheduledTimeSlot || "انتخاب نشده"}</div>
+                  <div><span className="font-medium">اولویت:</span> {orderData.priority}</div>
+                </div>
+                {orderData.collectionAddress && (
+                  <div className="mt-2 text-sm">
+                    <span className="font-medium">آدرس نمونه‌گیری:</span> {orderData.collectionAddress}
+                  </div>
+                )}
+              </div>
+
+              {/* Payment Method */}
+              <div className="p-4 border rounded-lg">
+                <h3 className="font-semibold mb-3 flex items-center space-x-2 space-x-reverse">
+                  <CreditCard className="w-4 h-4" />
+                  <span>روش پرداخت</span>
+                </h3>
+                <Select value={orderData.paymentMethod} onValueChange={(value) => setOrderData(prev => ({ ...prev, paymentMethod: value }))}>
+                  <SelectTrigger className="h-11 max-w-xs">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="cash">نقدی</SelectItem>
+                    <SelectItem value="card">کارتی</SelectItem>
+                    <SelectItem value="online">آنلاین</SelectItem>
+                    <SelectItem value="insurance">بیمه</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex justify-between">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setActiveTab("scheduling")}
+                >
+                  بازگشت به مرحله قبل
+                </Button>
+                <Button 
+                  onClick={handleSubmit}
+                  disabled={createOrderMutation.isPending}
+                  className="bg-green-600 hover:bg-green-700"
+                >
+                  {createOrderMutation.isPending ? "در حال ثبت..." : "تأیید و ثبت سفارش"}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
