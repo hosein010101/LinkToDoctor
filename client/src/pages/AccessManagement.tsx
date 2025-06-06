@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Switch } from "@/components/ui/switch";
+import { IOSSwitch } from "@/components/ui/ios-switch";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { 
@@ -632,16 +632,16 @@ export default function AccessManagement() {
                         <tr key={module.name} className="border-b border-gray-100 hover:bg-gray-50">
                           <td className="p-4 font-medium">{module.label}</td>
                           <td className="p-4 text-center">
-                            <Switch defaultChecked />
+                            <IOSSwitch defaultChecked />
                           </td>
                           <td className="p-4 text-center">
-                            <Switch defaultChecked={module.name !== "reports"} />
+                            <IOSSwitch defaultChecked={module.name !== "reports"} />
                           </td>
                           <td className="p-4 text-center">
-                            <Switch defaultChecked={module.name === "dashboard" || module.name === "patients"} />
+                            <IOSSwitch defaultChecked={module.name === "dashboard" || module.name === "patients"} />
                           </td>
                           <td className="p-4 text-center">
-                            <Switch defaultChecked={module.name === "reports" || module.name === "finance"} />
+                            <IOSSwitch defaultChecked={module.name === "reports" || module.name === "finance"} />
                           </td>
                         </tr>
                       ))}
@@ -903,7 +903,7 @@ export default function AccessManagement() {
                       <h3 className="font-medium text-gray-900">اجباری بودن احراز هویت دوگانه</h3>
                       <p className="text-sm text-gray-600">الزام همه کاربران به فعال‌سازی 2FA</p>
                     </div>
-                    <Switch 
+                    <IOSSwitch 
                       checked={securitySettings.enforce2FA}
                       onCheckedChange={(checked) => 
                         setSecuritySettings(prev => ({ ...prev, enforce2FA: checked }))
@@ -951,7 +951,7 @@ export default function AccessManagement() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="flex items-center justify-between">
                         <span className="text-sm">حروف بزرگ انگلیسی</span>
-                        <Switch 
+                        <IOSSwitch 
                           checked={securitySettings.passwordRequireUppercase}
                           onCheckedChange={(checked) => 
                             setSecuritySettings(prev => ({ ...prev, passwordRequireUppercase: checked }))
@@ -960,7 +960,7 @@ export default function AccessManagement() {
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm">حروف کوچک انگلیسی</span>
-                        <Switch 
+                        <IOSSwitch 
                           checked={securitySettings.passwordRequireLowercase}
                           onCheckedChange={(checked) => 
                             setSecuritySettings(prev => ({ ...prev, passwordRequireLowercase: checked }))
@@ -969,7 +969,7 @@ export default function AccessManagement() {
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm">اعداد</span>
-                        <Switch 
+                        <IOSSwitch 
                           checked={securitySettings.passwordRequireNumbers}
                           onCheckedChange={(checked) => 
                             setSecuritySettings(prev => ({ ...prev, passwordRequireNumbers: checked }))
@@ -978,7 +978,7 @@ export default function AccessManagement() {
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm">نمادهای خاص</span>
-                        <Switch 
+                        <IOSSwitch 
                           checked={securitySettings.passwordRequireSymbols}
                           onCheckedChange={(checked) => 
                             setSecuritySettings(prev => ({ ...prev, passwordRequireSymbols: checked }))

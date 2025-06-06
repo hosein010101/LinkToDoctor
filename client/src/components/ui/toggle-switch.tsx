@@ -7,7 +7,7 @@ interface ToggleSwitchProps {
   className?: string;
 }
 
-export function ToggleSwitch({ 
+export function ToggleIOSSwitch({ 
   checked, 
   onCheckedChange, 
   disabled = false, 

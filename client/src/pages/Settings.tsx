@@ -463,7 +463,7 @@ export default function Settings() {
                       <Label>پشتیبان‌گیری خودکار</Label>
                       <p className="text-sm text-gray-600">پشتیبان‌گیری روزانه از داده‌ها</p>
                     </div>
-                    <Switch
+                    <IOSSwitch
                       checked={systemSettings.autoBackup}
                       onCheckedChange={(checked) => setSystemSettings({...systemSettings, autoBackup: checked})}
                     />
@@ -474,7 +474,7 @@ export default function Settings() {
                       <Label>حالت تعمیر و نگهداری</Label>
                       <p className="text-sm text-gray-600">غیرفعال کردن موقت سیستم</p>
                     </div>
-                    <Switch
+                    <IOSSwitch
                       checked={systemSettings.maintenanceMode}
                       onCheckedChange={(checked) => setSystemSettings({...systemSettings, maintenanceMode: checked})}
                     />
@@ -485,7 +485,7 @@ export default function Settings() {
                       <Label>حالت اشکال‌زدایی</Label>
                       <p className="text-sm text-gray-600">فعال‌سازی لاگ‌های تفصیلی</p>
                     </div>
-                    <Switch
+                    <IOSSwitch
                       checked={systemSettings.debugMode}
                       onCheckedChange={(checked) => setSystemSettings({...systemSettings, debugMode: checked})}
                     />
@@ -536,7 +536,7 @@ export default function Settings() {
                       <Label>احراز هویت دو مرحله‌ای</Label>
                       <p className="text-sm text-gray-600">افزایش امنیت ورود</p>
                     </div>
-                    <Switch
+                    <IOSSwitch
                       checked={securitySettings.twoFactorAuth}
                       onCheckedChange={(checked) => setSecuritySettings({...securitySettings, twoFactorAuth: checked})}
                     />
@@ -569,7 +569,7 @@ export default function Settings() {
                       <Label>قفل خودکار نشست</Label>
                       <p className="text-sm text-gray-600">قفل کردن پس از عدم فعالیت</p>
                     </div>
-                    <Switch
+                    <IOSSwitch
                       checked={securitySettings.sessionLock}
                       onCheckedChange={(checked) => setSecuritySettings({...securitySettings, sessionLock: checked})}
                     />
@@ -582,7 +582,7 @@ export default function Settings() {
                       <Label>فهرست سفید IP</Label>
                       <p className="text-sm text-gray-600">محدود کردن دسترسی به IP های خاص</p>
                     </div>
-                    <Switch
+                    <IOSSwitch
                       checked={securitySettings.ipWhitelist}
                       onCheckedChange={(checked) => setSecuritySettings({...securitySettings, ipWhitelist: checked})}
                     />
@@ -593,7 +593,7 @@ export default function Settings() {
                       <Label>لاگ حسابرسی</Label>
                       <p className="text-sm text-gray-600">ثبت تمام فعالیت‌های کاربران</p>
                     </div>
-                    <Switch
+                    <IOSSwitch
                       checked={securitySettings.auditLog}
                       onCheckedChange={(checked) => setSecuritySettings({...securitySettings, auditLog: checked})}
                     />
@@ -604,7 +604,7 @@ export default function Settings() {
                       <Label>رمزگذاری داده‌ها</Label>
                       <p className="text-sm text-gray-600">رمزگذاری اطلاعات حساس</p>
                     </div>
-                    <Switch
+                    <IOSSwitch
                       checked={securitySettings.encryptData}
                       onCheckedChange={(checked) => setSecuritySettings({...securitySettings, encryptData: checked})}
                     />

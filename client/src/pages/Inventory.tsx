@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Switch } from "@/components/ui/switch";
+import { IOSSwitch } from "@/components/ui/ios-switch";
 import { Progress } from "@/components/ui/progress";
 import { 
   Package, 
@@ -1103,7 +1103,7 @@ export default function Inventory() {
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 space-x-reverse mb-2">
                             <h3 className="font-semibold text-gray-900">{rule.itemName}</h3>
-                            <Switch checked={rule.isActive} />
+                            <IOSSwitch checked={rule.isActive} />
                           </div>
                           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
                             <div>

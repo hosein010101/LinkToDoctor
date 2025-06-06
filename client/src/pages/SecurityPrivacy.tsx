@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ToggleSwitch } from "@/components/ui/toggle-switch";
+import { ToggleIOSSwitch } from "@/components/ui/toggle-switch";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Shield, Key, Smartphone, Monitor, MapPin, Clock, AlertTriangle, Check, X } from "lucide-react";
@@ -139,7 +139,7 @@ export default function SecurityPrivacy() {
                   امنیت بیشتر با کد تأیید از طریق موبایل
                 </p>
               </div>
-              <ToggleSwitch
+              <ToggleIOSSwitch
                 checked={twoFactorEnabled}
                 onCheckedChange={setTwoFactorEnabled}
               />

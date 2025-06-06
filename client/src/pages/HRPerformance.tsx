@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Switch } from "@/components/ui/switch";
+import { IOSSwitch } from "@/components/ui/ios-switch";
 import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -898,7 +898,7 @@ export default function HRPerformance() {
                       <div key={criteria.id} className="p-4 border rounded-lg">
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center space-x-3 space-x-reverse">
-                            <Switch checked={criteria.isActive} />
+                            <IOSSwitch checked={criteria.isActive} />
                             <div>
                               <h4 className="font-medium text-gray-900">{criteria.name}</h4>
                               <p className="text-sm text-gray-600">{criteria.description}</p>

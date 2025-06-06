@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Switch } from "@/components/ui/switch";
+import { IOSSwitch } from "@/components/ui/ios-switch";
 import { 
   Package, 
   List, 
@@ -505,7 +505,7 @@ export default function TestPackages() {
                         )}
                       </div>
                       <div className="flex items-center justify-between pt-2">
-                        <Switch checked={pkg.isActive} />
+                        <IOSSwitch checked={pkg.isActive} />
                         <span className="text-xs text-gray-500">فعال/غیرفعال</span>
                       </div>
                     </div>
@@ -736,7 +736,7 @@ export default function TestPackages() {
                           </div>
                         </div>
                         <div className="flex items-center space-x-2 space-x-reverse">
-                          <Switch checked={service.isVisible} />
+                          <IOSSwitch checked={service.isVisible} />
                           <Button 
                             variant="outline" 
                             size="sm"
@@ -1166,7 +1166,7 @@ export default function TestPackages() {
               </div>
               <div className="md:col-span-2">
                 <div className="flex items-center space-x-2 space-x-reverse">
-                  <Switch defaultChecked={selectedService.isVisible} />
+                  <IOSSwitch defaultChecked={selectedService.isVisible} />
                   <label className="text-sm text-gray-700">نمایش در اپلیکیشن</label>
                 </div>
               </div>
