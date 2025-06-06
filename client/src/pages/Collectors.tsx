@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { IOSSwitch } from "@/components/ui/ios-switch";
+import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { 
@@ -242,7 +242,7 @@ export default function Collectors() {
                   
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-500">فعال:</span>
-                    <IOSSwitch 
+                    <Switch 
                       checked={collector.isActive}
                       onCheckedChange={(checked) => {
                         // Update collector active status

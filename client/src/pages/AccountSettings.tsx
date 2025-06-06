@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ToggleIOSSwitch } from "@/components/ui/toggle-switch";
+import { ToggleSwitch } from "@/components/ui/toggle-switch";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
@@ -100,7 +100,7 @@ export default function AccountSettings() {
                     دریافت اعلانات مهم از طریق ایمیل
                   </div>
                 </div>
-                <ToggleIOSSwitch
+                <ToggleSwitch
                   checked={settings.notifications.emailNotifications}
                   onCheckedChange={(checked) => handleNotificationChange('emailNotifications', checked)}
                 />
@@ -113,7 +113,7 @@ export default function AccountSettings() {
                     دریافت اطلاعیه‌های فوری از طریق پیامک
                   </div>
                 </div>
-                <ToggleIOSSwitch
+                <ToggleSwitch
                   checked={settings.notifications.smsNotifications}
                   onCheckedChange={(checked) => handleNotificationChange('smsNotifications', checked)}
                 />
@@ -126,7 +126,7 @@ export default function AccountSettings() {
                     اطلاع از تغییرات وضعیت سفارشات
                   </div>
                 </div>
-                <ToggleIOSSwitch
+                <ToggleSwitch
                   checked={settings.notifications.orderUpdates}
                   onCheckedChange={(checked) => handleNotificationChange('orderUpdates', checked)}
                 />
@@ -139,7 +139,7 @@ export default function AccountSettings() {
                     اعلانات مربوط به مسائل فنی و امنیتی
                   </div>
                 </div>
-                <ToggleIOSSwitch
+                <ToggleSwitch
                   checked={settings.notifications.systemAlerts}
                   onCheckedChange={(checked) => handleNotificationChange('systemAlerts', checked)}
                 />
@@ -219,7 +219,7 @@ export default function AccountSettings() {
                     پخش صدا برای اعلانات و هشدارها
                   </div>
                 </div>
-                <ToggleIOSSwitch
+                <ToggleSwitch
                   checked={settings.preferences.soundEnabled}
                   onCheckedChange={(checked) => handlePreferenceChange('soundEnabled', checked)}
                 />
@@ -258,7 +258,7 @@ export default function AccountSettings() {
                     ذخیره تاریخچه فعالیت‌های شما
                   </div>
                 </div>
-                <ToggleIOSSwitch
+                <ToggleSwitch
                   checked={settings.privacy.activityLog}
                   onCheckedChange={(checked) => handlePrivacyChange('activityLog', checked)}
                 />

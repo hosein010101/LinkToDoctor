@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { IOSSwitch } from "@/components/ui/ios-switch";
+import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
@@ -292,7 +292,7 @@ export default function Settings() {
                       <Label>اعلان‌های ایمیل</Label>
                       <p className="text-sm text-gray-600">دریافت اعلان‌ها از طریق ایمیل</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={notifications.emailNotifications}
                       onCheckedChange={(checked) => setNotifications({...notifications, emailNotifications: checked})}
                     />
@@ -303,7 +303,7 @@ export default function Settings() {
                       <Label>اعلان‌های پیامکی</Label>
                       <p className="text-sm text-gray-600">دریافت اعلان‌ها از طریق پیامک</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={notifications.smsNotifications}
                       onCheckedChange={(checked) => setNotifications({...notifications, smsNotifications: checked})}
                     />
@@ -314,7 +314,7 @@ export default function Settings() {
                       <Label>اعلان‌های فوری</Label>
                       <p className="text-sm text-gray-600">اعلان‌های فوری در مرورگر</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={notifications.pushNotifications}
                       onCheckedChange={(checked) => setNotifications({...notifications, pushNotifications: checked})}
                     />
@@ -325,7 +325,7 @@ export default function Settings() {
                       <Label>گزارش‌های روزانه</Label>
                       <p className="text-sm text-gray-600">ارسال گزارش عملکرد روزانه</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={notifications.dailyReports}
                       onCheckedChange={(checked) => setNotifications({...notifications, dailyReports: checked})}
                     />
@@ -338,7 +338,7 @@ export default function Settings() {
                       <Label>گزارش‌های هفتگی</Label>
                       <p className="text-sm text-gray-600">ارسال گزارش عملکرد هفتگی</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={notifications.weeklyReports}
                       onCheckedChange={(checked) => setNotifications({...notifications, weeklyReports: checked})}
                     />
@@ -349,7 +349,7 @@ export default function Settings() {
                       <Label>به‌روزرسانی سفارشات</Label>
                       <p className="text-sm text-gray-600">اطلاع از تغییرات وضعیت سفارشات</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={notifications.orderUpdates}
                       onCheckedChange={(checked) => setNotifications({...notifications, orderUpdates: checked})}
                     />
@@ -360,7 +360,7 @@ export default function Settings() {
                       <Label>هشدارهای سیستم</Label>
                       <p className="text-sm text-gray-600">اطلاع از مشکلات سیستم</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={notifications.systemAlerts}
                       onCheckedChange={(checked) => setNotifications({...notifications, systemAlerts: checked})}
                     />
@@ -463,7 +463,7 @@ export default function Settings() {
                       <Label>پشتیبان‌گیری خودکار</Label>
                       <p className="text-sm text-gray-600">پشتیبان‌گیری روزانه از داده‌ها</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={systemSettings.autoBackup}
                       onCheckedChange={(checked) => setSystemSettings({...systemSettings, autoBackup: checked})}
                     />
@@ -474,7 +474,7 @@ export default function Settings() {
                       <Label>حالت تعمیر و نگهداری</Label>
                       <p className="text-sm text-gray-600">غیرفعال کردن موقت سیستم</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={systemSettings.maintenanceMode}
                       onCheckedChange={(checked) => setSystemSettings({...systemSettings, maintenanceMode: checked})}
                     />
@@ -485,7 +485,7 @@ export default function Settings() {
                       <Label>حالت اشکال‌زدایی</Label>
                       <p className="text-sm text-gray-600">فعال‌سازی لاگ‌های تفصیلی</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={systemSettings.debugMode}
                       onCheckedChange={(checked) => setSystemSettings({...systemSettings, debugMode: checked})}
                     />
@@ -536,7 +536,7 @@ export default function Settings() {
                       <Label>احراز هویت دو مرحله‌ای</Label>
                       <p className="text-sm text-gray-600">افزایش امنیت ورود</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={securitySettings.twoFactorAuth}
                       onCheckedChange={(checked) => setSecuritySettings({...securitySettings, twoFactorAuth: checked})}
                     />
@@ -569,7 +569,7 @@ export default function Settings() {
                       <Label>قفل خودکار نشست</Label>
                       <p className="text-sm text-gray-600">قفل کردن پس از عدم فعالیت</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={securitySettings.sessionLock}
                       onCheckedChange={(checked) => setSecuritySettings({...securitySettings, sessionLock: checked})}
                     />
@@ -582,7 +582,7 @@ export default function Settings() {
                       <Label>فهرست سفید IP</Label>
                       <p className="text-sm text-gray-600">محدود کردن دسترسی به IP های خاص</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={securitySettings.ipWhitelist}
                       onCheckedChange={(checked) => setSecuritySettings({...securitySettings, ipWhitelist: checked})}
                     />
@@ -593,7 +593,7 @@ export default function Settings() {
                       <Label>لاگ حسابرسی</Label>
                       <p className="text-sm text-gray-600">ثبت تمام فعالیت‌های کاربران</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={securitySettings.auditLog}
                       onCheckedChange={(checked) => setSecuritySettings({...securitySettings, auditLog: checked})}
                     />
@@ -604,7 +604,7 @@ export default function Settings() {
                       <Label>رمزگذاری داده‌ها</Label>
                       <p className="text-sm text-gray-600">رمزگذاری اطلاعات حساس</p>
                     </div>
-                    <IOSSwitch
+                    <Switch
                       checked={securitySettings.encryptData}
                       onCheckedChange={(checked) => setSecuritySettings({...securitySettings, encryptData: checked})}
                     />
