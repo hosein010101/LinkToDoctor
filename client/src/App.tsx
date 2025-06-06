@@ -51,8 +51,12 @@ import { queryClient } from "@/lib/queryClient";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
+  
+  // Check for demo bypass
+  const urlParams = new URLSearchParams(window.location.search);
+  const bypassAuth = urlParams.get('bypass') === 'true';
 
-  if (isLoading || !isAuthenticated) {
+  if ((isLoading || !isAuthenticated) && !bypassAuth) {
     return <Landing />;
   }
 
