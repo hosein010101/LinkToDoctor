@@ -353,11 +353,11 @@ export default function NewOrder() {
                           </FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger>
+                              <SelectTrigger className="bg-white">
                                 <SelectValue placeholder="انتخاب زمان" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="bg-white">
                               {timeSlots.map((slot) => (
                                 <SelectItem key={slot} value={slot}>
                                   {slot}
@@ -500,7 +500,7 @@ export default function NewOrder() {
                         <Button 
                           type="button" 
                           variant="outline"
-                          className="w-full"
+                          className="w-full bg-white border-gray-500 text-gray-600 hover:bg-gray-50"
                           onClick={() => setLocation("/orders")}
                         >
                           <X className="w-4 h-4 ml-2" />

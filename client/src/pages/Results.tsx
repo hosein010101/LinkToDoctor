@@ -306,10 +306,10 @@ export default function Results() {
                   />
                 </div>
                 <Select value={filterStatus} onValueChange={setFilterStatus}>
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-white">
                     <SelectValue placeholder="وضعیت" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white">
                     <SelectItem value="all">همه وضعیت‌ها</SelectItem>
                     <SelectItem value="collected">نمونه‌گیری شده</SelectItem>
                     <SelectItem value="processing">در حال پردازش</SelectItem>
@@ -350,7 +350,7 @@ export default function Results() {
                               size="sm"
                               variant={existingResult ? "outline" : "default"}
                               onClick={() => startEditing(order, orderService.serviceId)}
-                              className={existingResult ? "" : "bg-purple-600 hover:bg-purple-700 text-white"}
+                              className={existingResult ? "bg-white border-blue-500 text-blue-600 hover:bg-blue-50" : "bg-purple-600 hover:bg-purple-700 text-white"}
                             >
                               {existingResult ? (
                                 <>
@@ -457,11 +457,11 @@ export default function Results() {
                           <FormLabel>وضعیت</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger>
+                              <SelectTrigger className="bg-white">
                                 <SelectValue placeholder="انتخاب وضعیت" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="bg-white">
                               <SelectItem value="pending">در انتظار</SelectItem>
                               <SelectItem value="completed">تکمیل شده</SelectItem>
                               <SelectItem value="reviewed">بررسی شده</SelectItem>
@@ -485,6 +485,7 @@ export default function Results() {
                       <Button
                         type="button"
                         variant="outline"
+                        className="bg-white border-gray-500 text-gray-600 hover:bg-gray-50"
                         onClick={() => {
                           setSelectedOrder(null);
                           setEditingResult(null);
