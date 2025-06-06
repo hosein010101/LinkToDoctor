@@ -190,7 +190,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
               <DropdownMenuSeparator className="my-2 bg-gray-100 dark:bg-gray-700" />
               <DropdownMenuItem className="text-center p-2 m-1">
                 <Button variant="ghost" size="sm" className="w-full bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">
-                  مشاهده همه اعلان‌ها
+                  {t('header.viewAllNotifications')}
                 </Button>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -212,14 +212,14 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-72 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-2xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl p-3">
               <DropdownMenuLabel className="flex items-center justify-between px-3 py-2 text-gray-900 dark:text-gray-100 font-semibold">
-                <span>پیام‌ها</span>
-                <Badge variant="secondary" className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">{messageCount} جدید</Badge>
+                <span>{t('header.messages')}</span>
+                <Badge variant="secondary" className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">{messageCount} {t('header.newMessages')}</Badge>
               </DropdownMenuLabel>
               <DropdownMenuSeparator className="my-2 bg-gray-100 dark:bg-gray-700" />
               <Link href="/messages">
                 <DropdownMenuItem className="m-1 px-3 py-3 cursor-pointer rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 hover:shadow-sm transition-all duration-200">
                   <MessagesIcon className="w-5 h-5 ml-3 text-green-500" />
-                  <span className="flex-1 font-medium text-gray-700 dark:text-gray-300">پیام‌های جدید</span>
+                  <span className="flex-1 font-medium text-gray-700 dark:text-gray-300">{t('header.newMessages2')}</span>
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                 </DropdownMenuItem>
               </Link>
@@ -232,7 +232,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
               <DropdownMenuSeparator className="my-2 bg-gray-100 dark:bg-gray-700" />
               <DropdownMenuItem className="text-center p-2 m-1">
                 <Button variant="ghost" size="sm" className="w-full bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg">
-                  مشاهده همه پیام‌ها
+                  {t('header.viewAllMessages')}
                 </Button>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -246,19 +246,19 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-64 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-2xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl p-3">
-              <DropdownMenuLabel className="px-3 py-2 text-gray-900 dark:text-gray-100 font-semibold">عملیات سریع</DropdownMenuLabel>
+              <DropdownMenuLabel className="px-3 py-2 text-gray-900 dark:text-gray-100 font-semibold">{t('header.quickActions')}</DropdownMenuLabel>
               <DropdownMenuSeparator className="my-2 bg-gray-100 dark:bg-gray-700" />
               <DropdownMenuItem className="m-1 px-3 py-3 cursor-pointer rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:shadow-sm transition-all duration-200">
                 <Calendar className="w-5 h-5 ml-3 text-purple-500" />
-                <span className="flex-1 font-medium text-gray-700 dark:text-gray-300">تقویم نمونه‌گیری</span>
+                <span className="flex-1 font-medium text-gray-700 dark:text-gray-300">{t('header.samplingCalendar')}</span>
               </DropdownMenuItem>
               <DropdownMenuItem className="m-1 px-3 py-3 cursor-pointer rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:shadow-sm transition-all duration-200">
                 <MessageSquare className="w-5 h-5 ml-3 text-blue-500" />
-                <span className="flex-1 font-medium text-gray-700 dark:text-gray-300">پیام‌های جدید</span>
+                <span className="flex-1 font-medium text-gray-700 dark:text-gray-300">{t('header.newMessages2')}</span>
               </DropdownMenuItem>
               <DropdownMenuItem className="m-1 px-3 py-3 cursor-pointer rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 hover:shadow-sm transition-all duration-200">
                 <Shield className="w-5 h-5 ml-3 text-green-500" />
-                <span className="flex-1 font-medium text-gray-700 dark:text-gray-300">گزارش امنیتی</span>
+                <span className="flex-1 font-medium text-gray-700 dark:text-gray-300">{t('header.securityReport')}</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -286,7 +286,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                   </Avatar>
                   <div className="hidden md:flex flex-col items-end text-sm">
                     <span className="font-medium text-gray-900 dark:text-gray-100">{user?.name || 'مهندس حسین حدادی'}</span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">مدیر آزمایشگاه</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">{t('header.labManager')}</span>
                   </div>
                   <ChevronDown className="w-4 h-4 text-gray-500" />
                 </div>
@@ -301,9 +301,9 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                 </Avatar>
                 <div className="flex-1">
                   <p className="font-bold text-gray-900 dark:text-gray-100 text-lg">{user?.name || 'مهندس حسین حدادی'}</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">مدیر آزمایشگاه</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{t('header.labManager')}</p>
                   <Badge className="text-xs bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-2 py-1 rounded-full">
-                    دسترسی کامل
+                    {t('header.fullAccess')}
                   </Badge>
                 </div>
               </div>
@@ -312,27 +312,27 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
               <div className="space-y-2">
                 <Link href="/profile" className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-700 dark:hover:text-blue-300 rounded-xl transition-all duration-200 group w-full">
                   <UserProfileIcon className="w-5 h-5 text-blue-500 group-hover:text-blue-600 ml-3" />
-                  <span className="flex-1 text-right">پروفایل کاربری</span>
+                  <span className="flex-1 text-right">{t('header.userProfile')}</span>
                 </Link>
                 
                 <Link href="/account-settings" className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:text-purple-700 dark:hover:text-purple-300 rounded-xl transition-all duration-200 group w-full">
                   <SettingsIcon className="w-5 h-5 text-purple-500 group-hover:text-purple-600 ml-3" />
-                  <span className="flex-1 text-right">تنظیمات حساب</span>
+                  <span className="flex-1 text-right">{t('header.accountSettings')}</span>
                 </Link>
                 
                 <Link href="/security-privacy" className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-green-700 dark:hover:text-green-300 rounded-xl transition-all duration-200 group w-full">
                   <Shield className="w-5 h-5 text-green-500 group-hover:text-green-600 ml-3" />
-                  <span className="flex-1 text-right">امنیت و حریم خصوصی</span>
+                  <span className="flex-1 text-right">{t('header.securityPrivacy')}</span>
                 </Link>
                 
                 <Link href="/account-settings" className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-700 dark:hover:text-orange-300 rounded-xl transition-all duration-200 group w-full">
                   <LanguageIcon className="w-5 h-5 text-orange-500 group-hover:text-orange-600 ml-3" />
-                  <span className="flex-1 text-right">تغییر زبان</span>
+                  <span className="flex-1 text-right">{t('header.changeLanguage')}</span>
                 </Link>
                 
                 <Link href="/help-support" className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-700 dark:hover:text-indigo-300 rounded-xl transition-all duration-200 group w-full">
                   <HelpCircle className="w-5 h-5 text-indigo-500 group-hover:text-indigo-600 ml-3" />
-                  <span className="flex-1 text-right">راهنما و پشتیبانی</span>
+                  <span className="flex-1 text-right">{t('header.helpSupport')}</span>
                 </Link>
               </div>
 
