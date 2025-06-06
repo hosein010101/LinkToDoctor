@@ -317,6 +317,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Data management endpoints
+  app.post("/api/data/generate", async (_req, res) => {
+    try {
+      storage.generateComprehensiveTestData();
+      res.json({ 
+        success: true, 
+        message: "۵۰۰ رکورد تستی کامل ایجاد شد",
+        stats: {
+          patients: 500,
+          collectors: 30,
+          labServices: 12,
+          labOrders: 200,
+          testResults: 600,
+          inventory: 12
+        }
+      });
+    } catch (error: any) {
+      console.error("Error generating test data:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.post("/api/data/clear", async (_req, res) => {
+    try {
+      storage.clearAllData();
+      res.json({ 
+        success: true, 
+        message: "تمام داده‌ها پاک شد" 
+      });
+    } catch (error: any) {
+      console.error("Error clearing data:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/data/stats", async (_req, res) => {
+    try {
+      const patients = await storage.getAllPatients();
+      const collectors = await storage.getAllCollectors();
+      const services = await storage.getAllLabServices();
+      const orders = await storage.getAllLabOrders();
+      const inventory = await storage.getAllInventory();
+      
+      res.json({
+        patients: patients.length,
+        collectors: collectors.length,
+        labServices: services.length,
+        labOrders: orders.length,
+        inventory: inventory.length,
+        dataStatus: patients.length > 0 ? "populated" : "empty"
+      });
+    } catch (error: any) {
+      console.error("Error fetching data stats:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
