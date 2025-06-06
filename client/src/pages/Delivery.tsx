@@ -314,11 +314,11 @@ export default function Delivery() {
             </Select>
 
             <div className="flex space-x-2 space-x-reverse">
-              <Button variant="outline" onClick={selectAllOrders} size="sm">
+              <Button variant="outline" onClick={selectAllOrders} size="sm" className="border-green-500 text-green-600 hover:bg-green-50">
                 <CheckCircle className="w-4 h-4 ml-1" />
                 انتخاب همه
               </Button>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="border-blue-500 text-blue-600 hover:bg-blue-50">
                 <Filter className="w-4 h-4 ml-1" />
                 فیلتر پیشرفته
               </Button>
@@ -385,15 +385,15 @@ export default function Delivery() {
                   </div>
                   
                   <div className="flex items-center space-x-2 space-x-reverse">
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="border-blue-500 text-blue-600 hover:bg-blue-50">
                       <Eye className="w-4 h-4" />
                       مشاهده
                     </Button>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="border-blue-500 text-blue-600 hover:bg-blue-50">
                       <Download className="w-4 h-4" />
                       دانلود
                     </Button>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="border-blue-500 text-blue-600 hover:bg-blue-50">
                       <MessageSquare className="w-4 h-4" />
                       اطلاع‌رسانی
                     </Button>
@@ -408,7 +408,7 @@ export default function Delivery() {
                         تحویل
                       </Button>
                     )}
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="border-gray-300 text-gray-600 hover:bg-gray-50">
                       <MoreHorizontal className="w-4 h-4" />
                     </Button>
                   </div>
@@ -443,6 +443,7 @@ export default function Delivery() {
                   size="sm"
                   onClick={() => setCurrentPage(1)}
                   disabled={currentPage === 1}
+                  className="border-blue-500 text-blue-600 hover:bg-blue-50 disabled:border-gray-300 disabled:text-gray-400"
                 >
                   اول
                 </Button>
@@ -451,6 +452,7 @@ export default function Delivery() {
                   size="sm"
                   onClick={() => setCurrentPage(currentPage - 1)}
                   disabled={currentPage === 1}
+                  className="border-blue-500 text-blue-600 hover:bg-blue-50 disabled:border-gray-300 disabled:text-gray-400"
                 >
                   <ChevronRight className="w-4 h-4" />
                   قبلی
@@ -476,7 +478,7 @@ export default function Delivery() {
                       variant={currentPage === pageNumber ? "default" : "outline"}
                       size="sm"
                       onClick={() => setCurrentPage(pageNumber)}
-                      className={currentPage === pageNumber ? "bg-blue-600 text-white" : ""}
+                      className={currentPage === pageNumber ? "bg-blue-600 text-white border-blue-600" : "border-blue-500 text-blue-600 hover:bg-blue-50"}
                     >
                       {pageNumber}
                     </Button>
@@ -490,6 +492,7 @@ export default function Delivery() {
                   size="sm"
                   onClick={() => setCurrentPage(currentPage + 1)}
                   disabled={currentPage === totalPages}
+                  className="border-blue-500 text-blue-600 hover:bg-blue-50 disabled:border-gray-300 disabled:text-gray-400"
                 >
                   بعدی
                   <ChevronLeft className="w-4 h-4 mr-1" />
@@ -499,6 +502,7 @@ export default function Delivery() {
                   size="sm"
                   onClick={() => setCurrentPage(totalPages)}
                   disabled={currentPage === totalPages}
+                  className="border-blue-500 text-blue-600 hover:bg-blue-50 disabled:border-gray-300 disabled:text-gray-400"
                 >
                   آخر
                 </Button>
