@@ -24,7 +24,9 @@ import {
   MoreHorizontal,
   Filter,
   Download,
-  Plus
+  Plus,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import type { OrderWithDetails, Patient, Collector } from "@/lib/types";
 
@@ -32,6 +34,8 @@ export default function Orders() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [selectedOrder, setSelectedOrder] = useState<OrderWithDetails | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
   
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -126,6 +130,22 @@ export default function Orders() {
   const clearFilters = () => {
     setSearchTerm("");
     setStatusFilter("all");
+    setCurrentPage(1);
+  };
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedOrders = filteredOrders.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handleItemsPerPageChange = (value: string) => {
+    setItemsPerPage(parseInt(value));
+    setCurrentPage(1);
   };
 
   if (isLoading) {
@@ -251,7 +271,7 @@ export default function Orders() {
       {/* Filters */}
       <Card className="card-professional">
         <CardContent className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
             <div className="relative">
               <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               <Input
@@ -277,6 +297,18 @@ export default function Orders() {
               </SelectContent>
             </Select>
 
+            <Select value={itemsPerPage.toString()} onValueChange={handleItemsPerPageChange}>
+              <SelectTrigger>
+                <SelectValue placeholder="تعداد نمایش" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="10">۱۰ مورد</SelectItem>
+                <SelectItem value="20">۲۰ مورد</SelectItem>
+                <SelectItem value="50">۵۰ مورد</SelectItem>
+                <SelectItem value="100">۱۰۰ مورد</SelectItem>
+              </SelectContent>
+            </Select>
+
             <Button variant="outline" onClick={clearFilters}>
               <XCircle className="w-4 h-4 ml-2" />
               پاک کردن فیلترها
@@ -287,6 +319,16 @@ export default function Orders() {
               فیلترهای پیشرفته
             </Button>
           </div>
+          
+          {/* Pagination Info */}
+          <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
+            <div>
+              نمایش {startIndex + 1} تا {Math.min(endIndex, filteredOrders.length)} از {filteredOrders.length} سفارش
+            </div>
+            <div>
+              صفحه {currentPage} از {totalPages}
+            </div>
+          </div>
         </CardContent>
       </Card>
 
@@ -294,7 +336,7 @@ export default function Orders() {
       <Card className="card-professional">
         <CardContent className="p-6">
           <div className="space-y-4">
-            {filteredOrders.map((order) => (
+            {paginatedOrders.map((order) => (
               <div key={order.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-4 space-x-reverse">
@@ -363,13 +405,85 @@ export default function Orders() {
               </div>
             ))}
 
-            {filteredOrders.length === 0 && (
+            {paginatedOrders.length === 0 && (
               <div className="text-center py-8">
                 <Package className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-600">هیچ سفارشی یافت نشد</p>
               </div>
             )}
           </div>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
+              <div className="flex items-center space-x-2 space-x-reverse">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handlePageChange(1)}
+                  disabled={currentPage === 1}
+                >
+                  اول
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  <ChevronRight className="w-4 h-4" />
+                  قبلی
+                </Button>
+              </div>
+
+              <div className="flex items-center space-x-1 space-x-reverse">
+                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                  let pageNumber;
+                  if (totalPages <= 5) {
+                    pageNumber = i + 1;
+                  } else if (currentPage <= 3) {
+                    pageNumber = i + 1;
+                  } else if (currentPage >= totalPages - 2) {
+                    pageNumber = totalPages - 4 + i;
+                  } else {
+                    pageNumber = currentPage - 2 + i;
+                  }
+
+                  return (
+                    <Button
+                      key={pageNumber}
+                      variant={currentPage === pageNumber ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handlePageChange(pageNumber)}
+                      className={currentPage === pageNumber ? "bg-blue-600 text-white" : ""}
+                    >
+                      {pageNumber}
+                    </Button>
+                  );
+                })}
+              </div>
+
+              <div className="flex items-center space-x-2 space-x-reverse">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  بعدی
+                  <ChevronLeft className="w-4 h-4 mr-1" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handlePageChange(totalPages)}
+                  disabled={currentPage === totalPages}
+                >
+                  آخر
+                </Button>
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
