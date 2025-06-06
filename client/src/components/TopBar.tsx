@@ -344,20 +344,20 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                 <DialogTrigger asChild>
                   <button className="flex items-center px-4 py-3 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-700 dark:hover:text-red-300 rounded-xl transition-all duration-200 group w-full">
                     <LogOut className="w-5 h-5 text-red-500 group-hover:text-red-600 ml-3" />
-                    <span className="flex-1 text-right">خروج از سامانه</span>
+                    <span className="flex-1 text-right">{t('header.logout')}</span>
                   </button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-md">
                   <DialogHeader>
-                    <DialogTitle>تأیید خروج</DialogTitle>
+                    <DialogTitle>{t('header.confirmLogout')}</DialogTitle>
                     <DialogDescription>
-                      آیا مطمئن هستید که می‌خواهید از سامانه خارج شوید؟
+                      {t('header.logoutConfirmation')}
                     </DialogDescription>
                   </DialogHeader>
                   <DialogFooter className="flex-row-reverse space-x-2 space-x-reverse">
-                    <Button variant="outline">لغو</Button>
+                    <Button variant="outline">{t('header.cancel')}</Button>
                     <Button variant="destructive" onClick={logout}>
-                      خروج از سامانه
+                      {t('header.logout')}
                     </Button>
                   </DialogFooter>
                 </DialogContent>
