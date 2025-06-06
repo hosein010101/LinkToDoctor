@@ -531,11 +531,15 @@ export default function Settings() {
             <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
-                  <div className="flex items-center">
+                  <div className="flex items-center justify-between">
                     <div>
                       <Label>احراز هویت دو مرحله‌ای</Label>
                       <p className="text-sm text-gray-600">افزایش امنیت ورود</p>
                     </div>
+                    <ToggleSwitch
+                      checked={securitySettings.twoFactorAuth}
+                      onCheckedChange={(checked) => setSecuritySettings({...securitySettings, twoFactorAuth: checked})}
+                    />
                   </div>
 
                   <div>
@@ -560,34 +564,50 @@ export default function Settings() {
                     />
                   </div>
 
-                  <div className="flex items-center">
+                  <div className="flex items-center justify-between">
                     <div>
                       <Label>قفل خودکار نشست</Label>
                       <p className="text-sm text-gray-600">قفل کردن پس از عدم فعالیت</p>
                     </div>
+                    <ToggleSwitch
+                      checked={securitySettings.sessionLock}
+                      onCheckedChange={(checked) => setSecuritySettings({...securitySettings, sessionLock: checked})}
+                    />
                   </div>
                 </div>
 
                 <div className="space-y-4">
-                  <div className="flex items-center">
+                  <div className="flex items-center justify-between">
                     <div>
                       <Label>فهرست سفید IP</Label>
                       <p className="text-sm text-gray-600">محدود کردن دسترسی به IP های خاص</p>
                     </div>
+                    <ToggleSwitch
+                      checked={securitySettings.ipWhitelist}
+                      onCheckedChange={(checked) => setSecuritySettings({...securitySettings, ipWhitelist: checked})}
+                    />
                   </div>
 
-                  <div className="flex items-center">
+                  <div className="flex items-center justify-between">
                     <div>
                       <Label>لاگ حسابرسی</Label>
                       <p className="text-sm text-gray-600">ثبت تمام فعالیت‌های کاربران</p>
                     </div>
+                    <ToggleSwitch
+                      checked={securitySettings.auditLog}
+                      onCheckedChange={(checked) => setSecuritySettings({...securitySettings, auditLog: checked})}
+                    />
                   </div>
 
-                  <div className="flex items-center">
+                  <div className="flex items-center justify-between">
                     <div>
                       <Label>رمزگذاری داده‌ها</Label>
                       <p className="text-sm text-gray-600">رمزگذاری اطلاعات حساس</p>
                     </div>
+                    <ToggleSwitch
+                      checked={securitySettings.encryptData}
+                      onCheckedChange={(checked) => setSecuritySettings({...securitySettings, encryptData: checked})}
+                    />
                   </div>
                 </div>
               </div>
