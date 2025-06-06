@@ -464,7 +464,7 @@ export default function Dashboard() {
           <CardHeader>
             <CardTitle className="flex items-center space-x-2 space-x-reverse">
               <LineChart className="w-5 h-5 text-blue-600" />
-              <span>روند سفارشات ماهانه</span>
+              <span>{t('chart.monthlyOrdersTrend')}</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -479,7 +479,7 @@ export default function Dashboard() {
           <CardHeader>
             <CardTitle className="flex items-center space-x-2 space-x-reverse">
               <PieChart className="w-5 h-5 text-purple-600" />
-              <span>توزیع انواع آزمایش</span>
+              <span>{t('chart.testTypesDistribution')}</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -497,7 +497,7 @@ export default function Dashboard() {
           <CardHeader>
             <CardTitle className="flex items-center space-x-2 space-x-reverse">
               <BarChart3 className="w-5 h-5 text-green-600" />
-              <span>درآمد هفتگی</span>
+              <span>{t('chart.weeklyRevenue')}</span>
             </CardTitle>
           </CardHeader>
           <CardContent>

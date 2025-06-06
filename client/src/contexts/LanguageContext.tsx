@@ -229,6 +229,10 @@ const translations = {
     
     // Chart
     'chart.monthlyOrders': 'سفارشات ماهانه',
+    'chart.monthlyOrdersTrend': 'روند سفارشات ماهانه',
+    'chart.testTypesDistribution': 'توزیع انواع آزمایش',
+    'chart.weeklyRevenue': 'درآمد هفتگی',
+    'chart.performanceMetrics': 'شاخص‌های عملکرد',
     
 
   },
@@ -617,6 +621,9 @@ const translations = {
     'chart.monthlyOrders': 'الطلبات الشهرية',
     'chart.weeklyRevenue': 'الإيرادات الأسبوعية',
     'chart.testCategories': 'فئات الفحوصات',
+    
+    // Additional Keys for Orders
+    'dashboard.reports': 'التقارير',
   }
 };
 
@@ -643,7 +650,7 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
   }, [language]);
 
   const t = (key: string): string => {
-    return translations[language]?.[key] || key;
+    return (translations[language] as any)?.[key] || key;
   };
 
   const dir = language === 'en' ? 'ltr' : 'rtl';
