@@ -138,7 +138,7 @@ export default function Delivery() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "completed":
-        return <Badge className="bg-orange-100 text-orange-800 border-orange-200">آماده تحویل</Badge>;
+        return <Badge className="tag-info">آماده تحویل</Badge>;
       case "delivered":
         return <Badge className="bg-green-100 text-green-800 border-green-200">تحویل شده</Badge>;
       default:
@@ -191,7 +191,7 @@ export default function Delivery() {
             </Button>
             <Button 
               onClick={handleBulkDelivery}
-              className="bg-green-600 hover:bg-green-700 text-white"
+              className="btn-success-action"
               disabled={deliverResultMutation.isPending}
             >
               <Send className="w-4 h-4 ml-2" />
@@ -401,7 +401,7 @@ export default function Delivery() {
                       <Button 
                         size="sm"
                         onClick={() => handleDelivery(order.id)}
-                        className="bg-green-600 hover:bg-green-700 text-white"
+                        className="btn-success-action"
                         disabled={deliverResultMutation.isPending}
                       >
                         <Send className="w-4 h-4 ml-1" />
@@ -476,7 +476,7 @@ export default function Delivery() {
                       variant={currentPage === pageNumber ? "default" : "outline"}
                       size="sm"
                       onClick={() => setCurrentPage(pageNumber)}
-                      className={currentPage === pageNumber ? "bg-blue-600 text-white" : ""}
+                      className={currentPage === pageNumber ? "btn-primary-action" : ""}
                     >
                       {pageNumber}
                     </Button>

@@ -1,0 +1,37 @@
+Subject: Critical CSS Overhaul: Systematically Eliminate and Replace Yellow UI Color Palette
+
+Prompt:
+
+You are an expert frontend developer and UI designer with a keen eye for professional color theory. We have a critical and persistent design issue: the dashboards you generate excessively use a harsh yellow color for major UI components like buttons, filters, and tags. This needs to be corrected **systematically and permanently.**
+
+**I. The Core Problem & The Strict Rule:**
+The current use of yellow (`yellow`, `#FFD700`, etc.) as a primary background color is unprofessional and visually jarring. From this point forward, you are **strictly forbidden** from using yellow as a background color for any primary interactive element, including but not limited to: buttons, filters, active state indicators, and information tags. Your task is to eradicate the existing yellow color and implement a new, professional, and harmonious color system.
+
+**II. The New, Professional Color System (The "Right" Way):**
+Do not just remove the yellow; you must replace it with the following purposeful color palette. You will define these colors as CSS variables at the `:root` level for easy management.
+
+* `--primary-action-color:` A professional and trustworthy blue for primary actions.
+    * **Value: `#4A90E2`**
+* `--secondary-action-color:` A neutral and clean grey for secondary or less important actions.
+    * **Value: `#A0AEC0`**
+* `--success-color:` The existing green is good for positive confirmation actions. We will keep it.
+    * **Value: `#48BB78`** (or the green currently used for "مشاهده").
+* `--info-color:` A calm, light blue for informational tags.
+    * **Value: `#EBF8FF` (background), `#4299E1` (text/border)**
+* `--active-filter-background:` The primary action blue, to show active state.
+    * **Value: `var(--primary-action-color)`**
+
+**III. Step-by-Step Implementation Plan (Your Exact Instructions):**
+
+**Step 1: Define the New Color Variables in CSS**
+   - At the top of your main CSS file, define the new color variables inside the `:root` selector.
+
+   ```css
+   :root {
+     --primary-action-color: #4A90E2;
+     --secondary-action-color: #A0AEC0;
+     --success-color: #48BB78;
+     --info-bg-color: #EBF8FF;
+     --info-text-color: #4299E1;
+     /* Add any other global variables here */
+   }

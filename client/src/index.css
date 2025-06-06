@@ -25,6 +25,16 @@
   --input: 255 255 255; /* #FFFFFF */
   --ring: 37 99 235; /* #2563EB */
   --radius: 0.75rem;
+
+  /* Professional Color System - No Yellow Policy */
+  --primary-action-color: #4A90E2;
+  --secondary-action-color: #A0AEC0;
+  --success-color: #48BB78;
+  --info-bg-color: #EBF8FF;
+  --info-text-color: #4299E1;
+  --active-filter-background: var(--primary-action-color);
+  --warning-color: #F56565;
+  --warning-bg-color: #FED7D7;
 }
 
 .dark {
@@ -105,9 +115,11 @@ p, span, div {
   font-weight: 600;
 }
 
-.bg-yellow-100 { 
-  background-color: #fef3c7 !important; 
-  color: #d97706 !important; 
+/* YELLOW STRICTLY FORBIDDEN - Use Professional Alternatives */
+.bg-yellow-100, .bg-amber-100 { 
+  background-color: var(--info-bg-color) !important; 
+  color: var(--info-text-color) !important; 
+  border: 1px solid var(--info-text-color) !important;
   font-weight: 600;
 }
 
@@ -153,10 +165,55 @@ p, span, div {
   font-weight: 600;
 }
 
-.bg-amber-100 { 
-  background-color: #fef3c7 !important; 
-  color: #d97706 !important; 
+/* Professional Action Button Classes - No Yellow Policy */
+.btn-primary-action {
+  background-color: var(--primary-action-color) !important;
+  color: white !important;
+  border: none !important;
   font-weight: 600;
+}
+
+.btn-primary-action:hover {
+  background-color: #357ABD !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary-action {
+  background-color: var(--secondary-action-color) !important;
+  color: white !important;
+  border: none !important;
+  font-weight: 500;
+}
+
+.btn-secondary-action:hover {
+  background-color: #8A94A6 !important;
+}
+
+.btn-success-action {
+  background-color: var(--success-color) !important;
+  color: white !important;
+  border: none !important;
+  font-weight: 600;
+}
+
+.btn-success-action:hover {
+  background-color: #38A169 !important;
+}
+
+.tag-info {
+  background-color: var(--info-bg-color) !important;
+  color: var(--info-text-color) !important;
+  border: 1px solid var(--info-text-color) !important;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.filter-active {
+  background-color: var(--active-filter-background) !important;
+  color: white !important;
+  border: 1px solid var(--active-filter-background) !important;
 }
 
 .bg-rose-100 { 
