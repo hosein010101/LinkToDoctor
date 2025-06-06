@@ -96,6 +96,63 @@ p, span, div {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
+/* Input and Select Components - Force White Background */
+input[type="text"], 
+input[type="email"], 
+input[type="password"], 
+input[type="tel"], 
+input[type="search"], 
+input[type="date"], 
+input[type="number"],
+.input,
+[data-radix-select-trigger],
+[data-radix-select-content],
+button[role="combobox"],
+[role="textbox"] {
+  background-color: #ffffff !important;
+}
+
+/* Dropdown and Select Content */
+[data-radix-select-content] {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+/* Button Variants - No Yellow Backgrounds */
+button[data-variant="outline"] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+button[data-variant="outline"]:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Force white background for all form elements */
+.react-select__control,
+.react-select__menu,
+input,
+textarea,
+select {
+  background-color: #ffffff !important;
+}
+
+/* Tailwind Input Classes Override */
+.bg-white {
+  background-color: #ffffff !important;
+}
+
+/* Override any yellow backgrounds globally */
+[class*="bg-yellow"] {
+  background-color: #fed7aa !important;
+  color: #ea580c !important;
+}
+
+/* Search Input Specific Fix */
+.search-input {
+  background-color: #ffffff !important;
+}
+
 /* Modern Badge Colors */
 .bg-red-100 { 
   background-color: #fee2e2 !important; 
@@ -115,9 +172,9 @@ p, span, div {
   font-weight: 600;
 }
 
-.bg-yellow-100 { 
-  background-color: #fef3c7 !important; 
-  color: #d97706 !important; 
+.bg-orange-100 { 
+  background-color: #fed7aa !important; 
+  color: #ea580c !important; 
   font-weight: 600;
 }
 
