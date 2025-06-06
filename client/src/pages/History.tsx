@@ -61,7 +61,7 @@ export default function History() {
   const getStatusBadge = (status: string) => {
     const statusMap = {
       registered: { label: "ثبت شده", class: "bg-blue-100 text-blue-800" },
-      collection_scheduled: { label: "برنامه‌ریزی شده", class: "bg-yellow-100 text-yellow-800" },
+      collection_scheduled: { label: "برنامه‌ریزی شده", class: "bg-orange-100 text-orange-800" },
       collected: { label: "نمونه‌گیری شده", class: "bg-orange-100 text-orange-800" },
       processing: { label: "در حال پردازش", class: "bg-purple-100 text-purple-800" },
       completed: { label: "آماده تحویل", class: "bg-green-100 text-green-800" },

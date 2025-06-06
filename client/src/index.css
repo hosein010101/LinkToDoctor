@@ -187,6 +187,134 @@ button:not([class*="bg-"]):not([class*="text-white"]):hover {
   background-color: #ffffff !important;
 }
 
+/* Complete yellow removal and meaningful color mapping */
+button {
+  background-color: #ffffff !important;
+}
+
+button:not([class*="bg-blue"]):not([class*="bg-green"]):not([class*="bg-red"]):not([class*="bg-purple"]):not([class*="bg-gray"]):not([class*="text-white"]) {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+/* Specific button types with meaningful colors */
+button[aria-label*="GPS"],
+button[aria-label*="ردیابی"],
+button:has([class*="Navigation"]) {
+  background-color: #ffffff !important;
+  border: 1px solid #3b82f6 !important;
+  color: #3b82f6 !important;
+}
+
+button[aria-label*="نقشه"],
+button:has([class*="MapPin"]) {
+  background-color: #ffffff !important;
+  border: 1px solid #059669 !important;
+  color: #059669 !important;
+}
+
+button[aria-label*="زمان"],
+button:has([class*="Clock"]),
+button:has([class*="Calendar"]) {
+  background-color: #ffffff !important;
+  border: 1px solid #7c3aed !important;
+  color: #7c3aed !important;
+}
+
+button[aria-label*="پیامک"],
+button:has([class*="MessageSquare"]),
+button:has([class*="Send"]) {
+  background-color: #ffffff !important;
+  border: 1px solid #10b981 !important;
+  color: #10b981 !important;
+}
+
+button[aria-label*="آپلود"],
+button:has([class*="Upload"]) {
+  background-color: #ffffff !important;
+  border: 1px solid #f59e0b !important;
+  color: #f59e0b !important;
+}
+
+/* Complete elimination of all yellow variants */
+*[class*="yellow"]:not([class*="bg-"]):not([class*="text-"]):not([class*="border-"]) {
+  background-color: #ffffff !important;
+  color: #475569 !important;
+}
+
+/* Universal button color override - all yellow buttons become white with appropriate borders */
+button[class*="yellow"],
+button[style*="yellow"],
+[role="button"][class*="yellow"] {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+/* Select and dropdown content override */
+[data-radix-select-content] * {
+  background-color: #ffffff !important;
+}
+
+/* Tab and navigation override */
+[data-state="active"][class*="yellow"] {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+/* Button hover states */
+button:hover[class*="yellow"] {
+  background-color: #f8fafc !important;
+  border-color: #94a3b8 !important;
+}
+
+/* Force all form controls to white */
+input, select, textarea, button:not([class*="bg-blue"]):not([class*="bg-green"]):not([class*="bg-red"]):not([class*="bg-purple"]) {
+  background-color: #ffffff !important;
+}
+
+/* Nuclear option: Override ALL yellow variants everywhere */
+.bg-amber-50, .bg-amber-100, .bg-amber-200, .bg-amber-300, .bg-amber-400, .bg-amber-500, .bg-amber-600,
+.bg-yellow-50, .bg-yellow-100, .bg-yellow-200, .bg-yellow-300, .bg-yellow-400, .bg-yellow-500, .bg-yellow-600,
+.hover\:bg-yellow-50:hover, .hover\:bg-yellow-100:hover, .hover\:bg-yellow-200:hover,
+.hover\:bg-amber-50:hover, .hover\:bg-amber-100:hover, .hover\:bg-amber-200:hover {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+/* Text color overrides */
+.text-amber-600, .text-amber-700, .text-amber-800,
+.text-yellow-600, .text-yellow-700, .text-yellow-800 {
+  color: #475569 !important;
+}
+
+/* Border color overrides */
+.border-amber-200, .border-amber-300,
+.border-yellow-200, .border-yellow-300 {
+  border-color: #e2e8f0 !important;
+}
+
+/* Gradient overrides */
+.from-amber-100, .from-yellow-100, .via-amber-100, .via-yellow-100, .to-amber-100, .to-yellow-100 {
+  background: linear-gradient(to bottom right, #ffffff, #f8fafc) !important;
+}
+
+/* Ring and outline overrides */
+.ring-amber-200, .ring-yellow-200 {
+  --tw-ring-color: #e2e8f0 !important;
+}
+
+/* Final catch-all for any missed yellow elements */
+[style*="rgb(251, 191, 36)"], [style*="rgb(245, 158, 11)"], [style*="rgb(217, 119, 6)"],
+[style*="#fbbf24"], [style*="#f59e0b"], [style*="#d97706"],
+[style*="yellow"], [style*="amber"] {
+  background-color: #ffffff !important;
+  color: #475569 !important;
+  border-color: #e2e8f0 !important;
+}
+
 /* Search Input Specific Fix */
 .search-input {
   background-color: #ffffff !important;
