@@ -42,12 +42,12 @@ export default function Settings() {
   const [labInfo, setLabInfo] = useState({
     name: "آزمایشگاه لینک تو دکتر",
     license: "LAB-2024-001",
-    phone: "021-12345678",
-    email: "info@linkto.doctor",
+    phone: "09123133998",
+    email: "info@axayaco.com",
     address: "تهران، خیابان ولیعصر، پلاک 123",
-    website: "www.linkto.doctor",
-    manager: "دکتر حسین هددی",
-    establishedYear: "1401",
+    website: "www.axayaco.com",
+    manager: "مهندس حسین حدادی",
+    establishedYear: "1404",
   });
 
   // Notification Settings
