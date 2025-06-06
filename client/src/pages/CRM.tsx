@@ -187,8 +187,8 @@ export default function CRM() {
                 flex items-center justify-center space-x-2 space-x-reverse px-4 py-4 rounded-xl 
                 transition-all duration-300 font-semibold text-sm relative overflow-hidden
                 ${activeTab === "vip" 
-                  ? "bg-gradient-to-br from-amber-100 via-yellow-100 to-orange-100 text-amber-800 shadow-lg transform scale-110 border-2 border-amber-200" 
-                  : "text-slate-600 hover:bg-gradient-to-br hover:from-amber-50 hover:to-yellow-50 hover:text-amber-700 hover:shadow-md"
+                  ? "bg-gradient-to-br from-purple-100 via-violet-100 to-indigo-100 text-purple-800 shadow-lg transform scale-110 border-2 border-purple-200" 
+                  : "text-slate-600 hover:bg-gradient-to-br hover:from-purple-50 hover:to-violet-50 hover:text-purple-700 hover:shadow-md"
                 }
               `}
             >

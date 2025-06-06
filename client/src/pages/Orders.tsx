@@ -220,7 +220,7 @@ export default function Orders() {
                   {enhancedOrders.filter(o => o.status === "collection_scheduled").length}
                 </p>
               </div>
-              <Clock className="w-8 h-8 text-yellow-600" />
+              <Clock className="w-8 h-8 text-orange-600" />
             </div>
           </CardContent>
         </Card>

@@ -148,6 +148,45 @@ select {
   color: #ea580c !important;
 }
 
+/* Force all buttons to use appropriate colors */
+button:not([class*="bg-"]):not([class*="text-white"]) {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+button:not([class*="bg-"]):not([class*="text-white"]):hover {
+  background-color: #f8fafc !important;
+}
+
+/* Override specific button colors */
+.text-yellow-600 {
+  color: #ea580c !important;
+}
+
+/* Global yellow color overrides */
+.bg-yellow-50 { background-color: #fef7ed !important; }
+.bg-yellow-100 { background-color: #fed7aa !important; }
+.bg-yellow-200 { background-color: #fdba74 !important; }
+.bg-yellow-300 { background-color: #fb923c !important; }
+.bg-yellow-400 { background-color: #f97316 !important; }
+.bg-yellow-500 { background-color: #ea580c !important; }
+.bg-yellow-600 { background-color: #dc2626 !important; }
+
+.text-yellow-50 { color: #fef7ed !important; }
+.text-yellow-100 { color: #fed7aa !important; }
+.text-yellow-200 { color: #fdba74 !important; }
+.text-yellow-300 { color: #fb923c !important; }
+.text-yellow-400 { color: #f97316 !important; }
+.text-yellow-500 { color: #ea580c !important; }
+.text-yellow-600 { color: #dc2626 !important; }
+
+/* Ensure all outline buttons have white background */
+[data-state] button,
+.ui-button {
+  background-color: #ffffff !important;
+}
+
 /* Search Input Specific Fix */
 .search-input {
   background-color: #ffffff !important;
