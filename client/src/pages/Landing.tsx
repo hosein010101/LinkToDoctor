@@ -22,7 +22,19 @@ export default function Landing() {
     setError("");
     
     if (formData.username === "haddadi" && formData.password === "Axayaco") {
-      window.location.href = '/?bypass=true';
+      // Set authentication flag in localStorage for persistent login
+      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('user', JSON.stringify({
+        id: 'haddadi',
+        name: 'مهندس حسین حدادی',
+        username: 'haddadi'
+      }));
+      
+      if (formData.rememberMe) {
+        localStorage.setItem('rememberMe', 'true');
+      }
+      
+      window.location.href = '/';
     } else {
       setError("نام کاربری یا رمز عبور اشتباه است");
     }
@@ -142,7 +154,7 @@ export default function Landing() {
 
             <div className="text-center pt-2 border-t border-gray-100">
               <p className="text-xs text-gray-500">
-                © ۱۴۰۳ سامانه LinkToDoctor - دکتر حسین هدادی
+                © ۱۴۰۳ سامانه LinkToDoctor - مهندس حسین حدادی
               </p>
             </div>
           </CardContent>
@@ -164,14 +176,11 @@ export default function Landing() {
           {/* Hero Section */}
           <div className="text-center mb-20">
             <div className="flex items-center justify-center mb-8">
-              <div className="relative">
-                <div className="absolute -inset-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-30"></div>
-                <img 
-                  src={logoPath} 
-                  alt="LinkToDoctor Logo" 
-                  className="relative h-20 w-auto"
-                />
-              </div>
+              <img 
+                src={logoPath} 
+                alt="LinkToDoctor Logo" 
+                className="h-32 w-auto"
+              />
             </div>
             
             <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
@@ -288,7 +297,7 @@ export default function Landing() {
           {/* Footer */}
           <div className="text-center py-8 border-t border-slate-200/50">
             <p className="text-slate-500 text-lg">
-              © ۱۴۰۳ سامانه LinkToDoctor - دکتر حسین هدادی
+              © ۱۴۰۳ سامانه LinkToDoctor - مهندس حسین حدادی
             </p>
             <p className="text-slate-400 text-sm mt-2">
               ساخته شده با ❤️ برای بهبود خدمات درمانی
