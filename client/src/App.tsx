@@ -33,7 +33,7 @@ import CRM from "@/pages/CRM";
 import Organizational from "@/pages/Organizational";
 import TestPackages from "@/pages/TestPackages";
 import Equipment from "@/pages/Equipment";
-import Exports from "@/pages/Exports";
+
 import Notifications from "@/pages/Notifications";
 import HR from "@/pages/HR";
 import HRShifts from "@/pages/HRShifts";
@@ -93,7 +93,7 @@ function Router() {
         <Route path="/reports" component={Reports} />
         <Route path="/reports-analytics" component={ReportsAnalytics} />
         <Route path="/weekly-performance" component={WeeklyPerformance} />
-        <Route path="/exports" component={Exports} />
+
         <Route path="/notifications" component={Notifications} />
         
         {/* Human Resources */}
