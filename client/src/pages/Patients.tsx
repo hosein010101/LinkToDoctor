@@ -236,15 +236,15 @@ export default function Patients() {
                   placeholder="جستجو در بیماران..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="search-input"
+                  className="search-input bg-white"
                 />
               </div>
               <div>
                 <Select value={filterStatus} onValueChange={setFilterStatus}>
-                  <SelectTrigger className="border-gray-300">
+                  <SelectTrigger className="border-gray-300 bg-white">
                     <SelectValue placeholder="وضعیت سلامت" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white">
                     <SelectItem value="all">همه وضعیت‌ها</SelectItem>
                     <SelectItem value="healthy">سالم</SelectItem>
                     <SelectItem value="stable">پایدار</SelectItem>

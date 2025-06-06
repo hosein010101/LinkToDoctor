@@ -195,7 +195,7 @@ export default function Collection() {
                           تخصیص نمونه‌گیر
                         </Button>
                       ) : (
-                        <Button size="sm" variant="outline" disabled>
+                        <Button size="sm" variant="outline" disabled className="bg-white border-gray-300 text-gray-600">
                           نمونه‌گیر در دسترس نیست
                         </Button>
                       )}

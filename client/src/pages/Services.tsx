@@ -112,10 +112,10 @@ export default function Services() {
             </div>
             
             <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-              <SelectTrigger>
+              <SelectTrigger className="bg-white">
                 <SelectValue placeholder="همه دسته‌بندی‌ها" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-white">
                 <SelectItem value="">همه دسته‌بندی‌ها</SelectItem>
                 {categories.map((category) => (
                   <SelectItem key={category} value={category}>
@@ -125,7 +125,7 @@ export default function Services() {
               </SelectContent>
             </Select>
             
-            <Button variant="outline" className="flex items-center">
+            <Button variant="outline" className="flex items-center bg-white border-blue-500 text-blue-600 hover:bg-blue-50">
               <Filter className="ml-2 w-4 h-4" />
               فیلترهای بیشتر
             </Button>
@@ -135,7 +135,7 @@ export default function Services() {
                 variant={viewMode === "grid" ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setViewMode("grid")}
-                className="rounded-none flex-1"
+                className={`rounded-none flex-1 ${viewMode === "grid" ? "bg-blue-600 text-white" : "bg-white text-gray-600 hover:bg-gray-50"}`}
               >
                 <Grid className="w-4 h-4" />
               </Button>
@@ -143,7 +143,7 @@ export default function Services() {
                 variant={viewMode === "list" ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setViewMode("list")}
-                className="rounded-none flex-1"
+                className={`rounded-none flex-1 ${viewMode === "list" ? "bg-blue-600 text-white" : "bg-white text-gray-600 hover:bg-gray-50"}`}
               >
                 <ListIcon className="w-4 h-4" />
               </Button>
