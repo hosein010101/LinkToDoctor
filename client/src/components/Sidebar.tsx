@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { 
   LayoutDashboard, 
   ShoppingCart, 
@@ -53,6 +54,7 @@ interface NavSection {
 
 export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
   const [location] = useLocation();
+  const { t } = useLanguage();
   // Initialize with empty array - all sections collapsed by default
   const [expandedSections, setExpandedSections] = useState<number[]>(() => {
     // Try to load from localStorage, default to empty array
@@ -84,24 +86,24 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
 
   const navSections: NavSection[] = [
     {
-      title: "اصلی",
+      title: t('sidebar.dashboard'),
       icon: LayoutDashboard,
       color: "#7dd3fc",
       items: [
-        { icon: LayoutDashboard, label: "داشبورد اصلی", path: "/", color: "#7dd3fc" },
-        { icon: ShoppingCart, label: "مدیریت سفارشات", path: "/orders", color: "#6ee7b7" },
-        { icon: Plus, label: "ثبت سفارش جدید", path: "/new-order", color: "#c4b5fd" },
+        { icon: LayoutDashboard, label: t('sidebar.dashboard'), path: "/", color: "#7dd3fc" },
+        { icon: ShoppingCart, label: t('sidebar.orders'), path: "/orders", color: "#6ee7b7" },
+        { icon: Plus, label: t('orders.newOrder'), path: "/new-order", color: "#c4b5fd" },
       ]
     },
     {
-      title: "بیماران",
+      title: t('sidebar.patients'),
       icon: Users,
       color: "#5eead4",
       items: [
-        { icon: Users, label: "بیماران و مراجعین", path: "/patients", color: "#5eead4" },
-        { icon: History, label: "سوابق و تاریخچه بیماران", path: "/history", color: "#cbd5e1" },
-        { icon: UserPlus, label: "مدیریت ارتباط با مشتریان (CRM)", path: "/crm", color: "#fdba74" },
-        { icon: BarChart3, label: "گزارش نظرسنجی و پیگیری مشتریان", path: "/survey-reports", color: "#f472b6" },
+        { icon: Users, label: t('sidebar.patients'), path: "/patients", color: "#5eead4" },
+        { icon: History, label: t('patients.title'), path: "/history", color: "#cbd5e1" },
+        { icon: UserPlus, label: "CRM", path: "/crm", color: "#fdba74" },
+        { icon: BarChart3, label: t('dashboard.recentOrders'), path: "/survey-reports", color: "#f472b6" },
       ]
     },
     {
