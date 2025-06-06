@@ -22,7 +22,19 @@ import {
   type InsertInventory,
 } from "@shared/schema";
 
+import {
+  users,
+  type User,
+  type UpsertUser,
+} from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
+
 export interface IStorage {
+  // User operations - required for Replit Auth
+  getUser(id: string): Promise<User | undefined>;
+  upsertUser(user: UpsertUser): Promise<User>;
+  
   // Patients
   getPatient(id: number): Promise<Patient | undefined>;
   getPatientByNationalId(nationalId: string): Promise<Patient | undefined>;
@@ -74,7 +86,162 @@ export interface IStorage {
   }>;
 }
 
+export class DatabaseStorage implements IStorage {
+  // User operations - required for Replit Auth
+  async getUser(id: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async upsertUser(userData: UpsertUser): Promise<User> {
+    const [user] = await db
+      .insert(users)
+      .values(userData)
+      .onConflictDoUpdate({
+        target: users.id,
+        set: {
+          ...userData,
+          updatedAt: new Date(),
+        },
+      })
+      .returning();
+    return user;
+  }
+
+  // Other operations delegated to existing MemStorage
+  private memStorage = new MemStorage();
+
+  async getPatient(id: number): Promise<Patient | undefined> {
+    return this.memStorage.getPatient(id);
+  }
+
+  async getPatientByNationalId(nationalId: string): Promise<Patient | undefined> {
+    return this.memStorage.getPatientByNationalId(nationalId);
+  }
+
+  async createPatient(patient: InsertPatient): Promise<Patient> {
+    return this.memStorage.createPatient(patient);
+  }
+
+  async getAllPatients(): Promise<Patient[]> {
+    return this.memStorage.getAllPatients();
+  }
+
+  async getCollector(id: number): Promise<Collector | undefined> {
+    return this.memStorage.getCollector(id);
+  }
+
+  async getAllCollectors(): Promise<Collector[]> {
+    return this.memStorage.getAllCollectors();
+  }
+
+  async createCollector(collector: InsertCollector): Promise<Collector> {
+    return this.memStorage.createCollector(collector);
+  }
+
+  async updateCollectorStatus(id: number, status: string, lat?: number, lng?: number): Promise<Collector | undefined> {
+    return this.memStorage.updateCollectorStatus(id, status, lat, lng);
+  }
+
+  async getLabService(id: number): Promise<LabService | undefined> {
+    return this.memStorage.getLabService(id);
+  }
+
+  async getAllLabServices(): Promise<LabService[]> {
+    return this.memStorage.getAllLabServices();
+  }
+
+  async createLabService(service: InsertLabService): Promise<LabService> {
+    return this.memStorage.createLabService(service);
+  }
+
+  async getLabServicesByCategory(category: string): Promise<LabService[]> {
+    return this.memStorage.getLabServicesByCategory(category);
+  }
+
+  async getLabOrder(id: number): Promise<LabOrder | undefined> {
+    return this.memStorage.getLabOrder(id);
+  }
+
+  async getAllLabOrders(): Promise<LabOrder[]> {
+    return this.memStorage.getAllLabOrders();
+  }
+
+  async createLabOrder(order: InsertLabOrder): Promise<LabOrder> {
+    return this.memStorage.createLabOrder(order);
+  }
+
+  async updateLabOrderStatus(id: number, status: string): Promise<LabOrder | undefined> {
+    return this.memStorage.updateLabOrderStatus(id, status);
+  }
+
+  async assignCollectorToOrder(orderId: number, collectorId: number): Promise<LabOrder | undefined> {
+    return this.memStorage.assignCollectorToOrder(orderId, collectorId);
+  }
+
+  async getOrdersByStatus(status: string): Promise<LabOrder[]> {
+    return this.memStorage.getOrdersByStatus(status);
+  }
+
+  async getOrdersByCollector(collectorId: number): Promise<LabOrder[]> {
+    return this.memStorage.getOrdersByCollector(collectorId);
+  }
+
+  async createOrderService(orderService: InsertOrderService): Promise<OrderService> {
+    return this.memStorage.createOrderService(orderService);
+  }
+
+  async getOrderServices(orderId: number): Promise<OrderService[]> {
+    return this.memStorage.getOrderServices(orderId);
+  }
+
+  async createTestResult(result: InsertTestResult): Promise<TestResult> {
+    return this.memStorage.createTestResult(result);
+  }
+
+  async getTestResults(orderId: number): Promise<TestResult[]> {
+    return this.memStorage.getTestResults(orderId);
+  }
+
+  async updateTestResult(id: number, result: string, status: string): Promise<TestResult | undefined> {
+    return this.memStorage.updateTestResult(id, result, status);
+  }
+
+  async getAllInventory(): Promise<Inventory[]> {
+    return this.memStorage.getAllInventory();
+  }
+
+  async createInventoryItem(item: InsertInventory): Promise<Inventory> {
+    return this.memStorage.createInventoryItem(item);
+  }
+
+  async updateInventoryStock(id: number, quantity: number): Promise<Inventory | undefined> {
+    return this.memStorage.updateInventoryStock(id, quantity);
+  }
+
+  async getLowStockItems(): Promise<Inventory[]> {
+    return this.memStorage.getLowStockItems();
+  }
+
+  async getDashboardStats(): Promise<{
+    todayOrders: number;
+    pendingCollection: number;
+    readyResults: number;
+    monthlyRevenue: number;
+  }> {
+    return this.memStorage.getDashboardStats();
+  }
+}
+
 export class MemStorage implements IStorage {
+  // User operations - required for Replit Auth (but not used in memory storage)
+  async getUser(id: string): Promise<User | undefined> {
+    return undefined;
+  }
+
+  async upsertUser(userData: UpsertUser): Promise<User> {
+    throw new Error("Memory storage does not support user operations");
+  }
   private patients: Map<number, Patient>;
   private collectors: Map<number, Collector>;
   private labServices: Map<number, LabService>;
@@ -695,4 +862,4 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
