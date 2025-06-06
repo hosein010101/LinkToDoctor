@@ -1,9 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 
+interface User {
+  id: string;
+  name: string;
+  username: string;
+}
+
 export function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

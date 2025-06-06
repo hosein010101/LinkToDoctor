@@ -49,6 +49,7 @@ interface TopBarProps {
 }
 
 export default function TopBar({ onToggleSidebar }: TopBarProps) {
+  const { user, logout } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState("fa");
@@ -265,7 +266,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                     </AvatarFallback>
                   </Avatar>
                   <div className="hidden md:flex flex-col items-end text-sm">
-                    <span className="font-medium text-gray-900 dark:text-gray-100">دکتر حسین حدادی</span>
+                    <span className="font-medium text-gray-900 dark:text-gray-100">{user?.name || 'مهندس حسین حدادی'}</span>
                     <span className="text-xs text-gray-500 dark:text-gray-400">مدیر آزمایشگاه</span>
                   </div>
                   <ChevronDown className="w-4 h-4 text-gray-500" />
@@ -280,7 +281,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                   <AvatarFallback className="bg-blue-500 text-white font-semibold text-lg">ح.ح</AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="font-semibold text-gray-900">دکتر حسین حدادی</p>
+                  <p className="font-semibold text-gray-900">{user?.name || 'مهندس حسین حدادی'}</p>
                   <p className="text-sm text-gray-500">مدیر آزمایشگاه</p>
                   <Badge variant="outline" className="text-xs mt-1">
                     دسترسی کامل
@@ -336,11 +337,7 @@ export default function TopBar({ onToggleSidebar }: TopBarProps) {
                   </DialogHeader>
                   <DialogFooter className="flex-row-reverse space-x-2 space-x-reverse">
                     <Button variant="outline">لغو</Button>
-                    <Button variant="destructive" onClick={() => {
-                      // Clear session/auth state
-                      // Redirect to login page
-                      window.location.href = '/login';
-                    }}>
+                    <Button variant="destructive" onClick={logout}>
                       خروج از سامانه
                     </Button>
                   </DialogFooter>
