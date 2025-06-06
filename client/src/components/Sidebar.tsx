@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -53,7 +53,25 @@ interface NavSection {
 
 export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
   const [location] = useLocation();
-  const [expandedSections, setExpandedSections] = useState<number[]>([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+  // Initialize with empty array - all sections collapsed by default
+  const [expandedSections, setExpandedSections] = useState<number[]>(() => {
+    // Try to load from localStorage, default to empty array
+    try {
+      const saved = localStorage.getItem('sidebar-expanded-sections');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  // Save expanded sections to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('sidebar-expanded-sections', JSON.stringify(expandedSections));
+    } catch {
+      // Ignore localStorage errors
+    }
+  }, [expandedSections]);
 
   const toggleSection = (sectionIndex: number) => {
     if (collapsed) return;
