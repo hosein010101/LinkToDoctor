@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -108,6 +109,7 @@ interface Patient {
 }
 
 export default function Patients() {
+  const { t } = useLanguage();
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState<string>("all");
@@ -215,15 +217,15 @@ export default function Patients() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">مدیریت بیماران</h1>
-            <p className="text-gray-600 mt-1">مشاهده و مدیریت اطلاعات بیماران</p>
+            <h1 className="text-2xl font-bold text-gray-900">{t('patients.title')}</h1>
+            <p className="text-gray-600 mt-1">{t('patients.description') || 'View and manage patient information'}</p>
           </div>
           <Button 
             className="bg-blue-600 hover:bg-blue-700 text-white"
             onClick={() => setShowNewPatientForm(true)}
           >
             <UserPlus className="w-4 h-4 ml-2" />
-            بیمار جدید
+            {t('patients.addNew')}
           </Button>
         </div>
 
@@ -233,7 +235,7 @@ export default function Patients() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <Input
-                  placeholder="جستجو در بیماران..."
+                  placeholder={t('common.search') + '...'}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="search-input bg-white"
@@ -242,14 +244,14 @@ export default function Patients() {
               <div>
                 <Select value={filterStatus} onValueChange={setFilterStatus}>
                   <SelectTrigger className="border-gray-300 bg-white">
-                    <SelectValue placeholder="وضعیت سلامت" />
+                    <SelectValue placeholder={t('dashboard.status')} />
                   </SelectTrigger>
                   <SelectContent className="bg-white">
-                    <SelectItem value="all">همه وضعیت‌ها</SelectItem>
-                    <SelectItem value="healthy">سالم</SelectItem>
-                    <SelectItem value="stable">پایدار</SelectItem>
-                    <SelectItem value="recovering">در حال بهبود</SelectItem>
-                    <SelectItem value="critical">بحرانی</SelectItem>
+                    <SelectItem value="all">{t('common.all') || 'All Statuses'}</SelectItem>
+                    <SelectItem value="healthy">{t('patients.healthy') || 'Healthy'}</SelectItem>
+                    <SelectItem value="stable">{t('patients.stable') || 'Stable'}</SelectItem>
+                    <SelectItem value="recovering">{t('patients.recovering') || 'Recovering'}</SelectItem>
+                    <SelectItem value="critical">{t('patients.critical') || 'Critical'}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

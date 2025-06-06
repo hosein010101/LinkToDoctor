@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,6 +32,7 @@ import {
 import type { OrderWithDetails, Patient, Collector } from "@/lib/types";
 
 export default function Orders() {
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [selectedOrder, setSelectedOrder] = useState<OrderWithDetails | null>(null);
@@ -155,7 +157,7 @@ export default function Orders() {
           <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto animate-pulse">
             <Package className="text-blue-600" size={24} />
           </div>
-          <p className="text-lg font-medium text-gray-900">در حال بارگذاری سفارشات...</p>
+          <p className="text-lg font-medium text-gray-900">{t('common.loading')}...</p>
         </div>
       </div>
     );
@@ -166,19 +168,19 @@ export default function Orders() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">مدیریت سفارشات</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('orders.title')}</h1>
           <p className="text-gray-600 mt-1">
-            {filteredOrders.length} سفارش از {enhancedOrders.length} سفارش کل
+            {filteredOrders.length} {t('orders.orderCount')} {t('common.from')} {enhancedOrders.length} {t('orders.totalOrders')}
           </p>
         </div>
         <div className="flex items-center space-x-3 space-x-reverse">
           <Button variant="outline">
             <Download className="w-4 h-4 ml-2" />
-            گزارش
+            {t('common.report')}
           </Button>
           <Button className="bg-blue-600 hover:bg-blue-700 text-white">
             <Plus className="w-4 h-4 ml-2" />
-            سفارش جدید
+            {t('orders.addNew')}
           </Button>
         </div>
       </div>
