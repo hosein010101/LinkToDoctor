@@ -144,62 +144,62 @@ export default function Dashboard() {
     {
       id: 1,
       type: "order",
-      title: "سفارش جدید ثبت شد",
-      description: "دکتر احمد رضایی - بیمار: زهرا محمدی",
-      time: "2 دقیقه پیش",
+      title: t('activities.newOrder'),
+      description: `${t('activities.doctor')} Ahmad Rezaei - ${t('activities.patient')}: Zahra Mohammadi`,
+      time: `2 ${t('activities.minutesAgo')}`,
       status: "info",
-      user: "دکتر احمد رضایی"
+      user: `${t('activities.doctor')} Ahmad Rezaei`
     },
     {
       id: 2,
       type: "result",
-      title: "نتایج آزمایش تایید شد",
-      description: "آزمایش خون کامل - کد: LAB-2024-156",
-      time: "8 دقیقه پیش",
+      title: t('activities.testApproved'),
+      description: "Complete Blood Test - Code: LAB-2024-156",
+      time: `8 ${t('activities.minutesAgo')}`,
       status: "success",
-      user: "دکتر فاطمه نوری"
+      user: `${t('activities.doctor')} Fateme Noori`
     },
     {
       id: 3,
       type: "collection",
-      title: "نمونه‌گیری تکمیل شد",
-      description: "علی حسینی - منطقه: تهران شمال",
-      time: "15 دقیقه پیش",
+      title: t('activities.sampleCollected'),
+      description: `Ali Hosseini - ${t('activities.area')}: North Tehran`,
+      time: `15 ${t('activities.minutesAgo')}`,
       status: "success",
-      user: "محمد تقوی"
+      user: "Mohammad Taghavi"
     },
     {
       id: 4,
       type: "payment",
-      title: "پرداخت انجام شد",
-      description: "مبلغ: ۴۵۰,۰۰۰ تومان - سفارش #۱۲۳",
-      time: "25 دقیقه پیش",
+      title: t('activities.paymentReceived'),
+      description: `${t('activities.amount')}: 450,000 Toman - ${t('activities.order')} #123`,
+      time: `25 ${t('activities.minutesAgo')}`,
       status: "success"
     },
     {
       id: 5,
       type: "order",
-      title: "سفارش فوری ثبت شد",
-      description: "بیمارستان پارس - ۳ آزمایش اورژانسی",
-      time: "35 دقیقه پیش",
+      title: t('activities.urgentOrder'),
+      description: `Pars Hospital - 3 ${t('activities.emergencyTests')}`,
+      time: `35 ${t('activities.minutesAgo')}`,
       status: "warning",
-      user: "مرکز درمانی پارس"
+      user: `Pars ${t('activities.medicalCenter')}`
     }
   ];
 
   const topPerformers = [
-    { name: "دکتر محمد رضایی", orders: 45, avatar: "م.ر", specialty: "داخلی" },
-    { name: "دکتر فاطمه نوری", orders: 38, avatar: "ف.ن", specialty: "قلب و عروق" },
-    { name: "دکتر علی احمدی", orders: 32, avatar: "ع.ا", specialty: "غدد" },
-    { name: "دکتر سارا جعفری", orders: 28, avatar: "س.ج", specialty: "زنان" }
+    { name: `${t('activities.doctor')} Mohammad Rezaei`, orders: 45, avatar: "M.R", specialty: t('performers.internal') },
+    { name: `${t('activities.doctor')} Fateme Noori`, orders: 38, avatar: "F.N", specialty: t('performers.cardiology') },
+    { name: `${t('activities.doctor')} Ali Ahmadi`, orders: 32, avatar: "A.A", specialty: t('performers.endocrine') },
+    { name: `${t('activities.doctor')} Sara Jafari`, orders: 28, avatar: "S.J", specialty: t('performers.gynecology') }
   ];
 
   // Chart Data for Professional Dashboard
   const monthlyOrdersData = {
-    labels: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور'],
+    labels: [t('months.farvardin'), t('months.ordibehesht'), t('months.khordad'), t('months.tir'), t('months.mordad'), t('months.shahrivar')],
     datasets: [
       {
-        label: 'سفارشات ماهانه',
+        label: t('chart.monthlyOrders'),
         data: [420, 380, 465, 520, 480, 540],
         backgroundColor: 'rgba(37, 99, 235, 0.1)',
         borderColor: 'rgba(37, 99, 235, 1)',

@@ -378,6 +378,43 @@ const translations = {
     'ai.dataAnalysis': 'Data Analysis',
     'ai.recommendations': 'Recommendations',
     
+    // Recent Activities
+    'activities.newOrder': 'New Order Registered',
+    'activities.testApproved': 'Test Results Approved',
+    'activities.sampleCollected': 'Sample Collection Completed',
+    'activities.paymentReceived': 'Payment Received',
+    'activities.urgentOrder': 'Urgent Order Registered',
+    'activities.minutesAgo': 'minutes ago',
+    'activities.doctor': 'Dr.',
+    'activities.patient': 'Patient',
+    'activities.area': 'Area',
+    'activities.amount': 'Amount',
+    'activities.order': 'Order',
+    'activities.emergencyTests': 'Emergency Tests',
+    'activities.medicalCenter': 'Medical Center',
+    
+    // Performers & Chart Labels
+    'performers.topDoctors': 'Top Doctors',
+    'performers.orders': 'Orders',
+    'performers.specialty': 'Specialty',
+    'performers.internal': 'Internal Medicine',
+    'performers.cardiology': 'Cardiology',
+    'performers.endocrine': 'Endocrinology',
+    'performers.gynecology': 'Gynecology',
+    
+    // Persian Months in English
+    'months.farvardin': 'March',
+    'months.ordibehesht': 'April',
+    'months.khordad': 'May',
+    'months.tir': 'June',
+    'months.mordad': 'July',
+    'months.shahrivar': 'August',
+    
+    // Chart Labels
+    'chart.monthlyOrders': 'Monthly Orders',
+    'chart.weeklyRevenue': 'Weekly Revenue',
+    'chart.testCategories': 'Test Categories',
+    
     // Additional Keys for Orders  
     'orders.orderCount': 'order',
     'orders.totalOrders': 'total orders',
@@ -508,6 +545,43 @@ const translations = {
     'ai.insuranceIntegration': 'تكامل التأمين',
     'ai.dataAnalysis': 'تحليل البيانات',
     'ai.recommendations': 'التوصيات',
+    
+    // Recent Activities
+    'activities.newOrder': 'طلب جديد مسجل',
+    'activities.testApproved': 'نتائج الفحص معتمدة',
+    'activities.sampleCollected': 'اكتملت عملية جمع العينات',
+    'activities.paymentReceived': 'تم استلام الدفع',
+    'activities.urgentOrder': 'طلب عاجل مسجل',
+    'activities.minutesAgo': 'دقائق مضت',
+    'activities.doctor': 'دكتور',
+    'activities.patient': 'مريض',
+    'activities.area': 'منطقة',
+    'activities.amount': 'مبلغ',
+    'activities.order': 'طلب',
+    'activities.emergencyTests': 'فحوصات طارئة',
+    'activities.medicalCenter': 'مركز طبي',
+    
+    // Performers & Chart Labels
+    'performers.topDoctors': 'أفضل الأطباء',
+    'performers.orders': 'طلبات',
+    'performers.specialty': 'التخصص',
+    'performers.internal': 'باطنية',
+    'performers.cardiology': 'قلب وأوعية',
+    'performers.endocrine': 'غدد',
+    'performers.gynecology': 'نساء',
+    
+    // Persian Months in Arabic
+    'months.farvardin': 'فروردين',
+    'months.ordibehesht': 'أورديبهشت',
+    'months.khordad': 'خرداد',
+    'months.tir': 'تير',
+    'months.mordad': 'مرداد',
+    'months.shahrivar': 'شهريور',
+    
+    // Chart Labels
+    'chart.monthlyOrders': 'الطلبات الشهرية',
+    'chart.weeklyRevenue': 'الإيرادات الأسبوعية',
+    'chart.testCategories': 'فئات الفحوصات',
   }
 };
 
