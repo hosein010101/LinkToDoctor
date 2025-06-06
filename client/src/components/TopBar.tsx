@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/hooks/useAuth";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -50,9 +51,9 @@ interface TopBarProps {
 
 export default function TopBar({ onToggleSidebar }: TopBarProps) {
   const { user, logout } = useAuth();
+  const { language, setLanguage, t, dir } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState("fa");
   const [notifications] = useState([
     { id: 1, title: "سفارش جدید ثبت شد", time: "2 دقیقه پیش", type: "order", unread: true },
     { id: 2, title: "نتایج آزمایش آماده است", time: "10 دقیقه پیش", type: "result", unread: true },
