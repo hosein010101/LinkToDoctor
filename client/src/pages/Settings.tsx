@@ -287,83 +287,55 @@ export default function Settings() {
             <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center">
                     <div>
                       <Label>اعلان‌های ایمیل</Label>
                       <p className="text-sm text-gray-600">دریافت اعلان‌ها از طریق ایمیل</p>
                     </div>
-                    <Switch
-                      checked={notifications.emailNotifications}
-                      onCheckedChange={(checked) => setNotifications({...notifications, emailNotifications: checked})}
-                    />
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center">
                     <div>
                       <Label>اعلان‌های پیامکی</Label>
                       <p className="text-sm text-gray-600">دریافت اعلان‌ها از طریق پیامک</p>
                     </div>
-                    <Switch
-                      checked={notifications.smsNotifications}
-                      onCheckedChange={(checked) => setNotifications({...notifications, smsNotifications: checked})}
-                    />
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center">
                     <div>
                       <Label>اعلان‌های فوری</Label>
                       <p className="text-sm text-gray-600">اعلان‌های فوری در مرورگر</p>
                     </div>
-                    <Switch
-                      checked={notifications.pushNotifications}
-                      onCheckedChange={(checked) => setNotifications({...notifications, pushNotifications: checked})}
-                    />
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center">
                     <div>
                       <Label>گزارش‌های روزانه</Label>
                       <p className="text-sm text-gray-600">ارسال گزارش عملکرد روزانه</p>
                     </div>
-                    <Switch
-                      checked={notifications.dailyReports}
-                      onCheckedChange={(checked) => setNotifications({...notifications, dailyReports: checked})}
-                    />
                   </div>
                 </div>
 
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center">
                     <div>
                       <Label>گزارش‌های هفتگی</Label>
                       <p className="text-sm text-gray-600">ارسال گزارش عملکرد هفتگی</p>
                     </div>
-                    <Switch
-                      checked={notifications.weeklyReports}
-                      onCheckedChange={(checked) => setNotifications({...notifications, weeklyReports: checked})}
-                    />
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center">
                     <div>
                       <Label>به‌روزرسانی سفارشات</Label>
                       <p className="text-sm text-gray-600">اطلاع از تغییرات وضعیت سفارشات</p>
                     </div>
-                    <Switch
-                      checked={notifications.orderUpdates}
-                      onCheckedChange={(checked) => setNotifications({...notifications, orderUpdates: checked})}
-                    />
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center">
                     <div>
                       <Label>هشدارهای سیستم</Label>
                       <p className="text-sm text-gray-600">اطلاع از مشکلات سیستم</p>
                     </div>
-                    <Switch
-                      checked={notifications.systemAlerts}
-                      onCheckedChange={(checked) => setNotifications({...notifications, systemAlerts: checked})}
-                    />
                   </div>
 
                   <div>
@@ -458,37 +430,25 @@ export default function Settings() {
                 </div>
 
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center">
                     <div>
                       <Label>پشتیبان‌گیری خودکار</Label>
                       <p className="text-sm text-gray-600">پشتیبان‌گیری روزانه از داده‌ها</p>
                     </div>
-                    <Switch
-                      checked={systemSettings.autoBackup}
-                      onCheckedChange={(checked) => setSystemSettings({...systemSettings, autoBackup: checked})}
-                    />
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center">
                     <div>
                       <Label>حالت تعمیر و نگهداری</Label>
                       <p className="text-sm text-gray-600">غیرفعال کردن موقت سیستم</p>
                     </div>
-                    <Switch
-                      checked={systemSettings.maintenanceMode}
-                      onCheckedChange={(checked) => setSystemSettings({...systemSettings, maintenanceMode: checked})}
-                    />
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center">
                     <div>
                       <Label>حالت اشکال‌زدایی</Label>
                       <p className="text-sm text-gray-600">فعال‌سازی لاگ‌های تفصیلی</p>
                     </div>
-                    <Switch
-                      checked={systemSettings.debugMode}
-                      onCheckedChange={(checked) => setSystemSettings({...systemSettings, debugMode: checked})}
-                    />
                   </div>
 
                   <div>
@@ -531,15 +491,11 @@ export default function Settings() {
             <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center">
                     <div>
                       <Label>احراز هویت دو مرحله‌ای</Label>
                       <p className="text-sm text-gray-600">افزایش امنیت ورود</p>
                     </div>
-                    <Switch
-                      checked={securitySettings.twoFactorAuth}
-                      onCheckedChange={(checked) => setSecuritySettings({...securitySettings, twoFactorAuth: checked})}
-                    />
                   </div>
 
                   <div>
@@ -564,15 +520,11 @@ export default function Settings() {
                     />
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center">
                     <div>
                       <Label>قفل خودکار نشست</Label>
                       <p className="text-sm text-gray-600">قفل کردن پس از عدم فعالیت</p>
                     </div>
-                    <Switch
-                      checked={securitySettings.sessionLock}
-                      onCheckedChange={(checked) => setSecuritySettings({...securitySettings, sessionLock: checked})}
-                    />
                   </div>
                 </div>
 
