@@ -191,6 +191,13 @@ const translations = {
     'ai.insuranceIntegration': 'تجمیع بیمه',
     'ai.dataAnalysis': 'تحلیل داده‌ها',
     'ai.recommendations': 'پیشنهادات',
+    
+    // Additional Keys for Orders
+    'orders.orderCount': 'سفارش',
+    'orders.totalOrders': 'سفارش کل',
+    'orders.addNew': 'سفارش جدید',
+    
+
   },
   en: {
     // Header
@@ -370,6 +377,20 @@ const translations = {
     'ai.insuranceIntegration': 'Insurance Integration',
     'ai.dataAnalysis': 'Data Analysis',
     'ai.recommendations': 'Recommendations',
+    
+    // Additional Keys for Orders
+    'orders.orderCount': 'order',
+    'orders.totalOrders': 'total orders',
+    'orders.addNew': 'New Order',
+    
+    // Additional Keys for Patients
+    'patients.title': 'Patient Management',
+    'patients.description': 'View and manage patient information',
+    'patients.addNew': 'New Patient',
+    'patients.healthy': 'Healthy',
+    'patients.stable': 'Stable',
+    'patients.recovering': 'Recovering',
+    'patients.critical': 'Critical',
   }
 };
 
