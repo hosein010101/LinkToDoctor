@@ -315,6 +315,58 @@ input, select, textarea, button:not([class*="bg-blue"]):not([class*="bg-green"])
   border-color: #e2e8f0 !important;
 }
 
+/* Target body and html elements that might have yellow backgrounds */
+body, html, #root, [data-theme] {
+  background-color: #f8fafc !important;
+}
+
+/* Override any component or page with yellow background */
+.space-y-6, .p-6, .p-8, .container, .mx-auto, main, section, article, div[class*="bg-"] {
+  background-color: transparent !important;
+}
+
+/* Force all pages to have white/light backgrounds */
+.min-h-screen, .h-screen, .w-full, .w-screen {
+  background-color: #f8fafc !important;
+}
+
+/* Specific overrides for cards and containers */
+.card-professional, [class*="card"], .bg-white {
+  background-color: #ffffff !important;
+}
+
+/* Override Tailwind's default yellow utilities completely */
+.bg-yellow-50, .bg-yellow-100, .bg-yellow-200, .bg-yellow-300, .bg-yellow-400, .bg-yellow-500, .bg-yellow-600, .bg-yellow-700, .bg-yellow-800, .bg-yellow-900,
+.bg-amber-50, .bg-amber-100, .bg-amber-200, .bg-amber-300, .bg-amber-400, .bg-amber-500, .bg-amber-600, .bg-amber-700, .bg-amber-800, .bg-amber-900 {
+  background-color: #ffffff !important;
+}
+
+/* Universal override - any element with yellow gets white background */
+*[style*="background"][style*="yellow"],
+*[class*="yellow"],
+*[style*="background"][style*="amber"],
+*[class*="amber"] {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+/* Set page background to light gray */
+body {
+  background-color: #f8fafc !important;
+}
+
+/* Cards and content areas should be white */
+[class*="card"], [class*="content"], .p-6, .p-8 {
+  background-color: #ffffff !important;
+}
+
+/* Complete yellow color palette elimination */
+.yellow-50, .yellow-100, .yellow-200, .yellow-300, .yellow-400, .yellow-500, .yellow-600, .yellow-700, .yellow-800, .yellow-900,
+.amber-50, .amber-100, .amber-200, .amber-300, .amber-400, .amber-500, .amber-600, .amber-700, .amber-800, .amber-900 {
+  background-color: #ffffff !important;
+  color: #475569 !important;
+}
+
 /* Search Input Specific Fix */
 .search-input {
   background-color: #ffffff !important;
