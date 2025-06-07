@@ -232,20 +232,20 @@ export default function NewOrder() {
       </div>
 
       <Tabs defaultValue="patient" className="w-full">
-        <TabsList className="grid w-full grid-cols-4 mb-8">
-          <TabsTrigger value="patient" className="flex items-center space-x-2 space-x-reverse">
+        <TabsList className="grid w-full grid-cols-4 mb-8 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
+          <TabsTrigger value="patient" className="flex items-center space-x-2 space-x-reverse bg-transparent data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-blue-600 data-[state=active]:border-0 rounded-lg transition-all duration-200">
             <User className="w-4 h-4" />
             <span>اطلاعات بیمار</span>
           </TabsTrigger>
-          <TabsTrigger value="services" className="flex items-center space-x-2 space-x-reverse">
+          <TabsTrigger value="services" className="flex items-center space-x-2 space-x-reverse bg-transparent data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-blue-600 data-[state=active]:border-0 rounded-lg transition-all duration-200">
             <TestTube className="w-4 h-4" />
             <span>انتخاب آزمایشات</span>
           </TabsTrigger>
-          <TabsTrigger value="scheduling" className="flex items-center space-x-2 space-x-reverse">
+          <TabsTrigger value="scheduling" className="flex items-center space-x-2 space-x-reverse bg-transparent data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-blue-600 data-[state=active]:border-0 rounded-lg transition-all duration-200">
             <CalendarIcon className="w-4 h-4" />
             <span>زمان‌بندی</span>
           </TabsTrigger>
-          <TabsTrigger value="summary" className="flex items-center space-x-2 space-x-reverse">
+          <TabsTrigger value="summary" className="flex items-center space-x-2 space-x-reverse bg-transparent data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-blue-600 data-[state=active]:border-0 rounded-lg transition-all duration-200">
             <FileText className="w-4 h-4" />
             <span>خلاصه و تأیید</span>
           </TabsTrigger>
@@ -253,10 +253,10 @@ export default function NewOrder() {
 
         {/* Patient Information Tab */}
         <TabsContent value="patient" className="space-y-6">
-          <Card>
+          <Card className="border-gray-200 shadow-sm">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2 space-x-reverse">
-                <User className="w-5 h-5" />
+                <User className="w-5 h-5 text-blue-600" />
                 <span>اطلاعات بیمار</span>
               </CardTitle>
               <CardDescription>
@@ -373,10 +373,10 @@ export default function NewOrder() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Services List */}
             <div className="lg:col-span-2">
-              <Card>
+              <Card className="border-gray-200 shadow-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2 space-x-reverse">
-                    <TestTube className="w-5 h-5" />
+                    <TestTube className="w-5 h-5 text-blue-600" />
                     <span>لیست آزمایشات</span>
                   </CardTitle>
                   <div className="flex space-x-4 space-x-reverse">
@@ -427,9 +427,9 @@ export default function NewOrder() {
 
             {/* Selected Services */}
             <div>
-              <Card>
+              <Card className="border-gray-200 shadow-sm">
                 <CardHeader>
-                  <CardTitle>آزمایشات انتخاب شده</CardTitle>
+                  <CardTitle className="text-blue-600">آزمایشات انتخاب شده</CardTitle>
                   <CardDescription>
                     {selectedServices.length} آزمایش انتخاب شده
                   </CardDescription>
@@ -507,10 +507,10 @@ export default function NewOrder() {
         {/* Scheduling Tab */}
         <TabsContent value="scheduling" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
+            <Card className="border-gray-200 shadow-sm">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2 space-x-reverse">
-                  <CalendarIcon className="w-5 h-5" />
+                  <CalendarIcon className="w-5 h-5 text-blue-600" />
                   <span>انتخاب تاریخ</span>
                 </CardTitle>
               </CardHeader>
@@ -525,10 +525,10 @@ export default function NewOrder() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-gray-200 shadow-sm">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2 space-x-reverse">
-                  <Clock className="w-5 h-5" />
+                  <Clock className="w-5 h-5 text-blue-600" />
                   <span>تنظیمات نمونه‌گیری</span>
                 </CardTitle>
               </CardHeader>
