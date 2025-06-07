@@ -22,6 +22,7 @@ import {
 import type { Collector, LabOrder } from "@/lib/types";
 
 export default function Collectors() {
+  const [activeTab, setActiveTab] = useState("overview");
   const [searchTerm, setSearchTerm] = useState("");
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -51,52 +52,53 @@ export default function Collectors() {
         lat,
         lng,
       });
-      return response.json();
+      return response;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/collectors"] });
       toast({
         title: "موفقیت",
-        description: "وضعیت نمونه‌گیر به‌روزرسانی شد",
+        description: "وضعیت نمونه‌گیر بروزرسانی شد",
       });
+      queryClient.invalidateQueries({ queryKey: ["/api/collectors"] });
     },
     onError: () => {
       toast({
         title: "خطا",
-        description: "خطا در به‌روزرسانی وضعیت",
+        description: "خطا در بروزرسانی وضعیت",
         variant: "destructive",
       });
     },
   });
 
-  const filteredCollectors = collectors?.filter((collector) =>
-    collector.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    collector.phone.includes(searchTerm)
-  ) || [];
+  if (isLoading) {
+    return <div className="p-6">در حال بارگذاری...</div>;
+  }
+
+  const filteredCollectors = (collectors || []).filter((collector) =>
+    collector.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "available":
-        return <CheckCircle className="w-4 h-4 text-medical-green" />;
+        return <CheckCircle className="text-green-600" size={20} />;
       case "busy":
-        return <Truck className="w-4 h-4 text-medical-orange" />;
-      case "offline":
-        return <AlertCircle className="w-4 h-4 text-gray-400" />;
+        return <Truck className="text-orange-500" size={20} />;
       default:
-        return <User className="w-4 h-4 text-gray-400" />;
+        return <AlertCircle className="text-gray-400" size={20} />;
     }
   };
 
   const getStatusBadge = (status: string) => {
-    const statusMap = {
-      available: { label: "آماده", class: "bg-medical-green bg-opacity-20 text-medical-green" },
-      busy: { label: "مشغول", class: "bg-medical-orange bg-opacity-20 text-medical-orange" },
-      offline: { label: "آفلاین", class: "bg-gray-100 text-gray-600" },
+    const statusConfig: Record<string, { color: string; label: string }> = {
+      available: { color: "bg-green-500", label: "آماده" },
+      busy: { color: "bg-orange-500", label: "مشغول" },
+      offline: { color: "bg-gray-500", label: "آفلاین" }
     };
+    const statusInfo = statusConfig[status] || { color: "bg-gray-500", label: status };
     
-    const statusInfo = statusMap[status as keyof typeof statusMap] || statusMap.offline;
     return (
-      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusInfo.class}`}>
+      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium text-white ${statusInfo.color}`}>
         {statusInfo.label}
       </span>
     );
@@ -116,113 +118,188 @@ export default function Collectors() {
     });
   };
 
-  if (isLoading) {
-    return <div className="p-6">در حال بارگذاری...</div>;
-  }
-
   const availableCollectors = filteredCollectors.filter(c => c.status === "available");
   const busyCollectors = filteredCollectors.filter(c => c.status === "busy");
   const offlineCollectors = filteredCollectors.filter(c => c.status === "offline");
 
+  const getCollectorsToShow = () => {
+    switch (activeTab) {
+      case "available":
+        return availableCollectors;
+      case "busy":
+        return busyCollectors;
+      case "offline":
+        return offlineCollectors;
+      default:
+        return filteredCollectors;
+    }
+  };
+
+  const collectorsToShow = getCollectorsToShow();
+
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <Card>
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-semibold text-medical-text">مدیریت نمونه‌گیران</h3>
-            <Button className="bg-medical-teal hover:bg-opacity-90 text-white">
-              <Plus className="ml-2 w-4 h-4" />
-              نمونه‌گیر جدید
-            </Button>
-          </div>
-          
-          {/* Search */}
-          <div className="relative max-w-md">
-            <Search className="absolute right-3 top-3 w-4 h-4 text-gray-400" />
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">مدیریت نمونه‌گیران</h1>
+          <p className="text-gray-600 mt-1">نظارت و مدیریت تیم نمونه‌گیری</p>
+        </div>
+        <div className="flex items-center space-x-3 space-x-reverse">
+          <div className="relative">
+            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
             <Input
               placeholder="جستجوی نمونه‌گیر..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pr-10"
+              className="pr-10 w-64 border-gray-200"
             />
           </div>
-        </CardContent>
-      </Card>
-
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500 mb-1">کل نمونه‌گیران</p>
-                <p className="text-2xl font-bold text-medical-text">{filteredCollectors.length}</p>
-              </div>
-              <div className="w-12 h-12 bg-medical-teal bg-opacity-20 rounded-lg flex items-center justify-center">
-                <User className="text-medical-teal" size={24} />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500 mb-1">آماده</p>
-                <p className="text-2xl font-bold text-medical-green">{availableCollectors.length}</p>
-              </div>
-              <div className="w-12 h-12 bg-medical-green bg-opacity-20 rounded-lg flex items-center justify-center">
-                <CheckCircle className="text-medical-green" size={24} />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500 mb-1">مشغول</p>
-                <p className="text-2xl font-bold text-medical-orange">{busyCollectors.length}</p>
-              </div>
-              <div className="w-12 h-12 bg-medical-orange bg-opacity-20 rounded-lg flex items-center justify-center">
-                <Truck className="text-medical-orange" size={24} />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500 mb-1">آفلاین</p>
-                <p className="text-2xl font-bold text-gray-600">{offlineCollectors.length}</p>
-              </div>
-              <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                <AlertCircle className="text-gray-600" size={24} />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+          <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+            <Plus className="ml-2 w-4 h-4" />
+            نمونه‌گیر جدید
+          </Button>
+        </div>
       </div>
 
-      {/* Collectors Grid */}
+      <div className="w-full mb-8">
+        <div className="bg-gradient-to-r from-slate-50 via-blue-50 to-indigo-50 rounded-2xl p-3 shadow-lg border border-blue-100">
+          <div className="grid grid-cols-4 gap-3">
+            <button
+              onClick={() => setActiveTab("overview")}
+              className={`
+                flex items-center justify-center space-x-2 space-x-reverse px-4 py-4 rounded-xl 
+                transition-all duration-300 font-semibold text-sm relative overflow-hidden
+                ${activeTab === "overview" 
+                  ? "bg-gradient-to-br from-cyan-100 via-blue-100 to-indigo-100 text-cyan-800 shadow-lg transform scale-105 border-2 border-cyan-200" 
+                  : "text-slate-600 hover:bg-gradient-to-br hover:from-cyan-50 hover:to-blue-50 hover:text-cyan-700 hover:shadow-md"
+                }
+              `}
+            >
+              <User className="w-5 h-5" />
+              <span>نمای کلی</span>
+            </button>
+            
+            <button
+              onClick={() => setActiveTab("available")}
+              className={`
+                flex items-center justify-center space-x-2 space-x-reverse px-4 py-4 rounded-xl 
+                transition-all duration-300 font-semibold text-sm relative overflow-hidden
+                ${activeTab === "available" 
+                  ? "bg-gradient-to-br from-emerald-100 via-green-100 to-teal-100 text-emerald-800 shadow-lg transform scale-105 border-2 border-emerald-200" 
+                  : "text-slate-600 hover:bg-gradient-to-br hover:from-emerald-50 hover:to-green-50 hover:text-emerald-700 hover:shadow-md"
+                }
+              `}
+            >
+              <CheckCircle className="w-5 h-5" />
+              <span>آماده ({availableCollectors.length})</span>
+            </button>
+            
+            <button
+              onClick={() => setActiveTab("busy")}
+              className={`
+                flex items-center justify-center space-x-2 space-x-reverse px-4 py-4 rounded-xl 
+                transition-all duration-300 font-semibold text-sm relative overflow-hidden
+                ${activeTab === "busy" 
+                  ? "bg-gradient-to-br from-amber-100 via-yellow-100 to-orange-100 text-amber-800 shadow-lg transform scale-105 border-2 border-amber-200" 
+                  : "text-slate-600 hover:bg-gradient-to-br hover:from-amber-50 hover:to-yellow-50 hover:text-amber-700 hover:shadow-md"
+                }
+              `}
+            >
+              <Truck className="w-5 h-5" />
+              <span>مشغول ({busyCollectors.length})</span>
+            </button>
+            
+            <button
+              onClick={() => setActiveTab("offline")}
+              className={`
+                flex items-center justify-center space-x-2 space-x-reverse px-4 py-4 rounded-xl 
+                transition-all duration-300 font-semibold text-sm relative overflow-hidden
+                ${activeTab === "offline" 
+                  ? "bg-gradient-to-br from-gray-100 via-slate-100 to-gray-200 text-gray-800 shadow-lg transform scale-105 border-2 border-gray-300" 
+                  : "text-slate-600 hover:bg-gradient-to-br hover:from-gray-50 hover:to-slate-50 hover:text-gray-700 hover:shadow-md"
+                }
+              `}
+            >
+              <AlertCircle className="w-5 h-5" />
+              <span>آفلاین ({offlineCollectors.length})</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {activeTab === "overview" && (
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <Card className="border-gray-200 shadow-sm">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">کل نمونه‌گیران</p>
+                  <p className="text-2xl font-bold text-blue-600">{filteredCollectors.length}</p>
+                </div>
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <User className="text-blue-600" size={24} />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-gray-200 shadow-sm">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">آماده</p>
+                  <p className="text-2xl font-bold text-green-600">{availableCollectors.length}</p>
+                </div>
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                  <CheckCircle className="text-green-600" size={24} />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-gray-200 shadow-sm">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">مشغول</p>
+                  <p className="text-2xl font-bold text-orange-600">{busyCollectors.length}</p>
+                </div>
+                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                  <Truck className="text-orange-600" size={24} />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-gray-200 shadow-sm">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">آفلاین</p>
+                  <p className="text-2xl font-bold text-gray-600">{offlineCollectors.length}</p>
+                </div>
+                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                  <AlertCircle className="text-gray-600" size={24} />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredCollectors.map((collector) => {
+        {collectorsToShow.map((collector) => {
           const collectorOrders = getCollectorOrders(collector.id);
           return (
-            <Card key={collector.id} className="hover:shadow-lg transition-shadow">
+            <Card key={collector.id} className="border-gray-200 shadow-sm hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center space-x-3 space-x-reverse">
-                    <div className="w-12 h-12 bg-medical-teal bg-opacity-20 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                       {getStatusIcon(collector.status)}
                     </div>
                     <div>
-                      <h4 className="font-semibold text-medical-text">{collector.name}</h4>
+                      <h4 className="font-semibold text-gray-900">{collector.name}</h4>
                       <p className="text-sm text-gray-500 flex items-center">
                         <Phone className="w-3 h-3 ml-1" />
                         {collector.phone}
@@ -245,7 +322,6 @@ export default function Collectors() {
                     <Switch 
                       checked={collector.isActive}
                       onCheckedChange={(checked) => {
-                        // Update collector active status
                         console.log(`Toggle active status for ${collector.id}: ${checked}`);
                       }}
                     />
@@ -289,6 +365,7 @@ export default function Collectors() {
                         variant="outline"
                         onClick={() => handleStatusChange(collector.id, "busy")}
                         disabled={updateCollectorStatusMutation.isPending}
+                        className="border-gray-200"
                       >
                         مشغول کردن
                       </Button>
@@ -299,6 +376,7 @@ export default function Collectors() {
                         variant="outline"
                         onClick={() => handleStatusChange(collector.id, "available")}
                         disabled={updateCollectorStatusMutation.isPending}
+                        className="border-gray-200"
                       >
                         آماده کردن
                       </Button>
@@ -311,6 +389,7 @@ export default function Collectors() {
                         collector.status === "offline" ? "available" : "offline"
                       )}
                       disabled={updateCollectorStatusMutation.isPending}
+                      className="border-gray-200"
                     >
                       {collector.status === "offline" ? "آنلاین کردن" : "آفلاین کردن"}
                     </Button>
@@ -321,7 +400,7 @@ export default function Collectors() {
           );
         })}
         
-        {filteredCollectors.length === 0 && (
+        {collectorsToShow.length === 0 && (
           <div className="col-span-full text-center py-12">
             <User className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-500 mb-2">نمونه‌گیری یافت نشد</h3>
