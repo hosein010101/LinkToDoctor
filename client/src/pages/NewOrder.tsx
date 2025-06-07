@@ -598,10 +598,10 @@ export default function NewOrder() {
 
         {/* Summary Tab */}
         <TabsContent value="summary" className="space-y-6">
-          <Card>
+          <Card className="border-gray-200 shadow-sm">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2 space-x-reverse">
-                <FileText className="w-5 h-5" />
+                <FileText className="w-5 h-5 text-blue-600" />
                 <span>خلاصه سفارش</span>
               </CardTitle>
               <CardDescription>
