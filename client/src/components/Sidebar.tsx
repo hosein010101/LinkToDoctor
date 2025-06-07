@@ -211,21 +211,26 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
         {/* Header */}
         <div className="p-4 border-b border-gray-200">
           <div className="flex items-center">
-            <img 
-              src={logoPath} 
-              alt="LinkToDoctor Logo" 
-              className="w-10 h-10 object-contain"
-            />
             {!collapsed && (
               <motion.div
                 variants={contentVariants}
                 initial="collapsed"
                 animate={collapsed ? "collapsed" : "expanded"}
-                className="mr-3"
+                className="flex items-center justify-center w-full"
               >
-                <h1 className="text-lg font-bold text-gray-900">LinkToDoctor</h1>
-                <p className="text-xs text-gray-500">{t('header.systemName')}</p>
+                <img 
+                  src={logoPath} 
+                  alt="LinkToDoctor Logo" 
+                  className="h-12 w-auto object-contain"
+                />
               </motion.div>
+            )}
+            {collapsed && (
+              <img 
+                src={logoPath} 
+                alt="LinkToDoctor Logo" 
+                className="w-10 h-10 object-contain"
+              />
             )}
           </div>
         </div>
