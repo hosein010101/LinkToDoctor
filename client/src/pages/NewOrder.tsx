@@ -5,24 +5,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { 
   User, 
   TestTube, 
-  MapPin, 
   Calendar as CalendarIcon, 
   Clock, 
   Plus, 
   Minus, 
   Search,
-  AlertCircle,
   CheckCircle,
-  Phone,
-  Mail,
   FileText,
   CreditCard
 } from "lucide-react";
@@ -47,6 +40,7 @@ export default function NewOrder() {
   const [selectedServices, setSelectedServices] = useState<SelectedService[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   
   const [patientData, setPatientData] = useState({
     name: "",
@@ -56,77 +50,84 @@ export default function NewOrder() {
     age: "",
     gender: "",
     address: "",
-    notes: ""
+    emergencyContact: "",
+    medicalHistory: ""
   });
 
   const [orderData, setOrderData] = useState({
     priority: "normal",
+    notes: "",
+    scheduledDate: "",
     scheduledTimeSlot: "",
     collectionAddress: "",
-    specialInstructions: "",
     paymentMethod: "cash"
   });
 
-  // Fetch lab services
-  const { data: services = [], isLoading: servicesLoading } = useQuery({
-    queryKey: ["/api/lab-services"]
+  const timeSlots = [
+    "8:00 - 9:00",
+    "9:00 - 10:00", 
+    "10:00 - 11:00",
+    "11:00 - 12:00",
+    "14:00 - 15:00",
+    "15:00 - 16:00",
+    "16:00 - 17:00",
+    "17:00 - 18:00"
+  ];
+
+  const { data: labServices = [] } = useQuery({
+    queryKey: ["/api/lab-services"],
   });
 
-  // Fetch existing patients for search
   const { data: patients = [] } = useQuery({
-    queryKey: ["/api/patients"]
+    queryKey: ["/api/patients"],
   });
 
-  // Create order mutation
   const createOrderMutation = useMutation({
     mutationFn: async (orderData: any) => {
       const response = await fetch("/api/lab-orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderData)
+        body: JSON.stringify(orderData),
       });
       if (!response.ok) throw new Error("Failed to create order");
       return response.json();
     },
     onSuccess: () => {
       toast({
-        title: "سفارش با موفقیت ثبت شد",
-        description: "سفارش جدید در سیستم ثبت شده و برای پردازش آماده است",
+        title: "موفقیت",
+        description: "سفارش با موفقیت ثبت شد",
       });
       queryClient.invalidateQueries({ queryKey: ["/api/lab-orders"] });
-      resetForm();
+      setPatientData({
+        name: "",
+        nationalId: "",
+        phone: "",
+        email: "",
+        age: "",
+        gender: "",
+        address: "",
+        emergencyContact: "",
+        medicalHistory: ""
+      });
+      setSelectedServices([]);
+      setSelectedDate(undefined);
+      setActiveTab("patient");
     },
     onError: () => {
       toast({
-        title: "خطا در ثبت سفارش",
-        description: "لطفاً دوباره تلاش کنید",
-        variant: "destructive"
+        title: "خطا",
+        description: "خطا در ثبت سفارش",
+        variant: "destructive",
       });
-    }
+    },
   });
 
-  const resetForm = () => {
-    setPatientData({
-      name: "",
-      nationalId: "",
-      phone: "",
-      email: "",
-      age: "",
-      gender: "",
-      address: "",
-      notes: ""
-    });
-    setOrderData({
-      priority: "normal",
-      scheduledTimeSlot: "",
-      collectionAddress: "",
-      specialInstructions: "",
-      paymentMethod: "cash"
-    });
-    setSelectedServices([]);
-    setSelectedDate(undefined);
-    setActiveTab("patient");
-  };
+  const filteredServices = (labServices as any[]).filter((service: any) => {
+    const matchesSearch = service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         service.code.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === "all" || service.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   const addService = (service: any) => {
     const existing = selectedServices.find(s => s.id === service.id);
@@ -143,116 +144,130 @@ export default function NewOrder() {
     setSelectedServices(prev => prev.filter(s => s.id !== serviceId));
   };
 
-  const updateServiceQuantity = (serviceId: number, change: number) => {
-    setSelectedServices(prev => 
-      prev.map(s => {
-        if (s.id === serviceId) {
-          const newQuantity = Math.max(1, s.quantity + change);
-          return { ...s, quantity: newQuantity };
-        }
-        return s;
-      })
-    );
+  const updateQuantity = (serviceId: number, quantity: number) => {
+    if (quantity <= 0) {
+      removeService(serviceId);
+    } else {
+      setSelectedServices(prev => 
+        prev.map(s => s.id === serviceId ? { ...s, quantity } : s)
+      );
+    }
   };
 
   const calculateTotal = () => {
     return selectedServices.reduce((total, service) => {
-      return total + (parseFloat(service.price.replace(/[^\d]/g, '')) * service.quantity);
+      const price = parseFloat(service.price.replace(/[^\d]/g, ''));
+      return total + (price * service.quantity);
     }, 0);
   };
 
-  const filteredServices = Array.isArray(services) ? services.filter((service: any) =>
-    service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    service.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    service.category.toLowerCase().includes(searchTerm.toLowerCase())
-  ) : [];
-
-  const handleSubmit = () => {
+  const handleSubmitOrder = () => {
     if (!patientData.name || !patientData.nationalId || !patientData.phone) {
       toast({
-        title: "اطلاعات ناقص",
-        description: "لطفاً اطلاعات ضروری بیمار را تکمیل کنید",
-        variant: "destructive"
+        title: "خطا",
+        description: "لطفا اطلاعات ضروری بیمار را کامل کنید",
+        variant: "destructive",
       });
-      setActiveTab("patient");
       return;
     }
 
     if (selectedServices.length === 0) {
       toast({
-        title: "آزمایش انتخاب نشده",
-        description: "لطفاً حداقل یک آزمایش انتخاب کنید",
-        variant: "destructive"
+        title: "خطا", 
+        description: "لطفا حداقل یک آزمایش انتخاب کنید",
+        variant: "destructive",
       });
-      setActiveTab("services");
-      return;
-    }
-
-    if (!selectedDate || !orderData.scheduledTimeSlot) {
-      toast({
-        title: "زمان نمونه‌گیری مشخص نشده",
-        description: "لطفاً تاریخ و ساعت نمونه‌گیری را انتخاب کنید",
-        variant: "destructive"
-      });
-      setActiveTab("scheduling");
       return;
     }
 
     const orderPayload = {
       patient: patientData,
       services: selectedServices,
-      scheduledDate: selectedDate,
-      scheduledTimeSlot: orderData.scheduledTimeSlot,
-      collectionAddress: orderData.collectionAddress,
-      priority: orderData.priority,
-      notes: orderData.specialInstructions,
-      totalAmount: calculateTotal().toLocaleString(),
-      paymentMethod: orderData.paymentMethod
+      orderData: {
+        ...orderData,
+        scheduledDate: selectedDate?.toISOString(),
+        total: calculateTotal()
+      }
     };
 
     createOrderMutation.mutate(orderPayload);
   };
 
-  const timeSlots = [
-    "08:00 - 10:00",
-    "10:00 - 12:00", 
-    "12:00 - 14:00",
-    "14:00 - 16:00",
-    "16:00 - 18:00",
-    "18:00 - 20:00"
-  ];
-
-  const categories = Array.isArray(services) ? Array.from(new Set(services.map((s: any) => s.category))) : [];
-
   return (
-    <div className="container mx-auto p-6 max-w-6xl" dir="rtl">
-      <div className="mb-8">
+    <div className="container mx-auto px-4 py-8 space-y-8">
+      <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">ثبت سفارش جدید</h1>
         <p className="text-gray-600">اطلاعات بیمار و آزمایش‌های مورد نیاز را وارد کنید</p>
       </div>
 
-      <Tabs defaultValue="patient" className="w-full">
-        <TabsList className="grid w-full grid-cols-4 mb-8 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
-          <TabsTrigger value="patient" className="flex items-center space-x-2 space-x-reverse bg-transparent data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-blue-600 data-[state=active]:border-0 rounded-lg transition-all duration-200">
-            <User className="w-4 h-4" />
-            <span>اطلاعات بیمار</span>
-          </TabsTrigger>
-          <TabsTrigger value="services" className="flex items-center space-x-2 space-x-reverse bg-transparent data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-blue-600 data-[state=active]:border-0 rounded-lg transition-all duration-200">
-            <TestTube className="w-4 h-4" />
-            <span>انتخاب آزمایشات</span>
-          </TabsTrigger>
-          <TabsTrigger value="scheduling" className="flex items-center space-x-2 space-x-reverse bg-transparent data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-blue-600 data-[state=active]:border-0 rounded-lg transition-all duration-200">
-            <CalendarIcon className="w-4 h-4" />
-            <span>زمان‌بندی</span>
-          </TabsTrigger>
-          <TabsTrigger value="summary" className="flex items-center space-x-2 space-x-reverse bg-transparent data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-blue-600 data-[state=active]:border-0 rounded-lg transition-all duration-200">
-            <FileText className="w-4 h-4" />
-            <span>خلاصه و تأیید</span>
-          </TabsTrigger>
-        </TabsList>
+      <div className="w-full mb-8">
+        <div className="bg-gradient-to-r from-slate-50 via-blue-50 to-indigo-50 rounded-2xl p-3 shadow-lg border border-blue-100">
+          <div className="grid grid-cols-4 gap-3">
+            <button
+              onClick={() => setActiveTab("patient")}
+              className={`
+                flex items-center justify-center space-x-2 space-x-reverse px-4 py-4 rounded-xl 
+                transition-all duration-300 font-semibold text-sm relative overflow-hidden
+                ${activeTab === "patient" 
+                  ? "bg-gradient-to-br from-cyan-100 via-blue-100 to-indigo-100 text-cyan-800 shadow-lg transform scale-105 border-2 border-cyan-200" 
+                  : "text-slate-600 hover:bg-gradient-to-br hover:from-cyan-50 hover:to-blue-50 hover:text-cyan-700 hover:shadow-md"
+                }
+              `}
+            >
+              <User className="w-5 h-5" />
+              <span>اطلاعات بیمار</span>
+            </button>
+            
+            <button
+              onClick={() => setActiveTab("services")}
+              className={`
+                flex items-center justify-center space-x-2 space-x-reverse px-4 py-4 rounded-xl 
+                transition-all duration-300 font-semibold text-sm relative overflow-hidden
+                ${activeTab === "services" 
+                  ? "bg-gradient-to-br from-emerald-100 via-green-100 to-teal-100 text-emerald-800 shadow-lg transform scale-105 border-2 border-emerald-200" 
+                  : "text-slate-600 hover:bg-gradient-to-br hover:from-emerald-50 hover:to-green-50 hover:text-emerald-700 hover:shadow-md"
+                }
+              `}
+            >
+              <TestTube className="w-5 h-5" />
+              <span>انتخاب آزمایشات</span>
+            </button>
+            
+            <button
+              onClick={() => setActiveTab("scheduling")}
+              className={`
+                flex items-center justify-center space-x-2 space-x-reverse px-4 py-4 rounded-xl 
+                transition-all duration-300 font-semibold text-sm relative overflow-hidden
+                ${activeTab === "scheduling" 
+                  ? "bg-gradient-to-br from-purple-100 via-violet-100 to-indigo-100 text-purple-800 shadow-lg transform scale-105 border-2 border-purple-200" 
+                  : "text-slate-600 hover:bg-gradient-to-br hover:from-purple-50 hover:to-violet-50 hover:text-purple-700 hover:shadow-md"
+                }
+              `}
+            >
+              <CalendarIcon className="w-5 h-5" />
+              <span>زمان‌بندی</span>
+            </button>
+            
+            <button
+              onClick={() => setActiveTab("summary")}
+              className={`
+                flex items-center justify-center space-x-2 space-x-reverse px-4 py-4 rounded-xl 
+                transition-all duration-300 font-semibold text-sm relative overflow-hidden
+                ${activeTab === "summary" 
+                  ? "bg-gradient-to-br from-amber-100 via-yellow-100 to-orange-100 text-amber-800 shadow-lg transform scale-105 border-2 border-amber-200" 
+                  : "text-slate-600 hover:bg-gradient-to-br hover:from-amber-50 hover:to-yellow-50 hover:text-amber-700 hover:shadow-md"
+                }
+              `}
+            >
+              <FileText className="w-5 h-5" />
+              <span>خلاصه و تأیید</span>
+            </button>
+          </div>
+        </div>
+      </div>
 
-        {/* Patient Information Tab */}
-        <TabsContent value="patient" className="space-y-6">
+      {activeTab === "patient" && (
+        <div className="space-y-6">
           <Card className="border-gray-200 shadow-sm">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2 space-x-reverse">
@@ -260,7 +275,7 @@ export default function NewOrder() {
                 <span>اطلاعات بیمار</span>
               </CardTitle>
               <CardDescription>
-                اطلاعات شخصی بیمار را وارد کنید
+                اطلاعات شخصی و تماس بیمار را وارد کنید
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -272,33 +287,29 @@ export default function NewOrder() {
                     value={patientData.name}
                     onChange={(e) => setPatientData(prev => ({ ...prev, name: e.target.value }))}
                     placeholder="نام کامل بیمار"
-                    className="h-11"
+                    className="border-gray-200"
                   />
                 </div>
-                
                 <div className="space-y-2">
                   <Label htmlFor="nationalId">کد ملی *</Label>
                   <Input
                     id="nationalId"
                     value={patientData.nationalId}
                     onChange={(e) => setPatientData(prev => ({ ...prev, nationalId: e.target.value }))}
-                    placeholder="کد ملی ۱۰ رقمی"
-                    className="h-11"
-                    maxLength={10}
+                    placeholder="0123456789"
+                    className="border-gray-200"
                   />
                 </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="phone">شماره تماس *</Label>
                   <Input
                     id="phone"
                     value={patientData.phone}
                     onChange={(e) => setPatientData(prev => ({ ...prev, phone: e.target.value }))}
-                    placeholder="09xxxxxxxxx"
-                    className="h-11"
+                    placeholder="09123456789"
+                    className="border-gray-200"
                   />
                 </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="email">ایمیل</Label>
                   <Input
@@ -307,10 +318,9 @@ export default function NewOrder() {
                     value={patientData.email}
                     onChange={(e) => setPatientData(prev => ({ ...prev, email: e.target.value }))}
                     placeholder="example@email.com"
-                    className="h-11"
+                    className="border-gray-200"
                   />
                 </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="age">سن</Label>
                   <Input
@@ -319,14 +329,13 @@ export default function NewOrder() {
                     value={patientData.age}
                     onChange={(e) => setPatientData(prev => ({ ...prev, age: e.target.value }))}
                     placeholder="سن بیمار"
-                    className="h-11"
+                    className="border-gray-200"
                   />
                 </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="gender">جنسیت</Label>
                   <Select value={patientData.gender} onValueChange={(value) => setPatientData(prev => ({ ...prev, gender: value }))}>
-                    <SelectTrigger className="h-11">
+                    <SelectTrigger className="border-gray-200">
                       <SelectValue placeholder="انتخاب جنسیت" />
                     </SelectTrigger>
                     <SelectContent>
@@ -336,7 +345,7 @@ export default function NewOrder() {
                   </Select>
                 </div>
               </div>
-
+              
               <div className="space-y-2">
                 <Label htmlFor="address">آدرس</Label>
                 <Textarea
@@ -344,168 +353,185 @@ export default function NewOrder() {
                   value={patientData.address}
                   onChange={(e) => setPatientData(prev => ({ ...prev, address: e.target.value }))}
                   placeholder="آدرس کامل بیمار"
-                  rows={3}
+                  className="border-gray-200"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="notes">یادداشت‌های پزشکی</Label>
+                <Label htmlFor="emergencyContact">شماره تماس اضطراری</Label>
+                <Input
+                  id="emergencyContact"
+                  value={patientData.emergencyContact}
+                  onChange={(e) => setPatientData(prev => ({ ...prev, emergencyContact: e.target.value }))}
+                  placeholder="شماره تماس در مواقع اضطراری"
+                  className="border-gray-200"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="medicalHistory">سابقه پزشکی</Label>
                 <Textarea
-                  id="notes"
-                  value={patientData.notes}
-                  onChange={(e) => setPatientData(prev => ({ ...prev, notes: e.target.value }))}
-                  placeholder="اطلاعات اضافی، آلرژی‌ها، داروهای مصرفی و غیره"
-                  rows={3}
+                  id="medicalHistory"
+                  value={patientData.medicalHistory}
+                  onChange={(e) => setPatientData(prev => ({ ...prev, medicalHistory: e.target.value }))}
+                  placeholder="سابقه بیماری، دارو، آلرژی و..."
+                  className="border-gray-200"
                 />
               </div>
 
               <div className="flex justify-end">
-                <Button onClick={() => setActiveTab("services")} className="bg-blue-600 hover:bg-blue-700">
+                <Button 
+                  onClick={() => setActiveTab("services")}
+                  className="bg-blue-600 hover:bg-blue-700"
+                >
                   مرحله بعد: انتخاب آزمایشات
                 </Button>
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
+        </div>
+      )}
 
-        {/* Services Selection Tab */}
-        <TabsContent value="services" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Services List */}
-            <div className="lg:col-span-2">
-              <Card className="border-gray-200 shadow-sm">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2 space-x-reverse">
-                    <TestTube className="w-5 h-5 text-blue-600" />
-                    <span>لیست آزمایشات</span>
-                  </CardTitle>
-                  <div className="flex space-x-4 space-x-reverse">
-                    <div className="relative flex-1">
-                      <Search className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
-                      <Input
-                        placeholder="جستجوی آزمایش..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pr-10 h-11"
-                      />
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  {servicesLoading ? (
-                    <div className="text-center py-8">در حال بارگذاری...</div>
-                  ) : (
-                    <div className="space-y-3 max-h-96 overflow-y-auto">
-                      {categories.map(category => (
-                        <div key={category}>
-                          <h4 className="font-semibold text-sm text-gray-700 mb-2 pr-2">{category}</h4>
-                          {filteredServices
-                            .filter((service: any) => service.category === category)
-                            .map((service: any) => (
-                              <div key={service.id} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
-                                <div className="flex-1">
-                                  <div className="font-medium">{service.name}</div>
-                                  <div className="text-sm text-gray-500">کد: {service.code}</div>
-                                  <div className="text-sm font-semibold text-green-600">{service.price}</div>
-                                </div>
-                                <Button
-                                  size="sm"
-                                  onClick={() => addService(service)}
-                                  className="bg-blue-600 hover:bg-blue-700"
-                                >
-                                  <Plus className="w-4 h-4" />
-                                </Button>
-                              </div>
-                            ))}
+      {activeTab === "services" && (
+        <div className="space-y-6">
+          {selectedServices.length > 0 && (
+            <Card className="border-green-200 bg-green-50 shadow-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2 space-x-reverse text-green-800">
+                  <CheckCircle className="w-5 h-5" />
+                  <span>آزمایشات انتخاب شده ({selectedServices.length})</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {selectedServices.map((service) => (
+                    <div key={service.id} className="flex items-center justify-between p-3 bg-white rounded-lg border border-green-200">
+                      <div className="flex items-center space-x-3 space-x-reverse">
+                        <span className="font-medium">{service.name}</span>
+                        <Badge variant="secondary">{service.code}</Badge>
+                      </div>
+                      <div className="flex items-center space-x-3 space-x-reverse">
+                        <div className="flex items-center space-x-2 space-x-reverse">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => updateQuantity(service.id, service.quantity - 1)}
+                            disabled={service.quantity <= 1}
+                          >
+                            <Minus className="w-4 h-4" />
+                          </Button>
+                          <span className="min-w-[2rem] text-center">{service.quantity}</span>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => updateQuantity(service.id, service.quantity + 1)}
+                          >
+                            <Plus className="w-4 h-4" />
+                          </Button>
                         </div>
-                      ))}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Selected Services */}
-            <div>
-              <Card className="border-gray-200 shadow-sm">
-                <CardHeader>
-                  <CardTitle className="text-blue-600">آزمایشات انتخاب شده</CardTitle>
-                  <CardDescription>
-                    {selectedServices.length} آزمایش انتخاب شده
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {selectedServices.length === 0 ? (
-                    <div className="text-center py-8 text-gray-500">
-                      هیچ آزمایشی انتخاب نشده
-                    </div>
-                  ) : (
-                    <div className="space-y-3">
-                      {selectedServices.map((service) => (
-                        <div key={service.id} className="p-3 border rounded-lg">
-                          <div className="flex items-center justify-between mb-2">
-                            <div className="font-medium text-sm">{service.name}</div>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => removeService(service.id)}
-                            >
-                              <Minus className="w-3 h-3" />
-                            </Button>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <div className="text-xs text-gray-500">{service.code}</div>
-                            <div className="flex items-center space-x-2 space-x-reverse">
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => updateServiceQuantity(service.id, -1)}
-                                disabled={service.quantity <= 1}
-                              >
-                                <Minus className="w-3 h-3" />
-                              </Button>
-                              <span className="text-sm font-medium">{service.quantity}</span>
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => updateServiceQuantity(service.id, 1)}
-                              >
-                                <Plus className="w-3 h-3" />
-                              </Button>
-                            </div>
-                          </div>
-                          <div className="text-sm font-semibold text-green-600 mt-1">
-                            {(parseFloat(service.price.replace(/[^\d]/g, '')) * service.quantity).toLocaleString()} تومان
-                          </div>
-                        </div>
-                      ))}
-                      
-                      <div className="border-t pt-3">
-                        <div className="flex justify-between items-center font-bold">
-                          <span>مجموع:</span>
-                          <span className="text-green-600">{calculateTotal().toLocaleString()} تومان</span>
-                        </div>
+                        <span className="font-medium">{(parseFloat(service.price.replace(/[^\d]/g, '')) * service.quantity).toLocaleString()} تومان</span>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => removeService(service.id)}
+                          className="text-red-600 hover:text-red-700"
+                        >
+                          حذف
+                        </Button>
                       </div>
                     </div>
-                  )}
-                </CardContent>
-              </Card>
+                  ))}
+                  <div className="text-left pt-3 border-t border-green-200">
+                    <span className="text-lg font-bold text-green-800">
+                      مجموع: {calculateTotal().toLocaleString()} تومان
+                    </span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
-              <div className="mt-4 flex justify-end">
+          <Card className="border-gray-200 shadow-sm">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2 space-x-reverse">
+                <TestTube className="w-5 h-5 text-blue-600" />
+                <span>انتخاب آزمایشات</span>
+              </CardTitle>
+              <CardDescription>
+                آزمایشات مورد نیاز را از لیست زیر انتخاب کنید
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="flex space-x-4 space-x-reverse">
+                <div className="flex-1 relative">
+                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Input
+                    placeholder="جستجو در آزمایشات..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pr-10 border-gray-200"
+                  />
+                </div>
+                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <SelectTrigger className="w-48 border-gray-200">
+                    <SelectValue placeholder="دسته‌بندی" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">همه دسته‌ها</SelectItem>
+                    <SelectItem value="blood">آزمایش خون</SelectItem>
+                    <SelectItem value="urine">آزمایش ادرار</SelectItem>
+                    <SelectItem value="hormone">هورمون</SelectItem>
+                    <SelectItem value="biochemistry">بیوشیمی</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredServices.map((service: any) => (
+                  <div key={service.id} className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
+                    <div className="space-y-3">
+                      <div>
+                        <h3 className="font-medium text-gray-900">{service.name}</h3>
+                        <p className="text-sm text-gray-500">کد: {service.code}</p>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-blue-600">{service.price}</span>
+                        <Button
+                          onClick={() => addService(service)}
+                          size="sm"
+                          className="bg-blue-600 hover:bg-blue-700"
+                        >
+                          <Plus className="w-4 h-4 ml-1" />
+                          افزودن
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex justify-between">
                 <Button 
-                  onClick={() => setActiveTab("scheduling")} 
-                  className="bg-blue-600 hover:bg-blue-700"
+                  variant="outline"
+                  onClick={() => setActiveTab("patient")}
+                >
+                  مرحله قبل
+                </Button>
+                <Button 
+                  onClick={() => setActiveTab("scheduling")}
                   disabled={selectedServices.length === 0}
+                  className="bg-blue-600 hover:bg-blue-700"
                 >
                   مرحله بعد: زمان‌بندی
                 </Button>
               </div>
-            </div>
-          </div>
-        </TabsContent>
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
-        {/* Scheduling Tab */}
-        <TabsContent value="scheduling" className="space-y-6">
+      {activeTab === "scheduling" && (
+        <div className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card className="border-gray-200 shadow-sm">
               <CardHeader>
@@ -520,7 +546,7 @@ export default function NewOrder() {
                   selected={selectedDate}
                   onSelect={setSelectedDate}
                   disabled={(date) => date < new Date() || date.getDay() === 5}
-                  className="rounded-md border"
+                  className="rounded-md border border-gray-200"
                 />
               </CardContent>
             </Card>
@@ -550,15 +576,15 @@ export default function NewOrder() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>اولویت</Label>
+                  <Label htmlFor="priority">اولویت</Label>
                   <Select value={orderData.priority} onValueChange={(value) => setOrderData(prev => ({ ...prev, priority: value }))}>
-                    <SelectTrigger className="h-11">
+                    <SelectTrigger className="border-gray-200">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="low">عادی</SelectItem>
-                      <SelectItem value="normal">متوسط</SelectItem>
-                      <SelectItem value="high">مهم</SelectItem>
+                      <SelectItem value="low">کم</SelectItem>
+                      <SelectItem value="normal">معمولی</SelectItem>
+                      <SelectItem value="high">بالا</SelectItem>
                       <SelectItem value="urgent">فوری</SelectItem>
                     </SelectContent>
                   </Select>
@@ -571,33 +597,43 @@ export default function NewOrder() {
                     value={orderData.collectionAddress}
                     onChange={(e) => setOrderData(prev => ({ ...prev, collectionAddress: e.target.value }))}
                     placeholder="آدرس محل نمونه‌گیری (در صورت تفاوت با آدرس بیمار)"
-                    rows={3}
+                    className="border-gray-200"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="specialInstructions">دستورالعمل‌های ویژه</Label>
+                  <Label htmlFor="notes">یادداشت‌ها</Label>
                   <Textarea
-                    id="specialInstructions"
-                    value={orderData.specialInstructions}
-                    onChange={(e) => setOrderData(prev => ({ ...prev, specialInstructions: e.target.value }))}
-                    placeholder="دستورالعمل‌های خاص برای نمونه‌گیری"
-                    rows={3}
+                    id="notes"
+                    value={orderData.notes}
+                    onChange={(e) => setOrderData(prev => ({ ...prev, notes: e.target.value }))}
+                    placeholder="توضیحات اضافی برای نمونه‌گیر"
+                    className="border-gray-200"
                   />
-                </div>
-
-                <div className="flex justify-end">
-                  <Button onClick={() => setActiveTab("summary")} className="bg-blue-600 hover:bg-blue-700">
-                    مرحله بعد: خلاصه
-                  </Button>
                 </div>
               </CardContent>
             </Card>
           </div>
-        </TabsContent>
 
-        {/* Summary Tab */}
-        <TabsContent value="summary" className="space-y-6">
+          <div className="flex justify-between">
+            <Button 
+              variant="outline"
+              onClick={() => setActiveTab("services")}
+            >
+              مرحله قبل
+            </Button>
+            <Button 
+              onClick={() => setActiveTab("summary")}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
+              مرحله بعد: خلاصه و تأیید
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {activeTab === "summary" && (
+        <div className="space-y-6">
           <Card className="border-gray-200 shadow-sm">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2 space-x-reverse">
@@ -609,8 +645,7 @@ export default function NewOrder() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Patient Summary */}
-              <div className="p-4 border rounded-lg">
+              <div className="p-4 border border-gray-200 rounded-lg">
                 <h3 className="font-semibold mb-3 flex items-center space-x-2 space-x-reverse">
                   <User className="w-4 h-4" />
                   <span>اطلاعات بیمار</span>
@@ -630,8 +665,7 @@ export default function NewOrder() {
                 )}
               </div>
 
-              {/* Services Summary */}
-              <div className="p-4 border rounded-lg">
+              <div className="p-4 border border-gray-200 rounded-lg">
                 <h3 className="font-semibold mb-3 flex items-center space-x-2 space-x-reverse">
                   <TestTube className="w-4 h-4" />
                   <span>آزمایشات انتخاب شده</span>
@@ -652,53 +686,49 @@ export default function NewOrder() {
                 </div>
               </div>
 
-              {/* Scheduling Summary */}
-              <div className="p-4 border rounded-lg">
+              <div className="p-4 border border-gray-200 rounded-lg">
                 <h3 className="font-semibold mb-3 flex items-center space-x-2 space-x-reverse">
                   <CalendarIcon className="w-4 h-4" />
                   <span>زمان‌بندی</span>
                 </h3>
                 <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div><span className="font-medium">تاریخ:</span> {selectedDate ? format(selectedDate, 'yyyy/MM/dd') : "انتخاب نشده"}</div>
+                  <div><span className="font-medium">تاریخ:</span> {selectedDate ? format(selectedDate, "yyyy/MM/dd") : "انتخاب نشده"}</div>
                   <div><span className="font-medium">ساعت:</span> {orderData.scheduledTimeSlot || "انتخاب نشده"}</div>
                   <div><span className="font-medium">اولویت:</span> {orderData.priority}</div>
                 </div>
-                {orderData.collectionAddress && (
+                {orderData.notes && (
                   <div className="mt-2 text-sm">
-                    <span className="font-medium">آدرس نمونه‌گیری:</span> {orderData.collectionAddress}
+                    <span className="font-medium">یادداشت:</span> {orderData.notes}
                   </div>
                 )}
               </div>
 
-              {/* Payment Method */}
-              <div className="p-4 border rounded-lg">
+              <div className="p-4 border border-gray-200 rounded-lg">
                 <h3 className="font-semibold mb-3 flex items-center space-x-2 space-x-reverse">
                   <CreditCard className="w-4 h-4" />
                   <span>روش پرداخت</span>
                 </h3>
                 <Select value={orderData.paymentMethod} onValueChange={(value) => setOrderData(prev => ({ ...prev, paymentMethod: value }))}>
-                  <SelectTrigger className="h-11 max-w-xs">
+                  <SelectTrigger className="border-gray-200">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="cash">نقدی</SelectItem>
-                    <SelectItem value="card">کارتی</SelectItem>
-                    <SelectItem value="online">آنلاین</SelectItem>
-                    <SelectItem value="insurance">بیمه</SelectItem>
+                    <SelectItem value="cash">نقد در محل</SelectItem>
+                    <SelectItem value="card">کارت در محل</SelectItem>
+                    <SelectItem value="online">پرداخت آنلاین</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
-              {/* Action Buttons */}
               <div className="flex justify-between">
                 <Button 
-                  variant="outline" 
+                  variant="outline"
                   onClick={() => setActiveTab("scheduling")}
                 >
-                  بازگشت به مرحله قبل
+                  مرحله قبل
                 </Button>
                 <Button 
-                  onClick={handleSubmit}
+                  onClick={handleSubmitOrder}
                   disabled={createOrderMutation.isPending}
                   className="bg-green-600 hover:bg-green-700"
                 >
@@ -707,8 +737,8 @@ export default function NewOrder() {
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
-      </Tabs>
+        </div>
+      )}
     </div>
   );
 }
