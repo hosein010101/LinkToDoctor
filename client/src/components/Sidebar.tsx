@@ -216,13 +216,16 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
                 variants={contentVariants}
                 initial="collapsed"
                 animate={collapsed ? "collapsed" : "expanded"}
-                className="flex items-center justify-center w-full"
+                className="flex flex-col items-center justify-center w-full"
               >
                 <img 
                   src={logoPath} 
                   alt="LinkToDoctor Logo" 
-                  className="h-12 w-auto object-contain"
+                  className="h-16 w-auto object-contain mb-2"
                 />
+                <p className="text-xs text-gray-600 text-center leading-tight">
+                  {t('header.systemName')}
+                </p>
               </motion.div>
             )}
             {collapsed && (
