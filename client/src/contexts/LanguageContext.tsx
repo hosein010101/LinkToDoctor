@@ -579,6 +579,9 @@ const translations = {
     'sidebar.settings': 'الإعدادات',
     'sidebar.aiTools': 'أدوات الذكاء الاصطناعي',
     
+    // Header System Name
+    'header.systemName': 'نظام الصحة الإلكترونية الشامل',
+    
     // Common
     'common.loading': 'جاري التحميل',
     'common.search': 'بحث',
