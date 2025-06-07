@@ -96,6 +96,9 @@ const translations = {
     'common.warning': 'هشدار',
     'common.info': 'اطلاعات',
     
+    // Header System Name
+    'header.systemName': 'سامانه جامع سلامت الکترونیک',
+    
     // Patients
     'patients.title': 'مدیریت بیماران',
     'patients.addNew': 'افزودن بیمار جدید',
@@ -277,6 +280,9 @@ const translations = {
 
   },
   en: {
+    // Header System Name
+    'header.systemName': 'Comprehensive Electronic Health System',
+    
     // Header
     'header.search': 'Search in system...',
     'header.notifications': 'Notifications',

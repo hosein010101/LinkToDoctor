@@ -31,7 +31,7 @@ import {
   CheckSquare,
   Activity
 } from "lucide-react";
-import logoPath from "@assets/logo_1749113951949.png";
+import logoPath from "@assets/logo_1749306236433.png";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -211,9 +211,11 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
         {/* Header */}
         <div className="p-4 border-b border-gray-200">
           <div className="flex items-center">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <Heart className="w-6 h-6 text-white" />
-            </div>
+            <img 
+              src={logoPath} 
+              alt="LinkToDoctor Logo" 
+              className="w-10 h-10 object-contain"
+            />
             {!collapsed && (
               <motion.div
                 variants={contentVariants}
@@ -222,7 +224,7 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
                 className="mr-3"
               >
                 <h1 className="text-lg font-bold text-gray-900">LinkToDoctor</h1>
-                <p className="text-xs text-gray-500">سامانه آزمایشگاه</p>
+                <p className="text-xs text-gray-500">{t('header.systemName')}</p>
               </motion.div>
             )}
           </div>
