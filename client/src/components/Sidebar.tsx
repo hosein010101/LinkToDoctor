@@ -102,7 +102,7 @@ export default function Sidebar({ collapsed, isMobile }: SidebarProps) {
       items: [
         { icon: Users, label: t('sidebar.patients'), path: "/patients", color: "#5eead4" },
         { icon: History, label: t('patients.title'), path: "/history", color: "#cbd5e1" },
-        { icon: UserPlus, label: "CRM", path: "/crm", color: "#fdba74" },
+        { icon: UserPlus, label: t('sidebar.crm'), path: "/crm", color: "#fdba74" },
         { icon: BarChart3, label: t('dashboard.recentOrders'), path: "/survey-reports", color: "#f472b6" },
       ]
     },

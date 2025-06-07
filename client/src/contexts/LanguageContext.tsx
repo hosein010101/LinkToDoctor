@@ -255,6 +255,25 @@ const translations = {
     'notifications.twoMinutesAgo': '۲ دقیقه پیش',
     'notifications.tenMinutesAgo': '۱۰ دقیقه پیش',
     'notifications.oneHourAgo': '۱ ساعت پیش',
+    
+    // Sidebar Menu Items
+    'sidebar.crm': 'CRM',
+    'organizations.title': 'سازمان‌ها',
+    'organizations.organizational': 'معاینات سازمانی',
+    'delivery.title': 'تحویل',
+    'equipment.title': 'تجهیزات',
+    'reports.title': 'گزارش‌ها',
+    'reports.simple': 'گزارش‌های ساده',
+    'reports.analytics': 'تجزیه و تحلیل',
+    'reports.performance': 'عملکرد',
+    'tasks.title': 'مدیریت وظایف',
+    'tasks.list': 'لیست وظایف',
+    'hr.title': 'منابع انسانی',
+    'hr.summary': 'خلاصه منابع انسانی',
+    'hr.employees': 'لیست کارکنان',
+    'hr.shifts': 'مدیریت شیفت‌ها',
+    'hr.payroll': 'حقوق و دستمزد',
+    'hr.performance': 'عملکرد',
 
   },
   en: {
@@ -500,6 +519,25 @@ const translations = {
     'notifications.tenMinutesAgo': '10 minutes ago',
     'notifications.oneHourAgo': '1 hour ago',
     
+    // Sidebar Menu Items
+    'sidebar.crm': 'CRM',
+    'organizations.title': 'Organizations',
+    'organizations.organizational': 'Organizational Checkups',
+    'delivery.title': 'Delivery',
+    'equipment.title': 'Equipment',
+    'reports.title': 'Reports',
+    'reports.simple': 'Simple Reports',
+    'reports.analytics': 'Analytics',
+    'reports.performance': 'Performance',
+    'tasks.title': 'Task Management',
+    'tasks.list': 'Task List',
+    'hr.title': 'Human Resources',
+    'hr.summary': 'HR Summary',
+    'hr.employees': 'Employee List',
+    'hr.shifts': 'Shift Management',
+    'hr.payroll': 'Payroll',
+    'hr.performance': 'Performance',
+    
     // Additional Keys for Orders  
     'orders.orderCount': 'order',
     'orders.totalOrders': 'total orders',
@@ -695,6 +733,25 @@ const translations = {
     'notifications.twoMinutesAgo': 'منذ دقيقتين',
     'notifications.tenMinutesAgo': 'منذ ١٠ دقائق',
     'notifications.oneHourAgo': 'منذ ساعة واحدة',
+    
+    // Sidebar Menu Items
+    'sidebar.crm': 'إدارة علاقات العملاء',
+    'organizations.title': 'المنظمات',
+    'organizations.organizational': 'الفحوصات التنظيمية',
+    'delivery.title': 'التوصيل',
+    'equipment.title': 'المعدات',
+    'reports.title': 'التقارير',
+    'reports.simple': 'التقارير البسيطة',
+    'reports.analytics': 'التحليلات',
+    'reports.performance': 'الأداء',
+    'tasks.title': 'إدارة المهام',
+    'tasks.list': 'قائمة المهام',
+    'hr.title': 'الموارد البشرية',
+    'hr.summary': 'ملخص الموارد البشرية',
+    'hr.employees': 'قائمة الموظفين',
+    'hr.shifts': 'إدارة المناوبات',
+    'hr.payroll': 'كشف الرواتب',
+    'hr.performance': 'الأداء',
     
     // Additional Keys for Orders
     'dashboard.reports': 'التقارير',
